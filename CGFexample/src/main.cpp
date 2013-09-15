@@ -8,6 +8,7 @@
 
 #include "CGFapplication.h"
 #include "DemoScene.h"
+#include "XMLScene.h"
 
 using std::cout;
 using std::exception;
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]) {
 	try {
 		app.init(&argc, argv);
 
-		app.setScene(new DemoScene());
+		app.setScene(new XMLScene("demograph.xml"));
 		app.setInterface(new CGFinterface());
 		
 		app.run();
