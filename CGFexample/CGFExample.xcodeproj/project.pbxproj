@@ -26,7 +26,6 @@
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
 		EB873D2317E6242300181AB4 /* XMLScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D2217E6242300181AB4 /* XMLScene.cpp */; };
-		EB873D2617E625A900181AB4 /* demograph.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB873D2517E6256600181AB4 /* demograph.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,7 +36,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
-				EB873D2617E625A900181AB4 /* demograph.xml in CopyFiles */,
 				AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */,
 				AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */,
 				AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */,
@@ -183,7 +181,6 @@
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
 		EB873D2217E6242300181AB4 /* XMLScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XMLScene.cpp; path = src/XMLScene.cpp; sourceTree = SOURCE_ROOT; };
 		EB873D2417E6244800181AB4 /* XMLScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLScene.h; path = src/XMLScene.h; sourceTree = SOURCE_ROOT; };
-		EB873D2517E6256600181AB4 /* demograph.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = demograph.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,7 +275,6 @@
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,
 				AA63E23C16D422CA003287C6 /* texshader.vert */,
-				EB873D2517E6256600181AB4 /* demograph.xml */,
 			);
 			path = data;
 			sourceTree = "<group>";

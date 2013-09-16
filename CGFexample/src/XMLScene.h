@@ -12,8 +12,8 @@ public:
 	~XMLScene();
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
-	vector<string> getStringValues(TiXmlElement* element, vector<string> attributes);
-    vector<float> getFloatValues(TiXmlElement * element, char * attributeName);
+    template<class T> vector<T> getValues(TiXmlElement * element, vector<string> attributeNames);
+    template<class T> vector<T> getValues(TiXmlElement * element, char * attributeName);
 
 	
 protected:
@@ -27,7 +27,49 @@ protected:
 	TiXmlElement* appearancesElement;
 	TiXmlElement* graphElement;
 
-
 };
+
+template<class T>
+vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
+    vector<T> values;
+    T value;
+    
+    char* valString = NULL;
+    valString = (char *) element->Attribute(attributeName);
+    
+    // TODO throw exception?
+    if (valString == NULL ) return values;
+    
+    stringstream ss (valString);
+    
+    while ( !ss.eof() ) {
+        if ( ss >> value )
+            values.push_back(value);
+        else {
+            // TODO error handling
+            printf("something went wrong parsing %s!!", attributeName);
+            break;
+        }
+    }
+    
+    return values;
+}
+
+template<class T>
+vector<T> XMLScene::getValues(TiXmlElement* element, vector<string> attributeNames) {
+    
+	vector<T> values;
+    
+	for(size_t i = 0; i < attributeNames.size(); i++) {
+        
+		vector<T> currentValues = getValues<T>( element, (char*)attributeNames.at(i).c_str() );
+        
+        for(size_t j = 0; j < currentValues.size(); j++ ){
+            values.push_back( currentValues.at(j) );
+        }
+	}
+    
+	return values;
+}
 
 #endif

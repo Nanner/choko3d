@@ -27,12 +27,7 @@ XMLScene::XMLScene(char *filename)
 	lightingElement =  yafElement->FirstChildElement( "lighting" );
 	texturesElement =  yafElement->FirstChildElement( "textures" );
 	appearancesElement =  yafElement->FirstChildElement( "appearances" );
-
 	graphElement =  yafElement->FirstChildElement( "graph" );
-
-
-	// Init
-	// An example of well-known, required nodes
 
 	if (globalsElement == NULL)
 		printf("Globals block not found!\n");
@@ -40,18 +35,22 @@ XMLScene::XMLScene(char *filename)
 	{
 		printf("Processing globals:\n");
 
-		vector<float> rgba = getFloatValues(globalsElement, (char*) "background");
+		vector<float> rgba = getValues<float>(globalsElement, (char*) "background");
 
         printf("  background values (RGBA): %f %f %f %f\n", rgba.at(0), rgba
                .at(1), rgba.at(2), rgba.at(3));
         // TODO store rgba values
         
-        vector<string> bgAttributesNames;
-        bgAttributesNames.push_back("drawmode"); bgAttributesNames.push_back("shading");
-        bgAttributesNames.push_back("cullface"); bgAttributesNames.push_back("cullorder");
+        vector<string> bgAttributeNames;
+        bgAttributeNames.push_back("drawmode"); bgAttributeNames.push_back("shading");
+        bgAttributeNames.push_back("cullface"); bgAttributeNames.push_back("cullorder");
 
-		vector<string> backgroundAttributes = getStringValues(globalsElement, bgAttributesNames);
+		vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
+
         // TODO store background attributes
+        for (int i = 0; i < backgroundAttributes.size(); i++) {
+            printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
+        }
 
 		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
 		if (backgroundElement)
@@ -176,44 +175,5 @@ TiXmlElement *XMLScene::findChildByAttribute(TiXmlElement *parent,const char * a
 			child=child->NextSiblingElement();
 
 	return child;
-}
-
-vector<string> XMLScene::getStringValues(TiXmlElement* element, vector<string> attributes) {
-
-	vector<string> values;
-	string valString;
-
-	for(size_t i = 0; i < attributes.size(); i++) {
-
-		valString = globalsElement->Attribute(attributes.at(i).c_str());
-
-		values.push_back(valString);
-
-		if(!valString.empty()) {
-			printf("  %s value: %s\n", attributes.at(i).c_str(), valString.c_str());
-		}
-		else
-			printf("Error parsing %s\n", attributes.at(i).c_str());
-	}
-
-	return values;
-}
-
-vector<float> XMLScene::getFloatValues(TiXmlElement * element, char * attributeName) {
-    vector<float> values;
-    float value;
-    
-    char* valString = NULL;
-    valString = (char *) element->Attribute(attributeName);
-    
-    // TODO throw exception? 
-    if (valString == NULL ) return values;
-    
-    stringstream ss (valString);
-    while (ss >> value) {
-        values.push_back(value);
-    }
-    
-    return values;
 }
 
