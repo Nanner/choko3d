@@ -22,31 +22,49 @@ XMLScene::XMLScene(char *filename)
 		exit(1);
 	}
 
-	initElement = yafElement->FirstChildElement( "Init" );
-	matsElement = yafElement->FirstChildElement( "Materials" );
-	textsElement =  yafElement->FirstChildElement( "Textures" );
-	leavesElement =  yafElement->FirstChildElement( "Leaves" );
-	nodesElement =  yafElement->FirstChildElement( "Nodes" );
+	globalsElement = yafElement->FirstChildElement( "globals" );
+	camerasElement = yafElement->FirstChildElement( "cameras" );
+	lightingElement =  yafElement->FirstChildElement( "lighting" );
+	texturesElement =  yafElement->FirstChildElement( "textures" );
+	appearancesElement =  yafElement->FirstChildElement( "appearances" );
 
-	graphElement =  yafElement->FirstChildElement( "Graph" );
+	graphElement =  yafElement->FirstChildElement( "graph" );
 
 
 	// Init
 	// An example of well-known, required nodes
 
-	if (initElement == NULL)
-		printf("Init block not found!\n");
+	if (globalsElement == NULL)
+		printf("Globals block not found!\n");
 	else
 	{
-		printf("Processing init:\n");
-		// frustum: example of a node with individual attributes
-		TiXmlElement* frustumElement=initElement->FirstChildElement("frustum");
-		if (frustumElement)
+		printf("Processing globals:\n");
+
+		float r, g, b, a;
+		char* valString = NULL;
+		
+		valString=(char *) globalsElement->Attribute("background");
+
+		if(valString && sscanf(valString,"%f %f %f %f",&r, &g, &b, &a)==4)
+		{
+			printf("  background values (RGBA): %f %f %f %f\n", r, g, b, a);
+		}
+		else
+			printf("Error parsing background\n");
+
+		string backgroundAttributes[4] = {"drawmode", "shading", "cullface", "cullorder"};
+		vector<string> backgroundAttributesVec(backgroundAttributes, backgroundAttributes + sizeof(backgroundAttributes) / sizeof(string));
+
+		vector<string> backgroundAttributesValues = getStringValues(globalsElement, backgroundAttributesVec);
+
+
+		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
+		if (backgroundElement)
 		{
 			float near,far;
 
-			if (frustumElement->QueryFloatAttribute("near",&near)==TIXML_SUCCESS && 
-				frustumElement->QueryFloatAttribute("far",&far)==TIXML_SUCCESS
+			if (backgroundElement->QueryFloatAttribute("near",&near)==TIXML_SUCCESS && 
+				backgroundElement->QueryFloatAttribute("far",&far)==TIXML_SUCCESS
 				)
 				printf("  frustum attributes: %f %f\n", near, far);
 			else
@@ -59,7 +77,7 @@ XMLScene::XMLScene(char *filename)
 		// translate: example of a node with an attribute comprising several float values
 		// It shows an example of extracting an attribute's value, and then further parsing that value 
 		// to extract individual values
-		TiXmlElement* translateElement=initElement->FirstChildElement("translate");
+		TiXmlElement* translateElement=globalsElement->FirstChildElement("translate");
 		if (translateElement)
 		{
 			char *valString=NULL;
@@ -101,7 +119,7 @@ XMLScene::XMLScene(char *filename)
 				{
 					// access node data by searching for its id in the nodes section
 					
-					TiXmlElement *noderef=findChildByAttribute(nodesElement,"id",child->Attribute("id"));
+					TiXmlElement *noderef=findChildByAttribute(appearancesElement,"id",child->Attribute("id"));
 
 					if (noderef)
 					{
@@ -121,7 +139,7 @@ XMLScene::XMLScene(char *filename)
 				if (strcmp(child->Value(),"Leaf")==0)
 				{
 					// access leaf data by searching for its id in the leaves section
-					TiXmlElement *leaf=findChildByAttribute(leavesElement,"id",child->Attribute("id"));
+					TiXmlElement *leaf=findChildByAttribute(texturesElement,"id",child->Attribute("id"));
 
 					if (leaf)
 					{
@@ -165,4 +183,24 @@ TiXmlElement *XMLScene::findChildByAttribute(TiXmlElement *parent,const char * a
 	return child;
 }
 
+vector<string> XMLScene::getStringValues(TiXmlElement* element, vector<string> attributes) {
+
+	vector<string> values;
+	string valString;
+
+	for(size_t i = 0; i < attributes.size(); i++) {
+
+		valString = globalsElement->Attribute(attributes.at(i).c_str());
+
+		values.push_back(valString);
+
+		if(!valString.empty()) {
+			printf("  %s value: %s\n", attributes.at(i).c_str(), valString.c_str());
+		}
+		else
+			printf("Error parsing %s\n", attributes.at(i).c_str());
+	}
+
+	return values;
+}
 

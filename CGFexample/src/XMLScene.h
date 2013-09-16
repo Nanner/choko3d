@@ -11,17 +11,20 @@ public:
 	~XMLScene();
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
+	vector<string> getStringValues(TiXmlElement* element, vector<string> attributes);
 	
 protected:
 
 	TiXmlDocument* doc;
 
-	TiXmlElement* initElement; 
-	TiXmlElement* matsElement;
-	TiXmlElement* textsElement;
-	TiXmlElement* leavesElement;
-	TiXmlElement* nodesElement;
+	TiXmlElement* globalsElement; 
+	TiXmlElement* camerasElement;
+	TiXmlElement* lightingElement;
+	TiXmlElement* texturesElement;
+	TiXmlElement* appearancesElement;
 	TiXmlElement* graphElement;
+
+
 };
 
 #endif
