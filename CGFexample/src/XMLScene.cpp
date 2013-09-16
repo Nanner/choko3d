@@ -40,23 +40,18 @@ XMLScene::XMLScene(char *filename)
 	{
 		printf("Processing globals:\n");
 
-		float r, g, b, a;
-		char* valString = NULL;
-		
-		valString=(char *) globalsElement->Attribute("background");
+		vector<float> rgba = getFloatValues(globalsElement, (char*) "background");
 
-		if(valString && sscanf(valString,"%f %f %f %f",&r, &g, &b, &a)==4)
-		{
-			printf("  background values (RGBA): %f %f %f %f\n", r, g, b, a);
-		}
-		else
-			printf("Error parsing background\n");
+        printf("  background values (RGBA): %f %f %f %f\n", rgba.at(0), rgba
+               .at(1), rgba.at(2), rgba.at(3));
+        // TODO store rgba values
+        
+        vector<string> bgAttributesNames;
+        bgAttributesNames.push_back("drawmode"); bgAttributesNames.push_back("shading");
+        bgAttributesNames.push_back("cullface"); bgAttributesNames.push_back("cullorder");
 
-		string backgroundAttributes[4] = {"drawmode", "shading", "cullface", "cullorder"};
-		vector<string> backgroundAttributesVec(backgroundAttributes, backgroundAttributes + sizeof(backgroundAttributes) / sizeof(string));
-
-		vector<string> backgroundAttributesValues = getStringValues(globalsElement, backgroundAttributesVec);
-
+		vector<string> backgroundAttributes = getStringValues(globalsElement, bgAttributesNames);
+        // TODO store background attributes
 
 		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
 		if (backgroundElement)
@@ -202,5 +197,23 @@ vector<string> XMLScene::getStringValues(TiXmlElement* element, vector<string> a
 	}
 
 	return values;
+}
+
+vector<float> XMLScene::getFloatValues(TiXmlElement * element, char * attributeName) {
+    vector<float> values;
+    float value;
+    
+    char* valString = NULL;
+    valString = (char *) element->Attribute(attributeName);
+    
+    // TODO throw exception? 
+    if (valString == NULL ) return values;
+    
+    stringstream ss (valString);
+    while (ss >> value) {
+        values.push_back(value);
+    }
+    
+    return values;
 }
 

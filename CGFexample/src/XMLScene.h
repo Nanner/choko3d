@@ -3,6 +3,7 @@
 
 #include "tinyxml.h"
 #include "CGFscene.h"
+#include <sstream>
 
 class XMLScene : public CGFscene 
 {
@@ -12,6 +13,8 @@ public:
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
 	vector<string> getStringValues(TiXmlElement* element, vector<string> attributes);
+    vector<float> getFloatValues(TiXmlElement * element, char * attributeName);
+
 	
 protected:
 
