@@ -14,21 +14,21 @@ XMLScene::XMLScene(char *filename)
 		exit( 1 );
 	}
 
-	TiXmlElement* dgxElement= doc->FirstChildElement( "dgx" );
+	TiXmlElement* yafElement= doc->FirstChildElement( "yaf" );
 
-	if (dgxElement == NULL)
+	if (yafElement == NULL)
 	{
-		printf("Main dgx block element not found! Exiting!\n");
+		printf("Main yaf block element not found! Exiting!\n");
 		exit(1);
 	}
 
-	initElement = dgxElement->FirstChildElement( "Init" );
-	matsElement = dgxElement->FirstChildElement( "Materials" );
-	textsElement =  dgxElement->FirstChildElement( "Textures" );
-	leavesElement =  dgxElement->FirstChildElement( "Leaves" );
-	nodesElement =  dgxElement->FirstChildElement( "Nodes" );
+	initElement = yafElement->FirstChildElement( "Init" );
+	matsElement = yafElement->FirstChildElement( "Materials" );
+	textsElement =  yafElement->FirstChildElement( "Textures" );
+	leavesElement =  yafElement->FirstChildElement( "Leaves" );
+	nodesElement =  yafElement->FirstChildElement( "Nodes" );
 
-	graphElement =  dgxElement->FirstChildElement( "Graph" );
+	graphElement =  yafElement->FirstChildElement( "Graph" );
 
 
 	// Init
