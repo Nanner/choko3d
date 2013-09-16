@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 	try {
 		app.init(&argc, argv);
 
-		app.setScene(new XMLScene("demograph.xml"));
+		app.setScene(new XMLScene((char*)"demograph.xml"));
 		app.setInterface(new CGFinterface());
 		
 		app.run();

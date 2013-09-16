@@ -88,7 +88,7 @@ XMLScene::XMLScene(char *filename)
 		printf("Graph block not found!\n");
 	else
 	{
-		char *prefix="  -";
+		//char *prefix="  -";
 		TiXmlElement *node=graphElement->FirstChildElement();
 
 		while (node)

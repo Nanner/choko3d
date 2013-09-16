@@ -19,7 +19,6 @@
 		AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23A16D422CA003287C6 /* pyramid.jpg */; };
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
-		EB873D1A17E61F4F00181AB4 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0917E61F4F00181AB4 /* Makefile */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
@@ -163,7 +162,6 @@
 		EB873D0617E61F4F00181AB4 /* tinystr_8h_source.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tinystr_8h_source.html; sourceTree = "<group>"; };
 		EB873D0717E61F4F00181AB4 /* tinyxml_8h_source.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tinyxml_8h_source.html; sourceTree = "<group>"; };
 		EB873D0817E61F4F00181AB4 /* tutorial0.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorial0.html; sourceTree = "<group>"; };
-		EB873D0917E61F4F00181AB4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		EB873D0A17E61F4F00181AB4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		EB873D0B17E61F4F00181AB4 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
 		EB873D0C17E61F4F00181AB4 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			children = (
 				EB873CB017E61F4F00181AB4 /* changes.txt */,
 				EB873CB117E61F4F00181AB4 /* docs */,
-				EB873D0917E61F4F00181AB4 /* Makefile */,
 				EB873D0A17E61F4F00181AB4 /* readme.txt */,
 				EB873D0B17E61F4F00181AB4 /* tinystr.cpp */,
 				EB873D0C17E61F4F00181AB4 /* tinystr.h */,
@@ -455,7 +452,6 @@
 				AA63E1BC16D41568003287C6 /* DemoScene.cpp in Sources */,
 				AA63E1BD16D41568003287C6 /* ExampleObject.cpp in Sources */,
 				AA63E1BE16D41568003287C6 /* main.cpp in Sources */,
-				EB873D1A17E61F4F00181AB4 /* Makefile in Sources */,
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
 				EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */,
@@ -529,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -544,6 +541,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
