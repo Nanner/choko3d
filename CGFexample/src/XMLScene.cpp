@@ -29,6 +29,8 @@ XMLScene::XMLScene(char *filename)
 	appearancesElement =  yafElement->FirstChildElement( "appearances" );
 	graphElement =  yafElement->FirstChildElement( "graph" );
 
+    // -------------- GLOBALS -----------------------------------------
+    
 	if (globalsElement == NULL)
 		printf("Globals block not found!\n");
 	else
@@ -37,9 +39,9 @@ XMLScene::XMLScene(char *filename)
 
 		vector<float> rgba = getValues<float>(globalsElement, (char*) "background");
 
+        // TODO store rgba values, remove print
         printf("  background values (RGBA): %f %f %f %f\n", rgba.at(0), rgba
                .at(1), rgba.at(2), rgba.at(3));
-        // TODO store rgba values
         
         vector<string> bgAttributeNames;
         bgAttributeNames.push_back("drawmode"); bgAttributeNames.push_back("shading");
@@ -47,7 +49,7 @@ XMLScene::XMLScene(char *filename)
 
 		vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
 
-        // TODO store background attributes
+        // TODO store background attributes, remove print
         for (int i = 0; i < backgroundAttributes.size(); i++) {
             printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
         }
@@ -89,11 +91,65 @@ XMLScene::XMLScene(char *filename)
 		else
 			printf("translate not found\n");		
 
-		// repeat for each of the variables as needed
 	}
 
-	// Other blocks could be validated/processed here
+    // -------------- CAMERAS -----------------------------------------
 
+    if (camerasElement == NULL)
+		printf("Cameras block not found!\n");
+	else
+	{
+        printf("Processing cameras:\n");
+        
+        string initial = getValue<string>(camerasElement, (char*) "initial");
+        
+        TiXmlElement* currentElement = camerasElement->FirstChildElement();
+        
+        while (currentElement) {
+            
+            if ( strcmp(currentElement->Value(), "perspective") == 0 )
+            {
+                // TODO store value
+                string id = getValue<string>(currentElement, (char*) "id");
+                
+                vector<string> nfa; // near, far, angle
+                nfa.push_back("near"); nfa.push_back("far"); nfa.push_back("angle");
+                vector<float> nfaValues = getValues<float>(currentElement, nfa);
+                
+                // TODO store values, remove print
+                for (int i = 0; i < nfaValues.size(); i++) {
+                    printf("%s: %f\n", nfa.at(i).c_str(), nfaValues.at(i));
+                }
+                
+                // TODO store values
+                vector<float> position = getValues<float>(currentElement, (char*)"pos");
+                
+                // TODO store values
+                vector<float> target = getValues<float>(currentElement, (char*)"target");
+                for (int i = 0; i < target.size(); i++) {
+                    printf("target: %f\n", target.at(i));
+                }
+                
+            }
+            
+            if (  strcmp(currentElement->Value(), "ortho") == 0  )
+            {
+                // TODO store value
+                string id = getValue<string>(currentElement, (char*)"id");
+                
+                vector<string> orthoAttributes;
+                orthoAttributes.push_back("near"); orthoAttributes.push_back("far");
+                orthoAttributes.push_back("left"); orthoAttributes.push_back("right");
+                orthoAttributes.push_back("top"); orthoAttributes.push_back("bottom");
+                
+                // TODO store values
+                vector<float> orthoValues = getValues<float>(currentElement, orthoAttributes);
+            }
+            
+            currentElement = currentElement->NextSiblingElement();
+            
+        }
+    }
 
 	// graph section
 	if (graphElement == NULL)

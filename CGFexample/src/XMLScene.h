@@ -4,6 +4,7 @@
 #include "tinyxml.h"
 #include "CGFscene.h"
 #include <sstream>
+#include <stdio.h>
 
 class XMLScene : public CGFscene 
 {
@@ -13,6 +14,7 @@ public:
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
     template<class T> vector<T> getValues(TiXmlElement * element, vector<string> attributeNames);
+    template<class T> T getValue(TiXmlElement * element, char * attributeName);
     template<class T> vector<T> getValues(TiXmlElement * element, char * attributeName);
 
 	
@@ -47,13 +49,19 @@ vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
             values.push_back(value);
         else {
             // TODO error handling
-            printf("something went wrong parsing %s!!", attributeName);
+            printf("something went wrong parsing %s!!\n", attributeName);
             break;
         }
     }
     
     return values;
 }
+
+template<class T>
+T XMLScene::getValue(TiXmlElement * element, char * attributeName) {
+    return getValues<T>(element, attributeName).at(0);
+}
+
 
 template<class T>
 vector<T> XMLScene::getValues(TiXmlElement* element, vector<string> attributeNames) {
