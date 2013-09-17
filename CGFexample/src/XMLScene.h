@@ -4,7 +4,7 @@
 #include "tinyxml.h"
 #include "CGFscene.h"
 #include <sstream>
-#include <stdio.h>
+#include <iostream>
 
 class XMLScene : public CGFscene 
 {
@@ -43,6 +43,7 @@ vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
     if (valString == NULL ) return values;
     
     stringstream ss (valString);
+    ss << boolalpha;
     
     while ( !ss.eof() ) {
         if ( ss >> value )
@@ -59,7 +60,12 @@ vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
 
 template<class T>
 T XMLScene::getValue(TiXmlElement * element, char * attributeName) {
-    return getValues<T>(element, attributeName).at(0);
+    T value;
+    vector<T> values = getValues<T>(element, attributeName);
+    if (values.size() > 0 )
+        return getValues<T>(element, attributeName).at(0);
+    else
+        return value;
 }
 
 
@@ -79,5 +85,6 @@ vector<T> XMLScene::getValues(TiXmlElement* element, vector<string> attributeNam
     
 	return values;
 }
+
 
 #endif
