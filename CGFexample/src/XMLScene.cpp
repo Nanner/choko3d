@@ -54,6 +54,8 @@ XMLScene::XMLScene(char *filename)
             printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
         }
 
+		GlobalAttributes globalsBlock(rgba, backgroundAttributes);
+
 		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
 		if (backgroundElement)
 		{

@@ -12,7 +12,7 @@ public:
 	string file;
 
 	TextureAttributes(string id, string file);
-	bool validate();
+	void validate();
 };
 
 #endif

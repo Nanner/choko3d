@@ -15,8 +15,8 @@ public:
 	string cullface;
 	string cullorder;
 
-	GlobalAttributes(vector<float> rgbaValues, vector<string> modes); //that string vector might be changed
-	bool validate();
+	GlobalAttributes(vector<float> rgbaValues, vector<string> backgroundAttributes); //that string vector might be changed
+	void validate();
 };
 
 #endif

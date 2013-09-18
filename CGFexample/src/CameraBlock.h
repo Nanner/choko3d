@@ -3,14 +3,6 @@
 
 #include "InfoBlock.h"
 
-class CameraBlock: public InfoBlock {
-public:
-	string initialCameraID;
-	vector<CameraAttributes> cameras;
-
-	CameraBlock(string initialCameraID, vector<CameraAttributes> cameras);
-};
-
 class CameraAttributes: public InfoBlock {
 private:
 	static vector<string> usedCameraIDs;
@@ -37,7 +29,15 @@ public:
 	float targetZ;
 
 	CameraAttributes(bool orthoCamera, string ID, vector<int> values);
-	bool validate();
+	void validate();
+};
+
+class CameraBlock: public InfoBlock {
+public:
+	string initialCameraID;
+	vector<CameraAttributes> cameras;
+
+	CameraBlock(string initialCameraID, vector<CameraAttributes> cameras);
 };
 
 #endif

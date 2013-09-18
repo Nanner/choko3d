@@ -3,21 +3,6 @@
 
 #include "InfoBlock.h"
 
-
-class LightingBlock: public InfoBlock {
-public:
-	bool doublesided;
-	bool local;
-	bool enabled;
-	float ambientR;
-	float ambientG;
-	float ambientB;
-	float ambientA;
-	vector<LightAttributes> lights;
-
-	LightingBlock(vector<bool> ligthingProperties, vector<float> ambientRGBA, vector<LightAttributes> lights);
-};
-
 class LightAttributes: public InfoBlock {
 private:
 	static vector<string> usedLightIDs;
@@ -52,7 +37,21 @@ public:
 	float directionZ;
 
 	LightAttributes(string id, bool enabled, bool isOmni, vector<int> values);
-	bool validate();
+	void validate();
+};
+
+class LightingBlock: public InfoBlock {
+public:
+	bool doublesided;
+	bool local;
+	bool enabled;
+	float ambientR;
+	float ambientG;
+	float ambientB;
+	float ambientA;
+	vector<LightAttributes> lights;
+
+	LightingBlock(vector<bool> ligthingProperties, vector<float> ambientRGBA, vector<LightAttributes> lights);
 };
 
 #endif

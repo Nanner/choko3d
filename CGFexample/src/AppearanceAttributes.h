@@ -34,7 +34,7 @@ public:
 
 	AppearanceAttributes(string id, vector<float> values);
 	AppearanceAttributes(string id, vector<float> values, string textureID, float texlength_s, float texlength_t);
-	bool validate();
+	void validate();
 };
 
 #endif
