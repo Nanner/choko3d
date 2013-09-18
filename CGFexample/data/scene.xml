@@ -26,7 +26,7 @@
 
 
   <!-- bloco de iluminacao; segue os parametros do OpenGL -->
-  <lighting doublesided="tt" local="tt" enabled="tt" ambient="ff ff ff ff" >
+  <lighting doublesided="true" local="false" enabled="true" ambient="ff ff ff ff" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="ss" enabled="tt"
@@ -48,18 +48,15 @@
   <!-- bloco de materiais; -->
   <appearances>
     <!-- deve existir um ou mais blocos "appearance" -->
-    <appearance id="ss" >
+    <appearance id="ss"
       emissive="ff ff ff ff"
       ambient="ff ff ff ff"
       diffuse="ff ff ff ff"
       specular="ff ff ff ff"
       shininess="ff"
-      <!-- atributos opcionais se for usada uma textura : -->
-      <!-- ver nota no enunciado sobre os parametros texlength_...) -->
       textureref="ss"
       texlength_s="ff"
-      texlength_t="ff"
-      <!-- fim do bloco de atributos opcionais -->
+      texlength_t="ff">
     </appearance>
   </appearances>
 

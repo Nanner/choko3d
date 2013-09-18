@@ -56,6 +56,7 @@ XMLScene::XMLScene(char *filename)
 
 		GlobalAttributes globalsBlock(rgba, backgroundAttributes);
 
+        // TODO clear these examples (frustrum and translate)
 		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
 		if (backgroundElement)
 		{
@@ -152,6 +153,126 @@ XMLScene::XMLScene(char *filename)
             
         }
     }
+    
+    // -------------- LIGHTS -----------------------------------------
+    
+    if (lightingElement == NULL)
+		printf("Lightning block not found!\n");
+	else
+	{
+        printf("Processing lights:\n");
+        
+        vector<string> attributeNames;
+        attributeNames.push_back("doublesided");
+        attributeNames.push_back("local"); attributeNames.push_back("enabled");
+        
+        vector<bool> attributes = getValues<bool>(lightingElement, attributeNames);
+        
+        // TODO store values, remove this print
+        for (int i = 0; i < attributes.size(); i++) {
+            cout << boolalpha << attributes.at(i) << endl;
+        }
+        
+        vector<float> ambient = getValues<float>(lightingElement, (char*) "ambient");
+        
+        TiXmlElement* currentElement = lightingElement->FirstChildElement();
+        
+        while (currentElement) {
+            
+            if ( strcmp(currentElement->Value(), "omni") == 0 )
+            {
+                // TODO store value
+                string id = getValue<string>(currentElement, (char*) "id");
+                
+                bool enabled = getValue<bool>(currentElement, (char*)"enabled");
+                
+                vector<float> location = getValues<float>(currentElement, (char*)"location");
+                
+                // TODO 2 named ambient's, shouldnt this cause an error?
+                vector<float> ambient = getValues<float>(currentElement, (char*)"ambient");
+
+                vector<float> diffuse = getValues<float>(currentElement, (char*)"diffuse");
+
+                vector<float> specular = getValues<float>(currentElement, (char*)"specular");
+            }
+            
+            if (  strcmp(currentElement->Value(), "spot") == 0  )
+            {
+                // TODO store value
+                string id = getValue<string>(currentElement, (char*)"id");
+                
+                bool enabled = getValue<bool>(currentElement, (char*)"enabled");
+                
+                vector<string> spotAttributes;
+                spotAttributes.push_back("angle"); spotAttributes.push_back("exponent");
+                
+                // TODO store values
+                vector<float> spotValues = getValues<float>(currentElement, spotAttributes);
+                
+                vector<float> direction = getValues<float>(currentElement, (char*)"direction");
+            }
+            
+            currentElement = currentElement->NextSiblingElement();
+            
+        }
+    }
+    
+    // -------------- TEXTURES -----------------------------------------
+    
+    if (texturesElement == NULL)
+		printf("Texture block not found!\n");
+	else
+	{
+        printf("Processing textures:\n");
+        
+        TiXmlElement* textureElement = texturesElement->FirstChildElement("texture");
+        
+        while ( textureElement ) {
+            // TODO store values
+            string id = getValue<string>(texturesElement, (char*)"id");
+            string file = getValue<string>(texturesElement, (char*)"file");
+            
+            textureElement = textureElement->NextSiblingElement();
+        }
+        
+    }
+    
+    
+    // -------------- APPEARANCES -----------------------------------------
+    
+    if (appearancesElement == NULL)
+		printf("Appearances block not found!\n");
+	else
+	{
+        printf("Processing appearances:\n");
+        
+        TiXmlElement* appearanceElement = appearancesElement->FirstChildElement("appearance");
+        
+        while ( appearanceElement ) {
+            // TODO store values
+            string id = getValue<string>(appearanceElement, (char*)"id");
+            
+            vector<float> emissive = getValues<float>(appearanceElement, (char*)"emissive");
+            
+            vector<float> ambient = getValues<float>(appearanceElement, (char*)"ambient");
+            
+            vector<float> diffuse = getValues<float>(appearanceElement, (char*)"diffuse");
+            
+            vector<float> specular = getValues<float>(appearanceElement, (char*)"specular");
+
+            float shininess = getValue<float>(appearanceElement, (char*)"shininess");
+            
+            string textureref = getValue<string>(appearanceElement, (char*)"textureref");
+            
+            float texlength_s = getValue<float>(appearanceElement, (char*) "texlength_s");
+            
+            float texlength_t = getValue<float>(appearanceElement, (char*) "texlength_t");
+
+            appearanceElement = appearanceElement->NextSiblingElement();
+        }
+        
+    }
+
 
 	// graph section
 	if (graphElement == NULL)
@@ -234,4 +355,3 @@ TiXmlElement *XMLScene::findChildByAttribute(TiXmlElement *parent,const char * a
 
 	return child;
 }
-
