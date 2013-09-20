@@ -19,13 +19,19 @@
 		AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23A16D422CA003287C6 /* pyramid.jpg */; };
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
+		EB4253F017EA43F1005C0EB0 /* AppearanceAttributes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253E417EA43F1005C0EB0 /* AppearanceAttributes.cpp */; };
+		EB4253F117EA43F1005C0EB0 /* CameraBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253E617EA43F1005C0EB0 /* CameraBlock.cpp */; };
+		EB4253F217EA43F1005C0EB0 /* GlobalAttributes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253E817EA43F1005C0EB0 /* GlobalAttributes.cpp */; };
+		EB4253F317EA43F1005C0EB0 /* InfoBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253EA17EA43F1005C0EB0 /* InfoBlock.cpp */; };
+		EB4253F417EA43F1005C0EB0 /* LightingBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253EC17EA43F1005C0EB0 /* LightingBlock.cpp */; };
+		EB4253F517EA43F1005C0EB0 /* TextureAttributes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4253EE17EA43F1005C0EB0 /* TextureAttributes.cpp */; };
 		EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB81812917E712E5008DF2EB /* scene.xml */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
-		EB873D2317E6242300181AB4 /* XMLScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D2217E6242300181AB4 /* XMLScene.cpp */; };
+		EB873D2317E6242300181AB4 /* YAFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D2217E6242300181AB4 /* YAFReader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +80,18 @@
 		AA63E23A16D422CA003287C6 /* pyramid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pyramid.jpg; sourceTree = "<group>"; };
 		AA63E23B16D422CA003287C6 /* texshader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.frag; sourceTree = "<group>"; };
 		AA63E23C16D422CA003287C6 /* texshader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.vert; sourceTree = "<group>"; };
+		EB4253E417EA43F1005C0EB0 /* AppearanceAttributes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppearanceAttributes.cpp; path = src/AppearanceAttributes.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253E517EA43F1005C0EB0 /* AppearanceAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppearanceAttributes.h; path = src/AppearanceAttributes.h; sourceTree = SOURCE_ROOT; };
+		EB4253E617EA43F1005C0EB0 /* CameraBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraBlock.cpp; path = src/CameraBlock.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253E717EA43F1005C0EB0 /* CameraBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraBlock.h; path = src/CameraBlock.h; sourceTree = SOURCE_ROOT; };
+		EB4253E817EA43F1005C0EB0 /* GlobalAttributes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GlobalAttributes.cpp; path = src/GlobalAttributes.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253E917EA43F1005C0EB0 /* GlobalAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalAttributes.h; path = src/GlobalAttributes.h; sourceTree = SOURCE_ROOT; };
+		EB4253EA17EA43F1005C0EB0 /* InfoBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InfoBlock.cpp; path = src/InfoBlock.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253EB17EA43F1005C0EB0 /* InfoBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoBlock.h; path = src/InfoBlock.h; sourceTree = SOURCE_ROOT; };
+		EB4253EC17EA43F1005C0EB0 /* LightingBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightingBlock.cpp; path = src/LightingBlock.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253ED17EA43F1005C0EB0 /* LightingBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightingBlock.h; path = src/LightingBlock.h; sourceTree = SOURCE_ROOT; };
+		EB4253EE17EA43F1005C0EB0 /* TextureAttributes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureAttributes.cpp; path = src/TextureAttributes.cpp; sourceTree = SOURCE_ROOT; };
+		EB4253EF17EA43F1005C0EB0 /* TextureAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureAttributes.h; path = src/TextureAttributes.h; sourceTree = SOURCE_ROOT; };
 		EB81812917E712E5008DF2EB /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		EB873CB017E61F4F00181AB4 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		EB873CB217E61F4F00181AB4 /* annotated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = annotated.html; sourceTree = "<group>"; };
@@ -179,8 +197,8 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
-		EB873D2217E6242300181AB4 /* XMLScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XMLScene.cpp; path = src/XMLScene.cpp; sourceTree = SOURCE_ROOT; };
-		EB873D2417E6244800181AB4 /* XMLScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLScene.h; path = src/XMLScene.h; sourceTree = SOURCE_ROOT; };
+		EB873D2217E6242300181AB4 /* YAFReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = YAFReader.cpp; path = src/YAFReader.cpp; sourceTree = SOURCE_ROOT; };
+		EB873D2417E6244800181AB4 /* YAFReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAFReader.h; path = src/YAFReader.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,8 +241,20 @@
 		AA63E1AD16D41531003287C6 /* CGFExample */ = {
 			isa = PBXGroup;
 			children = (
-				EB873D2217E6242300181AB4 /* XMLScene.cpp */,
-				EB873D2417E6244800181AB4 /* XMLScene.h */,
+				EB4253E417EA43F1005C0EB0 /* AppearanceAttributes.cpp */,
+				EB4253E517EA43F1005C0EB0 /* AppearanceAttributes.h */,
+				EB4253E617EA43F1005C0EB0 /* CameraBlock.cpp */,
+				EB4253E717EA43F1005C0EB0 /* CameraBlock.h */,
+				EB4253E817EA43F1005C0EB0 /* GlobalAttributes.cpp */,
+				EB4253E917EA43F1005C0EB0 /* GlobalAttributes.h */,
+				EB4253EA17EA43F1005C0EB0 /* InfoBlock.cpp */,
+				EB4253EB17EA43F1005C0EB0 /* InfoBlock.h */,
+				EB4253EC17EA43F1005C0EB0 /* LightingBlock.cpp */,
+				EB4253ED17EA43F1005C0EB0 /* LightingBlock.h */,
+				EB4253EE17EA43F1005C0EB0 /* TextureAttributes.cpp */,
+				EB4253EF17EA43F1005C0EB0 /* TextureAttributes.h */,
+				EB873D2217E6242300181AB4 /* YAFReader.cpp */,
+				EB873D2417E6244800181AB4 /* YAFReader.h */,
 				AA63E1B716D41568003287C6 /* DemoScene.cpp */,
 				AA63E1B816D41568003287C6 /* DemoScene.h */,
 				AA63E1B916D41568003287C6 /* ExampleObject.cpp */,
@@ -457,7 +487,13 @@
 				EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */,
 				EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */,
 				EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */,
-				EB873D2317E6242300181AB4 /* XMLScene.cpp in Sources */,
+				EB873D2317E6242300181AB4 /* YAFReader.cpp in Sources */,
+				EB4253F017EA43F1005C0EB0 /* AppearanceAttributes.cpp in Sources */,
+				EB4253F117EA43F1005C0EB0 /* CameraBlock.cpp in Sources */,
+				EB4253F217EA43F1005C0EB0 /* GlobalAttributes.cpp in Sources */,
+				EB4253F317EA43F1005C0EB0 /* InfoBlock.cpp in Sources */,
+				EB4253F417EA43F1005C0EB0 /* LightingBlock.cpp in Sources */,
+				EB4253F517EA43F1005C0EB0 /* TextureAttributes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

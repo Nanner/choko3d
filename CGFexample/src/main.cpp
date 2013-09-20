@@ -8,7 +8,7 @@
 
 #include "CGFapplication.h"
 #include "DemoScene.h"
-#include "XMLScene.h"
+#include "YAFReader.h"
 
 using std::cout;
 using std::exception;
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 	try {
 		app.init(&argc, argv);
 
-		app.setScene(new XMLScene( (char*)"scene.xml") );
+		app.setScene(new YAFReader( (char*)"scene.xml") );
 		app.setInterface(new CGFinterface());
 		
 		app.run();

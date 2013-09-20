@@ -1,6 +1,6 @@
-#include "XMLScene.h"
+#include "YAFReader.h"
 
-XMLScene::XMLScene(char *filename)
+YAFReader::YAFReader(char *filename)
 {
 
 	// Read XML from file
@@ -55,45 +55,6 @@ XMLScene::XMLScene(char *filename)
         }
 
 		GlobalAttributes globalsBlock(rgba, backgroundAttributes);
-
-        // TODO clear these examples (frustrum and translate)
-		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
-		if (backgroundElement)
-		{
-			float near,far;
-
-			if (backgroundElement->QueryFloatAttribute("near",&near)==TIXML_SUCCESS && 
-				backgroundElement->QueryFloatAttribute("far",&far)==TIXML_SUCCESS
-				)
-				printf("  frustum attributes: %f %f\n", near, far);
-			else
-				printf("Error parsing frustum\n");
-		}
-		else
-			printf("frustum not found\n");
-
-
-		// translate: example of a node with an attribute comprising several float values
-		// It shows an example of extracting an attribute's value, and then further parsing that value 
-		// to extract individual values
-		TiXmlElement* translateElement=globalsElement->FirstChildElement("translate");
-		if (translateElement)
-		{
-			char *valString=NULL;
-			float x,y,z;
-
-			valString=(char *) translateElement->Attribute("xyz");
-
-			if(valString && sscanf(valString,"%f %f %f",&x, &y, &z)==3)
-			{
-				printf("  translate values (XYZ): %f %f %f\n", x, y, z);
-			}
-			else
-				printf("Error parsing translate");
-		}
-		else
-			printf("translate not found\n");		
-
 	}
 
     // -------------- CAMERAS -----------------------------------------
@@ -333,14 +294,14 @@ XMLScene::XMLScene(char *filename)
 
 }
 
-XMLScene::~XMLScene()
+YAFReader::~YAFReader()
 {
 	delete(doc);
 }
 
 //-------------------------------------------------------
 
-TiXmlElement *XMLScene::findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val)
+TiXmlElement *YAFReader::findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val)
 // Searches within descendants of a parent for a node that has an attribute _attr_ (e.g. an id) with the value _val_
 // A more elaborate version of this would rely on XPath expressions
 {

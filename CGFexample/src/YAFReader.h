@@ -1,5 +1,5 @@
-#ifndef _XMLSCENE_H_
-#define _XMLSCENE_H_
+#ifndef _YAFReader_H_
+#define _YAFReader_H_
 
 #include "tinyxml.h"
 #include "CGFscene.h"
@@ -7,11 +7,11 @@
 #include <sstream>
 #include <iostream>
 
-class XMLScene : public CGFscene 
+class YAFReader : public CGFscene 
 {
 public:
-    XMLScene(char *filename);
-    ~XMLScene();
+    YAFReader(char *filename);
+    ~YAFReader();
 
     static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
     template<class T> vector<T> getValues(TiXmlElement * element, vector<string> attributeNames);
@@ -33,7 +33,7 @@ protected:
 };
 
 template<class T>
-vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
+vector<T> YAFReader::getValues(TiXmlElement * element, char * attributeName) {
     vector<T> values;
     T value;
     
@@ -60,7 +60,7 @@ vector<T> XMLScene::getValues(TiXmlElement * element, char * attributeName) {
 }
 
 template<class T>
-T XMLScene::getValue(TiXmlElement * element, char * attributeName) {
+T YAFReader::getValue(TiXmlElement * element, char * attributeName) {
     T value;
     vector<T> values = getValues<T>(element, attributeName);
     if (values.size() > 0 )
@@ -71,7 +71,7 @@ T XMLScene::getValue(TiXmlElement * element, char * attributeName) {
 
 
 template<class T>
-vector<T> XMLScene::getValues(TiXmlElement* element, vector<string> attributeNames) {
+vector<T> YAFReader::getValues(TiXmlElement* element, vector<string> attributeNames) {
     
     vector<T> values;
     

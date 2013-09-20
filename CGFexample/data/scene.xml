@@ -36,7 +36,19 @@
         specular="ff ff ff ff"
             />
 
+<!-- versao antiga do spot
     <spot id="ss" enabled="tt" angle="ff" exponent="ff" direction="ff ff ff" />
+  -->
+
+    <spot id="ss" enabled="tt" 
+        location="ff ff ff" 
+        ambient="ff ff ff ff" 
+        diffuse="ff ff ff ff" 
+        specular="ff ff ff ff"
+        angle="ff" 
+        exponent="ff" 
+        direction="ff ff ff" 
+            /> 
 
   </lighting>
 
@@ -45,10 +57,15 @@
     <texture id="ss" file="ss" />
   </textures>
 
-  <!-- bloco de materiais; -->
-  <appearances>
-    <!-- deve existir um ou mais blocos "appearance" -->
-    <appearance id="ss"
+  <!-- bloco de materiais; --> 
+  <appearances> 
+      <!-- deve existir um ou mais blocos "appearance" -->
+      <!-- IMPORTANTE: -->
+      <!--   textureref, texlength_s e textlength_t sao atributos -->
+      <!--   opcionais se for usada uma textura. --> 
+      <!--   ver topico 'Notas finais' no enunciado sobre os -->
+      <!--   parametros texlength_...) -->  
+        <appearance id="ss" 
       emissive="ff ff ff ff"
       ambient="ff ff ff ff"
       diffuse="ff ff ff ff"
