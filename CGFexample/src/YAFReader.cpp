@@ -170,12 +170,18 @@ YAFReader::YAFReader(char *filename)
                 
                 bool enabled = getValue<bool>(currentElement, (char*)"enabled");
                 
-                vector<string> spotAttributes;
-                spotAttributes.push_back("angle"); spotAttributes.push_back("exponent");
+                vector<float> location = getValues<float>(currentElement, (char*)"location");
                 
-                // TODO store values
-                vector<float> spotValues = getValues<float>(currentElement, spotAttributes);
+                vector<float> ambient = getValues<float>(currentElement, (char*)"ambient");
                 
+                vector<float> diffuse = getValues<float>(currentElement, (char*)"diffuse");
+                
+                vector<float> specular = getValues<float>(currentElement, (char*)"specular");
+                
+                float angle = getValue<float>(currentElement, (char*)"angle");
+                
+                float exponent = getValue<float>(currentElement, (char*)"exponent");
+
                 vector<float> direction = getValues<float>(currentElement, (char*)"direction");
             }
             
@@ -246,54 +252,118 @@ YAFReader::YAFReader(char *filename)
 		printf("Graph block not found!\n");
 	else
 	{
-		//char *prefix="  -";
-		TiXmlElement *node=graphElement->FirstChildElement();
+        // TODO store rootid
+		string rootid = getValue<string>(graphElement, (char*)"rootid");
+        
+		TiXmlElement *node = graphElement->FirstChildElement();
 
 		while (node)
 		{
 			printf("Node id '%s' - Descendants:\n",node->Attribute("id"));
-			TiXmlElement *child=node->FirstChildElement();
-			while (child)
-			{
-				if (strcmp(child->Value(),"Node")==0)
-				{
-					// access node data by searching for its id in the nodes section
-					
-					TiXmlElement *noderef=findChildByAttribute(appearancesElement,"id",child->Attribute("id"));
-
-					if (noderef)
-					{
-						// print id
-						printf("  - Node id: '%s'\n", child->Attribute("id"));
-
-						// prints some of the data
-						printf("    - Material id: '%s' \n", noderef->FirstChildElement("material")->Attribute("id"));
-						printf("    - Texture id: '%s' \n", noderef->FirstChildElement("texture")->Attribute("id"));
-
-						// repeat for other leaf details
-					}
-					else
-						printf("  - Node id: '%s': NOT FOUND IN THE NODES SECTION\n", child->Attribute("id"));
-
-				}
-				if (strcmp(child->Value(),"Leaf")==0)
-				{
-					// access leaf data by searching for its id in the leaves section
-					TiXmlElement *leaf=findChildByAttribute(texturesElement,"id",child->Attribute("id"));
-
-					if (leaf)
-					{
-						// it is a leaf and it is present in the leaves section
-						printf("  - Leaf id: '%s' ; type: '%s'\n", child->Attribute("id"), leaf->Attribute("type"));
-
-						// repeat for other leaf details
-					}
-					else
-						printf("  - Leaf id: '%s' - NOT FOUND IN THE LEAVES SECTION\n",child->Attribute("id"));
-				}
-
-				child=child->NextSiblingElement();
-			}
+            
+            TiXmlElement * transforms = node->FirstChildElement("transforms");
+            
+            if ( transforms == NULL) {
+                // TODO better error handling
+                printf("obligatory transforms block doesn't exist!");
+            }
+            
+            TiXmlElement * currentTransform = transforms->FirstChildElement();
+            
+            while (currentTransform) {
+                if ( strcmp(currentTransform->Value(), "translate") == 0 ) {
+                    // TODO store translation
+                    vector<float> to = getValues<float>(currentTransform, (char*)"to");
+                }
+                
+                if ( strcmp(currentTransform->Value(), "rotate") == 0 ) {
+                    // TODO store translation
+                    char axis = getValue<char>(currentTransform, (char*)"axis");
+                    float angle = getValue<float>(currentTransform, (char*)"angle");
+                }
+                
+                if ( strcmp(currentTransform->Value(), "scale") == 0 ) {
+                    // TODO store translation
+                    vector<float> factor = getValues<float>(currentTransform, (char*)"factor");
+                }
+                
+                currentTransform = currentTransform->NextSiblingElement();
+            }
+            
+            TiXmlElement * appearanceref = node->FirstChildElement("appearanceref");
+            
+            if (appearanceref) {
+                // TODO store appearance
+                string appearanceID = getValue<string>(appearanceref, (char*)"id");
+            }
+            
+            TiXmlElement * children = node->FirstChildElement("children");
+            
+            if (children == NULL) {
+                // TODO better error handling
+                printf("obligatory children block doesn't exist!");
+            }
+            
+            TiXmlElement * currentChild = children->FirstChildElement();
+            
+            int primitiveCounter = 0;
+            int nodeRefCounter = 0;
+            
+            while (currentChild) {
+                if ( strcmp(currentChild->Value(), "noderef") == 0 ) {
+                    nodeRefCounter++;
+                    string id = getValue<string>(currentChild, (char*)"id");
+                } else {
+                    // it is not a reference to a node
+                    // it can only be a primitive now
+                    primitiveCounter++;
+                }
+                
+                if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
+                    // TODO store primitive
+                    vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
+                    vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
+                }
+                
+                if ( strcmp(currentChild->Value(), "triangle") == 0 ) {
+                    // TODO store primitive
+                    vector<float> xyz1 = getValues<float>(currentChild, (char*)"xyz1");
+                    vector<float> xyz2 = getValues<float>(currentChild, (char*)"xyz2");
+                    vector<float> xyz3 = getValues<float>(currentChild, (char*)"xyz3");
+                }
+                
+                if ( strcmp(currentChild->Value(), "cylinder") == 0 ) {
+                    // TODO store primitive
+                    float base = getValue<float>(currentChild, (char*)"base");
+                    float top = getValue<float>(currentChild, (char*)"top");
+                    float height = getValue<float>(currentChild, (char*)"height");
+                    int slices = getValue<int>(currentChild, (char*)"slices");
+                    int stacks = getValue<int>(currentChild, (char*)"stacks");
+                }
+                
+                if ( strcmp(currentChild->Value(), "sphere") == 0 ) {
+                    // TODO store primitive
+                    float radius = getValue<float>(currentChild, (char*)"radius");
+                    int slices = getValue<int>(currentChild, (char*)"slices");
+                    int stacks = getValue<int>(currentChild, (char*)"stacks");
+                }
+                
+                if ( strcmp(currentChild->Value(), "torus") == 0 ) {
+                    // TODO store primitive
+                    float inner = getValue<float>(currentChild, (char*)"inner");
+                    float outer = getValue<float>(currentChild, (char*)"outer");
+                    int slices = getValue<int>(currentChild, (char*)"slices");
+                    int loops = getValue<int>(currentChild, (char*)"loops");
+                }
+                
+                currentChild = currentChild->NextSiblingElement();
+            }
+            
+            if (primitiveCounter == 0 && nodeRefCounter == 0) {
+                // TODO better error handling
+                printf("There must be at least one primitive or one node reference for each child in the children block!");
+            }
+            
 			node=node->NextSiblingElement();
 		}
 	}

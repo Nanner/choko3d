@@ -64,7 +64,7 @@ T YAFReader::getValue(TiXmlElement * element, char * attributeName) {
     T value;
     vector<T> values = getValues<T>(element, attributeName);
     if (values.size() > 0 )
-        return getValues<T>(element, attributeName).at(0);
+        return values.at(0);
     else
         return value;
 }
