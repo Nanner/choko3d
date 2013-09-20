@@ -12,7 +12,7 @@
   <!-- Valores para shading: "flat", "gouraud" ) -->
   <!-- Valores para cullface: "none", "back" , "front" ou "both" -->
   <!-- Valores para cullorder : "CCW" ou "CW" -->
-  <globals background="0.2 1.25 32.40 69.0069" drawmode="line" shading="gouraud" cullface="both" cullorder="CCW" />
+  <globals background="0.2 1.0 0.5 0.5" drawmode="line" shading="gouraud" cullface="both" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
   <cameras initial="1" >
