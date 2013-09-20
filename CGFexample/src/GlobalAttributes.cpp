@@ -12,17 +12,22 @@ GlobalAttributes::GlobalAttributes( vector<float> rgbaValues, vector<string> bac
 	cullface = backgroundAttributes.at(2);
 	cullorder = backgroundAttributes.at(3);
 
-	validate();
+	try {
+		validate();
+	}
+	catch (InvalidAttributeValueException &ive) {
+		throw;
+	}
+
 }
 
 void GlobalAttributes::validate() {
 
-	if((RGBA_LOWER_BOUND <= red <= RGBA_UPPER_BOUND) ||
-	   (RGBA_LOWER_BOUND <= green <= RGBA_UPPER_BOUND) ||
-	   (RGBA_LOWER_BOUND <= blue <= RGBA_UPPER_BOUND) ||
-	   (RGBA_LOWER_BOUND <= blue <= RGBA_UPPER_BOUND)) {
+	if((red < RGBA_LOWER_BOUND) || (red > RGBA_UPPER_BOUND)
+		|| (green < RGBA_LOWER_BOUND) || (green > RGBA_UPPER_BOUND)
+		|| (blue < RGBA_LOWER_BOUND) || (blue > RGBA_UPPER_BOUND)
+		|| (alpha < RGBA_LOWER_BOUND) || (alpha > RGBA_UPPER_BOUND))
 		throw(InvalidAttributeValueException("background"));
-	}
 
 	vector<string> drawmodeOptions;
 	drawmodeOptions.push_back("fill");

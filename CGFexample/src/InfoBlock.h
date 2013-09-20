@@ -13,10 +13,10 @@ using namespace std;
 
 class InfoBlock {
 public:
-	virtual void validate();
+	virtual void validate() = 0;
 };
 
-class InvalidAttributeValueException: public exception {
+class InvalidAttributeValueException {
 private:
 	string failedAttribute;
 
@@ -25,8 +25,7 @@ public:
 		this->failedAttribute = failedAttribute;
 	}
 
-	virtual const char* what() const throw()
-	{
+	string what() const {
 		string ret = "Invalid value for attribute " + failedAttribute + "!";
 		return ret.c_str();
 	}

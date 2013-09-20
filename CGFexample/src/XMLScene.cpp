@@ -54,7 +54,13 @@ XMLScene::XMLScene(char *filename)
             printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
         }
 
-		GlobalAttributes globalsBlock(rgba, backgroundAttributes);
+		try {
+			GlobalAttributes globalsBlock(rgba, backgroundAttributes);
+		}
+		catch (InvalidAttributeValueException &ive) {
+			cout << ive.what() << endl;
+			exit(1);
+		}
 
         // TODO clear these examples (frustrum and translate)
 		TiXmlElement* backgroundElement=globalsElement->FirstChildElement("frustum");
