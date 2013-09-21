@@ -219,8 +219,8 @@ YAFReader::YAFReader(char *filename) {
 
 			while ( textureElement ) {
 				// TODO store values
-				string id = getValue<string>(texturesElement, (char*)"id");
-				string file = getValue<string>(texturesElement, (char*)"file");
+				string id = getValue<string>(textureElement, (char*)"id");
+				string file = getValue<string>(textureElement, (char*)"file");
 
 				textureElement = textureElement->NextSiblingElement();
 			}
