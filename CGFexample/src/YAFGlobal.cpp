@@ -22,12 +22,10 @@ YAFGlobal::YAFGlobal( vector<float> rgbaValues, vector<string> backgroundAttribu
 }
 
 void YAFGlobal::validate() {
-
-	if((red < RGBA_LOWER_BOUND) || (red > RGBA_UPPER_BOUND)
-		|| (green < RGBA_LOWER_BOUND) || (green > RGBA_UPPER_BOUND)
-		|| (blue < RGBA_LOWER_BOUND) || (blue > RGBA_UPPER_BOUND)
-		|| (alpha < RGBA_LOWER_BOUND) || (alpha > RGBA_UPPER_BOUND))
-		throw(InvalidAttributeValueException("background"));
+    
+    if ( !validRGBA(red, green, blue, alpha) ) {
+        throw(InvalidAttributeValueException("background (RGBA)"));
+    }
 
 	vector<string> drawmodeOptions;
 	drawmodeOptions.push_back("fill");

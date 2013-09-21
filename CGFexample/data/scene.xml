@@ -29,21 +29,21 @@
   <lighting doublesided="true" local="false" enabled="true" ambient="1.0 1.0 1.0 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="ss" enabled="tt"
-        location="ff ff ff"
-        ambient="ff ff ff ff"
-        diffuse="ff ff ff ff"
-        specular="ff ff ff ff"
+    <omni id="1" enabled="true"
+        location="1.0 1.0 1.0"
+        ambient="1.0 1.0 1.0 1.0"
+        diffuse="1.0 1.0 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
             />
 
-    <spot id="ss" enabled="tt" 
-        location="ff ff ff" 
-        ambient="ff ff ff ff" 
-        diffuse="ff ff ff ff" 
-        specular="ff ff ff ff"
-        angle="ff" 
-        exponent="ff" 
-        direction="ff ff ff" 
+    <spot id="2" enabled="false" 
+        location="1.0 1.0 1.0" 
+        ambient="1.0 1.0 1.0 1.0" 
+        diffuse="1.0 1.0 1.0 1.0" 
+        specular="1.0 0.5 1.0 1.0"
+        angle="1.0" 
+        exponent="1.0" 
+        direction="1.0 1.0 1.0" 
             /> 
 
   </lighting>
@@ -62,14 +62,14 @@
       <!--   ver topico 'Notas finais' no enunciado sobre os -->
       <!--   parametros texlength_...) -->  
         <appearance id="ss" 
-      emissive="ff ff ff ff"
-      ambient="ff ff ff ff"
-      diffuse="ff ff ff ff"
-      specular="ff ff ff ff"
-      shininess="ff"
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
       textureref="ss"
-      texlength_s="ff"
-      texlength_t="ff">
+      texlength_s="1.0"
+      texlength_t="1.0">
     </appearance>
   </appearances>
 
@@ -84,9 +84,9 @@
         <!-- ex: bloco transforms pode ficar sem conteudo -->
         <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
         <!-- ex: bloco transforms pode ser R,S,T,S -->
-        <translate to="ff ff ff" />
-        <rotate axis="ee" angle="ff" />
-        <scale factor="ff ff ff" />
+        <translate to="1.0 1.0 1.0" />
+        <rotate axis="ee" angle="1.0" />
+        <scale factor="1.0 1.0 1.0" />
       </transforms>
 
       <!-- declaracao da aparencia a utilizar (pode ser omitida): -->
@@ -104,12 +104,12 @@
         <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
         <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
         <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
-        <rectangle xy1="ff ff" xy2="ff ff" />
-        <triangle xyz1="ff ff ff" xyz2="ff ff ff" xyz3="ff ff ff" />
-        <cylinder base="ff" top="ff" height="ff" slices="ii" stacks="ii" />
+        <rectangle xy1="1.0 1.0" xy2="1.0 1.0" />
+        <triangle xyz1="1.0 1.0 1.0" xyz2="1.0 1.0 1.0" xyz3="1.0 1.0 1.0" />
+        <cylinder base="1.0" top="1.0" height="1.0" slices="ii" stacks="ii" />
         <!-- deve ter topos -->
-        <sphere radius="ff" slices="ii" stacks="ii" />
-        <torus inner="ff" outer="ff" slices="ii" loops="ii" />
+        <sphere radius="1.0" slices="ii" stacks="ii" />
+        <torus inner="1.0" outer="1.0" slices="ii" loops="ii" />
 
         <!-- Referencia a outros elementos do grafo -->
         <!-- (repetir o nº de vezes necessario) -->

@@ -19,6 +19,11 @@ using namespace std;
 
 class YAFElement {
 public:
+    static bool validRGBA(float r, float g, float b, float a);
+    static bool validXYZ(float x, float y, float z);
+    static bool validAngle(float angle);
+    static bool validMinMax(float min, float max);
+
 	virtual void validate() = 0;
 };
 

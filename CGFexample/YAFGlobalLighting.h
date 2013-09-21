@@ -1,9 +1,9 @@
-#ifndef YAFGLOBALLIGHT_H
+#ifndef YAFGLOBALLIGHTING_H
 #define YAFGLOBALLIGHT_H
 
 #include "YAFElement.h"
 
-class YAFGlobalLight: public YAFElement {
+class YAFGlobalLighting: public YAFElement {
 public:
 	bool doublesided;
 	bool local;
@@ -13,7 +13,8 @@ public:
 	float ambientB;
 	float ambientA;
     
-	YAFGlobalLight(vector<bool> ligthingProperties, vector<float> ambientRGBA);
+    YAFGlobalLighting();
+	YAFGlobalLighting(vector<bool> ligthingAttributes, vector<float> ambientRGBA);
     void validate();
 };
 

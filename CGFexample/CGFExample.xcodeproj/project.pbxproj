@@ -26,7 +26,7 @@
 		EB579F9317ED9AA30029A228 /* YAFTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB579F8717ED9AA30029A228 /* YAFTexture.cpp */; };
 		EB579F9417ED9AA30029A228 /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB579F8817ED9AA30029A228 /* DemoScene.cpp */; };
 		EB579F9517ED9AA30029A228 /* ExampleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB579F8A17ED9AA30029A228 /* ExampleObject.cpp */; };
-		EB579F9817EDA66E0029A228 /* YAFGlobalLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB579F9617EDA66E0029A228 /* YAFGlobalLight.cpp */; };
+		EB579F9817EDA66E0029A228 /* YAFGlobalLighting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB579F9617EDA66E0029A228 /* YAFGlobalLighting.cpp */; };
 		EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB81812917E712E5008DF2EB /* scene.xml */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
@@ -95,8 +95,8 @@
 		EB579F8917ED9AA30029A228 /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoScene.h; path = src/DemoScene.h; sourceTree = SOURCE_ROOT; };
 		EB579F8A17ED9AA30029A228 /* ExampleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExampleObject.cpp; path = src/ExampleObject.cpp; sourceTree = SOURCE_ROOT; };
 		EB579F8B17ED9AA30029A228 /* ExampleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleObject.h; path = src/ExampleObject.h; sourceTree = SOURCE_ROOT; };
-		EB579F9617EDA66E0029A228 /* YAFGlobalLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YAFGlobalLight.cpp; sourceTree = SOURCE_ROOT; };
-		EB579F9717EDA66E0029A228 /* YAFGlobalLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAFGlobalLight.h; sourceTree = SOURCE_ROOT; };
+		EB579F9617EDA66E0029A228 /* YAFGlobalLighting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YAFGlobalLighting.cpp; sourceTree = SOURCE_ROOT; };
+		EB579F9717EDA66E0029A228 /* YAFGlobalLighting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAFGlobalLighting.h; sourceTree = SOURCE_ROOT; };
 		EB81812917E712E5008DF2EB /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		EB873CB017E61F4F00181AB4 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		EB873CB217E61F4F00181AB4 /* annotated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = annotated.html; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 			children = (
 				EB579F8517ED9AA30029A228 /* YAFAppearance.cpp */,
 				EB579F7917ED9AA30029A228 /* YAFAppearance.h */,
-				EB579F9617EDA66E0029A228 /* YAFGlobalLight.cpp */,
-				EB579F9717EDA66E0029A228 /* YAFGlobalLight.h */,
+				EB579F9617EDA66E0029A228 /* YAFGlobalLighting.cpp */,
+				EB579F9717EDA66E0029A228 /* YAFGlobalLighting.h */,
 				EB579F8617ED9AA30029A228 /* YAFLight.cpp */,
 				EB579F7E17ED9AA30029A228 /* YAFLight.h */,
 				EB579F7A17ED9AA30029A228 /* YAFCamera.cpp */,
@@ -499,7 +499,7 @@
 				EB579F9317ED9AA30029A228 /* YAFTexture.cpp in Sources */,
 				EB579F9417ED9AA30029A228 /* DemoScene.cpp in Sources */,
 				EB579F9517ED9AA30029A228 /* ExampleObject.cpp in Sources */,
-				EB579F9817EDA66E0029A228 /* YAFGlobalLight.cpp in Sources */,
+				EB579F9817EDA66E0029A228 /* YAFGlobalLighting.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,7 +38,7 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			printf("Processing globals:\n");
+			printf("Processing globals... ");
 
 			vector<float> rgba = getValues<float>(globalsElement, (char*) "background");
 
@@ -49,6 +49,8 @@ YAFReader::YAFReader(char *filename) {
 			vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
 
             globals = YAFGlobal(rgba, backgroundAttributes);
+            
+            printf("Globals OK!\n");
 		}
 
 		// -------------- CAMERAS -----------------------------------------
@@ -59,40 +61,29 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			printf("Processing cameras:\n");
+			printf("Processing cameras... ");
 
 			YAFCamera::initialCameraID = getValue<string>(camerasElement, (char*) "initial");
 
-			TiXmlElement* currentElement = camerasElement->FirstChildElement();
-			if(currentElement == NULL) {
+			TiXmlElement* currentCamera = camerasElement->FirstChildElement();
+			if(currentCamera == NULL) {
 				printf("No cameras found!\n");
 				exit(1);
 			}
 
-			while (currentElement) {
+			while (currentCamera) {
 
-				if ( strcmp(currentElement->Value(), "perspective") == 0 )
+				if ( strcmp(currentCamera->Value(), "perspective") == 0 )
 				{
-					// TODO store value
-					string id = getValue<string>(currentElement, (char*) "id");
+					string id = getValue<string>(currentCamera, (char*) "id");
 
 					vector<string> nfa; // near, far, angle
 					nfa.push_back("near"); nfa.push_back("far"); nfa.push_back("angle");
-					vector<float> nfaValues = getValues<float>(currentElement, nfa);
+					vector<float> nfaValues = getValues<float>(currentCamera, nfa);
 
-					// TODO store values, remove print
-					for (unsigned int i = 0; i < nfaValues.size(); i++) {
-						printf("%s: %f\n", nfa.at(i).c_str(), nfaValues.at(i));
-					}
+					vector<float> position = getValues<float>(currentCamera, (char*)"pos");
 
-					// TODO store values
-					vector<float> position = getValues<float>(currentElement, (char*)"pos");
-
-					// TODO store values
-					vector<float> target = getValues<float>(currentElement, (char*)"target");
-					for (unsigned int i = 0; i < target.size(); i++) {
-						printf("target: %f\n", target.at(i));
-					}
+					vector<float> target = getValues<float>(currentCamera, (char*)"target");
 
 					YAFCamera perspective(id, nfaValues, position, target);
 					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, perspective)).second;
@@ -103,18 +94,16 @@ YAFReader::YAFReader(char *filename) {
 
 				}
 
-				if (  strcmp(currentElement->Value(), "ortho") == 0  )
+				if (  strcmp(currentCamera->Value(), "ortho") == 0  )
 				{
-					// TODO store value
-					string id = getValue<string>(currentElement, (char*)"id");
+					string id = getValue<string>(currentCamera, (char*)"id");
 
 					vector<string> orthoAttributes;
 					orthoAttributes.push_back("near"); orthoAttributes.push_back("far");
 					orthoAttributes.push_back("left"); orthoAttributes.push_back("right");
 					orthoAttributes.push_back("top"); orthoAttributes.push_back("bottom");
 
-					// TODO store values
-					vector<float> orthoValues = getValues<float>(currentElement, orthoAttributes);
+					vector<float> orthoValues = getValues<float>(currentCamera, orthoAttributes);
 
 					YAFCamera ortho(id, orthoValues);
 					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, ortho)).second;
@@ -124,9 +113,11 @@ YAFReader::YAFReader(char *filename) {
 					}
 				}
 
-				currentElement = currentElement->NextSiblingElement();
+				currentCamera = currentCamera->NextSiblingElement();
 
 			}
+            
+            printf("Cameras OK!\n");
 		}
 
 		// -------------- LIGHTS -----------------------------------------
@@ -137,7 +128,7 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			printf("Processing lights:\n");
+			printf("Processing lights... ");
 
 			vector<string> attributeNames;
 			attributeNames.push_back("doublesided");
@@ -145,65 +136,77 @@ YAFReader::YAFReader(char *filename) {
 
 			vector<bool> attributes = getValues<bool>(lightingElement, attributeNames);
 
-			// TODO store values, remove this print
-			for (unsigned int i = 0; i < attributes.size(); i++) {
-				cout << boolalpha << attributes.at(i) << endl;
-			}
-
 			vector<float> ambient = getValues<float>(lightingElement, (char*) "ambient");
+            
+            globalLighting = YAFGlobalLighting(attributes, ambient);
 
-			TiXmlElement* currentElement = lightingElement->FirstChildElement();
-			if(currentElement == NULL) {
+			TiXmlElement* currentLight = lightingElement->FirstChildElement();
+			if(currentLight == NULL) {
 				printf("No lights found!\n");
 				exit(1);
 			}
 
-			while (currentElement) {
+			while (currentLight) {
 
-				if ( strcmp(currentElement->Value(), "omni") == 0 )
+				if ( strcmp(currentLight->Value(), "omni") == 0 )
 				{
-					// TODO store value
-					string id = getValue<string>(currentElement, (char*) "id");
+					string id = getValue<string>(currentLight, (char*) "id");
 
-					bool enabled = getValue<bool>(currentElement, (char*)"enabled");
+					bool enabled = getValue<bool>(currentLight, (char*)"enabled");
 
-					vector<float> location = getValues<float>(currentElement, (char*)"location");
+					vector<float> location = getValues<float>(currentLight, (char*)"location");
 
 					// TODO 2 named ambient's, shouldnt this cause an error?
-					vector<float> ambient = getValues<float>(currentElement, (char*)"ambient");
+					vector<float> ambient = getValues<float>(currentLight, (char*)"ambient");
 
-					vector<float> diffuse = getValues<float>(currentElement, (char*)"diffuse");
+					vector<float> diffuse = getValues<float>(currentLight, (char*)"diffuse");
 
-					vector<float> specular = getValues<float>(currentElement, (char*)"specular");
+					vector<float> specular = getValues<float>(currentLight, (char*)"specular");
+                    
+                    YAFLight omni(id, enabled, location, ambient, diffuse, specular);
+					bool notRepeated = lights.insert(pair<string, YAFLight>(id, omni)).second;
+					if(!notRepeated) {
+						printf("Tried to insert a omni light with an already existing camera id. Terminating!\n");
+						exit(1);
+					}
 				}
 
-				if (  strcmp(currentElement->Value(), "spot") == 0  )
+				if (  strcmp(currentLight->Value(), "spot") == 0  )
 				{
-					// TODO store value
-					string id = getValue<string>(currentElement, (char*)"id");
+					string id = getValue<string>(currentLight, (char*)"id");
 
-					bool enabled = getValue<bool>(currentElement, (char*)"enabled");
+					bool enabled = getValue<bool>(currentLight, (char*)"enabled");
 
-					vector<float> location = getValues<float>(currentElement, (char*)"location");
+					vector<float> location = getValues<float>(currentLight, (char*)"location");
 
-					vector<float> ambient = getValues<float>(currentElement, (char*)"ambient");
+					vector<float> ambient = getValues<float>(currentLight, (char*)"ambient");
 
-					vector<float> diffuse = getValues<float>(currentElement, (char*)"diffuse");
+					vector<float> diffuse = getValues<float>(currentLight, (char*)"diffuse");
 
-					vector<float> specular = getValues<float>(currentElement, (char*)"specular");
+					vector<float> specular = getValues<float>(currentLight, (char*)"specular");
 
-					float angle = getValue<float>(currentElement, (char*)"angle");
+					float angle = getValue<float>(currentLight, (char*)"angle");
 
-					float exponent = getValue<float>(currentElement, (char*)"exponent");
+					float exponent = getValue<float>(currentLight, (char*)"exponent");
 
-					vector<float> direction = getValues<float>(currentElement, (char*)"direction");
+					vector<float> direction = getValues<float>(currentLight, (char*)"direction");
+                    
+                    YAFLight spot(id, enabled, location, ambient, diffuse, specular, angle, exponent, direction);
+                    
+					bool notRepeated = lights.insert(pair<string, YAFLight>(id, spot)).second;
+					if(!notRepeated) {
+						printf("Tried to insert a spot light with an already existing camera id. Terminating!\n");
+						exit(1);
+					}
 				}
 
-				currentElement = currentElement->NextSiblingElement();
+				currentLight = currentLight->NextSiblingElement();
 
 			}
+            
+            printf("Lights OK!\n");
 		}
-
+        
 		// -------------- TEXTURES -----------------------------------------
 
 		if (texturesElement == NULL) {

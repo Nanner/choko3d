@@ -11,7 +11,6 @@ public:
 	bool enabled;
 	bool isOmni;
 
-	//if omni light:
 	float locationX;
 	float locationY;
 	float locationZ;
@@ -28,14 +27,16 @@ public:
 	float specularB;
 	float specularA;
 
-	//if spot light:
+	//if spot light, more attributes:
 	float angle;
 	float exponent;
 	float directionX;
 	float directionY;
 	float directionZ;
 
-	YAFLight(string id, bool enabled, bool isOmni, vector<int> values);
+    YAFLight();
+	YAFLight(string id, bool enabled, vector<float> location, vector<float> ambient, vector<float> diffuse, vector<float> specular);
+    YAFLight(string id, bool enabled, vector<float> location, vector<float> ambient, vector<float> diffuse, vector<float> specular, float angle, float exponent, vector<float> direction);
 	void validate();
 };
 

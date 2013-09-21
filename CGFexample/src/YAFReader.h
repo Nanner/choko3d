@@ -5,6 +5,8 @@
 #include "CGFscene.h"
 #include "YAFGlobal.h"
 #include "YAFCamera.h"
+#include "YAFGlobalLighting.h"
+#include "YAFLight.h"
 #include <sstream>
 #include <iostream>
 #include <map>
@@ -21,7 +23,9 @@ public:
     template<class T> vector<T> getValues(TiXmlElement * element, char * attributeName);
 
 	YAFGlobal globals;
+    YAFGlobalLighting globalLighting;
 	map<string, YAFCamera> cameras;
+    map<string, YAFLight> lights;
 
     
 protected:
