@@ -1,12 +1,9 @@
-#ifndef CAMERABLOCK_H
-#define CAMERABLOCK_H
+#ifndef YAFCAMERA_H
+#define YAFCAMERA_H
 
 #include "YAFElement.h"
-#include "CameraChild.h"
 
-
-
-class Camera: public YAFElement {
+class YAFCamera: public YAFElement {
 public:
 	static string initialCameraID;
 
@@ -30,8 +27,8 @@ public:
 	float targetY;
 	float targetZ;
 
-	Camera(string id, vector<float> nfaValues, vector<float> position, vector<float> target);
-	Camera(string id, vector<float> values);
+	YAFCamera(string id, vector<float> nfaValues, vector<float> position, vector<float> target);
+	YAFCamera(string id, vector<float> values);
 	void validate();
 };
 

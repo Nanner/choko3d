@@ -31,9 +31,9 @@ public:
 		this->failedAttribute = failedAttribute;
 	}
 
-	string what() const {
+	string error() const {
 		string ret = "Invalid value for attribute '" + failedAttribute + "'!";
-		return ret.c_str();
+		return ret;
 	}
 };
 
@@ -46,9 +46,9 @@ public:
 		this->failedAttribute = failedAttribute;
 	}
 
-	string what() const {
+	string error() const {
 		string ret = "The attribute '" + failedAttribute + "' is empty!";
-		return ret.c_str();
+		return ret;
 	}
 };
 

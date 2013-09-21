@@ -1,11 +1,10 @@
-#ifndef APPEARANCEATTRIBUTES_H
-#define APPEARANCEATTRIBUTES_H
+#ifndef YAFAPPEARANCE_H
+#define YAFAPPEARANCE_H
 
 #include "YAFElement.h"
 
-class AppearanceAttributes: public YAFElement {
+class YAFAppearance: public YAFElement {
 private:
-	static vector<string> usedAppearanceIDs;
 
 public:
 	string id;
@@ -32,8 +31,8 @@ public:
 	float texlength_s;
 	float texlength_t;
 
-	AppearanceAttributes(string id, vector<float> values);
-	AppearanceAttributes(string id, vector<float> values, string textureID, float texlength_s, float texlength_t);
+	YAFAppearance(string id, vector<float> values);
+	YAFAppearance(string id, vector<float> values, string textureID, float texlength_s, float texlength_t);
 	void validate();
 };
 

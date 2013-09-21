@@ -1,8 +1,12 @@
-#include "Camera.h"
+#include "YAFCamera.h"
 
-Camera::Camera(string id, vector<float> nfaValues, vector<float> position, vector<float> target): isOrtho(false) {
+string YAFCamera::initialCameraID = "";
+
+YAFCamera::YAFCamera(string id, vector<float> nfaValues, vector<float> position, vector<float> target): isOrtho(false) {
 
 	this->id = id;
+    
+    if ( initialCameraID == "" ) initialCameraID = id;
 
 	near = nfaValues.at(0);
 	far = nfaValues.at(1);
@@ -20,7 +24,7 @@ Camera::Camera(string id, vector<float> nfaValues, vector<float> position, vecto
 
 }
 
-Camera::Camera(string id, vector<float> values): isOrtho(true) {
+YAFCamera::YAFCamera(string id, vector<float> values): isOrtho(true) {
 
 	this->id = id;
 
@@ -35,7 +39,7 @@ Camera::Camera(string id, vector<float> values): isOrtho(true) {
 
 }
 
-void Camera::validate() {
+void YAFCamera::validate() {
 
 	//TODO check the correct bounds for the defines
 	if(near < XYZ_MIN || far > XYZ_MAX)

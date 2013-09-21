@@ -2,8 +2,6 @@
 
 //TODO Check for missing blocks of info on the .yaf and terminate if such is found!
 
-string Camera::initialCameraID = "";
-
 YAFReader::YAFReader(char *filename) {
 	try {
 		// Read XML from file
@@ -44,28 +42,13 @@ YAFReader::YAFReader(char *filename) {
 
 			vector<float> rgba = getValues<float>(globalsElement, (char*) "background");
 
-			// TODO store rgba values, remove print
-			printf("  background values (RGBA): %f %f %f %f\n", rgba.at(0), rgba
-				.at(1), rgba.at(2), rgba.at(3));
-
 			vector<string> bgAttributeNames;
 			bgAttributeNames.push_back("drawmode"); bgAttributeNames.push_back("shading");
 			bgAttributeNames.push_back("cullface"); bgAttributeNames.push_back("cullorder");
 
 			vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
 
-			// TODO store background attributes, remove print
-			for (unsigned int i = 0; i < backgroundAttributes.size(); i++) {
-				printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
-			}
-
-			try {
-				yafGlobals = Global(rgba, backgroundAttributes);
-			}
-			catch (InvalidAttributeValueException &ive) {
-				cout << ive.what() << endl;
-				exit(1);
-			}	
+            globals = YAFGlobal(rgba, backgroundAttributes);
 		}
 
 		// -------------- CAMERAS -----------------------------------------
@@ -78,7 +61,7 @@ YAFReader::YAFReader(char *filename) {
 		{
 			printf("Processing cameras:\n");
 
-			Camera::initialCameraID = getValue<string>(camerasElement, (char*) "initial");
+			YAFCamera::initialCameraID = getValue<string>(camerasElement, (char*) "initial");
 
 			TiXmlElement* currentElement = camerasElement->FirstChildElement();
 			if(currentElement == NULL) {
@@ -111,8 +94,8 @@ YAFReader::YAFReader(char *filename) {
 						printf("target: %f\n", target.at(i));
 					}
 
-					Camera perspectiveCamera(id, nfaValues, position, target);
-					bool notRepeated = yafCameras.insert(pair<string, Camera>(perspectiveCamera.id, perspectiveCamera)).second;
+					YAFCamera perspective(id, nfaValues, position, target);
+					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, perspective)).second;
 					if(!notRepeated) {
 						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
 						exit(1);
@@ -133,8 +116,8 @@ YAFReader::YAFReader(char *filename) {
 					// TODO store values
 					vector<float> orthoValues = getValues<float>(currentElement, orthoAttributes);
 
-					Camera orthoCamera(id, orthoValues);
-					bool notRepeated = yafCameras.insert(pair<string, Camera>(orthoCamera.id, orthoCamera)).second;
+					YAFCamera ortho(id, orthoValues);
+					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, ortho)).second;
 					if(!notRepeated) {
 						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
 						exit(1);
@@ -414,11 +397,11 @@ YAFReader::YAFReader(char *filename) {
 
 	}
 	catch (InvalidAttributeValueException &iave) {
-		cout << endl << iave.what() << endl << endl << "Terminating parser." << endl;
+		cout << endl << iave.error() << endl << endl << "Terminating parser." << endl;
 		exit(1);
 	}
 	catch (EmptyAttributeException &eae) {
-		cout << endl << eae.what() << endl << endl << "Terminating parser." << endl;
+		cout << endl << eae.error() << endl << endl << "Terminating parser." << endl;
 		exit(1);
 	}
 

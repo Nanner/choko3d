@@ -3,8 +3,8 @@
 
 #include "tinyxml.h"
 #include "CGFscene.h"
-#include "Global.h"
-#include "Camera.h"
+#include "YAFGlobal.h"
+#include "YAFCamera.h"
 #include <sstream>
 #include <iostream>
 #include <map>
@@ -20,8 +20,8 @@ public:
     template<class T> T getValue(TiXmlElement * element, char * attributeName);
     template<class T> vector<T> getValues(TiXmlElement * element, char * attributeName);
 
-	Global yafGlobals;
-	map<string, Camera> yafCameras;
+	YAFGlobal globals;
+	map<string, YAFCamera> cameras;
 
     
 protected:

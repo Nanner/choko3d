@@ -1,9 +1,9 @@
-#ifndef GLOBALATTRIBUTES_H
-#define GLOBALATTRIBUTES_H
+#ifndef YAFGLOBAL_H
+#define YAFGLOBAL_H
 
 #include "YAFElement.h"
 
-class Global: public YAFElement {
+class YAFGlobal: public YAFElement {
 public:
 	float red;
 	float green;
@@ -15,8 +15,8 @@ public:
 	string cullface;
 	string cullorder;
 
-	Global(){}
-	Global(vector<float> rgbaValues, vector<string> backgroundAttributes);
+	YAFGlobal(){}
+	YAFGlobal(vector<float> rgbaValues, vector<string> backgroundAttributes);
 	void validate();
 };
 
