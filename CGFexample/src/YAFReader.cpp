@@ -166,7 +166,7 @@ YAFReader::YAFReader(char *filename) {
                     YAFLight omni(id, enabled, location, ambient, diffuse, specular);
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, omni)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a omni light with an already existing camera id. Terminating!\n");
+						printf("Tried to insert a omni light with an already existing light id. Terminating!\n");
 						exit(1);
 					}
 				}
@@ -195,7 +195,7 @@ YAFReader::YAFReader(char *filename) {
                     
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, spot)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a spot light with an already existing camera id. Terminating!\n");
+						printf("Tried to insert a spot light with an already existing light id. Terminating!\n");
 						exit(1);
 					}
 				}
@@ -215,7 +215,7 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			printf("Processing textures:\n");
+			printf("Processing textures... ");
 
 			TiXmlElement* textureElement = texturesElement->FirstChildElement("texture");
 
@@ -224,9 +224,18 @@ YAFReader::YAFReader(char *filename) {
 				string id = getValue<string>(textureElement, (char*)"id");
 				string file = getValue<string>(textureElement, (char*)"file");
 
+				YAFTexture texture(id, file);
+
+				bool notRepeated = textures.insert(pair<string, YAFTexture>(id, texture)).second;
+				if(!notRepeated) {
+					printf("Tried to insert a texture with an already existing texture id. Terminating!\n");
+					exit(1);
+				}
+
 				textureElement = textureElement->NextSiblingElement();
 			}
 
+			printf("Textures OK!\n");
 		}
 
 
@@ -238,7 +247,7 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			printf("Processing appearances:\n");
+			printf("Processing appearances... ");
 
 			TiXmlElement* appearanceElement = appearancesElement->FirstChildElement("appearance");
 			if(appearanceElement == NULL) {
@@ -266,12 +275,30 @@ YAFReader::YAFReader(char *filename) {
 					float texlength_s = getValue<float>(appearanceElement, (char*) "texlength_s");
 
 					float texlength_t = getValue<float>(appearanceElement, (char*) "texlength_t");
+
+					YAFAppearance apperance(id, emissive, ambient, diffuse, specular, shininess, textureref, texlength_s, texlength_t, textures);
+
+					bool notRepeated = appearances.insert(pair<string, YAFAppearance>(id, apperance)).second;
+					if(!notRepeated) {
+						printf("Tried to insert an appearance with an already existing appearance id. Terminating!\n");
+						exit(1);
+					}
 				}
-				catch (EmptyAttributeException &eae) {}
+				catch (EmptyAttributeException &eae) {
+					YAFAppearance apperance(id, emissive, ambient, diffuse, specular, shininess);
+
+					bool notRepeated = appearances.insert(pair<string, YAFAppearance>(id, apperance)).second;
+					if(!notRepeated) {
+						printf("Tried to insert an appearance with an already existing appearance id. Terminating!\n");
+						exit(1);
+					}
+				}
+
 
 				appearanceElement = appearanceElement->NextSiblingElement();
 			}
 
+			printf("Appearances OK!\n");
 		}
 
 

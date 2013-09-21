@@ -2,6 +2,8 @@
 #define YAFAPPEARANCE_H
 
 #include "YAFElement.h"
+#include "YAFTexture.h"
+#include <map>
 
 class YAFAppearance: public YAFElement {
 private:
@@ -27,13 +29,17 @@ public:
 	float shininess;
 
 	bool usesTexture;
-	string textureID; //textureref?
+	string textureID;
 	float texlength_s;
 	float texlength_t;
 
-	YAFAppearance(string id, vector<float> values);
-	YAFAppearance(string id, vector<float> values, string textureID, float texlength_s, float texlength_t);
+	YAFAppearance(string id, vector<float> emissiveValues, vector<float> ambientValues, vector<float> diffuseValues, vector<float> specularValues, float shininess);
+	YAFAppearance(string id, vector<float> emissiveValues, vector<float> ambientValues, vector<float> diffuseValues, vector<float> specularValues, float shininess, string textureID, float texlength_s, float texlength_t, map<string, YAFTexture> loadedTextures);
+
+private:
+	void initiateValues(string id, vector<float> emissiveValues, vector<float> ambientValues, vector<float> diffuseValues, vector<float> specularValues, float shininess);
 	void validate();
+	void validate(string textureID, map<string, YAFTexture> loadedTextures);
 };
 
 #endif

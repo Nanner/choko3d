@@ -7,6 +7,8 @@
 #include "YAFCamera.h"
 #include "YAFGlobalLighting.h"
 #include "YAFLight.h"
+#include "YAFTexture.h"
+#include "YAFAppearance.h"
 #include <sstream>
 #include <iostream>
 #include <map>
@@ -26,6 +28,8 @@ public:
     YAFGlobalLighting globalLighting;
 	map<string, YAFCamera> cameras;
     map<string, YAFLight> lights;
+	map<string, YAFTexture> textures;
+	map<string, YAFAppearance> appearances;
 
     
 protected:
