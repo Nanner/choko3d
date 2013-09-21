@@ -2,6 +2,8 @@
 
 //TODO Check for missing blocks of info on the .yaf and terminate if such is found!
 
+string Camera::initialCameraID = "";
+
 YAFReader::YAFReader(char *filename) {
 	try {
 		// Read XML from file
@@ -53,12 +55,12 @@ YAFReader::YAFReader(char *filename) {
 			vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
 
 			// TODO store background attributes, remove print
-			for (int i = 0; i < backgroundAttributes.size(); i++) {
+			for (unsigned int i = 0; i < backgroundAttributes.size(); i++) {
 				printf("%s: %s \n", bgAttributeNames.at(i).c_str(), backgroundAttributes.at(i).c_str());
 			}
 
 			try {
-				GlobalAttributes globalsBlock(rgba, backgroundAttributes);
+				yafGlobals = Global(rgba, backgroundAttributes);
 			}
 			catch (InvalidAttributeValueException &ive) {
 				cout << ive.what() << endl;
@@ -76,7 +78,7 @@ YAFReader::YAFReader(char *filename) {
 		{
 			printf("Processing cameras:\n");
 
-			string initial = getValue<string>(camerasElement, (char*) "initial");
+			Camera::initialCameraID = getValue<string>(camerasElement, (char*) "initial");
 
 			TiXmlElement* currentElement = camerasElement->FirstChildElement();
 			if(currentElement == NULL) {
@@ -96,7 +98,7 @@ YAFReader::YAFReader(char *filename) {
 					vector<float> nfaValues = getValues<float>(currentElement, nfa);
 
 					// TODO store values, remove print
-					for (int i = 0; i < nfaValues.size(); i++) {
+					for (unsigned int i = 0; i < nfaValues.size(); i++) {
 						printf("%s: %f\n", nfa.at(i).c_str(), nfaValues.at(i));
 					}
 
@@ -105,8 +107,15 @@ YAFReader::YAFReader(char *filename) {
 
 					// TODO store values
 					vector<float> target = getValues<float>(currentElement, (char*)"target");
-					for (int i = 0; i < target.size(); i++) {
+					for (unsigned int i = 0; i < target.size(); i++) {
 						printf("target: %f\n", target.at(i));
+					}
+
+					Camera perspectiveCamera(id, nfaValues, position, target);
+					bool notRepeated = yafCameras.insert(pair<string, Camera>(perspectiveCamera.id, perspectiveCamera)).second;
+					if(!notRepeated) {
+						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
+						exit(1);
 					}
 
 				}
@@ -123,6 +132,13 @@ YAFReader::YAFReader(char *filename) {
 
 					// TODO store values
 					vector<float> orthoValues = getValues<float>(currentElement, orthoAttributes);
+
+					Camera orthoCamera(id, orthoValues);
+					bool notRepeated = yafCameras.insert(pair<string, Camera>(orthoCamera.id, orthoCamera)).second;
+					if(!notRepeated) {
+						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
+						exit(1);
+					}
 				}
 
 				currentElement = currentElement->NextSiblingElement();
@@ -147,7 +163,7 @@ YAFReader::YAFReader(char *filename) {
 			vector<bool> attributes = getValues<bool>(lightingElement, attributeNames);
 
 			// TODO store values, remove this print
-			for (int i = 0; i < attributes.size(); i++) {
+			for (unsigned int i = 0; i < attributes.size(); i++) {
 				cout << boolalpha << attributes.at(i) << endl;
 			}
 

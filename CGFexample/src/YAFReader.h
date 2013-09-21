@@ -3,9 +3,11 @@
 
 #include "tinyxml.h"
 #include "CGFscene.h"
-#include "GlobalAttributes.h"
+#include "Global.h"
+#include "Camera.h"
 #include <sstream>
 #include <iostream>
+#include <map>
 
 class YAFReader : public CGFscene 
 {
@@ -17,6 +19,9 @@ public:
     template<class T> vector<T> getValues(TiXmlElement * element, vector<string> attributeNames);
     template<class T> T getValue(TiXmlElement * element, char * attributeName);
     template<class T> vector<T> getValues(TiXmlElement * element, char * attributeName);
+
+	Global yafGlobals;
+	map<string, Camera> yafCameras;
 
     
 protected:

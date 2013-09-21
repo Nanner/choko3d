@@ -1,6 +1,6 @@
-#include "GlobalAttributes.h"
+#include "Global.h"
 
-GlobalAttributes::GlobalAttributes( vector<float> rgbaValues, vector<string> backgroundAttributes )
+Global::Global( vector<float> rgbaValues, vector<string> backgroundAttributes )
 {
 	red = rgbaValues.at(0);
 	green = rgbaValues.at(1);
@@ -21,7 +21,7 @@ GlobalAttributes::GlobalAttributes( vector<float> rgbaValues, vector<string> bac
 
 }
 
-void GlobalAttributes::validate() {
+void Global::validate() {
 
 	if((red < RGBA_LOWER_BOUND) || (red > RGBA_UPPER_BOUND)
 		|| (green < RGBA_LOWER_BOUND) || (green > RGBA_UPPER_BOUND)

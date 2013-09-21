@@ -1,9 +1,9 @@
 #ifndef LIGHTINGBLOCK_H
 #define LIGHTINGBLOCK_H
 
-#include "InfoBlock.h"
+#include "YAFElement.h"
 
-class LightAttributes: public InfoBlock {
+class LightAttributes: public YAFElement {
 private:
 	static vector<string> usedLightIDs;
 
@@ -40,7 +40,7 @@ public:
 	void validate();
 };
 
-class LightingBlock: public InfoBlock {
+class LightingBlock: public YAFElement {
 public:
 	bool doublesided;
 	bool local;

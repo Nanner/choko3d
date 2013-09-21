@@ -1,9 +1,9 @@
 #ifndef GLOBALATTRIBUTES_H
 #define GLOBALATTRIBUTES_H
 
-#include "InfoBlock.h"
+#include "YAFElement.h"
 
-class GlobalAttributes: public InfoBlock {
+class Global: public YAFElement {
 public:
 	float red;
 	float green;
@@ -15,7 +15,8 @@ public:
 	string cullface;
 	string cullorder;
 
-	GlobalAttributes(vector<float> rgbaValues, vector<string> backgroundAttributes); //that string vector might be changed
+	Global(){}
+	Global(vector<float> rgbaValues, vector<string> backgroundAttributes);
 	void validate();
 };
 

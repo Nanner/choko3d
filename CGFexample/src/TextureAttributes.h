@@ -1,9 +1,9 @@
 #ifndef TEXTUREATTRIBUTES_H
 #define TEXTUREATTRIBUTES_H
 
-#include "InfoBlock.h"
+#include "YAFElement.h"
 
-class TextureAttributes: public InfoBlock {
+class TextureAttributes: public YAFElement {
 private:
 	static vector<string> usedTextureIDs;
 

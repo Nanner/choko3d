@@ -1,9 +1,9 @@
 #ifndef APPEARANCEATTRIBUTES_H
 #define APPEARANCEATTRIBUTES_H
 
-#include "InfoBlock.h"
+#include "YAFElement.h"
 
-class AppearanceAttributes: public InfoBlock {
+class AppearanceAttributes: public YAFElement {
 private:
 	static vector<string> usedAppearanceIDs;
 
