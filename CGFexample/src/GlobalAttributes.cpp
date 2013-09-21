@@ -13,7 +13,6 @@ GlobalAttributes::GlobalAttributes( vector<float> rgbaValues, vector<string> bac
 	cullorder = backgroundAttributes.at(3);
 
 	try {
-        
 		validate();
 	}
 	catch (InvalidAttributeValueException &ive) {

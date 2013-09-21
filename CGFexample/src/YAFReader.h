@@ -40,8 +40,8 @@ vector<T> YAFReader::getValues(TiXmlElement * element, char * attributeName) {
     char* valString = NULL;
     valString = (char *) element->Attribute(attributeName);
     
-    // TODO throw exception?
-    if (valString == NULL ) return values;
+    if (valString == NULL || (strcmp(valString, "") == 0))
+		throw(EmptyAttributeException(attributeName));
     
     stringstream ss (valString);
     ss << boolalpha;
@@ -50,8 +50,7 @@ vector<T> YAFReader::getValues(TiXmlElement * element, char * attributeName) {
         if ( ss >> value )
             values.push_back(value);
         else {
-            // TODO error handling
-            printf("something went wrong parsing %s!!\n", attributeName);
+            throw(InvalidAttributeValueException(attributeName));
             break;
         }
     }
@@ -62,6 +61,7 @@ vector<T> YAFReader::getValues(TiXmlElement * element, char * attributeName) {
 template<class T>
 T YAFReader::getValue(TiXmlElement * element, char * attributeName) {
     T value;
+
     vector<T> values = getValues<T>(element, attributeName);
     if (values.size() > 0 )
         return values.at(0);

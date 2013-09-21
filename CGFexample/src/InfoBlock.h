@@ -26,7 +26,22 @@ public:
 	}
 
 	string what() const {
-		string ret = "Invalid value for attribute " + failedAttribute + "!";
+		string ret = "Invalid value for attribute '" + failedAttribute + "'!";
+		return ret.c_str();
+	}
+};
+
+class EmptyAttributeException {
+private:
+	string failedAttribute;
+
+public:
+	EmptyAttributeException(string failedAttribute) {
+		this->failedAttribute = failedAttribute;
+	}
+
+	string what() const {
+		string ret = "The attribute '" + failedAttribute + "' is empty!";
 		return ret.c_str();
 	}
 };
