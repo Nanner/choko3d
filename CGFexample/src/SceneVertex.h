@@ -1,12 +1,12 @@
 #ifndef _SCENEVERTEX_H
 #define _SCENEVERTEX_H
 
+#include "SceneEdge.h"
 #include <vector>
 
 using namespace std;
 
 class SceneGraph;
-class SceneEdge;
 
 class SceneVertex {
 	vector<SceneEdge> adj;
@@ -21,14 +21,13 @@ public:
 
 	bool operator<(const SceneVertex vertex);
 
-	vector<SceneEdge> getEdges() ;
+	vector<SceneVertex*> getEdges();
+	virtual void render() {}
 };
 
 class SceneComposite: public SceneVertex {
-
-};
-
-class ScenePrimitive: public SceneVertex {
+public:
+	//TODO decide how to do transforms and appearances
 
 };
 

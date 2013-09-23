@@ -9,9 +9,8 @@ class SceneVertex;
 
 class SceneEdge {
 	SceneVertex *dest;
-	double weight;
 public:
-	SceneEdge(SceneVertex *d, double w): dest(d), weight(w){}
+	SceneEdge(SceneVertex *d): dest(d){}
 	friend class SceneGraph;
 	friend class SceneVertex;
 };

@@ -1,6 +1,7 @@
 #ifndef _SCENEGRAPH_H
 #define _SCENEGRAPH_H
 
+#include "CGFobject.h"
 #include "SceneVertex.h"
 #include "SceneEdge.h"
 #include <vector>

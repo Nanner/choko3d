@@ -47,8 +47,12 @@ void SceneGraph::dfsVisit() {
 		(*it)->visited=false;
 	it=vertexSet.begin();
 	for (; it !=ite; it++)
-		if ( (*it)->visited==false )
+		if ( (*it)->visited==false ) {
+			glPushMatrix();
+			(*it)->render();
 			dfsVisit(*it);
+			glPopMatrix();
+		}
 }
 
 void SceneGraph::dfsVisit(SceneVertex *v) {
@@ -57,7 +61,10 @@ void SceneGraph::dfsVisit(SceneVertex *v) {
 	vector<SceneEdge>::iterator ite= (v->adj).end();
 	for (; it !=ite; it++) {
 		if ( it->dest->visited == false ){
+			glPushMatrix();
+			it->dest->render();
 			dfsVisit(it->dest);
+			glPopMatrix();
 		}
 	}
 }
