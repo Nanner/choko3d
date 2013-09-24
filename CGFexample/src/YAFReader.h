@@ -9,7 +9,9 @@
 #include "YAFLight.h"
 #include "YAFTexture.h"
 #include "YAFAppearance.h"
+#include "YAFNode.h"
 #include "Transformation.h"
+#include "ScenePrimitive.h"
 
 #include <sstream>
 #include <iostream>
@@ -32,6 +34,7 @@ public:
     map<string, YAFLight> lights;
 	map<string, YAFTexture> textures;
 	map<string, YAFAppearance> appearances;
+    map<string, YAFNode> nodes;
 
     
 protected:

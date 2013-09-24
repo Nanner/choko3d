@@ -309,14 +309,17 @@ YAFReader::YAFReader(char *filename) {
 		}
 		else
 		{
-			// TODO store rootid
 			string rootid = getValue<string>(graphElement, (char*)"rootid");
-
+            
+            YAFNode::rootID = rootid;
+            
 			TiXmlElement *node = graphElement->FirstChildElement();
 
 			while (node)
 			{
-				printf("Node id '%s' - Descendants:\n",node->Attribute("id"));
+				string nodeID = node->Attribute("id");
+                
+                YAFNode yafNode(nodeID);
 
 				TiXmlElement * transforms = node->FirstChildElement("transforms");
 
@@ -355,8 +358,7 @@ YAFReader::YAFReader(char *filename) {
 					currentTransform = currentTransform->NextSiblingElement();
 				}
                 
-                // TODO store this matrix in the node
-                float * matrix = Transformation::calculateMatrix(t);
+                yafNode.setTransformations(t);
                 
                 for (int i = 0; i < t.size(); i++) {
                     // clean up pointers
@@ -368,13 +370,21 @@ YAFReader::YAFReader(char *filename) {
 				if (appearanceref) {
 					// TODO store appearance
 					string appearanceID = getValue<string>(appearanceref, (char*)"id");
+                    try {
+                        YAFAppearance appearance = appearances.at(appearanceID);
+                        yafNode.setAppearanceID(appearanceID);
+                    } catch (exception &e) {
+                        printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());
+                        exit(1);
+                    }
+                    
 				}
 
 				TiXmlElement * children = node->FirstChildElement("children");
 
 				if (children == NULL) {
-					// TODO better error handling
 					printf("obligatory children block doesn't exist!");
+                    exit(1);
 				}
 
 				TiXmlElement * currentChild = children->FirstChildElement();
@@ -386,6 +396,7 @@ YAFReader::YAFReader(char *filename) {
 					if ( strcmp(currentChild->Value(), "noderef") == 0 ) {
 						nodeRefCounter++;
 						string id = getValue<string>(currentChild, (char*)"id");
+                        yafNode.addNodeReference(id);
 					} else {
 						// it is not a reference to a node
 						// it can only be a primitive now
@@ -393,49 +404,55 @@ YAFReader::YAFReader(char *filename) {
 					}
 
 					if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
-						// TODO store primitive
 						vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
 						vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
+                        yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
 					}
 
 					if ( strcmp(currentChild->Value(), "triangle") == 0 ) {
-						// TODO store primitive
 						vector<float> xyz1 = getValues<float>(currentChild, (char*)"xyz1");
 						vector<float> xyz2 = getValues<float>(currentChild, (char*)"xyz2");
 						vector<float> xyz3 = getValues<float>(currentChild, (char*)"xyz3");
+                        yafNode.addPrimitive( new Triangle(xyz1, xyz2, xyz3) );
 					}
 
 					if ( strcmp(currentChild->Value(), "cylinder") == 0 ) {
-						// TODO store primitive
 						float base = getValue<float>(currentChild, (char*)"base");
 						float top = getValue<float>(currentChild, (char*)"top");
 						float height = getValue<float>(currentChild, (char*)"height");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int stacks = getValue<int>(currentChild, (char*)"stacks");
+                        yafNode.addPrimitive( new Cylinder(base, top, height, slices, stacks));
 					}
 
 					if ( strcmp(currentChild->Value(), "sphere") == 0 ) {
-						// TODO store primitive
 						float radius = getValue<float>(currentChild, (char*)"radius");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int stacks = getValue<int>(currentChild, (char*)"stacks");
+                        yafNode.addPrimitive( new Sphere(radius, slices, stacks) );
 					}
 
 					if ( strcmp(currentChild->Value(), "torus") == 0 ) {
-						// TODO store primitive
 						float inner = getValue<float>(currentChild, (char*)"inner");
-						float outer = getValue<float>(currentChild, (char*)"outer");
+						float outter = getValue<float>(currentChild, (char*)"outer");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int loops = getValue<int>(currentChild, (char*)"loops");
+                        yafNode.addPrimitive( new Torus(inner, outter, slices, loops) );
 					}
 
 					currentChild = currentChild->NextSiblingElement();
 				}
 
 				if (primitiveCounter == 0 && nodeRefCounter == 0) {
-					// TODO better error handling
-					printf("There must be at least one primitive or one node reference for each child in the children block!");
+					printf("There must be at least one primitive or one node reference for each child in the children block! Terminating ...");
+                    exit(1);
 				}
+                
+                bool notRepeated = nodes.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
+                if (!notRepeated) {
+                    printf("Tried to insert a node with an already existing appearance id. Terminating!\n");
+                    exit(1);
+                }
 
 				node=node->NextSiblingElement();
 			}
