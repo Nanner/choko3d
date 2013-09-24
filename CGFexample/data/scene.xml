@@ -50,7 +50,7 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
-    <texture id="ss" file="ss" />
+    <texture id="1" file="scene.xml" />
   </textures>
 
   <!-- bloco de materiais; --> 
@@ -67,7 +67,7 @@
       diffuse="1.0 1.0 1.0 1.0"
       specular="1.0 1.0 1.0 1.0"
       shininess="1.0"
-      textureref="ss"
+      textureref="1"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
@@ -84,8 +84,8 @@
         <!-- ex: bloco transforms pode ficar sem conteudo -->
         <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
         <!-- ex: bloco transforms pode ser R,S,T,S -->
-        <translate to="1.0 1.0 1.0" />
-        <rotate axis="ee" angle="1.0" />
+        <translate to="4 3 2" />
+        <rotate axis="x" angle="30.0" />
         <scale factor="1.0 1.0 1.0" />
       </transforms>
 

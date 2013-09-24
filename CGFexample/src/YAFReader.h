@@ -9,6 +9,8 @@
 #include "YAFLight.h"
 #include "YAFTexture.h"
 #include "YAFAppearance.h"
+#include "Transformation.h"
+
 #include <sstream>
 #include <iostream>
 #include <map>
@@ -60,8 +62,9 @@ vector<T> YAFReader::getValues(TiXmlElement * element, char * attributeName) {
     ss << boolalpha;
     
     while ( !ss.eof() ) {
-        if ( ss >> value )
+        if ( ss >> value ) {
             values.push_back(value);
+        }
         else {
             throw(InvalidAttributeValueException(attributeName));
             break;

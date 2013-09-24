@@ -326,26 +326,42 @@ YAFReader::YAFReader(char *filename) {
 				}
 
 				TiXmlElement * currentTransform = transforms->FirstChildElement();
+                
+                vector<Transformation *> t;
 
 				while (currentTransform) {
+                    
 					if ( strcmp(currentTransform->Value(), "translate") == 0 ) {
-						// TODO store translation
 						vector<float> to = getValues<float>(currentTransform, (char*)"to");
+                        
+                        t.push_back(new Translation(to));
 					}
 
 					if ( strcmp(currentTransform->Value(), "rotate") == 0 ) {
 						// TODO store translation
-						char axis = getValue<char>(currentTransform, (char*)"axis");
+						string axis = getValue<string>(currentTransform, (char*)"axis");
 						float angle = getValue<float>(currentTransform, (char*)"angle");
-					}
+                                                
+                        t.push_back(new Rotation(axis, angle));
+                    }
 
 					if ( strcmp(currentTransform->Value(), "scale") == 0 ) {
 						// TODO store translation
 						vector<float> factor = getValues<float>(currentTransform, (char*)"factor");
+                                                
+                        t.push_back(new Scaling(factor));
 					}
 
 					currentTransform = currentTransform->NextSiblingElement();
 				}
+                
+                // TODO store this matrix in the node
+                float * matrix = Transformation::calculateMatrix(t);
+                
+                for (int i = 0; i < t.size(); i++) {
+                    // clean up pointers
+                    delete t.at(i);
+                }
 
 				TiXmlElement * appearanceref = node->FirstChildElement("appearanceref");
 
