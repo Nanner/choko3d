@@ -15,7 +15,7 @@
 #include <iostream>
 #include <map>
 
-class YAFReader : public CGFscene 
+class YAFReader
 {
 public:
     YAFReader(char *filename);

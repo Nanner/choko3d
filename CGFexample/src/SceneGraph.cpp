@@ -44,11 +44,15 @@ void SceneGraph::dfsVisit() {
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
-		(*it)->visited=false;
+		(*it)->nodeVisited=false;
 	it=vertexSet.begin();
 	for (; it !=ite; it++)
-		if ( (*it)->visited==false ) {
+		if ( (*it)->nodeVisited==false ) {
+			//glLoadIdentity();
 			glPushMatrix();
+			float* matrix = (*it)->getMatrix();
+			if(matrix != NULL)
+				glMultMatrixf(matrix);
 			(*it)->render();
 			dfsVisit(*it);
 			glPopMatrix();
@@ -56,15 +60,25 @@ void SceneGraph::dfsVisit() {
 }
 
 void SceneGraph::dfsVisit(SceneVertex *v) {
-	v->visited = true;
+	v->nodeVisited = true;
+	v->childVisited = true;
 	vector<SceneEdge>::iterator it= (v->adj).begin();
 	vector<SceneEdge>::iterator ite= (v->adj).end();
 	for (; it !=ite; it++) {
-		if ( it->dest->visited == false ){
+		if ( it->dest->childVisited == false ){
 			glPushMatrix();
+			float* matrix = it->dest->getMatrix();
+			if(matrix != NULL)
+				glMultMatrixf(matrix);
 			it->dest->render();
 			dfsVisit(it->dest);
 			glPopMatrix();
 		}
+	}
+
+	it = (v->adj).begin();
+	ite = (v->adj).end();
+	for (; it !=ite; it++) {
+		it->dest->childVisited = false;
 	}
 }

@@ -10,7 +10,12 @@ class SceneGraph;
 
 class SceneVertex {
 	vector<SceneEdge> adj;
-	bool visited;
+	bool childVisited;
+	bool nodeVisited;
+
+protected:
+	float* matrix;
+
 public:
 
 	SceneVertex();
@@ -22,13 +27,14 @@ public:
 	bool operator<(const SceneVertex vertex);
 
 	vector<SceneVertex*> getEdges();
+
+	float* getMatrix();
 	virtual void render() {}
 };
 
 class SceneComposite: public SceneVertex {
 public:
-	//TODO decide how to do transforms and appearances
-
+	SceneComposite(float* matrix);
 };
 
 

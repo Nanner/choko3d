@@ -67,8 +67,9 @@ void DemoScene::display()
 
 
 	// ---- BEGIN feature demos
+	sceneGraph->dfsVisit();
 
-	// Simple object
+/*	// Simple object
 	materialAppearance->apply();
 	obj->draw();
 
@@ -83,8 +84,7 @@ void DemoScene::display()
 	glTranslatef(0,4,0);
 	shader->bind();
 	obj->draw();
-	shader->unbind();
-
+	shader->unbind();*/
 
 	// ---- END feature demos
 

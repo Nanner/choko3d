@@ -2,6 +2,7 @@
 #include <iostream>
 
 Rectangle::Rectangle(float xy1[2], float xy2[2]) {
+	matrix = NULL;
 	this->xy1[0] = xy1[0];
 	this->xy1[1] = xy1[1];
 
@@ -10,6 +11,7 @@ Rectangle::Rectangle(float xy1[2], float xy2[2]) {
 }
 
 Rectangle::Rectangle(float x1, float y1, float x2, float y2) {
+	matrix = NULL;
 	xy1[0] = x1;
 	xy1[1] = y1;
 
