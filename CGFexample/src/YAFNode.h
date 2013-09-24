@@ -9,9 +9,20 @@ class YAFNode {
     
 public:
     string id;
-    vector<Transformation> transformations;
+    float * transformationMatrix;
     string appearanceID;
-    vector<ScenePrimitive> primitives;
+    vector<ScenePrimitive *> primitives;
+    vector<string> nodeReferences;
+    
+    static string rootID;
+    
+    YAFNode(string id);
+    void setTransformations(vector<Transformation *> transformations);
+    void setAppearanceID(string id);
+    void addPrimitive(ScenePrimitive * primitive);
+    void addNodeReference(string nodeID);
+    
+    ~YAFNode();
 };
 
 #endif

@@ -61,7 +61,7 @@
       <!--   opcionais se for usada uma textura. --> 
       <!--   ver topico 'Notas finais' no enunciado sobre os -->
       <!--   parametros texlength_...) -->  
-        <appearance id="ss" 
+        <appearance id="1" 
       emissive="1.0 1.0 1.0 1.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
@@ -93,7 +93,7 @@
       <!-- a) se declarada sobrepoe-se 'a aparencia do "pai" -->
       <!-- b) se omitida, o no' mantem (herda) a aparencia do "pai" -->
 
-      <appearanceref id="ss" />
+      <appearanceref id="1" />
 
       <!-- bloco "children" obrigatorio -->
       <children>
@@ -104,12 +104,12 @@
         <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
         <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
         <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
-        <rectangle xy1="1.0 1.0" xy2="1.0 1.0" />
+        <rectangle xy1="1.0 1.0" xy2="2.0 2.0" />
         <triangle xyz1="1.0 1.0 1.0" xyz2="1.0 1.0 1.0" xyz3="1.0 1.0 1.0" />
-        <cylinder base="1.0" top="1.0" height="1.0" slices="ii" stacks="ii" />
+        <cylinder base="1.0" top="1.0" height="1.0" slices="10" stacks="12" />
         <!-- deve ter topos -->
-        <sphere radius="1.0" slices="ii" stacks="ii" />
-        <torus inner="1.0" outer="1.0" slices="ii" loops="ii" />
+        <sphere radius="1.0" slices="10" stacks="10" />
+        <torus inner="1.0" outer="1.0" slices="10" loops="10" />
 
         <!-- Referencia a outros elementos do grafo -->
         <!-- (repetir o nº de vezes necessario) -->
