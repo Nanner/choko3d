@@ -2,7 +2,7 @@
 #define YAFNODE_H
 
 #include "YAFElement.h"
-#include "Primitive.h"
+#include "ScenePrimitive.h"
 #include "Transformation.h"
 
 class YAFNode {
@@ -11,7 +11,7 @@ public:
     string id;
     vector<Transformation> transformations;
     string appearanceID;
-    vector<Primitive> primitives;
+    vector<ScenePrimitive> primitives;
 };
 
 #endif
