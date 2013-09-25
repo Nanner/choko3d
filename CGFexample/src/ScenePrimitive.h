@@ -56,7 +56,7 @@ public:
 
 class Torus : public ScenePrimitive {
 public:
-    float inner, outter;
+    float inner, outer;
     int slices, loops;
     
     Torus(float inner, float outter, int slices, int loops);

@@ -87,6 +87,22 @@ int main(int argc, char* argv[]) {
 		Scaling* scale7 = new Scaling(scalingVal7);
 		vector<Transformation *> transf7; transf7.push_back(rot7); transf7.push_back(trans7); transf7.push_back(scale7);
 		float* matrix7 = Transformation::calculateMatrix(transf7);
+
+		vector<float> triPoint1; triPoint1.push_back(0.0); triPoint1.push_back(0.0); triPoint1.push_back(0.0);
+		vector<float> triPoint2; triPoint2.push_back(1.0); triPoint2.push_back(0.0); triPoint2.push_back(1.0);
+		vector<float> triPoint3; triPoint3.push_back(0.5); triPoint3.push_back(sqrt(3)/2); triPoint3.push_back(0.5);
+
+		/*Triangle* tri = new Triangle(triPoint1, triPoint2, triPoint3);
+		sceneGraph->addVertex(tri);
+
+		Cylinder* cyl = new Cylinder(3, 3, 3, 150, 3);
+		sceneGraph->addVertex(cyl);*/
+
+		/*Sphere* sphere = new Sphere(5, 100, 30);
+		sceneGraph->addVertex(sphere);*/
+
+		Torus* torus = new Torus(1, 2, 100, 40);
+		sceneGraph->addVertex(torus);
 		
 		SceneComposite* pseudoCube = new SceneComposite(matrix7);
 		sceneGraph->addVertex(pseudoCube);
