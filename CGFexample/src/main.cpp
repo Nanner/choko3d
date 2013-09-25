@@ -13,6 +13,7 @@
 #include "ScenePrimitive.h"
 #include "SceneVertex.h"
 #include "Transformation.h"
+#include <math.h>
 
 using std::cout;
 using std::exception;
