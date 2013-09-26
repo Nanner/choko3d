@@ -14,6 +14,7 @@ class SceneVertex {
 	vector<SceneEdge> adj;
 	bool childVisited;
 	bool nodeVisited;
+    CGFappearance * appearance;
 
 protected:
 	float* matrix;
@@ -33,6 +34,10 @@ public:
 	vector<SceneVertex*> getEdges();
 
 	float* getMatrix();
+    
+    CGFappearance * getAppearance();
+    void setAppearance(CGFappearance * appearance);
+    
 	virtual void render() {}
 };
 

@@ -4,6 +4,7 @@ string YAFNode::rootID = "";
 
 YAFNode::YAFNode(string id) {
     this->id = id;
+    this->appearanceID = "";
 }
 
 void YAFNode::setTransformations(vector<Transformation *> transformations) {
