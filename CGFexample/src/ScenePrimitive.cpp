@@ -23,6 +23,16 @@ void Rectangle::render() {
 	glRectf(xy1[0], xy1[1], xy2[0], xy2[1]);
 }
 
+bool Rectangle::operator==( const Rectangle &r2 ) const {
+	return (this->xy1[0] == r2.xy1[0]) && (this->xy1[1] == r2.xy1[1]) &&
+		(this->xy2[0] == r2.xy2[0]) && (this->xy2[1] == r2.xy2[1]);
+}
+
+bool Rectangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
+	const Rectangle* rect2 = dynamic_cast< const Rectangle* >( &p2 );
+	return rect2 != NULL && *this == *rect2;
+}
+
 
 Triangle::Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3) {
 	matrix = NULL;
@@ -39,6 +49,17 @@ void Triangle::render() {
 		glVertex3fv(xyz2);
 		glVertex3fv(xyz3);
 	glEnd();
+}
+
+bool Triangle::operator==( const Triangle &t2 ) const {
+	return (this->xyz1[0] == t2.xyz1[0]) && (this->xyz1[1] == t2.xyz1[1]) && (this->xyz1[2] == t2.xyz1[2]) &&
+		(this->xyz2[0] == t2.xyz2[0]) && (this->xyz2[1] == t2.xyz2[1]) && (this->xyz2[2] == t2.xyz2[2]) &&
+		(this->xyz3[0] == t2.xyz3[0]) && (this->xyz3[1] == t2.xyz3[1]) && (this->xyz3[2] == t2.xyz3[2]);
+}
+
+bool Triangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
+	const Triangle* triangle2 = dynamic_cast< const Triangle* >( &p2 );
+	return triangle2 != NULL && *this == *triangle2;
 }
 
 Cylinder::Cylinder(float base,
@@ -68,6 +89,15 @@ void Cylinder::render(){
 	glPopMatrix();
 }
 
+bool Cylinder::operator==( const Cylinder &c2 ) const {
+	return (this->base == c2.base) && (this->top == c2.top) && (this->height == c2.height) && (this->slices == c2.slices) && (this->stacks == c2.stacks);
+}
+
+bool Cylinder::isSamePrimitive( const ScenePrimitive &p2 ) const {
+	const Cylinder* cyl2 = dynamic_cast< const Cylinder* >( &p2 );
+	return cyl2 != NULL && *this == *cyl2;
+}
+
 
 Sphere::Sphere(float radius, int slices, int stacks) {
 	matrix = NULL;
@@ -80,16 +110,34 @@ void Sphere::render(){
 	glutSolidSphere(radius, slices, stacks);
 }
 
+bool Sphere::operator==( const Sphere &s2 ) const {
+	return (this->radius == s2.radius) && (this->slices == s2.slices) && (this->stacks == s2.stacks);
+}
 
-Torus::Torus(float inner, float outter, int slices, int loops) {
+bool Sphere::isSamePrimitive( const ScenePrimitive &p2 ) const {
+	const Sphere* sph2 = dynamic_cast< const Sphere* >( &p2 );
+	return sph2 != NULL && *this == *sph2;
+}
+
+
+Torus::Torus(float inner, float outer, int slices, int loops) {
 	matrix = NULL;
     this->inner = inner;
-    this->outer = outter;
+    this->outer = outer;
     this->slices = slices;
     this->loops = loops;
 }
 
 void Torus::render(){
 	glutSolidTorus(inner, outer, slices, loops);
+}
+
+bool Torus::operator==( const Torus &t2 ) const {
+	return (this->inner == t2.inner) && (this->outer == t2.outer) && (this->slices == t2.slices) && (this->loops == t2.loops);
+}
+
+bool Torus::isSamePrimitive( const ScenePrimitive &p2 ) const {
+	const Torus* tor2 = dynamic_cast< const Torus* >( &p2 );
+	return tor2 != NULL && *this == *tor2;
 }
 

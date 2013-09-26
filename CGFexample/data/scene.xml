@@ -74,19 +74,31 @@
   </appearances>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
-  <graph rootid="ss">
+  <graph rootid="randomness">
+    
+    <node id="randomness">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <noderef id="cube"/>
+        <noderef id="notCube" />
+      </children>
+    </node>
 
     <!-- tem de existir, pelo menos, um bloco "node" -->
-    <node id="ss">
+    <node id="cube">
       <!-- bloco "transforms" obrigatorio -->
       <transforms>
         <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
         <!-- ex: bloco transforms pode ficar sem conteudo -->
         <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
         <!-- ex: bloco transforms pode ser R,S,T,S -->
-        <translate to="4 3 2" />
-        <rotate axis="x" angle="30.0" />
-        <scale factor="1.0 1.0 1.0" />
+        <rotate axis="x" angle="45.0" />
+        <scale factor="5.0 5.0 5.0" />
+        <translate to="1 5 -10" />
       </transforms>
 
       <!-- declaracao da aparencia a utilizar (pode ser omitida): -->
@@ -104,21 +116,179 @@
         <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
         <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
         <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
-        <rectangle xy1="1.0 1.0" xy2="2.0 2.0" />
-        <triangle xyz1="1.0 1.0 1.0" xyz2="1.0 1.0 1.0" xyz3="1.0 1.0 1.0" />
-        <cylinder base="1.0" top="1.0" height="1.0" slices="10" stacks="12" />
-        <!-- deve ter topos -->
-        <sphere radius="1.0" slices="10" stacks="10" />
-        <torus inner="1.0" outer="1.0" slices="10" loops="10" />
+
 
         <!-- Referencia a outros elementos do grafo -->
         <!-- (repetir o nº de vezes necessario) -->
         <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
         <!--            é, a ordem pela qual os nós são declarados é irrelevante -->
 
-        <noderef id="ss" />
+        <noderef id="top" />
+        <noderef id="bottom" />
+        <noderef id="front" />
+        <noderef id="back" />
+        <noderef id="left" />
+        <noderef id="right" />
 
       </children>
     </node>
+  
+    <node id="top">
+      <transforms>
+		<rotate axis="x" angle="270.0" />
+        <translate to="0 0.5 0" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="bottom">
+      <transforms>
+		<rotate axis="x" angle="90.0" />
+        <translate to="0 -0.5 0" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="front">
+      <transforms>
+		<rotate axis="x" angle="0" />
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="back">
+      <transforms>
+        <rotate axis="y" angle="180.0" />
+        <translate to="0 0 -0.5" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="left">
+      <transforms>
+        <rotate axis="y" angle="270.0" />
+        <translate to="-0.5 0 0" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="right">
+      <transforms>
+        <rotate axis="y" angle="90.0" />
+        <translate to="0.5 0 0" />
+      </transforms>
+
+      <appearanceref id="1" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+    
+  <node id="notCube">
+    <transforms>
+      <rotate axis="y" angle="45" />
+      <scale factor="1.2 1.2 1.2" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <noderef id="thing1" />
+      <noderef id="thing2" />
+      <noderef id="thing3" />
+      <noderef id="thing4" />
+      <noderef id="thing5" />
+    </children>
+  </node>
+    
+  <node id="thing1">
+    <transforms>
+      <translate to="-2 0 0" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <sphere radius="1.3" slices="100" stacks="100" />
+    </children>
+  </node>
+    
+  <node id="thing2">
+    <transforms>
+      <translate to="2 0 0" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <sphere radius="1.3" slices="100" stacks="100" />
+    </children>
+  </node>
+    
+  <node id="thing3">
+    <transforms>
+      <rotate axis="x" angle="270" />
+      <translate to="0 -0.5 0" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <cylinder base="1" top="1" height="5.30" slices="100" stacks="100" />
+    </children>
+  </node>
+    
+  <node id="thing4">
+    <transforms>
+      <translate to="0 5.30 0" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <sphere radius="1.3" slices="100" stacks="100" />
+    </children>
+  </node>
+    
+  <node id="thing5">
+    <transforms>
+      <rotate axis="x" angle="90" />
+      <translate to="0 4.65 0" />
+    </transforms>
+  
+    <appearanceref id="1" />
+  
+    <children>
+      <torus inner="0.65" outer="0.8" slices="100" loops="100" />
+    </children>
+  </node>
+  
   </graph>
 </yaf>

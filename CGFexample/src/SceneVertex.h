@@ -17,6 +17,8 @@ protected:
 	float* matrix;
 
 public:
+	//ScenePrimitive IDs are empty
+	string id;
 
 	SceneVertex();
 	friend class SceneGraph;
@@ -34,7 +36,7 @@ public:
 
 class SceneComposite: public SceneVertex {
 public:
-	SceneComposite(float* matrix);
+	SceneComposite(float* matrix, string id);
 };
 
 

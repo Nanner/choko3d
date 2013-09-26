@@ -67,7 +67,7 @@ void DemoScene::display()
 
 
 	// ---- BEGIN feature demos
-	sceneGraph->dfsVisit();
+	sceneGraph->render();
 
 /*	// Simple object
 	materialAppearance->apply();
