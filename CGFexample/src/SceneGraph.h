@@ -11,11 +11,11 @@ using namespace std;
 
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
-	SceneVertex* rootVertex;
+	RootVertex* rootVertex;
 
 public:
 	SceneGraph(){}
-	SceneGraph(YAFReader yafFile);
+	SceneGraph(YAFReader* yafFile);
 	~SceneGraph();
 	bool addVertex(SceneVertex *in);
 	bool addEdge(SceneVertex *sourc, SceneVertex *dest);
@@ -25,9 +25,12 @@ public:
 	vector<SceneVertex * > getVertexSet() const;
 	unsigned long getNumVertex() const;
 
-	void processYAFNode(YAFNode yafNode, bool isRoot);
+	void processRootNode(YAFNode root, YAFReader* yafFile);
+	void processYAFNode(YAFNode yafNode);
 	void loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex);
 	void processYAFNodeReferences(YAFNode yafNode);
+
+	void configureScene();
 
 	void render(SceneVertex *v);
 	void render();

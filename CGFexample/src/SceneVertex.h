@@ -2,6 +2,8 @@
 #define _SCENEVERTEX_H
 
 #include "SceneEdge.h"
+#include "YAFGlobal.h"
+#include "CGFscene.h"
 #include <vector>
 
 using namespace std;
@@ -32,6 +34,15 @@ public:
 
 	float* getMatrix();
 	virtual void render() {}
+};
+
+class RootVertex: public SceneVertex {
+public:
+	YAFGlobal globals;
+
+	RootVertex(float* matrix, string id, YAFGlobal globals);
+
+	void setGlobals();
 };
 
 class SceneComposite: public SceneVertex {

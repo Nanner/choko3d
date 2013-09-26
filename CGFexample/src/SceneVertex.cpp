@@ -35,6 +35,51 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
+RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals) {
+	this->matrix = matrix;
+	this->id = id;
+	this->globals = globals;
+}
+
+void RootVertex::setGlobals() {
+	glClearColor(globals.red, globals.green, globals.blue, globals.alpha);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	string drawmode = globals.drawmode;
+	if(drawmode == "fill")
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	else if(drawmode == "line")
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else if(drawmode == "point")
+		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+
+	string shading = globals.shading;
+	if(shading == "gouraud")
+		glShadeModel(GL_SMOOTH);
+	else if(shading == "flat")
+		glShadeModel(GL_FLAT);
+
+	string cullface = globals.cullface;
+	if(cullface == "none")
+		glDisable(GL_CULL_FACE);
+	else {
+		glEnable(GL_CULL_FACE);
+		if(cullface == "back")
+			glCullFace(GL_BACK);
+		else if(cullface == "front")
+			glCullFace(GL_FRONT);
+		else if(cullface == "both")
+			glCullFace(GL_FRONT_AND_BACK);
+	}
+
+	string cullorder = globals.cullorder;
+	if(cullorder == "CCW")
+		glFrontFace(GL_CCW);
+	else if(cullorder == "CW")
+		glFrontFace(GL_CW);
+
+}
+
 SceneComposite::SceneComposite(float* matrix, string id) {
 	this->matrix = matrix;
 	this->id = id;

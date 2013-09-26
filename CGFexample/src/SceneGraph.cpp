@@ -1,21 +1,21 @@
 #include "SceneGraph.h"
 
-SceneGraph::SceneGraph(YAFReader yafFile) {
+SceneGraph::SceneGraph(YAFReader* yafFile) {
 
 	//Process the root node first
 	string rootID = YAFNode::rootID;
-	processYAFNode(yafFile.nodes.find(rootID)->second, true);
+	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
 
 	//Process the rest of the nodes
-	map<string, YAFNode>::iterator it = yafFile.nodes.begin();
-	for(; it != yafFile.nodes.end(); it++) {
+	map<string, YAFNode>::iterator it = yafFile->nodes.begin();
+	for(; it != yafFile->nodes.end(); it++) {
 		if(it->first != rootID)
-			processYAFNode(it->second, false);
+			processYAFNode(it->second);
 	}
 
 	//Process the links between nodes
-	it = yafFile.nodes.begin();
-	for(; it != yafFile.nodes.end(); it++) {
+	it = yafFile->nodes.begin();
+	for(; it != yafFile->nodes.end(); it++) {
 		processYAFNodeReferences(it->second);
 	}
 }
@@ -103,16 +103,20 @@ void SceneGraph::render(SceneVertex *v) {
 	}
 }
 
-void SceneGraph::processYAFNode(YAFNode yafNode, bool isRoot) {
+void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
+	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals);
+	rootVertex = newRoot;
+
+	addVertex(newRoot);
+
+	loadVertexPrimitives(root.primitives, newRoot);
+}
+
+void SceneGraph::processYAFNode(YAFNode yafNode) {
 	//TODO check that shady thing about repeated primitives
 
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
 	addVertex(newVertex);
-
-	//Check if root
-	if(isRoot) {
-		rootVertex = newVertex;
-	}
 
 	loadVertexPrimitives(yafNode.primitives, newVertex);
 }
@@ -147,4 +151,8 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 			}
 		}
 	}
+}
+
+void SceneGraph::configureScene() {
+	rootVertex->setGlobals();
 }

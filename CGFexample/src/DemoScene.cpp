@@ -10,6 +10,9 @@
 
 void DemoScene::init() 
 {
+	//Configure the different general scene attributes (background, cameras, lights, etc)
+	sceneGraph->configureScene();
+
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
 
