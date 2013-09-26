@@ -1,6 +1,6 @@
 #include "SceneVertex.h"
 
-SceneVertex::SceneVertex(/*put info here!*/): nodeVisited(false), childVisited(false) {}
+SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false) {}
 
 void SceneVertex::addEdge(SceneVertex *dest) {
 	SceneEdge edgeD(dest);
@@ -35,6 +35,7 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
-SceneComposite::SceneComposite(float* matrix) {
+SceneComposite::SceneComposite(float* matrix, string id) {
 	this->matrix = matrix;
+	this->id = id;
 }

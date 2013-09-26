@@ -1,5 +1,25 @@
 #include "SceneGraph.h"
 
+SceneGraph::SceneGraph(YAFReader yafFile) {
+
+	//Process the root node first
+	string rootID = YAFNode::rootID;
+	processYAFNode(yafFile.nodes.find(rootID)->second, true);
+
+	//Process the rest of the nodes
+	map<string, YAFNode>::iterator it = yafFile.nodes.begin();
+	for(; it != yafFile.nodes.end(); it++) {
+		if(it->first != rootID)
+			processYAFNode(it->second, false);
+	}
+
+	//Process the links between nodes
+	it = yafFile.nodes.begin();
+	for(; it != yafFile.nodes.end(); it++) {
+		processYAFNodeReferences(it->second);
+	}
+}
+
 
 SceneGraph::~SceneGraph() {
 	for (unsigned int i = 0; i < vertexSet.size(); ++i) {
@@ -40,7 +60,7 @@ bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
 }
 
 
-void SceneGraph::dfsVisit() {
+void SceneGraph::render() {
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
@@ -54,12 +74,12 @@ void SceneGraph::dfsVisit() {
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
 			(*it)->render();
-			dfsVisit(*it);
+			render(*it);
 			glPopMatrix();
 		}
 }
 
-void SceneGraph::dfsVisit(SceneVertex *v) {
+void SceneGraph::render(SceneVertex *v) {
 	v->nodeVisited = true;
 	v->childVisited = true;
 	vector<SceneEdge>::iterator it= (v->adj).begin();
@@ -71,7 +91,7 @@ void SceneGraph::dfsVisit(SceneVertex *v) {
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
 			it->dest->render();
-			dfsVisit(it->dest);
+			render(it->dest);
 			glPopMatrix();
 		}
 	}
@@ -80,5 +100,51 @@ void SceneGraph::dfsVisit(SceneVertex *v) {
 	ite = (v->adj).end();
 	for (; it !=ite; it++) {
 		it->dest->childVisited = false;
+	}
+}
+
+void SceneGraph::processYAFNode(YAFNode yafNode, bool isRoot) {
+	//TODO check that shady thing about repeated primitives
+
+	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
+	addVertex(newVertex);
+
+	//Check if root
+	if(isRoot) {
+		rootVertex = newVertex;
+	}
+
+	loadVertexPrimitives(yafNode.primitives, newVertex);
+}
+
+void SceneGraph::loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex) {
+	for(unsigned int i = 0; i < primitives.size(); i++) {
+		ScenePrimitive* primitive = primitives.at(i);
+		addVertex(primitive);
+		addEdge(vertex, primitive);
+	}
+}
+
+void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
+	vector<SceneVertex* >::iterator vertexIterator = vertexSet.begin();
+
+	//Find the vertex corresponding to this yafNode
+	SceneVertex* vertex;
+
+	for(; vertexIterator != vertexSet.end(); vertexIterator++) {
+		if((*vertexIterator)->id == yafNode.id) {
+			vertex = (*vertexIterator);
+			break;
+		}
+	}
+
+	//Add corresponding edges
+	vector<string>::iterator idIterator = yafNode.nodeReferences.begin();
+	for(; idIterator != yafNode.nodeReferences.end(); idIterator++) {
+		for(vertexIterator = vertexSet.begin(); vertexIterator != vertexSet.end(); vertexIterator++) {
+			if((*vertexIterator)->id == (*idIterator)) {
+				addEdge(vertex, (*vertexIterator));
+			}
+		}
 	}
 }

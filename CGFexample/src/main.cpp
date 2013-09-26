@@ -26,8 +26,7 @@ int main(int argc, char* argv[]) {
 	try {
 		app.init(&argc, argv);
 
-		//YAFReader yafFile( (char*)"scene.xml");
-		SceneGraph* sceneGraph = new SceneGraph();
+		/*SceneGraph* sceneGraph = new SceneGraph();
 
 		Rectangle* rect = new Rectangle(0.5, 0.5, -0.5, -0.5);
 
@@ -91,7 +90,7 @@ int main(int argc, char* argv[]) {
 
 		vector<float> triPoint1; triPoint1.push_back(0.0); triPoint1.push_back(0.0); triPoint1.push_back(0.0);
 		vector<float> triPoint2; triPoint2.push_back(1.0); triPoint2.push_back(0.0); triPoint2.push_back(1.0);
-		vector<float> triPoint3; triPoint3.push_back(0.5); triPoint3.push_back(sqrt(3)/2); triPoint3.push_back(0.5);
+		vector<float> triPoint3; triPoint3.push_back(0.5); triPoint3.push_back(sqrt(3)/2); triPoint3.push_back(0.5);*/
 
 		/*Triangle* tri = new Triangle(triPoint1, triPoint2, triPoint3);
 		sceneGraph->addVertex(tri);
@@ -102,7 +101,7 @@ int main(int argc, char* argv[]) {
 		/*Sphere* sphere = new Sphere(5, 100, 30);
 		sceneGraph->addVertex(sphere);*/
 
-		Torus* torus = new Torus(1, 2, 100, 40);
+		/*Torus* torus = new Torus(1, 2, 100, 40);
 		sceneGraph->addVertex(torus);
 		
 		SceneComposite* pseudoCube = new SceneComposite(matrix7);
@@ -125,8 +124,10 @@ int main(int argc, char* argv[]) {
 		sceneGraph->addEdge(back, rect);
 		sceneGraph->addEdge(bottom, rect);
 		sceneGraph->addEdge(left, rect);
-		sceneGraph->addEdge(right, rect);
+		sceneGraph->addEdge(right, rect);*/
 
+		YAFReader yafFile( (char*)"scene.xml");
+		SceneGraph* sceneGraph = new SceneGraph(yafFile);
 		app.setScene(new DemoScene(sceneGraph));
 		app.setInterface(new CGFinterface());
 		

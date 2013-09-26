@@ -4,14 +4,18 @@
 #include "CGFobject.h"
 #include "SceneVertex.h"
 #include "SceneEdge.h"
+#include "YAFReader.h"
 #include <vector>
 
 using namespace std;
 
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
+	SceneVertex* rootVertex;
 
 public:
+	SceneGraph(){}
+	SceneGraph(YAFReader yafFile);
 	~SceneGraph();
 	bool addVertex(SceneVertex *in);
 	bool addEdge(SceneVertex *sourc, SceneVertex *dest);
@@ -21,9 +25,12 @@ public:
 	vector<SceneVertex * > getVertexSet() const;
 	unsigned long getNumVertex() const;
 
-	//TODO fix dfsVisit to draw and pushPop stuffs
-	void dfsVisit(SceneVertex *v);
-	void dfsVisit();
+	void processYAFNode(YAFNode yafNode, bool isRoot);
+	void loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex);
+	void processYAFNodeReferences(YAFNode yafNode);
+
+	void render(SceneVertex *v);
+	void render();
 };
 
 #endif
