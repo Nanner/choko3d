@@ -49,7 +49,7 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
-    <texture id="1" file="scene.xml" />
+    <texture id="1" file="table.png" />
   </textures>
 
   <!-- bloco de materiais; --> 
@@ -97,7 +97,7 @@
         <!-- ex: bloco transforms pode ser R,S,T,S -->
         <rotate axis="x" angle="45.0" />
         <scale factor="5.0 5.0 5.0" />
-        <translate to="1 5 -10" />
+        <translate to="-2 5 5" />
       </transforms>
 
       <!-- declaracao da aparencia a utilizar (pode ser omitida): -->

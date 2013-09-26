@@ -35,6 +35,14 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
+CGFappearance * SceneVertex::getAppearance() {
+    return appearance;
+}
+
+void SceneVertex::setAppearance(CGFappearance * appearance){
+    this->appearance = appearance;
+}
+
 RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras) {
 	this->matrix = matrix;
 	this->id = id;

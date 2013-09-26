@@ -2,6 +2,24 @@
 
 SceneGraph::SceneGraph(YAFReader* yafFile) {
 
+    //read the textures and appearances
+    map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
+    for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
+        YAFAppearance a = appearanceItr->second;
+		float amb[4]  = {a.ambientR,  a.ambientG,  a.ambientB,  a.ambientA };
+        float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
+        float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
+        float shininess =  a.shininess;
+        CGFappearance * cgfappearance = new CGFappearance(amb, dif, spec, shininess);
+        
+        if ( a.usesTexture ) {
+            YAFTexture yafTexture = yafFile->textures.at(a.textureID);
+            cgfappearance->setTexture(yafTexture.file);
+        }
+        
+        appearances.insert(pair<string, CGFappearance*>(appearanceItr->first, cgfappearance));
+	}
+    
 	//Process the root node first
 	string rootID = YAFNode::rootID;
 	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
@@ -90,6 +108,10 @@ void SceneGraph::render(SceneVertex *v) {
 			float* matrix = it->dest->getMatrix();
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
+            
+            if ( it->dest->getAppearance() != NULL )
+                it->dest->getAppearance()->apply();
+            
 			it->dest->render();
 			render(it->dest);
 			glPopMatrix();
@@ -116,6 +138,8 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
 	//TODO check that shady thing about repeated primitives
 
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
+    if ( yafNode.appearanceID != "")
+        newVertex->setAppearance(appearances.at(yafNode.appearanceID));
 	addVertex(newVertex);
 
 	loadVertexPrimitives(yafNode.primitives, newVertex);
@@ -124,6 +148,7 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
 void SceneGraph::loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex) {
 	for(unsigned int i = 0; i < primitives.size(); i++) {
 		ScenePrimitive* primitive = primitives.at(i);
+        primitive->setAppearance(vertex->getAppearance());
 		addVertex(primitive);
 		addEdge(vertex, primitive);
 	}

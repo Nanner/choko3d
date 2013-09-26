@@ -12,6 +12,7 @@ using namespace std;
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
 	RootVertex* rootVertex;
+    map<string, CGFappearance *> appearances;
 
 public:
 	SceneGraph(){}
