@@ -13,6 +13,9 @@ void DemoScene::init()
 	//Configure the different general scene attributes (background, cameras, lights, etc)
 	sceneGraph->configureScene();
 
+	//Get the initial camera
+	//CGFscene::activeCamera = sceneGraph->getInitialCamera();
+
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
 

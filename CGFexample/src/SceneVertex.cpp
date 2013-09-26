@@ -35,10 +35,23 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
-RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals) {
+RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras) {
 	this->matrix = matrix;
 	this->id = id;
 	this->globals = globals;
+
+	map<string, YAFCamera>::iterator it = cameras.begin();
+	for(; it != cameras.end(); it++) {
+		YAFCamera cam = it->second;
+		if(cam.isOrtho) {
+			Orthographic* newOrtho = new Orthographic(cam.id, cam.near, cam.far, cam.left, cam.right, cam.top, cam.bottom);
+			this->cameras.insert(pair<string, CameraView*>(newOrtho->id, newOrtho));
+		}
+		else {
+			Perspective* newPerspective = new Perspective(cam.id, cam.near, cam.far, cam.angle, cam.posX, cam.posY, cam.posZ, cam.targetX, cam.targetY, cam.targetZ);
+			this->cameras.insert(pair<string, CameraView*>(newPerspective->id, newPerspective));
+		}
+	}
 }
 
 void RootVertex::setGlobals() {
@@ -78,6 +91,10 @@ void RootVertex::setGlobals() {
 	else if(cullorder == "CW")
 		glFrontFace(GL_CW);
 
+}
+
+void RootVertex::setInitialCamera() {
+	cameras.find(YAFCamera::initialCameraID)->second->applyView();
 }
 
 SceneComposite::SceneComposite(float* matrix, string id) {

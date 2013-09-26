@@ -3,8 +3,11 @@
 
 #include "SceneEdge.h"
 #include "YAFGlobal.h"
+#include "YAFCamera.h"
 #include "CGFscene.h"
+#include "CameraView.h"
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -40,9 +43,12 @@ class RootVertex: public SceneVertex {
 public:
 	YAFGlobal globals;
 
-	RootVertex(float* matrix, string id, YAFGlobal globals);
+	map<string, CameraView*> cameras;
+
+	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras);
 
 	void setGlobals();
+	void setInitialCamera();
 };
 
 class SceneComposite: public SceneVertex {

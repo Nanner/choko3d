@@ -31,6 +31,7 @@ public:
 	void processYAFNodeReferences(YAFNode yafNode);
 
 	void configureScene();
+	CGFcamera* getInitialCamera();
 
 	void render(SceneVertex *v);
 	void render();

@@ -104,7 +104,7 @@ void SceneGraph::render(SceneVertex *v) {
 }
 
 void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
-	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals);
+	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals, yafFile->cameras);
 	rootVertex = newRoot;
 
 	addVertex(newRoot);
@@ -155,4 +155,8 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 
 void SceneGraph::configureScene() {
 	rootVertex->setGlobals();
+}
+
+CGFcamera* SceneGraph::getInitialCamera() {
+	return rootVertex->cameras.find(YAFCamera::initialCameraID)->second;
 }
