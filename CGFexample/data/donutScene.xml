@@ -1,0 +1,537 @@
+<!-- Os comentarios devem ter espacos no inicio e no fim, para -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
+
+<yaf>
+
+  <!-- bloco de configuracoes globais -->
+  <!-- a declaracao dos atributos deste bloco e' obrigatoria -->
+  <!-- Valores para draw mode: "fill" , "line", "point" -->
+  <!-- Valores para shading: "flat", "gouraud" ) -->
+  <!-- Valores para cullface: "none", "back" , "front" ou "both" -->
+  <!-- Valores para cullorder : "CCW" ou "CW" -->
+  <globals background="0 0 0 0" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
+
+  <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
+  <cameras initial="2" >
+    <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
+
+    <perspective id="1" near="1" far="100" angle="90" pos="-8.0 5.0 10.0" target="5.0 5.0 5.0" />
+    <ortho id="2" near="-10" far="10" left="-10.0" right="10.0" top="10.0" bottom="-10.0" />
+
+  </cameras>
+
+
+  <!-- bloco de iluminacao; segue os parametros do OpenGL -->
+  <lighting doublesided="true" local="false" enabled="true" ambient="1.0 1.0 1.0 1.0" >
+    <!-- Deve existir um ou mais blocos "light" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+    <omni id="1" enabled="true"
+        location="1.0 1.0 1.0"
+        ambient="1.0 1.0 1.0 1.0"
+        diffuse="1.0 1.0 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
+            />
+
+    <spot id="2" enabled="false" 
+        location="1.0 1.0 1.0" 
+        ambient="1.0 1.0 1.0 1.0" 
+        diffuse="1.0 1.0 1.0 1.0" 
+        specular="1.0 0.5 1.0 1.0"
+        angle="1.0" 
+        exponent="1.0" 
+        direction="1.0 1.0 1.0" 
+            /> 
+
+  </lighting>
+
+  <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
+  <textures>
+    <texture id="1" file="table.png" />
+  </textures>
+
+  <!-- bloco de materiais; --> 
+  <appearances> 
+      <!-- deve existir um ou mais blocos "appearance" -->
+      <!-- IMPORTANTE: -->
+      <!--   textureref, texlength_s e textlength_t sao atributos -->
+      <!--   opcionais se for usada uma textura. --> 
+      <!--   ver topico 'Notas finais' no enunciado sobre os -->
+      <!--   parametros texlength_...) -->  
+      <appearance id="1" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="1"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+  
+    <appearance id="2" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 1.0 1.0"
+      shininess="128.0"
+      textureref=""
+      texlength_s=""
+      texlength_t="">
+    </appearance>
+  </appearances>
+
+  <!-- bloco do grafo; "rootid" identifica o no de raiz -->
+  <graph rootid="donutScene">
+    
+    <node id="donutScene">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="room" />
+        <noderef id="box" />
+        <noderef id="table" />
+        <noderef id="donuts" />
+        <noderef id="poster" />
+      </children>
+    </node>
+
+    <node id="room">
+      <transforms>
+        <translate to="17.5 0 17.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="leftWall" />
+        <noderef id="backWall" />
+        <noderef id="floor" />
+      </children>
+    </node>
+
+    <node id="floor">
+      <transforms>
+        <scale factor="35 0.125 35" />
+        <translate to="0 0.0625 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="leftWall">
+      <transforms>
+        <scale factor="35 0.125 35" />
+        <translate to="0 0.0625 0" />
+        <rotate axis="z" angle="90" />
+        <translate to="-17.375 17.625 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="backWall">
+      <transforms>
+        <scale factor="35 0.125 35" />
+        <translate to="0 0.0625 0" />
+        <rotate axis="z" angle="90" />
+        <translate to="-17.375 17.625 0" />
+        <rotate axis="y" angle="270" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="poster">
+      <transforms>
+        <scale factor="9 12 0.0625" />
+        <translate to="17.5 25 0.125" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="table">
+      <transforms>
+        <translate to="-6 4.125 -3.5" />
+        <rotate axis="y" angle="30" />
+        <translate to="17.5 0 17.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="tableTop" />
+        <noderef id="frLeg"/>
+        <noderef id="flLeg"/>
+        <noderef id="brLeg"/>
+        <noderef id="blLeg"/>
+      </children>
+    </node>
+
+    <node id="tableTop">
+      <transforms>
+        <scale factor="13 0.5 8" />
+        <translate to="6 4.25 3.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="tableLeg">
+      <transforms>
+        <scale factor="1 8 1" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="blLeg">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="tableLeg" />
+      </children>
+    </node>
+
+    <node id="brLeg">
+      <transforms>
+        <translate to="12 0 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="tableLeg" />
+      </children>
+    </node>
+
+    <node id="frLeg">
+      <transforms>
+        <translate to="12 0 7" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="tableLeg" />
+      </children>
+    </node>
+
+    <node id="flLeg">
+      <transforms>
+        <translate to="0 0 7" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="tableLeg" />
+      </children>
+    </node>
+
+    <node id="box">
+      <transforms>
+        <translate to="17.5 8.6875 17.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="boxPartLid"/>
+        <noderef id="boxFront"/>
+        <noderef id="boxBack"/>
+        <noderef id="boxLeft"/>
+        <noderef id="boxRight"/>
+      </children>
+    </node>
+
+    <node id="boxFront">
+      <transforms>
+        <scale factor="1 1 1.3" />
+        <rotate axis="z" angle="90" />
+        <rotate axis="y" angle="90" />
+        <translate to="0 0.6625 1.1875" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxBack">
+      <transforms>
+        <scale factor="1 1 1.3" />
+        <rotate axis="z" angle="90" />
+        <rotate axis="y" angle="90" />
+        <translate to="0 0.6625 -1.1875" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxLeft">
+      <transforms>
+        <rotate axis="z" angle="90" />
+        <translate to="-1.6875 0.6625 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxRight">
+      <transforms>
+        <rotate axis="z" angle="90" />
+        <translate to="1.6875 0.6625 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxPartLid">
+      <transforms>
+        <scale factor="3.5 0.125 2.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="boxPartSide">
+      <transforms>
+        <scale factor="1.2 0.125 2.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="donuts">
+      <transforms>
+        <translate to="17.5 4.125 17.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="donut" />
+        <noderef id="donut2" />
+        <noderef id="donut3" />
+        <noderef id="donut4" />
+        <noderef id="donut5" />
+      </children>
+    </node>
+
+    <node id="donut">
+      <transforms>
+        <rotate axis="x" angle="90" />
+        <translate to="0 4.6875 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <torus inner="0.135" outer="0.3" slices="100" loops="100" />
+      </children>
+    </node>
+
+    <node id="donut2">
+      <transforms>
+        <rotate axis="x" angle="90" />
+        <translate to="-1 4.6875 -0.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <torus inner="0.135" outer="0.3" slices="100" loops="100" />
+      </children>
+    </node>
+
+    <node id="donut3">
+      <transforms>
+        <rotate axis="x" angle="90" />
+        <translate to="-0.8 4.6875 0.45" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <torus inner="0.135" outer="0.3" slices="100" loops="100" />
+      </children>
+    </node>
+
+    <node id="donut4">
+      <transforms>
+        <rotate axis="x" angle="90" />
+        <translate to="1 4.6875 -0.3" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <torus inner="0.135" outer="0.3" slices="100" loops="100" />
+      </children>
+    </node>
+
+    <node id="donut5">
+      <transforms>
+        <rotate axis="x" angle="90" />
+        <translate to="0.9 4.6875 0.65" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <torus inner="0.135" outer="0.3" slices="100" loops="100" />
+      </children>
+    </node>
+
+    <node id="cube">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <noderef id="top" />
+        <noderef id="bottom" />
+        <noderef id="front" />
+        <noderef id="back" />
+        <noderef id="left" />
+        <noderef id="right" />
+      </children>
+    </node>
+  
+    <node id="top">
+      <transforms>
+		<rotate axis="x" angle="270.0" />
+        <translate to="0 0.5 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="bottom">
+      <transforms>
+		<rotate axis="x" angle="90.0" />
+        <translate to="0 -0.5 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="front">
+      <transforms>
+		<rotate axis="x" angle="0" />
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="back">
+      <transforms>
+        <rotate axis="y" angle="180.0" />
+        <translate to="0 0 -0.5" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="left">
+      <transforms>
+        <rotate axis="y" angle="270.0" />
+        <translate to="-0.5 0 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+    <node id="right">
+      <transforms>
+        <rotate axis="y" angle="90.0" />
+        <translate to="0.5 0 0" />
+      </transforms>
+
+      <appearanceref id="" />
+
+      <children>
+        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+      </children>
+    </node>
+  
+  </graph>
+</yaf>

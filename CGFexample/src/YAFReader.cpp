@@ -166,7 +166,7 @@ YAFReader::YAFReader(char *filename) {
                     YAFLight omni(id, enabled, location, ambient, diffuse, specular);
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, omni)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a omni light with an already existing light id. Terminating!\n");
+						printf("Tried to insert an omni light with an already existing light id. Terminating!\n");
 						exit(1);
 					}
 				}
@@ -457,7 +457,7 @@ YAFReader::YAFReader(char *filename) {
                 
                 bool notRepeated = nodes.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
                 if (!notRepeated) {
-                    printf("Tried to insert a node with an already existing appearance id. Terminating!\n");
+                    printf("Tried to insert a node with an already existing node id. Terminating!\n");
                     exit(1);
                 }
 
