@@ -44,6 +44,7 @@ public:
 
 class Cylinder : public ScenePrimitive {
 public:
+	GLUquadricObj *quadratic;
     float base, top, height, slices, stacks;
     
     Cylinder(float base,

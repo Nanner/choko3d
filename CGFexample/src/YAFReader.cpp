@@ -369,9 +369,16 @@ YAFReader::YAFReader(char *filename) {
 
 				if (appearanceref) {
 					// TODO store appearance
-					string appearanceID = getValue<string>(appearanceref, (char*)"id");
-                    try {
-                        YAFAppearance appearance = appearances.at(appearanceID);
+					string appearanceID;
+
+					try {
+						appearanceID = getValue<string>(appearanceref, (char*)"id");
+					} catch (EmptyAttributeException &eae) {}
+						
+					try {
+						if(!appearanceID.empty()) {
+							YAFAppearance appearance = appearances.at(appearanceID);
+						}
                         yafNode.setAppearanceID(appearanceID);
                     } catch (exception &e) {
                         printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());

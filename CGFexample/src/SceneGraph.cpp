@@ -86,8 +86,10 @@ void SceneGraph::render() {
 	it=vertexSet.begin();
 	for (; it !=ite; it++)
 		if ( (*it)->nodeVisited==false ) {
-			//glLoadIdentity();
 			glPushMatrix();
+			CGFappearance* appearance = (*it)->getAppearance();
+			if(appearance != NULL)
+				appearance->apply();
 			float* matrix = (*it)->getMatrix();
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
@@ -105,13 +107,12 @@ void SceneGraph::render(SceneVertex *v) {
 	for (; it !=ite; it++) {
 		if ( it->dest->childVisited == false ){
 			glPushMatrix();
+			CGFappearance* appearance = it->dest->getAppearance();
+			if (appearance != NULL)
+				appearance->apply();
 			float* matrix = it->dest->getMatrix();
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
-            
-            if ( it->dest->getAppearance() != NULL )
-                it->dest->getAppearance()->apply();
-            
 			it->dest->render();
 			render(it->dest);
 			glPopMatrix();
@@ -129,6 +130,11 @@ void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
 	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals, yafFile->cameras);
 	rootVertex = newRoot;
 
+	if (root.appearanceID != "")
+		newRoot->setAppearance(appearances.at(root.appearanceID));
+	else
+		newRoot->setAppearance(NULL);
+
 	addVertex(newRoot);
 
 	loadVertexPrimitives(root.primitives, newRoot);
@@ -140,6 +146,9 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
     if ( yafNode.appearanceID != "")
         newVertex->setAppearance(appearances.at(yafNode.appearanceID));
+	else
+		newVertex->setAppearance(NULL);
+
 	addVertex(newVertex);
 
 	loadVertexPrimitives(yafNode.primitives, newVertex);

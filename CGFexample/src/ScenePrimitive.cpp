@@ -41,6 +41,7 @@ Triangle::Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3) {
         this->xyz2[i] = xyz2.at(i);
         this->xyz3[i] = xyz3.at(i);
     }
+	//todo apply texture mapping to triangle and rectangle. We need to be careful with the s and t's and apply the text coords correctly
 }
 
 void Triangle::render() {
@@ -73,11 +74,12 @@ Cylinder::Cylinder(float base,
     this->height = height;
     this->slices = slices;
     this->stacks = stacks;
+
+	quadratic = gluNewQuadric();
+	gluQuadricTexture(quadratic, GL_TRUE);
 }
 
-void Cylinder::render(){
-	GLUquadricObj *quadratic;
-	quadratic = gluNewQuadric();
+void Cylinder::render() {
 	gluCylinder(quadratic, base, top, height, slices, stacks);
 	glPushMatrix();
 	glRotatef(180.0, 0.0, 1.0, 0.0);
@@ -104,10 +106,24 @@ Sphere::Sphere(float radius, int slices, int stacks) {
     this->radius = radius;
     this->slices = slices;
     this->stacks = stacks;
+
+	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
 void Sphere::render(){
+	glPushMatrix();
+
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+
 	glutSolidSphere(radius, slices, stacks);
+
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+
+	glPopMatrix();
 }
 
 bool Sphere::operator==( const Sphere &s2 ) const {
@@ -126,10 +142,24 @@ Torus::Torus(float inner, float outer, int slices, int loops) {
     this->outer = outer;
     this->slices = slices;
     this->loops = loops;
+
+	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
 void Torus::render(){
+	glPushMatrix();
+
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+
 	glutSolidTorus(inner, outer, slices, loops);
+
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+
+	glPopMatrix();
 }
 
 bool Torus::operator==( const Torus &t2 ) const {
