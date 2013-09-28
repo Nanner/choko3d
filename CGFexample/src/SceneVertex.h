@@ -6,6 +6,7 @@
 #include "YAFCamera.h"
 #include "CGFscene.h"
 #include "CameraView.h"
+#include "Appearance.h"
 #include <vector>
 #include <map>
 
@@ -17,7 +18,7 @@ class SceneVertex {
 	vector<SceneEdge> adj;
 	bool childVisited;
 	bool nodeVisited;
-    CGFappearance * appearance;
+    Appearance * appearance;
 	bool inheritedAppearance;
 
 protected:
@@ -39,8 +40,8 @@ public:
 
 	float* getMatrix();
     
-    CGFappearance * getAppearance();
-    void setAppearance(CGFappearance * appearance);
+    Appearance * getAppearance();
+    void setAppearance(Appearance * appearance);
     
 	virtual void render() {}
 };

@@ -20,15 +20,24 @@ Rectangle::Rectangle(float x1, float y1, float x2, float y2) {
 }
 
 void Rectangle::render() {
+	float xScalled = 1;
+	float yScalled = 1;
+
+	if(this->getAppearance() != NULL) {
+		Appearance* app = this->getAppearance();
+		xScalled = (xy2[0] - xy1[0]) / app->getTexLength_s();
+		yScalled = (xy2[1] - xy1[1]) / app->getTexLength_t();
+	}
+
 	glNormal3f(0,0,1);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex3f(xy1[0], xy1[1], 0);
-		glTexCoord2f(1, 0);
+		glTexCoord2f(xScalled, 0);
 		glVertex3f(xy2[0], xy1[1], 0);
-		glTexCoord2f(1, 1);
+		glTexCoord2f(xScalled, yScalled);
 		glVertex3f(xy2[0], xy2[1], 0);
-		glTexCoord2f(0, 1);
+		glTexCoord2f(0, yScalled);
 		glVertex3f(xy1[0], xy2[1], 0);
 	glEnd();
 }

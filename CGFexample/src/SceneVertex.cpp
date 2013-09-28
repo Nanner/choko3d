@@ -35,11 +35,11 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
-CGFappearance * SceneVertex::getAppearance() {
+Appearance * SceneVertex::getAppearance() {
     return appearance;
 }
 
-void SceneVertex::setAppearance(CGFappearance * appearance){
+void SceneVertex::setAppearance(Appearance * appearance){
     this->appearance = appearance;
 }
 

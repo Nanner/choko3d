@@ -5,6 +5,7 @@
 #include "SceneVertex.h"
 #include "SceneEdge.h"
 #include "YAFReader.h"
+#include "Appearance.h"
 #include <vector>
 
 using namespace std;
@@ -12,7 +13,7 @@ using namespace std;
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
 	RootVertex* rootVertex;
-    map<string, CGFappearance *> appearances;
+    map<string, Appearance *> appearances;
 
 public:
 	SceneGraph(){}

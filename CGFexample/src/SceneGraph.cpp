@@ -11,15 +11,17 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
         float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
         float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
         float shininess =  a.shininess;
-        CGFappearance * cgfappearance = new CGFappearance(amb, dif, spec, shininess);
+        Appearance * appearance = new Appearance(amb, dif, spec, shininess);
         
         if ( a.usesTexture ) {
             YAFTexture yafTexture = yafFile->textures.at(a.textureID);
-            cgfappearance->setTexture(yafTexture.file);
-			cgfappearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
+            appearance->setTexture(yafTexture.file);
+			appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
+			appearance->setTexLength_s(a.texlength_s);
+			appearance->setTexLength_t(a.texlength_t);
         }
         
-        appearances.insert(pair<string, CGFappearance*>(appearanceItr->first, cgfappearance));
+        appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
 	}
     
 	//Process the root node first
@@ -91,7 +93,7 @@ void SceneGraph::render() {
 			glPushMatrix();
 			rootVertex->defaultAppearance->apply();
 
-			CGFappearance* appearance = (*it)->getAppearance();
+			Appearance* appearance = (*it)->getAppearance();
 			if(appearance != NULL)
 				appearance->apply();
 			float* matrix = (*it)->getMatrix();
@@ -118,7 +120,7 @@ void SceneGraph::render(SceneVertex *v) {
 			if(it->dest->inheritedAppearance)
 				it->dest->setAppearance(v->getAppearance());
 
-			CGFappearance* appearance = it->dest->getAppearance();
+			Appearance* appearance = it->dest->getAppearance();
 			if (appearance != NULL)
 				appearance->apply();
 			//TODO this method of appearance application will probably result in trouble if we have a full branch of the graph with null textures
