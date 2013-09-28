@@ -49,7 +49,13 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
+    
     <texture id="1" file="table.png" />
+  
+    <texture id="floorTex" file="floor.png" />
+
+    <texture id="wallTex" file="wall.png" />
+  
   </textures>
 
   <!-- bloco de materiais; --> 
@@ -81,6 +87,18 @@
       texlength_s=""
       texlength_t="">
     </appearance>
+  
+  <appearance id="floorApp" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 1.0 1.0"
+      shininess="128.0"
+      textureref="floorTex"
+      texlength_s="1"
+      texlength_t="1">
+    </appearance>
+  
   </appearances>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
@@ -121,7 +139,7 @@
         <translate to="0 0.0625 0" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="floorApp" />
 
       <children>
         <noderef id="cube" />
@@ -179,7 +197,7 @@
         <translate to="17.5 0 17.5" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="1" />
 
       <children>
         <noderef id="tableTop" />

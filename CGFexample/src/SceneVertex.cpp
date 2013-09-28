@@ -44,6 +44,7 @@ void SceneVertex::setAppearance(CGFappearance * appearance){
 }
 
 RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras) {
+	loadDefaultAppearance();
 	this->matrix = matrix;
 	this->id = id;
 	this->globals = globals;
@@ -60,6 +61,15 @@ RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, 
 			this->cameras.insert(pair<string, CameraView*>(newPerspective->id, newPerspective));
 		}
 	}
+}
+
+void RootVertex::loadDefaultAppearance() {
+	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
+	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
+	float specular[4] = {0.0, 0.0, 0.0, 1.0};
+	float shininess = 0.0;
+
+	defaultAppearance = new CGFappearance(ambient, diffuse, specular, shininess);
 }
 
 void RootVertex::setGlobals() {

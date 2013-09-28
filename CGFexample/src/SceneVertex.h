@@ -18,6 +18,7 @@ class SceneVertex {
 	bool childVisited;
 	bool nodeVisited;
     CGFappearance * appearance;
+	bool inheritedAppearance;
 
 protected:
 	float* matrix;
@@ -46,12 +47,14 @@ public:
 
 class RootVertex: public SceneVertex {
 public:
+	CGFappearance* defaultAppearance;
 	YAFGlobal globals;
 
 	map<string, CameraView*> cameras;
 
 	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras);
 
+	void loadDefaultAppearance();
 	void setGlobals();
 	void setInitialCamera();
 };
