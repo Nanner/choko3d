@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
 		sceneGraph->addEdge(left, rect);
 		sceneGraph->addEdge(right, rect);*/
 
-		YAFReader* yafFile = new YAFReader( (char*)"donutScene.xml");
+		YAFReader* yafFile = new YAFReader( (char*)"donutScene.yaf");
 		SceneGraph* sceneGraph = new SceneGraph(yafFile);
 		delete(yafFile);
 		app.setScene(new DemoScene(sceneGraph));

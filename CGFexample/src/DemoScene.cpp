@@ -24,7 +24,7 @@ void DemoScene::init()
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
-	float light0_pos[4] = {4.0, 12.0, 5.0, 1.0};
+	float light0_pos[4] = {4.0, 30.0, 5.0, 1.0};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
 	light0->enable();
 
