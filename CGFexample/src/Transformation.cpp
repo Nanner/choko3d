@@ -6,7 +6,8 @@ float * Transformation::calculateMatrix(vector<Transformation *> transformations
     glPushMatrix();
     glLoadIdentity();
     
-    for (int i = transformations.size()-1; i >= 0; i--) {
+    
+    for(int i = 0; i < transformations.size(); i++) {
         float * currentMatrix = transformations.at(i)->getMatrix();
         glMultMatrixf(currentMatrix);
         delete currentMatrix;

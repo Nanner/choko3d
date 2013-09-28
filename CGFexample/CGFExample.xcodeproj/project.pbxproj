@@ -16,6 +16,7 @@
 		AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23A16D422CA003287C6 /* pyramid.jpg */; };
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
+		EB1741BB17F57514003215F3 /* CameraView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB1741BA17F57514003215F3 /* CameraView.cpp */; };
 		EB4CCA3B17F4BAA400A9A55E /* YAFTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA1B17F4BAA400A9A55E /* YAFTexture.cpp */; };
 		EB4CCA3C17F4BAA400A9A55E /* YAFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA1D17F4BAA400A9A55E /* YAFReader.cpp */; };
 		EB4CCA3D17F4BAA400A9A55E /* YAFNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA1F17F4BAA400A9A55E /* YAFNode.cpp */; };
@@ -40,6 +41,7 @@
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
+		EBA8DB9617F6D9C800214F9F /* donutScene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBA8DB9517F6D9BA00214F9F /* donutScene.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +53,7 @@
 			files = (
 				EB4CCA4D17F4DEBA00A9A55E /* table.png in CopyFiles */,
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
+				EBA8DB9617F6D9C800214F9F /* donutScene.xml in CopyFiles */,
 				AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */,
 				AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */,
 				AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */,
@@ -84,6 +87,8 @@
 		AA63E23A16D422CA003287C6 /* pyramid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pyramid.jpg; sourceTree = "<group>"; };
 		AA63E23B16D422CA003287C6 /* texshader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.frag; sourceTree = "<group>"; };
 		AA63E23C16D422CA003287C6 /* texshader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.vert; sourceTree = "<group>"; };
+		EB1741B917F57514003215F3 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraView.h; path = src/CameraView.h; sourceTree = SOURCE_ROOT; };
+		EB1741BA17F57514003215F3 /* CameraView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraView.cpp; path = src/CameraView.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA1A17F4BAA400A9A55E /* YAFTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAFTexture.h; path = src/YAFTexture.h; sourceTree = SOURCE_ROOT; };
 		EB4CCA1B17F4BAA400A9A55E /* YAFTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = YAFTexture.cpp; path = src/YAFTexture.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA1C17F4BAA400A9A55E /* YAFReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAFReader.h; path = src/YAFReader.h; sourceTree = SOURCE_ROOT; };
@@ -223,6 +228,7 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
+		EBA8DB9517F6D9BA00214F9F /* donutScene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = donutScene.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +304,8 @@
 				EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */,
 				EB4CCA3917F4BAA400A9A55E /* DemoScene.h */,
 				EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */,
+				EB1741B917F57514003215F3 /* CameraView.h */,
+				EB1741BA17F57514003215F3 /* CameraView.cpp */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				EBA8DB9517F6D9BA00214F9F /* donutScene.xml */,
 				EB4CCA4C17F4DEA400A9A55E /* table.png */,
 				EB81812917E712E5008DF2EB /* scene.xml */,
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
@@ -535,6 +544,7 @@
 				EB4CCA4A17F4BAA400A9A55E /* ExampleObject.cpp in Sources */,
 				EB4CCA3C17F4BAA400A9A55E /* YAFReader.cpp in Sources */,
 				EB4CCA3B17F4BAA400A9A55E /* YAFTexture.cpp in Sources */,
+				EB1741BB17F57514003215F3 /* CameraView.cpp in Sources */,
 				EB4CCA4517F4BAA400A9A55E /* SceneVertex.cpp in Sources */,
 				EB4CCA4317F4BAA400A9A55E /* YAFAppearance.cpp in Sources */,
 				EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */,
