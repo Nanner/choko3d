@@ -19,7 +19,7 @@
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
     <perspective id="1" near="1" far="100" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
-    <ortho id="2" left="0" right="50" bottom="0" top="50" near="-1" far="1"/>
+    <ortho id="2" left="0" right="35" bottom="0" top="35" near="-1" far="1"/>
 
   </cameras>
 
@@ -49,7 +49,7 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
-    <texture id="wood" file="wood.jpg" />
+    <texture id="woodTex" file="wood.jpg" />
     
     <texture id="tableTex" file="table.png" />
   
@@ -108,7 +108,7 @@
       diffuse="0.35 0.15 0.0 1.0"
       specular="0.05 0.05 0.05 1.0"
       shininess="10.0"
-      textureref="wood"
+      textureref="woodTex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
