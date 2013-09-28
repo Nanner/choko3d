@@ -52,6 +52,13 @@
     <texture id="wood" file="wood.jpg" />
     <texture id="wall" file="wall.jpg" />
     <texture id="poster" file="homer.jpg" />
+    
+    <texture id="1" file="table.png" />
+  
+    <texture id="floorTex" file="floor.png" />
+
+    <texture id="wallTex" file="wall.png" />
+  
   </textures>
 
   <!-- bloco de materiais; --> 
@@ -94,6 +101,18 @@
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
+  
+  <appearance id="floorApp" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 1.0 1.0"
+      shininess="128.0"
+      textureref="floorTex"
+      texlength_s="1"
+      texlength_t="1">
+    </appearance>
+  
   </appearances>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
@@ -134,7 +153,7 @@
         <scale factor="35 0.125 35" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="floorApp" />
 
       <children>
         <noderef id="cube" />

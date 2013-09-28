@@ -20,7 +20,17 @@ Rectangle::Rectangle(float x1, float y1, float x2, float y2) {
 }
 
 void Rectangle::render() {
-	glRectf(xy1[0], xy1[1], xy2[0], xy2[1]);
+	glNormal3f(0,0,1);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex3f(xy1[0], xy1[1], 0);
+		glTexCoord2f(1, 0);
+		glVertex3f(xy2[0], xy1[1], 0);
+		glTexCoord2f(1, 1);
+		glVertex3f(xy2[0], xy2[1], 0);
+		glTexCoord2f(0, 1);
+		glVertex3f(xy1[0], xy2[1], 0);
+	glEnd();
 }
 
 bool Rectangle::operator==( const Rectangle &r2 ) const {
@@ -120,8 +130,8 @@ void Sphere::render(){
 
 	glutSolidSphere(radius, slices, stacks);
 
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
 
 	glPopMatrix();
 }
@@ -156,8 +166,8 @@ void Torus::render(){
 
 	glutSolidTorus(inner, outer, slices, loops);
 
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
 
 	glPopMatrix();
 }

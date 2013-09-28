@@ -3,6 +3,7 @@
 SceneGraph::SceneGraph(YAFReader* yafFile) {
 
     //read the textures and appearances
+	//TODO emissive values missing!
     map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
     for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
         YAFAppearance a = appearanceItr->second;
@@ -15,6 +16,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
         if ( a.usesTexture ) {
             YAFTexture yafTexture = yafFile->textures.at(a.textureID);
             cgfappearance->setTexture(yafTexture.file);
+			cgfappearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
         }
         
         appearances.insert(pair<string, CGFappearance*>(appearanceItr->first, cgfappearance));
@@ -87,6 +89,8 @@ void SceneGraph::render() {
 	for (; it !=ite; it++)
 		if ( (*it)->nodeVisited==false ) {
 			glPushMatrix();
+			rootVertex->defaultAppearance->apply();
+
 			CGFappearance* appearance = (*it)->getAppearance();
 			if(appearance != NULL)
 				appearance->apply();
@@ -95,11 +99,13 @@ void SceneGraph::render() {
 				glMultMatrixf(matrix);
 			(*it)->render();
 			render(*it);
+
 			glPopMatrix();
 		}
 }
 
 void SceneGraph::render(SceneVertex *v) {
+
 	v->nodeVisited = true;
 	v->childVisited = true;
 	vector<SceneEdge>::iterator it= (v->adj).begin();
@@ -107,14 +113,22 @@ void SceneGraph::render(SceneVertex *v) {
 	for (; it !=ite; it++) {
 		if ( it->dest->childVisited == false ){
 			glPushMatrix();
+			rootVertex->defaultAppearance->apply();
+
+			if(it->dest->inheritedAppearance)
+				it->dest->setAppearance(v->getAppearance());
+
 			CGFappearance* appearance = it->dest->getAppearance();
 			if (appearance != NULL)
 				appearance->apply();
+			//TODO this method of appearance application will probably result in trouble if we have a full branch of the graph with null textures
+			
 			float* matrix = it->dest->getMatrix();
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
 			it->dest->render();
 			render(it->dest);
+
 			glPopMatrix();
 		}
 	}
@@ -124,16 +138,24 @@ void SceneGraph::render(SceneVertex *v) {
 	for (; it !=ite; it++) {
 		it->dest->childVisited = false;
 	}
+
+	//Restore appearance back to null
+	if(v->inheritedAppearance)
+		v->appearance = NULL;
 }
 
 void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
 	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals, yafFile->cameras);
 	rootVertex = newRoot;
 
-	if (root.appearanceID != "")
+	if (root.appearanceID != "") {
 		newRoot->setAppearance(appearances.at(root.appearanceID));
-	else
+		newRoot->inheritedAppearance = false;
+	}
+	else {
 		newRoot->setAppearance(NULL);
+		newRoot->inheritedAppearance=false;
+	}
 
 	addVertex(newRoot);
 
@@ -144,10 +166,14 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
 	//TODO check that shady thing about repeated primitives
 
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
-    if ( yafNode.appearanceID != "")
+    if ( yafNode.appearanceID != "") {
         newVertex->setAppearance(appearances.at(yafNode.appearanceID));
-	else
+		newVertex->inheritedAppearance = false;
+	}
+	else {
 		newVertex->setAppearance(NULL);
+		newVertex->inheritedAppearance = true;
+	}
 
 	addVertex(newVertex);
 
@@ -158,6 +184,7 @@ void SceneGraph::loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneV
 	for(unsigned int i = 0; i < primitives.size(); i++) {
 		ScenePrimitive* primitive = primitives.at(i);
         primitive->setAppearance(vertex->getAppearance());
+		primitive->inheritedAppearance = true;
 		addVertex(primitive);
 		addEdge(vertex, primitive);
 	}
