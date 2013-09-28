@@ -4,7 +4,7 @@
 #define RGBA_MIN 0.0
 #define RGBA_MAX 1.0
 
-#define ANGLE_MIN 0.0
+#define ANGLE_MIN -360.0
 #define ANGLE_MAX 360.0
 
 #define XYZ_MIN -2000
