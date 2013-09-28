@@ -58,6 +58,9 @@
     <texture id="wallTex" file="wall.png" />
     
     <texture id="posterTex" file="duffPoster.jpg" />
+
+    <texture id="paperTex" file="paper.jpg" />
+
   
   </textures>
 
@@ -69,13 +72,24 @@
       <!--   opcionais se for usada uma textura. --> 
       <!--   ver topico 'Notas finais' no enunciado sobre os -->
       <!--   parametros texlength_...) -->  
-      <appearance id="tableApp" 
+    <appearance id="Paper" 
       emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+      ambient="0.0 0.0 0.0 0.0"
+      diffuse="0.55 0.55 0.55 1.0"
+      specular="0.7 0.7 0.7 1.0"
       shininess="1.0"
-      textureref="tableTex"
+      textureref="paperTex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+
+    <appearance id="Paper2" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="0.0 0.0 0.0 0.0"
+      diffuse="0.55 0.55 0.55 1.0"
+      specular="0.7 0.7 0.7 1.0"
+      shininess="1.0"
+      textureref=""
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
@@ -310,7 +324,7 @@
         <translate to="17.5 8.6875 17.5" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="Paper" />
 
       <children>
         <noderef id="boxPartLid"/>
@@ -382,7 +396,7 @@
         <scale factor="3.5 0.125 2.5" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="Paper2" />
 
       <children>
         <noderef id="cube" />
