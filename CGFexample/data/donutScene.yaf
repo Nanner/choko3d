@@ -12,7 +12,7 @@
   <!-- Valores para shading: "flat", "gouraud" ) -->
   <!-- Valores para cullface: "none", "back" , "front" ou "both" -->
   <!-- Valores para cullorder : "CCW" ou "CW" -->
-  <globals background="0 0 0 0" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
+  <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
   <cameras initial="2" >
@@ -29,7 +29,7 @@
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="1" enabled="true"
-        location="4.0 12.0 5.0 1.0"
+        location="4.0 30.0 5.0 1.0"
         ambient="1.0 1.0 1.0 1.0"
         diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
@@ -58,6 +58,16 @@
     <texture id="wallTex" file="wall.png" />
     
     <texture id="posterTex" file="duffPoster.jpg" />
+    
+    <texture id="donut1Tex" file="donut1.png" />
+    
+    <texture id="donut2Tex" file="donut2.png" />
+    
+    <texture id="donut3Tex" file="donut3.png" />
+  
+    <texture id="donut4Tex" file="donut4.png" />
+    
+    <texture id="donut5Tex" file="donut5.png" />
   
   </textures>
 
@@ -84,7 +94,7 @@
       emissive="1.0 1.0 1.0 1.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
-      specular="0.0 0.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
       shininess="128.0"
       textureref="posterTex"
       texlength_s="1.0"
@@ -95,7 +105,7 @@
       emissive="1.0 1.0 1.0 1.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
-      specular="0.0 0.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
       shininess="1.0"
       textureref="wallTex"
       texlength_s="2.0"
@@ -113,15 +123,70 @@
       texlength_t="1.0">
     </appearance>
   
-  <appearance id="floorApp" 
+    <appearance id="floorApp" 
       emissive="1.0 1.0 1.0 1.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
-      specular="0.0 0.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
       shininess="128.0"
       textureref="floorTex"
       texlength_s="0.1"
       texlength_t="0.1">
+    </appearance>
+    
+    <appearance id="donut1App" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="donut1Tex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+    
+    <appearance id="donut2App" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="donut2Tex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+    
+    <appearance id="donut3App" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="donut3Tex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+    
+    <appearance id="donut4App" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="donut4Tex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+    
+    <appearance id="donut5App" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="donut5Tex"
+      texlength_s="1.0"
+      texlength_t="1.0">
     </appearance>
   
   </appearances>
@@ -423,7 +488,7 @@
         <rotate axis="x" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="donut1App" />
 
       <children>
         <torus inner="0.135" outer="0.3" slices="100" loops="100" />
@@ -436,7 +501,7 @@
         <rotate axis="x" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="donut2App" />
 
       <children>
         <torus inner="0.135" outer="0.3" slices="100" loops="100" />
@@ -449,7 +514,7 @@
         <rotate axis="x" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="donut3App" />
 
       <children>
         <torus inner="0.135" outer="0.3" slices="100" loops="100" />
@@ -462,7 +527,7 @@
         <rotate axis="x" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="donut4App" />
 
       <children>
         <torus inner="0.135" outer="0.3" slices="100" loops="100" />
@@ -475,7 +540,7 @@
         <rotate axis="x" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="donut5App" />
 
       <children>
         <torus inner="0.135" outer="0.3" slices="100" loops="100" />
