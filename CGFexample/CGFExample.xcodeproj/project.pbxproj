@@ -41,13 +41,18 @@
 		EB7BC63817F77C460069596B /* table.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63717F77C450069596B /* table.png */; };
 		EB7BC63A17F77CD20069596B /* floor.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63917F77CCD0069596B /* floor.png */; };
 		EB7BC63C17F788320069596B /* box.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63B17F7882E0069596B /* box.jpg */; };
+		EB7BC63E17F78F550069596B /* donutScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63D17F78F500069596B /* donutScene.yaf */; };
+		EB7BC64417F78FB30069596B /* donut1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63F17F78FA00069596B /* donut1.png */; };
+		EB7BC64517F78FB40069596B /* donut2.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64017F78FA00069596B /* donut2.png */; };
+		EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64117F78FA00069596B /* donut3.png */; };
+		EB7BC64717F78FB70069596B /* donut4.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64217F78FA00069596B /* donut4.png */; };
+		EB7BC64817F78FB90069596B /* donut5.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64317F78FA00069596B /* donut5.png */; };
 		EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB81812917E712E5008DF2EB /* scene.xml */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
-		EBA8DB9617F6D9C800214F9F /* donutScene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBA8DB9517F6D9BA00214F9F /* donutScene.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,15 +63,20 @@
 			dstSubfolderSpec = 16;
 			files = (
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
-				EBA8DB9617F6D9C800214F9F /* donutScene.xml in CopyFiles */,
 				EB7BC63617F77BDD0069596B /* wall.png in CopyFiles */,
 				AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */,
 				EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */,
 				AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */,
 				EB7BC63A17F77CD20069596B /* floor.png in CopyFiles */,
 				EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */,
+				EB7BC63E17F78F550069596B /* donutScene.yaf in CopyFiles */,
 				EB7BC63C17F788320069596B /* box.jpg in CopyFiles */,
+				EB7BC64417F78FB30069596B /* donut1.png in CopyFiles */,
 				EB7BC63817F77C460069596B /* table.png in CopyFiles */,
+				EB7BC64817F78FB90069596B /* donut5.png in CopyFiles */,
+				EB7BC64717F78FB70069596B /* donut4.png in CopyFiles */,
+				EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */,
+				EB7BC64517F78FB40069596B /* donut2.png in CopyFiles */,
 				AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +151,12 @@
 		EB7BC63717F77C450069596B /* table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table.png; sourceTree = "<group>"; };
 		EB7BC63917F77CCD0069596B /* floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floor.png; sourceTree = "<group>"; };
 		EB7BC63B17F7882E0069596B /* box.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = box.jpg; sourceTree = "<group>"; };
+		EB7BC63D17F78F500069596B /* donutScene.yaf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = donutScene.yaf; sourceTree = "<group>"; };
+		EB7BC63F17F78FA00069596B /* donut1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut1.png; sourceTree = "<group>"; };
+		EB7BC64017F78FA00069596B /* donut2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut2.png; sourceTree = "<group>"; };
+		EB7BC64117F78FA00069596B /* donut3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut3.png; sourceTree = "<group>"; };
+		EB7BC64217F78FA00069596B /* donut4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut4.png; sourceTree = "<group>"; };
+		EB7BC64317F78FA00069596B /* donut5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut5.png; sourceTree = "<group>"; };
 		EB81812917E712E5008DF2EB /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		EB873CB017E61F4F00181AB4 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		EB873CB217E61F4F00181AB4 /* annotated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = annotated.html; sourceTree = "<group>"; };
@@ -246,7 +262,6 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
-		EBA8DB9517F6D9BA00214F9F /* donutScene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = donutScene.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,13 +382,18 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				EB7BC63F17F78FA00069596B /* donut1.png */,
+				EB7BC64017F78FA00069596B /* donut2.png */,
+				EB7BC64117F78FA00069596B /* donut3.png */,
+				EB7BC64217F78FA00069596B /* donut4.png */,
+				EB7BC64317F78FA00069596B /* donut5.png */,
+				EB7BC63D17F78F500069596B /* donutScene.yaf */,
 				EB7BC63B17F7882E0069596B /* box.jpg */,
 				EB7BC63917F77CCD0069596B /* floor.png */,
 				EB7BC63717F77C450069596B /* table.png */,
 				EB7BC63417F77BCA0069596B /* duffPoster.jpg */,
 				EB7BC63317F77BC10069596B /* wall.png */,
 				EB7BC62E17F754E70069596B /* wood.jpg */,
-				EBA8DB9517F6D9BA00214F9F /* donutScene.xml */,
 				EB81812917E712E5008DF2EB /* scene.xml */,
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,

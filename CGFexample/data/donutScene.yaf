@@ -58,11 +58,8 @@
     <texture id="wallTex" file="wall.png" />
     
     <texture id="posterTex" file="duffPoster.jpg" />
-<<<<<<< HEAD:CGFexample/data/donutScene.xml
 
     <texture id="paperTex" file="paper.jpg" />
-
-=======
     
     <texture id="donut1Tex" file="donut1.png" />
     
@@ -73,7 +70,6 @@
     <texture id="donut4Tex" file="donut4.png" />
     
     <texture id="donut5Tex" file="donut5.png" />
->>>>>>> 31811ec12dac39b3409f6b45890315f3894e8bf9:CGFexample/data/donutScene.yaf
   
   </textures>
 
