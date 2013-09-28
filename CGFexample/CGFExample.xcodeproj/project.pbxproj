@@ -34,7 +34,7 @@
 		EB4CCA4917F4BAA400A9A55E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3617F4BAA400A9A55E /* main.cpp */; };
 		EB4CCA4A17F4BAA400A9A55E /* ExampleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */; };
 		EB4CCA4B17F4BAA400A9A55E /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */; };
-		EB4CCA4D17F4DEBA00A9A55E /* table.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB4CCA4C17F4DEA400A9A55E /* table.png */; };
+		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB81812917E712E5008DF2EB /* scene.xml */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
@@ -51,11 +51,11 @@
 			dstPath = .;
 			dstSubfolderSpec = 16;
 			files = (
-				EB4CCA4D17F4DEBA00A9A55E /* table.png in CopyFiles */,
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
 				EBA8DB9617F6D9C800214F9F /* donutScene.xml in CopyFiles */,
 				AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */,
 				AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */,
+				EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */,
 				AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,7 +122,7 @@
 		EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExampleObject.cpp; path = src/ExampleObject.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA3917F4BAA400A9A55E /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoScene.h; path = src/DemoScene.h; sourceTree = SOURCE_ROOT; };
 		EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoScene.cpp; path = src/DemoScene.cpp; sourceTree = SOURCE_ROOT; };
-		EB4CCA4C17F4DEA400A9A55E /* table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table.png; sourceTree = "<group>"; };
+		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
 		EB81812917E712E5008DF2EB /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		EB873CB017E61F4F00181AB4 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		EB873CB217E61F4F00181AB4 /* annotated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = annotated.html; sourceTree = "<group>"; };
@@ -347,8 +347,8 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				EB7BC62E17F754E70069596B /* wood.jpg */,
 				EBA8DB9517F6D9BA00214F9F /* donutScene.xml */,
-				EB4CCA4C17F4DEA400A9A55E /* table.png */,
 				EB81812917E712E5008DF2EB /* scene.xml */,
 				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,

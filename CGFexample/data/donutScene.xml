@@ -18,8 +18,8 @@
   <cameras initial="2" >
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
-    <perspective id="1" near="1" far="100" angle="90" pos="-8.0 5.0 10.0" target="5.0 5.0 5.0" />
-    <ortho id="2" near="-10" far="10" left="-10.0" right="10.0" top="10.0" bottom="-10.0" />
+    <perspective id="1" near="1" far="100" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
+    <ortho id="2" left="0" right="50" bottom="0" top="50" near="-1" far="1"/>
 
   </cameras>
 
@@ -29,27 +29,29 @@
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="1" enabled="true"
-        location="1.0 1.0 1.0"
+        location="4.0 12.0 5.0 1.0"
         ambient="1.0 1.0 1.0 1.0"
         diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
             />
 
-    <spot id="2" enabled="false" 
-        location="1.0 1.0 1.0" 
+    <spot id="2" enabled="true" 
+        location="17.5 15 17.5" 
         ambient="1.0 1.0 1.0 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
-        specular="1.0 0.5 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
         angle="1.0" 
         exponent="1.0" 
-        direction="1.0 1.0 1.0" 
+        direction="17.5 8.6875 17.5" 
             /> 
 
   </lighting>
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
-    <texture id="1" file="table.png" />
+    <texture id="wood" file="wood.jpg" />
+    <texture id="wall" file="wall.jpg" />
+    <texture id="poster" file="homer.jpg" />
   </textures>
 
   <!-- bloco de materiais; --> 
@@ -66,20 +68,31 @@
       diffuse="1.0 1.0 1.0 1.0"
       specular="1.0 1.0 1.0 1.0"
       shininess="1.0"
-      textureref="1"
+      textureref="wall"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
   
-    <appearance id="2" 
+    <appearance id="wood" 
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="wood"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+
+    <appearance id="poster" 
       emissive="1.0 1.0 1.0 1.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
-      specular="0.0 0.0 1.0 1.0"
-      shininess="128.0"
-      textureref=""
-      texlength_s=""
-      texlength_t="">
+      specular="1.0 1.0 1.0 1.0"
+      shininess="1.0"
+      textureref="poster"
+      texlength_s="1.0"
+      texlength_t="1.0">
     </appearance>
   </appearances>
 
@@ -136,7 +149,7 @@
         <scale factor="35 0.125 35" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="1" />
 
       <children>
         <noderef id="cube" />
@@ -152,7 +165,7 @@
         <scale factor="35 0.125 35" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="1" />
 
       <children>
         <noderef id="cube" />
@@ -165,7 +178,7 @@
         <scale factor="9 12 0.0625" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="poster" />
 
       <children>
         <noderef id="cube" />
@@ -179,7 +192,7 @@
         <translate to="-6 4.125 -3.5" />
       </transforms>
 
-      <appearanceref id="" />
+      <appearanceref id="wood" />
 
       <children>
         <noderef id="tableTop" />
