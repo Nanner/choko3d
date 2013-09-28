@@ -59,7 +59,7 @@
     
     <texture id="posterTex" file="duffPoster.jpg" />
 
-    <texture id="paperTex" file="paper.jpg" />
+    <texture id="boxTex" file="box.jpg" />
     
     <texture id="donut1Tex" file="donut1.png" />
     
@@ -81,18 +81,18 @@
       <!--   opcionais se for usada uma textura. --> 
       <!--   ver topico 'Notas finais' no enunciado sobre os -->
       <!--   parametros texlength_...) -->  
-    <appearance id="Paper" 
+    <appearance id="Box"
       emissive="1.0 1.0 1.0 1.0"
       ambient="0.0 0.0 0.0 0.0"
       diffuse="0.55 0.55 0.55 1.0"
       specular="0.7 0.7 0.7 1.0"
       shininess="1.0"
-      textureref="paperTex"
+      textureref="boxTex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
 
-    <appearance id="Paper2" 
+    <appearance id="Box2"
       emissive="1.0 1.0 1.0 1.0"
       ambient="0.0 0.0 0.0 0.0"
       diffuse="0.55 0.55 0.55 1.0"
@@ -388,7 +388,7 @@
         <translate to="17.5 8.6875 17.5" />
       </transforms>
 
-      <appearanceref id="Paper" />
+      <appearanceref id="Box" />
 
       <children>
         <noderef id="boxPartLid"/>
@@ -460,7 +460,7 @@
         <scale factor="3.5 0.125 2.5" />
       </transforms>
 
-      <appearanceref id="Paper2" />
+      <appearanceref id="Box2" />
 
       <children>
         <noderef id="cube" />
