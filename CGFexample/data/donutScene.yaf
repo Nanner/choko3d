@@ -15,11 +15,11 @@
   <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
-  <cameras initial="1" >
+  <cameras initial="2" >
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
     <perspective id="1" near="1" far="150" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
-    <ortho id="2" left="0" right="35" bottom="0" top="35" near="-1" far="1"/>
+    <ortho id="2" left="0" right="35" bottom="0" top="35" near="-20" far="1"/>
 
   </cameras>
 
@@ -50,9 +50,7 @@
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
     <texture id="woodTex" file="wood.jpg" />
-    
-    <texture id="tableTex" file="table.png" />
-  
+      
     <texture id="floorTex" file="floor.png" />
 
     <texture id="wallTex" file="wall.png" />
@@ -87,8 +85,8 @@
       <!--   parametros texlength_...) -->  
     <appearance id="Box"
       emissive="1.0 1.0 1.0 1.0"
-      ambient="0.3 0.3 0.3 0.3"
-      diffuse="0.55 0.55 0.55 1.0"
+      ambient="0.7 0.7 0.7 1.0"
+      diffuse="0.7 0.7 0.7 1.0"
       specular="0.7 0.7 0.7 1.0"
       shininess="1.0"
       textureref="boxTex"
@@ -98,8 +96,8 @@
 
     <appearance id="Box2"
       emissive="1.0 1.0 1.0 1.0"
-      ambient="0.3 0.3 0.3 0.3"
-      diffuse="0.55 0.55 0.55 1.0"
+      ambient="0.7 0.7 0.7 1.0"
+      diffuse="0.7 0.7 0.7 1.0"
       specular="0.7 0.7 0.7 1.0"
       shininess="1.0"
       textureref=""
@@ -238,8 +236,6 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="room" />
         <noderef id="box" />
@@ -253,8 +249,6 @@
       <transforms>
         <translate to="17.5 0 17.5" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <noderef id="leftWall" />
@@ -344,8 +338,6 @@
         <scale factor="13 0.5 8" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="cube" />
       </children>
@@ -356,8 +348,6 @@
         <scale factor="1 8 1" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="cube" />
       </children>
@@ -366,8 +356,6 @@
     <node id="blLeg">
       <transforms>
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <noderef id="tableLeg" />
@@ -379,8 +367,6 @@
         <translate to="12 0 0" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="tableLeg" />
       </children>
@@ -391,8 +377,6 @@
         <translate to="12 0 7" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="tableLeg" />
       </children>
@@ -402,8 +386,6 @@
       <transforms>
         <translate to="0 0 7" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <noderef id="tableLeg" />
@@ -434,8 +416,6 @@
         <scale factor="1 1 1.3" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="boxPartSide" />
       </children>
@@ -449,8 +429,6 @@
         <scale factor="1 1 1.3" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="boxPartSide" />
       </children>
@@ -462,8 +440,6 @@
         <rotate axis="z" angle="90" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="boxPartSide" />
       </children>
@@ -474,8 +450,6 @@
         <translate to="1.6875 0.6625 0" />
         <rotate axis="z" angle="90" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <noderef id="boxPartSide" />
@@ -499,8 +473,6 @@
         <scale factor="1.2 0.125 2.5" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="cube" />
       </children>
@@ -510,8 +482,6 @@
       <transforms>
         <translate to="17.5 4.125 17.5" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <noderef id="donut" />
@@ -591,8 +561,6 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <noderef id="top" />
         <noderef id="bottom" />
@@ -609,8 +577,6 @@
         <rotate axis="x" angle="270.0" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
       </children>
@@ -621,8 +587,6 @@
         <translate to="0 -0.5 0" />
         <rotate axis="x" angle="90.0" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
@@ -635,8 +599,6 @@
         <rotate axis="x" angle="0" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
       </children>
@@ -647,8 +609,6 @@
         <translate to="0 0 -0.5" />
         <rotate axis="y" angle="180.0" />
       </transforms>
-
-      <appearanceref id="" />
 
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
@@ -661,8 +621,6 @@
         <rotate axis="y" angle="270.0" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
       </children>
@@ -674,50 +632,61 @@
         <rotate axis="y" angle="90.0" />
       </transforms>
 
-      <appearanceref id="" />
-
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
       </children>
     </node>   
 
     <node id="beer"> 
-        <transforms>
-          <translate to="13.5 9.5 17.5"/>
-          <rotate axis="x" angle="-90" />
-        </transforms> 
+      <transforms>
+        <translate to="13.5 8.625 17.5"/>
+        <rotate axis="x" angle="270" />
+      </transforms> 
     
-      
-        <children> 
-          <noderef id="beer cup" />
-          <noderef id="beer foam" />
-        </children> 
+      <appearanceref id="beer" />
+
+      <children> 
+        <noderef id="beercup" />
+        <noderef id="beerfoam" />
+        <noderef id="beerholder" />
+      </children> 
     </node>
 
-    <node id="beer cup"> 
-        <transforms>
-          <scale factor="0.6 0.6 1.5" /> 
-        </transforms> 
-    
-        <appearanceref id="beer" />
-      
-        <children> 
-          <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
-        </children> 
+    <node id="beercup"> 
+      <transforms>
+        <scale factor="0.9 0.9 1.6" /> 
+      </transforms> 
+        
+      <children> 
+        <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
+      </children> 
     </node>
 
-    <node id="beer foam"> 
-        <transforms>
-          <translate to="0 0 1.5" /> 
-          <scale factor="0.6 0.6 0.1" /> 
-        </transforms> 
+    <node id="beerfoam"> 
+      <transforms>
+        <translate to="0 0 1.6" /> 
+        <scale factor="0.9 0.9 0.4" /> 
+      </transforms> 
     
-        <appearanceref id="foam" />
+      <appearanceref id="foam" />
       
-        <children> 
-          <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
-        </children> 
-    </node>       
+      <children> 
+        <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
+      </children> 
+    </node>
+
+    <node id="beerholder"> 
+      <transforms>
+        <translate to="1 0 1" /> 
+        <rotate axis="x" angle="90" />
+      </transforms> 
+    
+      <appearanceref id="foam" />
+      
+      <children> 
+        <torus inner="0.15" outer="0.4" slices="100" loops="100" />
+      </children> 
+    </node>      
   
   </graph>
 </yaf>

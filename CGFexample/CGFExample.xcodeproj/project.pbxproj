@@ -13,7 +13,6 @@
 		AA63E23216D4221C003287C6 /* libGLEW.1.9.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E22F16D4221C003287C6 /* libGLEW.1.9.0.dylib */; };
 		AA63E23316D4221C003287C6 /* libGLEWmx.1.9.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23016D4221C003287C6 /* libGLEWmx.1.9.0.dylib */; };
 		AA63E23416D4221C003287C6 /* libglui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23116D4221C003287C6 /* libglui.a */; };
-		AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23A16D422CA003287C6 /* pyramid.jpg */; };
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
 		EB1741BB17F57514003215F3 /* CameraView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB1741BA17F57514003215F3 /* CameraView.cpp */; };
@@ -37,7 +36,6 @@
 		EB7BC63217F77BB50069596B /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7BC63017F77BB50069596B /* Appearance.cpp */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
 		EB7BC63617F77BDD0069596B /* wall.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63317F77BC10069596B /* wall.png */; };
-		EB7BC63817F77C460069596B /* table.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63717F77C450069596B /* table.png */; };
 		EB7BC63A17F77CD20069596B /* floor.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63917F77CCD0069596B /* floor.png */; };
 		EB7BC63C17F788320069596B /* box.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63B17F7882E0069596B /* box.jpg */; };
 		EB7BC63E17F78F550069596B /* donutScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63D17F78F500069596B /* donutScene.yaf */; };
@@ -68,7 +66,6 @@
 				EBF5AAC517F8B07A00E54147 /* beerfoam.jpg in CopyFiles */,
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
 				EB7BC63617F77BDD0069596B /* wall.png in CopyFiles */,
-				AA63E23F16D422F1003287C6 /* pyramid.jpg in CopyFiles */,
 				EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */,
 				AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */,
 				EB7BC63A17F77CD20069596B /* floor.png in CopyFiles */,
@@ -76,7 +73,6 @@
 				EB7BC63E17F78F550069596B /* donutScene.yaf in CopyFiles */,
 				EB7BC63C17F788320069596B /* box.jpg in CopyFiles */,
 				EB7BC64417F78FB30069596B /* donut1.png in CopyFiles */,
-				EB7BC63817F77C460069596B /* table.png in CopyFiles */,
 				EB7BC64817F78FB90069596B /* donut5.png in CopyFiles */,
 				EB7BC64717F78FB70069596B /* donut4.png in CopyFiles */,
 				EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */,
@@ -109,7 +105,6 @@
 		AA63E22F16D4221C003287C6 /* libGLEW.1.9.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.9.0.dylib; path = /usr/local/Cellar/glew/1.9.0/lib/libGLEW.1.9.0.dylib; sourceTree = "<absolute>"; };
 		AA63E23016D4221C003287C6 /* libGLEWmx.1.9.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.1.9.0.dylib; path = /usr/local/Cellar/glew/1.9.0/lib/libGLEWmx.1.9.0.dylib; sourceTree = "<absolute>"; };
 		AA63E23116D4221C003287C6 /* libglui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglui.a; path = /usr/local/Cellar/glui/2.36/lib/libglui.a; sourceTree = "<absolute>"; };
-		AA63E23A16D422CA003287C6 /* pyramid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pyramid.jpg; sourceTree = "<group>"; };
 		AA63E23B16D422CA003287C6 /* texshader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.frag; sourceTree = "<group>"; };
 		AA63E23C16D422CA003287C6 /* texshader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.vert; sourceTree = "<group>"; };
 		EB1741B917F57514003215F3 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraView.h; path = src/CameraView.h; sourceTree = SOURCE_ROOT; };
@@ -150,7 +145,6 @@
 		EB7BC63117F77BB50069596B /* Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Appearance.h; path = src/Appearance.h; sourceTree = SOURCE_ROOT; };
 		EB7BC63317F77BC10069596B /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
 		EB7BC63417F77BCA0069596B /* duffPoster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = duffPoster.jpg; sourceTree = "<group>"; };
-		EB7BC63717F77C450069596B /* table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table.png; sourceTree = "<group>"; };
 		EB7BC63917F77CCD0069596B /* floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floor.png; sourceTree = "<group>"; };
 		EB7BC63B17F7882E0069596B /* box.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = box.jpg; sourceTree = "<group>"; };
 		EB7BC63D17F78F500069596B /* donutScene.yaf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = donutScene.yaf; sourceTree = "<group>"; };
@@ -398,12 +392,10 @@
 				EB7BC63D17F78F500069596B /* donutScene.yaf */,
 				EB7BC63B17F7882E0069596B /* box.jpg */,
 				EB7BC63917F77CCD0069596B /* floor.png */,
-				EB7BC63717F77C450069596B /* table.png */,
 				EB7BC63417F77BCA0069596B /* duffPoster.jpg */,
 				EB7BC63317F77BC10069596B /* wall.png */,
 				EB7BC62E17F754E70069596B /* wood.jpg */,
 				EB81812917E712E5008DF2EB /* scene.xml */,
-				AA63E23A16D422CA003287C6 /* pyramid.jpg */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,
 				AA63E23C16D422CA003287C6 /* texshader.vert */,
 			);
