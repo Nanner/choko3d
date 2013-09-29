@@ -15,10 +15,10 @@
   <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
-  <cameras initial="2" >
+  <cameras initial="1" >
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
-    <perspective id="1" near="1" far="100" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
+    <perspective id="1" near="1" far="150" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
     <ortho id="2" left="0" right="35" bottom="0" top="35" near="-1" far="1"/>
 
   </cameras>
@@ -37,12 +37,12 @@
 
     <spot id="2" enabled="true" 
         location="17.5 15 17.5" 
-        ambient="1.0 1.0 1.0 1.0" 
+        ambient="0.1 0.1 0.1 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
         specular="1.0 1.0 1.0 1.0"
-        angle="90.0" 
+        angle="30.0" 
         exponent="1.0" 
-        direction="0.0 -1.0 0.0" 
+        direction="0 -1 0" 
             /> 
 
   </lighting>

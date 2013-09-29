@@ -8,35 +8,12 @@ float SceneLight::ambient[4] = {1.0, 1.0, 1.0, 1.0};
 
 int SceneLight::getGLLight(int number) {
 
-	switch(number){
-	case 0:
-		return GL_LIGHT0;
-		break;
-	case 1:
-		return GL_LIGHT1;
-		break;
-	case 2:
-		return GL_LIGHT2;
-		break;
-	case 3:
-		return GL_LIGHT3;
-		break;
-	case 4:
-		return GL_LIGHT4;
-		break;
-	case 5:
-		return GL_LIGHT5;
-		break;
-	case 6:
-		return GL_LIGHT6;
-		break;
-	case 7:
-		return GL_LIGHT7;
-		break;
-	default:
-		return 0;
-		break;
-	}
+    int lights[] = {GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7};
+	if ( number > 7 ) {
+        return 0;
+    } else {
+        return lights[number];
+    }
 }
 
 SceneLight::SceneLight(bool enabled, string idString, float* pos,
@@ -82,7 +59,29 @@ SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
 		  diffuseR, diffuseG, diffuseB, diffuseA,
 		  specularR, specularG, specularB, specularA,
 		  dir) {
-	
+    this->exponent = exponent;
 	setAngle(angle);
-	glLightf(id, GL_SPOT_EXPONENT, exponent);
+    this->update();    
+}
+
+
+void SpotLight::update(){
+    if (enabled)
+		glEnable(id);
+	else
+		glDisable(id);
+    
+    glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
+    glLightfv(id, GL_SPOT_DIRECTION, direction);
+    glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength
+}
+
+void SpotLight::draw() {
+	update();
+    
+	material->apply();
+	glPushMatrix();
+        glTranslatef(position[0],position[1],position[2]);
+        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
+	glPopMatrix();
 }

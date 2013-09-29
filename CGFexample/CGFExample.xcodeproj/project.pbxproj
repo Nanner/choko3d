@@ -32,7 +32,6 @@
 		EB4CCA4717F4BAA400A9A55E /* SceneGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3317F4BAA400A9A55E /* SceneGraph.cpp */; };
 		EB4CCA4817F4BAA400A9A55E /* SceneEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3517F4BAA400A9A55E /* SceneEdge.cpp */; };
 		EB4CCA4917F4BAA400A9A55E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3617F4BAA400A9A55E /* main.cpp */; };
-		EB4CCA4A17F4BAA400A9A55E /* ExampleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */; };
 		EB4CCA4B17F4BAA400A9A55E /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63217F77BB50069596B /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7BC63017F77BB50069596B /* Appearance.cpp */; };
@@ -53,6 +52,7 @@
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
+		EBB90B8F17F83C730088FE94 /* SceneLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB90B8D17F83C730088FE94 /* SceneLight.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -139,8 +139,6 @@
 		EB4CCA3417F4BAA400A9A55E /* SceneEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneEdge.h; path = src/SceneEdge.h; sourceTree = SOURCE_ROOT; };
 		EB4CCA3517F4BAA400A9A55E /* SceneEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneEdge.cpp; path = src/SceneEdge.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA3617F4BAA400A9A55E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
-		EB4CCA3717F4BAA400A9A55E /* ExampleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleObject.h; path = src/ExampleObject.h; sourceTree = SOURCE_ROOT; };
-		EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExampleObject.cpp; path = src/ExampleObject.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA3917F4BAA400A9A55E /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoScene.h; path = src/DemoScene.h; sourceTree = SOURCE_ROOT; };
 		EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoScene.cpp; path = src/DemoScene.cpp; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
@@ -262,6 +260,8 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
+		EBB90B8D17F83C730088FE94 /* SceneLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneLight.cpp; path = src/SceneLight.cpp; sourceTree = SOURCE_ROOT; };
+		EBB90B8E17F83C730088FE94 /* SceneLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneLight.h; path = src/SceneLight.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,12 +335,12 @@
 				EB4CCA3417F4BAA400A9A55E /* SceneEdge.h */,
 				EB4CCA3517F4BAA400A9A55E /* SceneEdge.cpp */,
 				EB4CCA3617F4BAA400A9A55E /* main.cpp */,
-				EB4CCA3717F4BAA400A9A55E /* ExampleObject.h */,
-				EB4CCA3817F4BAA400A9A55E /* ExampleObject.cpp */,
 				EB4CCA3917F4BAA400A9A55E /* DemoScene.h */,
 				EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */,
 				EB1741B917F57514003215F3 /* CameraView.h */,
 				EB1741BA17F57514003215F3 /* CameraView.cpp */,
+				EBB90B8D17F83C730088FE94 /* SceneLight.cpp */,
+				EBB90B8E17F83C730088FE94 /* SceneLight.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -587,13 +587,13 @@
 				EB4CCA4817F4BAA400A9A55E /* SceneEdge.cpp in Sources */,
 				EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */,
 				EB4CCA4617F4BAA400A9A55E /* ScenePrimitive.cpp in Sources */,
-				EB4CCA4A17F4BAA400A9A55E /* ExampleObject.cpp in Sources */,
 				EB4CCA3C17F4BAA400A9A55E /* YAFReader.cpp in Sources */,
 				EB4CCA3B17F4BAA400A9A55E /* YAFTexture.cpp in Sources */,
 				EB1741BB17F57514003215F3 /* CameraView.cpp in Sources */,
 				EB4CCA4517F4BAA400A9A55E /* SceneVertex.cpp in Sources */,
 				EB4CCA4317F4BAA400A9A55E /* YAFAppearance.cpp in Sources */,
 				EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */,
+				EBB90B8F17F83C730088FE94 /* SceneLight.cpp in Sources */,
 				EB4CCA4917F4BAA400A9A55E /* main.cpp in Sources */,
 				EB4CCA4417F4BAA400A9A55E /* Transformation.cpp in Sources */,
 			);
@@ -672,6 +672,7 @@
 					/usr/local/Cellar/glew/1.9.0/lib,
 					/usr/local/Cellar/glui/2.36/lib,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -691,6 +692,7 @@
 					/usr/local/Cellar/glew/1.9.0/lib,
 					/usr/local/Cellar/glui/2.36/lib,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

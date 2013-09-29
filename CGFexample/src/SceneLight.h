@@ -4,6 +4,10 @@
 #include <string>
 #include "CGFlight.h"
 
+#define CG_GLIGHT_DEFAULT_RADIUS 0.2
+#define CG_GLIGHT_DEFAULT_SLICES 8
+#define CG_GLIGHT_DEFAULT_STACKS 8
+
 using namespace std;
 
 class SceneLight: public CGFlight {
@@ -29,12 +33,15 @@ public:
 };
 
 class SpotLight: public SceneLight {
+    float exponent;
 public:
 	SpotLight(bool enabled, string idString, float* pos, float *dir,
 		float ambientR, float ambientG, float ambientB, float ambientA,
 		float diffuseR, float diffuseG, float diffuseB, float diffuseA,
 		float specularR, float specularG, float specularB, float specularA,
 		float angle, float exponent);
+    void update();
+    void draw();
 };
 
 #endif

@@ -2,8 +2,6 @@
 #include "CGFaxis.h"
 #include "CGFapplication.h"
 
-#include "ExampleObject.h"
-
 #include <math.h>
 
 #include "CGFappearance.h"
@@ -41,12 +39,7 @@ void DemoScene::init()
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
 	light0->enable();*/
 
-	// Defines a default normal
-	glNormal3f(0,0,1);
 
-	obj=new ExampleObject();
-	materialAppearance=new CGFappearance();
-	textureAppearance=new CGFappearance("../data/pyramid.jpg",GL_REPEAT, GL_REPEAT);
 	shader=new CGFshader("../data/texshader.vert","../data/texshader.frag");
 
 	setUpdatePeriod(30);
@@ -78,6 +71,7 @@ void DemoScene::display()
 	// Draw (and update) lights
 	//light0->draw();
 	sceneGraph->drawLights();
+    
 
 	// Draw axis
 	axis.draw();

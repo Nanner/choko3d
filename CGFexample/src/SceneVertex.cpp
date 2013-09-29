@@ -65,7 +65,7 @@ RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, 
 	map<string, YAFLight>::iterator it2 = lights.begin();
 	for(; it2 != lights.end(); it2++) {
 		YAFLight light = it2->second;
-		if(light.isOmni) {
+		if(light.isOmni && light.enabled) {
 			float pos[3] = {light.locationX, light.locationY, light.locationZ};
 
 			SceneLight* newOmni = new SceneLight(light.enabled, light.id, pos,
@@ -75,7 +75,7 @@ RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, 
 
 			this->lights.insert(pair<string, SceneLight*>(newOmni->getIdString(), newOmni));
 		}
-		else {
+		else if (light.enabled) {
 			float pos[3] = {light.locationX, light.locationY, light.locationZ};
 			float dir[3] = {light.directionX, light.directionY, light.directionZ};
 
