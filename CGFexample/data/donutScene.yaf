@@ -7,12 +7,7 @@
 <yaf>
 
   <!-- bloco de configuracoes globais -->
-  <!-- a declaracao dos atributos deste bloco e' obrigatoria -->
-  <!-- Valores para draw mode: "fill" , "line", "point" -->
-  <!-- Valores para shading: "flat", "gouraud" ) -->
-  <!-- Valores para cullface: "none", "back" , "front" ou "both" -->
-  <!-- Valores para cullorder : "CCW" ou "CW" -->
-  <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+  <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="back" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
   <cameras initial="2" >
@@ -49,6 +44,7 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
+    
     <texture id="woodTex" file="wood.jpg" />
       
     <texture id="floorTex" file="floor.png" />
@@ -77,17 +73,12 @@
 
   <!-- bloco de materiais; --> 
   <appearances> 
-      <!-- deve existir um ou mais blocos "appearance" -->
-      <!-- IMPORTANTE: -->
-      <!--   textureref, texlength_s e textlength_t sao atributos -->
-      <!--   opcionais se for usada uma textura. --> 
-      <!--   ver topico 'Notas finais' no enunciado sobre os -->
-      <!--   parametros texlength_...) -->  
+    
     <appearance id="Box"
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="0.7 0.7 0.7 1.0"
-      diffuse="0.7 0.7 0.7 1.0"
-      specular="0.7 0.7 0.7 1.0"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
       shininess="1.0"
       textureref="boxTex"
       texlength_s="1.0"
@@ -95,10 +86,10 @@
     </appearance>
 
     <appearance id="Box2"
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="0.7 0.7 0.7 1.0"
-      diffuse="0.7 0.7 0.7 1.0"
-      specular="0.7 0.7 0.7 1.0"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
       shininess="1.0"
       textureref=""
       texlength_s="1.0"
@@ -106,7 +97,7 @@
     </appearance>
   
     <appearance id="posterApp" 
-      emissive="1.0 1.0 1.0 1.0"
+      emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
@@ -117,9 +108,9 @@
     </appearance>
     
     <appearance id="wallApp" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="1.0"
       textureref="wallTex"
@@ -128,7 +119,7 @@
      </appearance>
   
     <appearance id="woodApp" 
-      emissive="1.0 1.0 1.0 1.0"
+      emissive="0.0 0.0 0.0 0.0"
       ambient="0.3 0.1 0.0 1.0"
       diffuse="0.35 0.15 0.0 1.0"
       specular="0.05 0.05 0.05 1.0"
@@ -139,93 +130,92 @@
     </appearance>
   
     <appearance id="floorApp" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
       specular="0.0 0.0 0.0 1.0"
-      shininess="128.0"
+      shininess="80.0"
       textureref="floorTex"
       texlength_s="0.1"
       texlength_t="0.1">
     </appearance>
     
     <appearance id="donut1App" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
       shininess="1.0"
       textureref="donut1Tex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
     
-    <appearance id="donut2App" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+    <appearance id="donut2App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
       shininess="1.0"
       textureref="donut2Tex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
     
-    <appearance id="donut3App" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+    <appearance id="donut3App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
       shininess="1.0"
       textureref="donut3Tex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
     
-    <appearance id="donut4App" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+    <appearance id="donut4App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
       shininess="1.0"
       textureref="donut4Tex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
     
-    <appearance id="donut5App" 
-      emissive="1.0 1.0 1.0 1.0"
-      ambient="1.0 1.0 1.0 1.0"
-      diffuse="1.0 1.0 1.0 1.0"
-      specular="1.0 1.0 1.0 1.0"
+    <appearance id="donut5App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
       shininess="1.0"
       textureref="donut5Tex"
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
 
-    <appearance id="beer" 
-      emissive="1 1 1 1" 
-      ambient="1 1 1 1" 
-      diffuse="1 1 1 1" 
-      specular="1 1 1 1" 
-      shininess="1"
+    <appearance id="beer"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"
       textureref="beer" 
       texlength_s="1" 
       texlength_t="1">     
     </appearance>
 
-    <appearance id="foam" 
-      emissive="1 1 1 1" 
-      ambient="1 1 1 1" 
-      diffuse="1 1 1 1" 
-      specular="1 1 1 1" 
-      shininess="1"
+    <appearance id="foam"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"
       textureref="foam" 
       texlength_s="1" 
       texlength_t="1">     
     </appearance>
-
 
    </appearances>
 
