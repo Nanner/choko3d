@@ -70,6 +70,10 @@
     <texture id="donut4Tex" file="donut4.png" />
     
     <texture id="donut5Tex" file="donut5.png" />
+
+    <texture id="beer" file="beer.jpg" />
+
+    <texture id="foam" file="beerfoam.jpg" />
   
   </textures>
 
@@ -201,8 +205,31 @@
       texlength_s="1.0"
       texlength_t="1.0">
     </appearance>
-  
-  </appearances>
+
+    <appearance id="beer" 
+      emissive="1 1 1 1" 
+      ambient="1 1 1 1" 
+      diffuse="1 1 1 1" 
+      specular="1 1 1 1" 
+      shininess="1"
+      textureref="beer" 
+      texlength_s="1" 
+      texlength_t="1">     
+    </appearance>
+
+    <appearance id="foam" 
+      emissive="1 1 1 1" 
+      ambient="1 1 1 1" 
+      diffuse="1 1 1 1" 
+      specular="1 1 1 1" 
+      shininess="1"
+      textureref="foam" 
+      texlength_s="1" 
+      texlength_t="1">     
+    </appearance>
+
+
+   </appearances>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="donutScene">
@@ -652,7 +679,45 @@
       <children>
         <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
       </children>
+    </node>   
+
+    <node id="beer"> 
+        <transforms>
+          <translate to="13.5 9.5 17.5"/>
+          <rotate axis="x" angle="-90" />
+        </transforms> 
+    
+      
+        <children> 
+          <noderef id="beer cup" />
+          <noderef id="beer foam" />
+        </children> 
     </node>
+
+    <node id="beer cup"> 
+        <transforms>
+          <scale factor="0.6 0.6 1.5" /> 
+        </transforms> 
+    
+        <appearanceref id="beer" />
+      
+        <children> 
+          <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
+        </children> 
+    </node>
+
+    <node id="beer foam"> 
+        <transforms>
+          <translate to="0 0 1.5" /> 
+          <scale factor="0.6 0.6 0.1" /> 
+        </transforms> 
+    
+        <appearanceref id="foam" />
+      
+        <children> 
+          <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
+        </children> 
+    </node>       
   
   </graph>
 </yaf>
