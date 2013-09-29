@@ -25,7 +25,7 @@
 
 
   <!-- bloco de iluminacao; segue os parametros do OpenGL -->
-  <lighting doublesided="true" local="false" enabled="true" ambient="1.0 1.0 1.0 1.0" >
+  <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="1" enabled="true"
@@ -40,9 +40,9 @@
         ambient="1.0 1.0 1.0 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
         specular="1.0 1.0 1.0 1.0"
-        angle="1.0" 
+        angle="90.0" 
         exponent="1.0" 
-        direction="17.5 8.6875 17.5" 
+        direction="0.0 -1.0 0.0" 
             /> 
 
   </lighting>

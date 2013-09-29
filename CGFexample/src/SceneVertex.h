@@ -7,6 +7,8 @@
 #include "CGFscene.h"
 #include "CameraView.h"
 #include "Appearance.h"
+#include "YAFLight.h"
+#include "SceneLight.h"
 #include <vector>
 #include <map>
 
@@ -52,8 +54,9 @@ public:
 	YAFGlobal globals;
 
 	map<string, CameraView*> cameras;
+	map<string, SceneLight*> lights;
 
-	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras);
+	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras, map<string, YAFLight> lights);
 
 	void loadDefaultAppearance();
 	void setGlobals();

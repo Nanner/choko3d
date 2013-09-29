@@ -17,16 +17,29 @@ void DemoScene::init()
 	//CGFscene::activeCamera = sceneGraph->getInitialCamera();
 
 	// Enables lighting computations
-	glEnable(GL_LIGHTING);
+	if(SceneLight::lightEnabled)
+		glEnable(GL_LIGHTING);
+	else
+		glDisable(GL_LIGHTING);
 
 	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
+	if(SceneLight::doubleSided)
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	else
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, SceneLight::ambient);  // Define ambient light
+
+	if(SceneLight::localLight)
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+	else
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
+
 	
 	// Declares and enables a light
-	float light0_pos[4] = {4.0, 30.0, 5.0, 1.0};
+	/*float light0_pos[4] = {4.0, 30.0, 5.0, 1.0};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
-	light0->enable();
+	light0->enable();*/
 
 	// Defines a default normal
 	glNormal3f(0,0,1);
@@ -62,8 +75,9 @@ void DemoScene::display()
 	// Apply transformations corresponding to the camera position relative to the origin
 	CGFscene::activeCamera->applyView();
 
-	// Draw (and update) light
-	light0->draw();
+	// Draw (and update) lights
+	//light0->draw();
+	sceneGraph->drawLights();
 
 	// Draw axis
 	axis.draw();

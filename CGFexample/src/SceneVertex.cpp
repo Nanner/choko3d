@@ -43,7 +43,7 @@ void SceneVertex::setAppearance(Appearance * appearance){
     this->appearance = appearance;
 }
 
-RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras) {
+RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras, map<string, YAFLight> lights) {
 	loadDefaultAppearance();
 	this->matrix = matrix;
 	this->id = id;
@@ -59,6 +59,33 @@ RootVertex::RootVertex(float* matrix, string id, YAFGlobal globals, map<string, 
 		else {
 			Perspective* newPerspective = new Perspective(cam.id, cam.near, cam.far, cam.angle, cam.posX, cam.posY, cam.posZ, cam.targetX, cam.targetY, cam.targetZ);
 			this->cameras.insert(pair<string, CameraView*>(newPerspective->id, newPerspective));
+		}
+	}
+
+	map<string, YAFLight>::iterator it2 = lights.begin();
+	for(; it2 != lights.end(); it2++) {
+		YAFLight light = it2->second;
+		if(light.isOmni) {
+			float pos[3] = {light.locationX, light.locationY, light.locationZ};
+
+			SceneLight* newOmni = new SceneLight(light.enabled, light.id, pos,
+				light.ambientR, light.ambientG, light.ambientB, light.ambientA,
+				light.diffuseR, light.diffuseG, light.diffuseB, light.diffuseA,
+				light.specularR, light.specularG, light.specularB, light.specularA);
+
+			this->lights.insert(pair<string, SceneLight*>(newOmni->getIdString(), newOmni));
+		}
+		else {
+			float pos[3] = {light.locationX, light.locationY, light.locationZ};
+			float dir[3] = {light.directionX, light.directionY, light.directionZ};
+
+			SpotLight* newSpot = new SpotLight(light.enabled, light.id, pos, dir,
+				light.ambientR, light.ambientG, light.ambientB, light.ambientA,
+				light.diffuseR, light.diffuseG, light.diffuseB, light.diffuseA,
+				light.specularR, light.specularG, light.specularB, light.specularA,
+				light.angle, light.exponent);
+
+			this->lights.insert(pair<string, SceneLight*>(newSpot->getIdString(), newSpot));
 		}
 	}
 }

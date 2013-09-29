@@ -1,6 +1,13 @@
 #include "SceneGraph.h"
 
 SceneGraph::SceneGraph(YAFReader* yafFile) {
+	SceneLight::localLight = yafFile->globalLighting.local;
+	SceneLight::lightEnabled = yafFile->globalLighting.enabled;
+	SceneLight::doubleSided = yafFile->globalLighting.doublesided;
+	SceneLight::ambient[0] = yafFile->globalLighting.ambientR;
+	SceneLight::ambient[1] = yafFile->globalLighting.ambientG;
+	SceneLight::ambient[2] = yafFile->globalLighting.ambientB;
+	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
 
     //read the textures and appearances
 	//TODO emissive values missing!
@@ -147,7 +154,7 @@ void SceneGraph::render(SceneVertex *v) {
 }
 
 void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
-	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals, yafFile->cameras);
+	RootVertex* newRoot = new RootVertex(root.transformationMatrix, root.id, yafFile->globals, yafFile->cameras, yafFile->lights);
 	rootVertex = newRoot;
 
 	if (root.appearanceID != "") {
@@ -222,4 +229,11 @@ void SceneGraph::configureScene() {
 
 CGFcamera* SceneGraph::getInitialCamera() {
 	return rootVertex->cameras.find(YAFCamera::initialCameraID)->second;
+}
+
+void SceneGraph::drawLights() {
+	map<string, SceneLight*>::iterator it = rootVertex->lights.begin();
+	for(; it != rootVertex->lights.end(); it++) {
+		it->second->draw();
+	}
 }

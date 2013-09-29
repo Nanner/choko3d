@@ -34,6 +34,7 @@ public:
 
 	void configureScene();
 	CGFcamera* getInitialCamera();
+	void drawLights();
 
 	void render(SceneVertex *v);
 	void render();

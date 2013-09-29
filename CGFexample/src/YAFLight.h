@@ -4,8 +4,6 @@
 #include "YAFElement.h"
 
 class YAFLight: public YAFElement {
-private:
-
 public:
 	string id;
 	bool enabled;
