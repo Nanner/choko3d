@@ -71,14 +71,20 @@ void SpotLight::update(){
 	else
 		glDisable(id);
     
+    glPushMatrix();
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
     glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
     glLightfv(id, GL_SPOT_DIRECTION, direction);
     glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength
+    
+    glPopMatrix();
 }
 
 void SpotLight::draw() {
-	update();
-    
+    update();
 	material->apply();
 	glPushMatrix();
         glTranslatef(position[0],position[1],position[2]);

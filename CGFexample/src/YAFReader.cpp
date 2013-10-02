@@ -1,7 +1,5 @@
 #include "YAFReader.h"
 
-//TODO Check for missing blocks of info on the .yaf and terminate if such is found!
-
 YAFReader::YAFReader(char *filename) {
 	try {
 		// Read XML from file
@@ -156,7 +154,6 @@ YAFReader::YAFReader(char *filename) {
 
 					vector<float> location = getValues<float>(currentLight, (char*)"location");
 
-					// TODO 2 named ambient's, shouldnt this cause an error?
 					vector<float> ambient = getValues<float>(currentLight, (char*)"ambient");
 
 					vector<float> diffuse = getValues<float>(currentLight, (char*)"diffuse");
@@ -220,7 +217,6 @@ YAFReader::YAFReader(char *filename) {
 			TiXmlElement* textureElement = texturesElement->FirstChildElement("texture");
 
 			while ( textureElement ) {
-				// TODO store values
 				string id = getValue<string>(textureElement, (char*)"id");
 				string file = getValue<string>(textureElement, (char*)"file");
 
@@ -256,7 +252,6 @@ YAFReader::YAFReader(char *filename) {
 			}
 
 			while ( appearanceElement ) {
-				// TODO store values
 				string id = getValue<string>(appearanceElement, (char*)"id");
 
 				vector<float> emissive = getValues<float>(appearanceElement, (char*)"emissive");
@@ -324,8 +319,8 @@ YAFReader::YAFReader(char *filename) {
 				TiXmlElement * transforms = node->FirstChildElement("transforms");
 
 				if ( transforms == NULL) {
-					// TODO better error handling
 					printf("obligatory transforms block doesn't exist!");
+                    exit(1);
 				}
 
 				TiXmlElement * currentTransform = transforms->FirstChildElement();
