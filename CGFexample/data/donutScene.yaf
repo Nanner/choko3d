@@ -10,7 +10,7 @@
   <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="back" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
-  <cameras initial="2" >
+  <cameras initial="1" >
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
     <perspective id="1" near="1" far="150" angle="90" pos="25.0 19.0 27.0" target="2.0 2.0 2.0" />
@@ -23,7 +23,7 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="1" enabled="true"
+    <omni id="1" enabled="false"
         location="4.0 30.0 5.0 1.0"
         ambient="1.0 1.0 1.0 1.0"
         diffuse="1.0 1.0 1.0 1.0"

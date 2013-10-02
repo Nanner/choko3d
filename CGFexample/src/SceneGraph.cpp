@@ -130,7 +130,6 @@ void SceneGraph::render(SceneVertex *v) {
 			Appearance* appearance = it->dest->getAppearance();
 			if (appearance != NULL)
 				appearance->apply();
-			//TODO this method of appearance application will probably result in trouble if we have a full branch of the graph with null textures
 			
 			float* matrix = it->dest->getMatrix();
 			if(matrix != NULL)
