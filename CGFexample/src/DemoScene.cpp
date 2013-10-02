@@ -69,7 +69,6 @@ void DemoScene::display()
 	CGFscene::activeCamera->applyView();
 
 	// Draw (and update) lights
-	//light0->draw();
 	sceneGraph->drawLights();
     
 

@@ -4,7 +4,7 @@ CameraView::CameraView(string id, float near, float far): id(id), near(near), fa
 	
 	//Calculate the aspect ratio of the scene/app viewport
 	GLint m_viewport[4];
-	glGetIntegerv( GL_VIEWPORT, m_viewport );
+	glGetIntegerv(GL_VIEWPORT, m_viewport);
 	aspect = (float) m_viewport[2] / (float) m_viewport[3];
 }
 
@@ -23,12 +23,12 @@ void Perspective::applyView() {
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Load the camera view projection matrix
-	glMatrixMode( GL_PROJECTION );
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(angle, aspect, near, far);
 
 	//Load the camera position related matrix transformations
-	glMatrixMode( GL_MODELVIEW );
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	float upVector[3] = {0, 0, 0};
 	if(target[0] == position[0] && target[2] == position[2])
@@ -46,11 +46,11 @@ void Orthographic::applyView() {
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Same as above, projection matrix
-	glMatrixMode( GL_PROJECTION );
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(left*aspect, right*aspect, bottom, top, near, far);
 
 	//Same as above, model matrix
-	glMatrixMode( GL_MODELVIEW );
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
