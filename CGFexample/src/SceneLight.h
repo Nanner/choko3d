@@ -40,8 +40,7 @@ public:
 		float diffuseR, float diffuseG, float diffuseB, float diffuseA,
 		float specularR, float specularG, float specularB, float specularA,
 		float angle, float exponent);
-    void update();
-    void draw();
+	void update();
 };
 
 #endif

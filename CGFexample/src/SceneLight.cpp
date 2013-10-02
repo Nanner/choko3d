@@ -66,28 +66,8 @@ SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
 
 
 void SpotLight::update(){
-    if (enabled)
-		glEnable(id);
-	else
-		glDisable(id);
-    
-    glPushMatrix();
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    
-    glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
-    glLightfv(id, GL_SPOT_DIRECTION, direction);
-    glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength
-    
-    glPopMatrix();
-}
+    CGFlight::update();
 
-void SpotLight::draw() {
-    update();
-	material->apply();
-	glPushMatrix();
-        glTranslatef(position[0],position[1],position[2]);
-        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
-	glPopMatrix();
+    glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
+    glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength
 }

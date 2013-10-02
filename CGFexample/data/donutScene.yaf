@@ -24,18 +24,18 @@
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="1" enabled="false"
-        location="4.0 30.0 5.0 1.0"
+        location="4.0 30.0 5.0"
         ambient="1.0 1.0 1.0 1.0"
         diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
             />
 
     <spot id="2" enabled="true" 
-        location="17.5 15 17.5" 
+        location="17.5 17 17.5" 
         ambient="0.1 0.1 0.1 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
         specular="1.0 1.0 1.0 1.0"
-        angle="30.0" 
+        angle="50.0" 
         exponent="1.0" 
         direction="0.0 -1.0 0.0" 
             /> 
