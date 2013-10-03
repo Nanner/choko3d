@@ -232,6 +232,7 @@
         <noderef id="table" />
         <noderef id="donuts" />
         <noderef id="poster" />
+        <noderef id="beer" />
       </children>
     </node>
 

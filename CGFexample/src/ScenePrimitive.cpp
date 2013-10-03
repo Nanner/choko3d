@@ -19,7 +19,7 @@ Rectangle::Rectangle(float x1, float y1, float x2, float y2) {
 	xy2[1] = y2;
 }
 
-void Rectangle::render() {
+void Rectangle::draw() {
 	float xScalled = 1;
 	float yScalled = 1;
 
@@ -30,6 +30,7 @@ void Rectangle::render() {
 	}
 
 	glNormal3f(0,0,1);
+    
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex3f(xy1[0], xy1[1], 0);
@@ -40,6 +41,31 @@ void Rectangle::render() {
 		glTexCoord2f(0, yScalled);
 		glVertex3f(xy1[0], xy2[1], 0);
 	glEnd();
+     
+    /*
+     // TODO work in progress, better rectangle
+     
+    float distX = xy2[0] - xy1[0];
+    float distY = xy2[1] - xy1[1];
+    float deltaX = distX / 52;
+    float deltaY = distY / 52;
+    
+    glFrontFace(GL_CW);
+    for (float y = xy1[1]; y < xy2[1]; y += deltaY) {
+        glBegin(GL_TRIANGLE_STRIP);
+        glVertex3f(xy2[0], y + deltaY, 0);
+        for (float x = xy2[0]; x > xy1[0]; x -= deltaX) {
+            //glTexCoord2f(0, 0);
+            glVertex3f(x, y, 0);
+
+            glVertex3f(x - deltaX, y + deltaY, 0);
+        }
+        glVertex3f(xy1[0], y, 0);
+        glEnd();
+    }
+    glFrontFace(GL_CCW);
+     
+     */
 }
 
 bool Rectangle::operator==( const Rectangle &r2 ) const {
@@ -63,7 +89,7 @@ Triangle::Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3) {
 	//todo apply texture mapping to triangle and rectangle. We need to be careful with the s and t's and apply the text coords correctly
 }
 
-void Triangle::render() {
+void Triangle::draw() {
 	glBegin(GL_TRIANGLES);
 		glVertex3fv(xyz1);
 		glVertex3fv(xyz2);
@@ -98,7 +124,7 @@ Cylinder::Cylinder(float base,
 	gluQuadricTexture(quadratic, GL_TRUE);
 }
 
-void Cylinder::render() {
+void Cylinder::draw() {
 	gluCylinder(quadratic, base, top, height, slices, stacks);
 	glPushMatrix();
 	glRotatef(180.0, 0.0, 1.0, 0.0);
@@ -130,7 +156,7 @@ Sphere::Sphere(float radius, int slices, int stacks) {
 	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
-void Sphere::render(){
+void Sphere::draw(){
 	glPushMatrix();
 
 	glEnable(GL_NORMALIZE);
@@ -166,7 +192,7 @@ Torus::Torus(float inner, float outer, int slices, int loops) {
 	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
-void Torus::render(){
+void Torus::draw(){
 	glPushMatrix();
 
 	glEnable(GL_NORMALIZE);

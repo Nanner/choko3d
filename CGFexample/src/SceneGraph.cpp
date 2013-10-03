@@ -94,23 +94,8 @@ void SceneGraph::render() {
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
 		(*it)->nodeVisited=false;
-	it=vertexSet.begin();
-	for (; it !=ite; it++)
-		if ( (*it)->nodeVisited==false ) {
-			glPushMatrix();
-			rootVertex->defaultAppearance->apply();
-
-			Appearance* appearance = (*it)->getAppearance();
-			if(appearance != NULL)
-				appearance->apply();
-			float* matrix = (*it)->getMatrix();
-			if(matrix != NULL)
-				glMultMatrixf(matrix);
-			(*it)->render();
-			render(*it);
-
-			glPopMatrix();
-		}
+	
+    render(rootVertex);
 }
 
 void SceneGraph::render(SceneVertex *v) {
@@ -134,7 +119,7 @@ void SceneGraph::render(SceneVertex *v) {
 			float* matrix = it->dest->getMatrix();
 			if(matrix != NULL)
 				glMultMatrixf(matrix);
-			it->dest->render();
+			it->dest->draw();
 			render(it->dest);
 
 			glPopMatrix();

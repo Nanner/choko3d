@@ -3,9 +3,11 @@
 
 #include "CGFobject.h"
 #include "SceneVertex.h"
+#include "RootVertex.h"
 #include "SceneEdge.h"
 #include "YAFReader.h"
 #include "Appearance.h"
+
 #include <vector>
 
 using namespace std;

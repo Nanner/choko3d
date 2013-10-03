@@ -7,7 +7,7 @@
 
 class ScenePrimitive: public SceneVertex {
 public:
-	virtual void render() = 0;
+	virtual void draw() = 0;
 	virtual bool isSamePrimitive(const ScenePrimitive &p2) const = 0;
 };
 
@@ -19,7 +19,7 @@ public:
 	Rectangle(/*needs mats and texts and transforms*/vector<float> xy1, vector<float> xy2);
 	Rectangle(/*same*/float x1, float y1, float x2, float y2);
 
-	void render();
+	void draw();
 
 	bool operator==(const Rectangle &r2) const;
 
@@ -34,7 +34,7 @@ public:
     float xyz3[3];
     
     Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3);
-    void render();
+    void draw();
 
 	bool operator==(const Triangle &t2) const;
 
@@ -52,7 +52,7 @@ public:
              float height,
              float slices,
              float stacks);
-    void render();
+    void draw();
 
 	bool operator==(const Cylinder &c2) const;
 
@@ -66,7 +66,7 @@ public:
     int slices, stacks;
     
     Sphere(float radius, int slices, int stacks);
-    void render();
+    void draw();
 
 	bool operator==(const Sphere &s2) const;
 
@@ -80,7 +80,7 @@ public:
     int slices, loops;
     
     Torus(float inner, float outer, int slices, int loops);
-    void render();
+    void draw();
 
 	bool operator==(const Torus &t2) const;
 

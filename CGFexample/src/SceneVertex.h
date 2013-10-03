@@ -10,7 +10,6 @@
 #include "YAFLight.h"
 #include "SceneLight.h"
 #include <vector>
-#include <map>
 
 using namespace std;
 
@@ -45,23 +44,9 @@ public:
     Appearance * getAppearance();
     void setAppearance(Appearance * appearance);
     
-	virtual void render() {}
+	virtual void draw() {}
 };
 
-class RootVertex: public SceneVertex {
-public:
-	CGFappearance* defaultAppearance;
-	YAFGlobal globals;
-
-	map<string, CameraView*> cameras;
-	map<string, SceneLight*> lights;
-
-	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras, map<string, YAFLight> lights);
-
-	void loadDefaultAppearance();
-	void setGlobals();
-	void setInitialCamera();
-};
 
 class SceneComposite: public SceneVertex {
 public:
