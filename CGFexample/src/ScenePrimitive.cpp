@@ -6,24 +6,21 @@ int Rectangle::columns = 16;
 
 Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
 	matrix = NULL;
-    for (int i = 0; i < 2; i++) {
-        this->xy1[i] = xy1.at(i);
-        this->xy2[i] = xy2.at(i);
-    }
     
-    if ( xy1[0] > xy2[0] &&
-         xy1[1] > xy2[1]) {
-        float xy3[2];
-        xy3[0] = xy1[0]; xy3[1] = xy1[1];
-        this->xy1[0] = xy2[0]; this->xy1[1] = xy2[1];
-        this->xy2[0] = xy3[0]; this->xy2[1] = xy3[1];
+    x1 = xy1.at(0); y1 = xy1.at(1);
+    x2 = xy2.at(0); y2 = xy2.at(1);
+    
+    if ( x1 > x2 && y1 > y2) {
+        float x3 = x1, y3 = y1;
+        this->x1 = x2; this->y1 = y2;
+        this->x2 = x3; this->y2 = y3;
     }
     
     xScaled = 1;
     yScaled = 1;
-
-    distX = this->xy2[0] - this->xy1[0];
-    distY = this->xy2[1] - this->xy1[1];
+    
+    distX = this->x2 - this->x1;
+    distY = this->y2 - this->y1;
     deltaX = distX / rows;
     deltaY = distY / columns;
     texDeltaX = 1.0 / rows;
@@ -32,20 +29,20 @@ Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
 
 void Rectangle::draw() {
     
-    if(this->getAppearance() != NULL) {
+    if( this->getAppearance() ) {
 		Appearance* app = this->getAppearance();
-		xScaled = (xy2[0] - xy1[0]) / app->getTexLength_s();
-		yScaled = (xy2[1] - xy1[1]) / app->getTexLength_t();
+		xScaled = (x2 - x1) / app->getTexLength_s();
+		yScaled = (y2 - y1) / app->getTexLength_t();
 	}
-
+    
 	glNormal3f(0,0,1);
     
-    for (float bx = xy1[0], tx = 0; bx < xy2[0]-0.01; bx += deltaX, tx += texDeltaX)
+    for (float bx = x1, tx = 0; bx < x2-0.01; bx += deltaX, tx += texDeltaX)
     {
         glBegin(GL_TRIANGLE_STRIP);
         glTexCoord2d(tx * xScaled, 0);
-        glVertex3f(bx, xy1[1], 0.0);
-        for (float by = xy1[1], ty = 0; by < xy2[1]-0.01; by += deltaY, ty += texDeltaY)
+        glVertex3f(bx, y1, 0.0);
+        for (float by = y1, ty = 0; by < y2-0.01; by += deltaY, ty += texDeltaY)
         {
             glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
             glVertex3f(bx + deltaX, by, 0.0);
@@ -54,15 +51,15 @@ void Rectangle::draw() {
             glVertex3f(bx, by + deltaY, 0.0);
         }
         glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
-        glVertex3d(bx+deltaX, xy2[1], 0.0);
+        glVertex3d(bx+deltaX, y2, 0.0);
         
         glEnd();
     }
 }
 
 bool Rectangle::operator==( const Rectangle &r2 ) const {
-	return (this->xy1[0] == r2.xy1[0]) && (this->xy1[1] == r2.xy1[1]) &&
-		(this->xy2[0] == r2.xy2[0]) && (this->xy2[1] == r2.xy2[1]);
+	return (this->x1 == r2.x1) && (this->y1 == r2.y1) &&
+    (this->x2 == r2.x2) && (this->y2 == r2.y2);
 }
 
 bool Rectangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
@@ -73,26 +70,76 @@ bool Rectangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
 
 Triangle::Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3) {
 	matrix = NULL;
-    for (int i = 0; i < 3; i++) {
-        this->xyz1[i] = xyz1.at(i);
-        this->xyz2[i] = xyz2.at(i);
-        this->xyz3[i] = xyz3.at(i);
-    }
-	//todo apply texture mapping to triangle and rectangle. We need to be careful with the s and t's and apply the text coords correctly
+    x1 = xyz1.at(0); x2 = xyz2.at(0); x3 = xyz3.at(0);
+    y1 = xyz1.at(1); y2 = xyz2.at(1); y3 = xyz3.at(1);
+    z1 = xyz1.at(2); z2 = xyz2.at(2); z3 = xyz3.at(2);
+
+    this->calculateNormal();
+    
+    this->texelsReady = false;
+}
+
+void Triangle::calculateNormal(){
+    float Ux = ( x2 - x1 );
+    float Uy = ( y2 - y1 );
+    float Uz = ( z2 - z1 );
+    
+    float Vx = ( x3 - x1 );
+    float Vy = ( y3 - y1 );
+    float Vz = ( z3 - z3 );
+    
+    xn = (Uy * Vz) - (Uz * Vy);
+    yn = (Uz * Vx) - (Ux * Vz);
+    zn = (Ux * Vy) - (Uy * Vx);
+}
+
+void Triangle::calculateTexels() {
+    float acN= sqrt( (x3-x1)*(x3-x1) + (y3-y1)*(y3-y1) + (z3-z1)*(z3-z1));
+    float abN= sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
+	float ab[3],ac[3];
+    ab[0]=(x2-x1)/abN;  ab[1]=(y2-y1)/abN;  ab[2]=(z2-z1)/abN;
+    ac[0]=(x3-x1)/acN;  ac[1]=(y3-y1)/acN;  ac[2]=(z3-z1)/acN;
+    
+    float cosAlfa = fabs(ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
+    float AD = abN*cosAlfa;
+    float AE = abN*sin(acos(cosAlfa));
+    
+    Appearance* appearance = NULL;
+    if( this->getAppearance() ) {
+		appearance = this->getAppearance();
+        
+        texelBs = acN / appearance->getTexLength_s();
+        texelCs = AD / appearance->getTexLength_s();
+        texelCt = AE / appearance->getTexLength_t();
+	}
+    
+    this->texelsReady = true;
 }
 
 void Triangle::draw() {
+    
+    Appearance* appearance = NULL;
+    if( this->getAppearance() ) {
+		appearance = this->getAppearance();
+        
+        if ( !texelsReady ) calculateTexels();
+	}
+    
 	glBegin(GL_TRIANGLES);
-		glVertex3fv(xyz1);
-		glVertex3fv(xyz2);
-		glVertex3fv(xyz3);
-	glEnd();
+    glNormal3f(xn, yn, zn);
+    if(appearance) glTexCoord2f(0.0, 0.0);
+    glVertex3f(x1, y1, z1);
+    if(appearance) glTexCoord2f(texelBs, 0.0);
+    glVertex3f(x2, y2, z2);
+    if(appearance) glTexCoord2f(texelCs, texelCt );
+    glVertex3f(x3, y3, z3);
+    glEnd();
 }
 
 bool Triangle::operator==( const Triangle &t2 ) const {
-	return (this->xyz1[0] == t2.xyz1[0]) && (this->xyz1[1] == t2.xyz1[1]) && (this->xyz1[2] == t2.xyz1[2]) &&
-		(this->xyz2[0] == t2.xyz2[0]) && (this->xyz2[1] == t2.xyz2[1]) && (this->xyz2[2] == t2.xyz2[2]) &&
-		(this->xyz3[0] == t2.xyz3[0]) && (this->xyz3[1] == t2.xyz3[1]) && (this->xyz3[2] == t2.xyz3[2]);
+	return (this->x1 == t2.x1) && (this->y1 == t2.y1) && (this->z1 == t2.z1) &&
+    (this->x2 == t2.x2) && (this->y2 == t2.y2) && (this->z2 == t2.z2) &&
+    (this->x3 == t2.x3) && (this->y3 == t2.y3) && (this->z3 == t2.z3);
 }
 
 bool Triangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
@@ -111,7 +158,7 @@ Cylinder::Cylinder(float base,
     this->height = height;
     this->slices = slices;
     this->stacks = stacks;
-
+    
 	quadratic = gluNewQuadric();
 	gluQuadricTexture(quadratic, GL_TRUE);
 }
@@ -143,23 +190,23 @@ Sphere::Sphere(float radius, int slices, int stacks) {
     this->radius = radius;
     this->slices = slices;
     this->stacks = stacks;
-
+    
 	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
 void Sphere::draw(){
 	glPushMatrix();
-
+    
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
-
+    
 	glutSolidSphere(radius, slices, stacks);
-
+    
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
-
+    
 	glPopMatrix();
 }
 
@@ -179,23 +226,23 @@ Torus::Torus(float inner, float outer, int slices, int loops) {
     this->outer = outer;
     this->slices = slices;
     this->loops = loops;
-
+    
 	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
 void Torus::draw(){
 	glPushMatrix();
-
+    
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
-
+    
 	glutSolidTorus(inner, outer, slices, loops);
-
+    
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
-
+    
 	glPopMatrix();
 }
 
