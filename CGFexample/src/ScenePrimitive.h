@@ -8,6 +8,8 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+#include <math.h>
+
 class ScenePrimitive: public SceneVertex {
 public:
 	virtual void draw() = 0;
@@ -16,8 +18,8 @@ public:
 
 class Rectangle: public ScenePrimitive {
 public:
-	float xy1[2];
-	float xy2[2];
+	float x1, y1;
+	float x2, y2;
     
     static int rows;
     static int columns;
@@ -37,12 +39,21 @@ public:
 
 class Triangle : public ScenePrimitive {
 public:
-    float xyz1[3];
-    float xyz2[3];
-    float xyz3[3];
+    float x1, y1, z1;
+    float x2, y2, z2;
+    float x3, y3, z3;
+    float xn, yn, zn;
+    
+    float texelBs, texelCs, texelCt;
+    
+    bool texelsReady;
     
     Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3);
     void draw();
+    
+    void calculateNormal();
+    
+    void calculateTexels();
 
 	bool operator==(const Triangle &t2) const;
 

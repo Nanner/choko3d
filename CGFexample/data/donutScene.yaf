@@ -233,6 +233,21 @@
         <noderef id="donuts" />
         <noderef id="poster" />
         <noderef id="beer" />
+        <noderef id="triangle" />
+      </children>
+    </node>
+
+    <node id="triangle">
+      <transforms>
+        <translate to="10 10 10" />
+        <scale factor="10 10 5" />
+        <rotate axis="x" angle="-45" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <triangle xyz1="-0.5 -0.5 0" xyz2="0.5 -0.5 0" xyz3="0 0.5 0" /> 
       </children>
     </node>
 
