@@ -1,6 +1,8 @@
 #include "ScenePrimitive.h"
 #include <iostream>
 
+int Rectangle::rows = 16;
+int Rectangle::columns = 16;
 
 Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
 	matrix = NULL;
@@ -8,64 +10,54 @@ Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
         this->xy1[i] = xy1.at(i);
         this->xy2[i] = xy2.at(i);
     }
-}
+    
+    if ( xy1[0] > xy2[0] &&
+         xy1[1] > xy2[1]) {
+        float xy3[2];
+        xy3[0] = xy1[0]; xy3[1] = xy1[1];
+        this->xy1[0] = xy2[0]; this->xy1[1] = xy2[1];
+        this->xy2[0] = xy3[0]; this->xy2[1] = xy3[1];
+    }
+    
+    xScaled = 1;
+    yScaled = 1;
 
-Rectangle::Rectangle(float x1, float y1, float x2, float y2) {
-	matrix = NULL;
-	xy1[0] = x1;
-	xy1[1] = y1;
-
-	xy2[0] = x2;
-	xy2[1] = y2;
+    distX = this->xy2[0] - this->xy1[0];
+    distY = this->xy2[1] - this->xy1[1];
+    deltaX = distX / rows;
+    deltaY = distY / columns;
+    texDeltaX = 1.0 / rows;
+    texDeltaY = 1.0 / columns;
 }
 
 void Rectangle::draw() {
-	float xScalled = 1;
-	float yScalled = 1;
-
-	if(this->getAppearance() != NULL) {
+    
+    if(this->getAppearance() != NULL) {
 		Appearance* app = this->getAppearance();
-		xScalled = (xy2[0] - xy1[0]) / app->getTexLength_s();
-		yScalled = (xy2[1] - xy1[1]) / app->getTexLength_t();
+		xScaled = (xy2[0] - xy1[0]) / app->getTexLength_s();
+		yScaled = (xy2[1] - xy1[1]) / app->getTexLength_t();
 	}
 
 	glNormal3f(0,0,1);
     
-	glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex3f(xy1[0], xy1[1], 0);
-		glTexCoord2f(xScalled, 0);
-		glVertex3f(xy2[0], xy1[1], 0);
-		glTexCoord2f(xScalled, yScalled);
-		glVertex3f(xy2[0], xy2[1], 0);
-		glTexCoord2f(0, yScalled);
-		glVertex3f(xy1[0], xy2[1], 0);
-	glEnd();
-     
-    /*
-     // TODO work in progress, better rectangle
-     
-    float distX = xy2[0] - xy1[0];
-    float distY = xy2[1] - xy1[1];
-    float deltaX = distX / 52;
-    float deltaY = distY / 52;
-    
-    glFrontFace(GL_CW);
-    for (float y = xy1[1]; y < xy2[1]; y += deltaY) {
+    for (float bx = xy1[0], tx = 0; bx < xy2[0]-0.01; bx += deltaX, tx += texDeltaX)
+    {
         glBegin(GL_TRIANGLE_STRIP);
-        glVertex3f(xy2[0], y + deltaY, 0);
-        for (float x = xy2[0]; x > xy1[0]; x -= deltaX) {
-            //glTexCoord2f(0, 0);
-            glVertex3f(x, y, 0);
-
-            glVertex3f(x - deltaX, y + deltaY, 0);
+        glTexCoord2d(tx * xScaled, 0);
+        glVertex3f(bx, xy1[1], 0.0);
+        for (float by = xy1[1], ty = 0; by < xy2[1]-0.01; by += deltaY, ty += texDeltaY)
+        {
+            glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
+            glVertex3f(bx + deltaX, by, 0.0);
+            
+            glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
+            glVertex3f(bx, by + deltaY, 0.0);
         }
-        glVertex3f(xy1[0], y, 0);
+        glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
+        glVertex3d(bx+deltaX, xy2[1], 0.0);
+        
         glEnd();
     }
-    glFrontFace(GL_CCW);
-     
-     */
 }
 
 bool Rectangle::operator==( const Rectangle &r2 ) const {

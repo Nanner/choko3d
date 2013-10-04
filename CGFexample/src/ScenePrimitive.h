@@ -15,10 +15,15 @@ class Rectangle: public ScenePrimitive {
 public:
 	float xy1[2];
 	float xy2[2];
-
-	Rectangle(/*needs mats and texts and transforms*/vector<float> xy1, vector<float> xy2);
-	Rectangle(/*same*/float x1, float y1, float x2, float y2);
-
+    
+    static int rows;
+    static int columns;
+    
+    float xScaled, yScaled, distX, distY;
+    float deltaX, deltaY, texDeltaX, texDeltaY;
+    
+	Rectangle(vector<float> xy1, vector<float> xy2);
+    
 	void draw();
 
 	bool operator==(const Rectangle &r2) const;

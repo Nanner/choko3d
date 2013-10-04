@@ -35,7 +35,7 @@
         ambient="1.0 1.0 1.0 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
         specular="1.0 1.0 1.0 1.0"
-        angle="20.0" 
+        angle="30.0" 
         exponent="1.0" 
         direction="0.0 -1.0 0.0" 
             /> 

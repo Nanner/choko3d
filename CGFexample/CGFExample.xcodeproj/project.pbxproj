@@ -32,6 +32,7 @@
 		EB4CCA4817F4BAA400A9A55E /* SceneEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3517F4BAA400A9A55E /* SceneEdge.cpp */; };
 		EB4CCA4917F4BAA400A9A55E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3617F4BAA400A9A55E /* main.cpp */; };
 		EB4CCA4B17F4BAA400A9A55E /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */; };
+		EB65C2F917FDEF110031B667 /* RootVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB65C2F717FDEF110031B667 /* RootVertex.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63217F77BB50069596B /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7BC63017F77BB50069596B /* Appearance.cpp */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
@@ -140,6 +141,8 @@
 		EB4CCA3617F4BAA400A9A55E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		EB4CCA3917F4BAA400A9A55E /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoScene.h; path = src/DemoScene.h; sourceTree = SOURCE_ROOT; };
 		EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoScene.cpp; path = src/DemoScene.cpp; sourceTree = SOURCE_ROOT; };
+		EB65C2F717FDEF110031B667 /* RootVertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RootVertex.cpp; path = src/RootVertex.cpp; sourceTree = SOURCE_ROOT; };
+		EB65C2F817FDEF110031B667 /* RootVertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootVertex.h; path = src/RootVertex.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
 		EB7BC63017F77BB50069596B /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Appearance.cpp; path = src/Appearance.cpp; sourceTree = SOURCE_ROOT; };
 		EB7BC63117F77BB50069596B /* Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Appearance.h; path = src/Appearance.h; sourceTree = SOURCE_ROOT; };
@@ -328,6 +331,8 @@
 				EB4CCA2D17F4BAA400A9A55E /* Transformation.cpp */,
 				EB4CCA2E17F4BAA400A9A55E /* SceneVertex.h */,
 				EB4CCA2F17F4BAA400A9A55E /* SceneVertex.cpp */,
+				EB65C2F817FDEF110031B667 /* RootVertex.h */,
+				EB65C2F717FDEF110031B667 /* RootVertex.cpp */,
 				EB4CCA3017F4BAA400A9A55E /* ScenePrimitive.h */,
 				EB4CCA3117F4BAA400A9A55E /* ScenePrimitive.cpp */,
 				EB4CCA3217F4BAA400A9A55E /* SceneGraph.h */,
@@ -339,8 +344,8 @@
 				EB4CCA3A17F4BAA400A9A55E /* DemoScene.cpp */,
 				EB1741B917F57514003215F3 /* CameraView.h */,
 				EB1741BA17F57514003215F3 /* CameraView.cpp */,
-				EBB90B8D17F83C730088FE94 /* SceneLight.cpp */,
 				EBB90B8E17F83C730088FE94 /* SceneLight.h */,
+				EBB90B8D17F83C730088FE94 /* SceneLight.cpp */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
 				EB4CCA3D17F4BAA400A9A55E /* YAFNode.cpp in Sources */,
 				EB4CCA4117F4BAA400A9A55E /* YAFElement.cpp in Sources */,
+				EB65C2F917FDEF110031B667 /* RootVertex.cpp in Sources */,
 				EB7BC63217F77BB50069596B /* Appearance.cpp in Sources */,
 				EB4CCA4B17F4BAA400A9A55E /* DemoScene.cpp in Sources */,
 				EB4CCA4217F4BAA400A9A55E /* YAFCamera.cpp in Sources */,
