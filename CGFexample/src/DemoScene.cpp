@@ -12,27 +12,7 @@ void DemoScene::init()
 	sceneGraph->configureScene();
 
 	//Get the initial camera
-	//CGFscene::activeCamera = sceneGraph->getInitialCamera();
-
-	// Enables lighting computations
-	if(SceneLight::lightEnabled)
-		glEnable(GL_LIGHTING);
-	else
-		glDisable(GL_LIGHTING);
-
-	// Sets up some lighting parameters
-	if(SceneLight::doubleSided)
-		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	else
-		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, SceneLight::ambient);  // Define ambient light
-
-	if(SceneLight::localLight)
-		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-	else
-		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
-
+	CGFscene::activeCamera = sceneGraph->getInitialCamera();
 	
 	// Declares and enables a light
 	/*float light0_pos[4] = {4.0, 30.0, 5.0, 1.0};

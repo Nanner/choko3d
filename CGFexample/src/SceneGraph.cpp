@@ -209,6 +209,27 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 
 void SceneGraph::configureScene() {
 	rootVertex->setGlobals();
+
+	// Enables lighting computations
+	if(SceneLight::lightEnabled)
+		glEnable(GL_LIGHTING);
+	else
+		glDisable(GL_LIGHTING);
+
+	// Sets up some lighting parameters
+	if(SceneLight::doubleSided)
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	else
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, SceneLight::ambient);  // Define ambient light
+
+	if(SceneLight::localLight)
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+	else
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
+
+	glEnable(GL_NORMALIZE);
 }
 
 CGFcamera* SceneGraph::getInitialCamera() {

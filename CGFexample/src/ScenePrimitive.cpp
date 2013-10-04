@@ -1,8 +1,8 @@
 #include "ScenePrimitive.h"
 #include <iostream>
 
-int Rectangle::rows = 16;
-int Rectangle::columns = 16;
+int Rectangle::rows = 10;
+int Rectangle::columns = 10;
 
 Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
 	matrix = NULL;
@@ -151,7 +151,6 @@ Sphere::Sphere(float radius, int slices, int stacks) {
 void Sphere::draw(){
 	glPushMatrix();
 
-	glEnable(GL_NORMALIZE);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
 
@@ -187,7 +186,6 @@ Torus::Torus(float inner, float outer, int slices, int loops) {
 void Torus::draw(){
 	glPushMatrix();
 
-	glEnable(GL_NORMALIZE);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
 
@@ -206,5 +204,46 @@ bool Torus::operator==( const Torus &t2 ) const {
 bool Torus::isSamePrimitive( const ScenePrimitive &p2 ) const {
 	const Torus* tor2 = dynamic_cast< const Torus* >( &p2 );
 	return tor2 != NULL && *this == *tor2;
+}
+
+//TODO this may not be needed
+//Based on the GLUT implementation
+void solidTorus(GLfloat r, GLfloat R, GLint nsides, GLint rings) {
+		int i, j;
+		GLfloat theta, phi, theta1;
+		GLfloat cosTheta, sinTheta;
+		GLfloat cosTheta1, sinTheta1;
+		GLfloat ringDelta, sideDelta;
+
+		ringDelta = 2.0 * M_PI / rings;
+		sideDelta = 2.0 * M_PI / nsides;
+
+		theta = 0.0;
+		cosTheta = 1.0;
+		sinTheta = 0.0;
+		for (i = rings - 1; i >= 0; i--) {
+			theta1 = theta + ringDelta;
+			cosTheta1 = cos(theta1);
+			sinTheta1 = sin(theta1);
+			glBegin(GL_QUAD_STRIP);
+			phi = 0.0;
+			for (j = nsides; j >= 0; j--) {
+				GLfloat cosPhi, sinPhi, dist;
+
+				phi += sideDelta;
+				cosPhi = cos(phi);
+				sinPhi = sin(phi);
+				dist = R + r * cosPhi;
+
+				glNormal3f(cosTheta1 * cosPhi, -sinTheta1 * cosPhi, sinPhi);
+				glVertex3f(cosTheta1 * dist, -sinTheta1 * dist, r * sinPhi);
+				glNormal3f(cosTheta * cosPhi, -sinTheta * cosPhi, sinPhi);
+				glVertex3f(cosTheta * dist, -sinTheta * dist,  r * sinPhi);
+			}
+			glEnd();
+			theta = theta1;
+			cosTheta = cosTheta1;
+			sinTheta = sinTheta1;
+		}
 }
 

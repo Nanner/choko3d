@@ -37,6 +37,7 @@ public:
 	Orthographic(string id, float near, float far, float left, float right, float top, float bottom);
 
 	void applyView();
+	bool translate(int axis, float value);
 };
 
 #endif
