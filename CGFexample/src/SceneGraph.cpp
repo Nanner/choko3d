@@ -17,8 +17,9 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 		float amb[4]  = {a.ambientR,  a.ambientG,  a.ambientB,  a.ambientA };
         float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
         float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
+		float emis[4] = {a.emissiveR, a.emissiveG, a.emissiveB, a.emissiveA};
         float shininess =  a.shininess;
-        Appearance * appearance = new Appearance(amb, dif, spec, shininess);
+        Appearance* appearance = new Appearance(amb, dif, spec, emis, shininess);
         
         if ( a.usesTexture ) {
             YAFTexture yafTexture = yafFile->textures.at(a.textureID);
@@ -95,6 +96,7 @@ void SceneGraph::render() {
 	for (; it !=ite; it++)
 		(*it)->nodeVisited=false;
 	
+	rootVertex->defaultAppearance->apply();
     render(rootVertex);
 }
 
@@ -135,6 +137,9 @@ void SceneGraph::render(SceneVertex *v) {
 	//Restore appearance back to null
 	if(v->inheritedAppearance)
 		v->appearance = NULL;
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
 }
 
 void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {

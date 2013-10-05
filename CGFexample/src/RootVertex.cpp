@@ -58,9 +58,10 @@ void RootVertex::loadDefaultAppearance() {
 	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
 	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
 	float specular[4] = {0.0, 0.0, 0.0, 1.0};
+	float emissivity[4] = {0.0, 0.0, 0.0, 0.0};
 	float shininess = 0.0;
     
-	defaultAppearance = new CGFappearance(ambient, diffuse, specular, shininess);
+	defaultAppearance = new Appearance(ambient, diffuse, specular, emissivity, shininess);
 }
 
 void RootVertex::setGlobals() {

@@ -23,14 +23,14 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="1" enabled="true"
+    <omni id="1" enabled="false"
         location="4.0 30.0 5.0"
         ambient="0.2 0.2 0.2 1.0"
         diffuse="0.7 0.7 0.7 1.0"
         specular="1.0 1.0 1.0 1.0"
             />
 
-    <spot id="2" enabled="true" 
+    <spot id="2" enabled="false" 
         location="17.5 17 17.5" 
         ambient="1.0 1.0 1.0 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
@@ -90,10 +90,7 @@
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
       specular="0.5 0.5 0.5 1.0"
-      shininess="1.0"
-      textureref=""
-      texlength_s="1.0"
-      texlength_t="1.0">
+      shininess="1.0">
     </appearance>
   
     <appearance id="posterApp" 
@@ -196,7 +193,7 @@
     </appearance>
 
     <appearance id="beer"
-      emissive="0.0 0.0 0.0 0.0"
+      emissive="1.0 1.0 1.0 1.0"
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
       specular="0.5 0.5 0.5 1.0"
@@ -207,7 +204,7 @@
     </appearance>
 
     <appearance id="foam"
-      emissive="0.0 0.0 0.0 0.0"
+      emissive="1.0 1.0 1.0 1.0"
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
       specular="0.5 0.5 0.5 1.0"

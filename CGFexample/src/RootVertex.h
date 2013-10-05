@@ -6,7 +6,7 @@
 
 class RootVertex: public SceneVertex {
 public:
-	CGFappearance* defaultAppearance;
+	Appearance* defaultAppearance;
 	YAFGlobal globals;
     
 	map<string, CameraView*> cameras;

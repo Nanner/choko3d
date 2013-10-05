@@ -4,7 +4,6 @@ float Appearance::getTexLength_s() {
 	return texLength_s;
 }
 
-
 float Appearance::getTexLength_t() {
 	return texLength_t;
 }
@@ -17,4 +16,15 @@ void Appearance::setTexLength_t(float t) {
 	texLength_t = t;
 }
 
-Appearance::Appearance(float* a, float* d, float* sp, float sh):CGFappearance(a, d, sp, sh) {}
+void Appearance::apply() {
+	CGFappearance::apply();
+	glMaterialfv(GL_FRONT, GL_EMISSION, emissivity);
+}
+
+Appearance::Appearance(float* a, float* d, float* sp, float* emis, float sh):CGFappearance(a, d, sp, sh) {
+	emissivity[0] = emis[0];
+	emissivity[1] = emis[1];
+	emissivity[2] = emis[2];
+	emissivity[3] = emis[3];
+}
+
