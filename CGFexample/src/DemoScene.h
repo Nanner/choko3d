@@ -14,11 +14,6 @@ public:
 	DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
 	~DemoScene();
 private:
-	CGFlight* light0;
-	CGFobject* obj;
-	CGFappearance* materialAppearance;
-	CGFappearance* textureAppearance;
-	CGFshader* shader;
 	SceneGraph* sceneGraph;
 };
 

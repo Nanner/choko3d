@@ -13,25 +13,12 @@ void DemoScene::init()
 
 	//Get the initial camera
 	CGFscene::activeCamera = sceneGraph->getInitialCamera();
-	
-	// Declares and enables a light
-	/*float light0_pos[4] = {4.0, 30.0, 5.0, 1.0};
-	light0 = new CGFlight(GL_LIGHT0, light0_pos);
-	light0->enable();*/
-
-
-	shader=new CGFshader("../data/texshader.vert","../data/texshader.frag");
 
 	setUpdatePeriod(30);
 }
 
 void DemoScene::update(unsigned long t)
-{
-	shader->bind();
-	shader->update(t/400.0);
-	shader->unbind();
-	
-}
+{}
 	
 void DemoScene::display() 
 {
@@ -51,7 +38,6 @@ void DemoScene::display()
 	// Draw (and update) lights
 	sceneGraph->drawLights();
     
-
 	// Draw axis
 	axis.draw();
 
@@ -61,23 +47,6 @@ void DemoScene::display()
 
 	// ---- BEGIN feature demos
 	sceneGraph->render();
-
-/*	// Simple object
-	materialAppearance->apply();
-	obj->draw();
-
-	// textured object
-
-	glTranslatef(0,4,0);
-	textureAppearance->apply();
-	obj->draw();
-
-	// shader object
-
-	glTranslatef(0,4,0);
-	shader->bind();
-	obj->draw();
-	shader->unbind();*/
 
 	// ---- END feature demos
 
@@ -89,9 +58,5 @@ void DemoScene::display()
 
 DemoScene::~DemoScene()
 {
-	delete(shader);
-	delete(textureAppearance);
-	delete(materialAppearance);
-	delete(obj);
-	delete(light0);
+	delete(sceneGraph);
 }
