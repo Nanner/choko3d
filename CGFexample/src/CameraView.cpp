@@ -50,6 +50,13 @@ void Perspective::applyView() {
 	gluLookAt(position[0], position[1], position[2], target[0], target[1], target[2], upVector[0], upVector[1], upVector[2]);
 }
 
+void Perspective::updateProjectionMatrix(int width, int height) {
+	aspect = (float) width / (float) height;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(angle, aspect, near, far);
+}
+
 bool Perspective::rotate(int axis, float angle) {
 	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y && axis!=CG_CGFcamera_AXIS_Z) return false;
 
@@ -111,7 +118,7 @@ Orthographic::Orthographic(string id, float near, float far, float left, float r
 
 void Orthographic::applyView() {
 
-	//Same as above, projection matrix
+	//Load the camera view projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(left*aspect, right*aspect, bottom, top, near, far);
@@ -123,6 +130,13 @@ void Orthographic::applyView() {
 	glRotatef(rotation[0], 1.f, 0.f, 0.f);
 	glRotatef(rotation[1], 0.f, 1.f, 0.f);
 	glRotatef(rotation[2], 0.f, 0.f, 1.f);
+}
+
+void Orthographic::updateProjectionMatrix(int width, int height) {
+	aspect = (float) width / (float) height;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(left*aspect, right*aspect, bottom, top, near, far);
 }
 
 bool Orthographic::translate(int axis, float value) {

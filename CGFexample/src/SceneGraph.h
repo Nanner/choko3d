@@ -34,6 +34,8 @@ public:
 	void loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex);
 	void processYAFNodeReferences(YAFNode yafNode);
 
+	RootVertex* getRootVertex();
+
 	void configureScene();
 	CGFcamera* getInitialCamera();
 	void drawLights();

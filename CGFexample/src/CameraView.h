@@ -20,7 +20,8 @@ public:
 	float far;
 
 	CameraView(string id, float near, float far);
-    void virtual applyView() = 0;
+    virtual void applyView() = 0;
+	virtual void updateProjectionMatrix(int width, int height) = 0;
 };
 
 class Perspective: public CameraView {
@@ -33,6 +34,7 @@ public:
 	Perspective(string id, float near, float far, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
 
     void applyView();
+	void updateProjectionMatrix(int width, int height);
 	bool translate(int axis, float value);
 	bool rotate(int axis, float angle);
 };
@@ -47,6 +49,7 @@ public:
 	Orthographic(string id, float near, float far, float left, float right, float top, float bottom);
 
 	void applyView();
+	void updateProjectionMatrix(int width, int height);
 	bool translate(int axis, float value);
 };
 

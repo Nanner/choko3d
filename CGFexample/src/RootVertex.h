@@ -11,6 +11,7 @@ public:
     
 	map<string, CameraView*> cameras;
 	map<string, SceneLight*> lights;
+	map<string, int> lightOnControls;
     
 	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras, map<string, YAFLight> lights);
     

@@ -27,7 +27,7 @@ RootVertex::RootVertex(float* matrix,
 	map<string, YAFLight>::iterator it2 = lights.begin();
 	for(; it2 != lights.end(); it2++) {
 		YAFLight light = it2->second;
-		if(light.isOmni && light.enabled) {
+		if(light.isOmni) {
 			float pos[4] = {light.locationX, light.locationY, light.locationZ, 1.0};
             
 			SceneLight* newOmni = new SceneLight(light.enabled, light.id, pos,
@@ -36,8 +36,9 @@ RootVertex::RootVertex(float* matrix,
                                                  light.specularR, light.specularG, light.specularB, light.specularA);
             
 			this->lights.insert(pair<string, SceneLight*>(newOmni->getIdString(), newOmni));
+			this->lightOnControls.insert(pair<string, int>(newOmni->getIdString(), newOmni->isEnabled()?1:0));
 		}
-		else if (light.enabled) {
+		else {
 			float pos[4] = {light.locationX, light.locationY, light.locationZ, 1.0};
 			float dir[3] = {light.directionX, light.directionY, light.directionZ};
             
@@ -48,6 +49,7 @@ RootVertex::RootVertex(float* matrix,
                                                light.angle, light.exponent);
             
 			this->lights.insert(pair<string, SceneLight*>(newSpot->getIdString(), newSpot));
+			this->lightOnControls.insert(pair<string, int>(newSpot->getIdString(), newSpot->isEnabled()?1:0));
 		}
 	}
 }

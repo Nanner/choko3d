@@ -207,6 +207,10 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 	}
 }
 
+RootVertex* SceneGraph::getRootVertex() {
+	return rootVertex;
+}
+
 void SceneGraph::configureScene() {
 	rootVertex->setGlobals();
 

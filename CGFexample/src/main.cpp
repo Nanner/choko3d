@@ -13,6 +13,7 @@
 #include "ScenePrimitive.h"
 #include "SceneVertex.h"
 #include "Transformation.h"
+#include "RendererInterface.h"
 #include <math.h>
 
 using std::cout;
@@ -29,7 +30,7 @@ int main(int argc, char* argv[]) {
 		SceneGraph* sceneGraph = new SceneGraph(yafFile);
 		delete(yafFile);
 		app.setScene(new DemoScene(sceneGraph));
-		app.setInterface(new CGFinterface());
+		app.setInterface(new RendererInterface());
 		
 		app.run();
 	}
