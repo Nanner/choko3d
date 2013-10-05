@@ -25,6 +25,7 @@ public:
 	Perspective(string id, float near, float far, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
 
     void applyView();
+	bool translate(int axis, float value);
 };
 
 class Orthographic: public CameraView {

@@ -38,6 +38,20 @@ void Perspective::applyView() {
 	gluLookAt(position[0], position[1], position[2], target[0], target[1], target[2], upVector[0], upVector[1], upVector[2]);
 }
 
+bool Perspective::translate(int axis, float value) {
+	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y && axis!=CG_CGFcamera_AXIS_Z) return false;
+
+	//If the movement is in the Z axis, means we want to zoom in on the scene
+	if(axis == CG_CGFcamera_AXIS_Z) {
+		float newAngle = angle + 2 * value;
+		if(newAngle > 0 && newAngle < 90)
+			angle = newAngle;
+	}
+
+
+	return true;
+}
+
 Orthographic::Orthographic(string id, float near, float far, float left, float right, float top, float bottom):
 	CameraView(id, near, far), left(left), right(right), top(top), bottom(bottom) {}
 
