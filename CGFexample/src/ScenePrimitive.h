@@ -13,7 +13,6 @@
 class ScenePrimitive: public SceneVertex {
 public:
 	virtual void draw() = 0;
-	virtual bool isSamePrimitive(const ScenePrimitive &p2) const = 0;
 };
 
 class Rectangle: public ScenePrimitive {
@@ -30,10 +29,6 @@ public:
 	Rectangle(vector<float> xy1, vector<float> xy2);
     
 	void draw();
-
-	bool operator==(const Rectangle &r2) const;
-
-	virtual bool isSamePrimitive( const ScenePrimitive &p2 ) const;
 
 };
 
@@ -55,10 +50,6 @@ public:
     
     void calculateTexels();
 
-	bool operator==(const Triangle &t2) const;
-
-	virtual bool isSamePrimitive( const ScenePrimitive &p2 ) const;
-
 };
 
 class Cylinder : public ScenePrimitive {
@@ -73,10 +64,6 @@ public:
              float stacks);
     void draw();
 
-	bool operator==(const Cylinder &c2) const;
-
-	virtual bool isSamePrimitive( const ScenePrimitive &p2 ) const;
-
 };
 
 class Sphere : public ScenePrimitive {
@@ -88,10 +75,6 @@ public:
     Sphere(float radius, int slices, int stacks);
     void draw();
 
-	bool operator==(const Sphere &s2) const;
-
-	virtual bool isSamePrimitive( const ScenePrimitive &p2 ) const;
-
 };
 
 class Torus : public ScenePrimitive {
@@ -101,10 +84,6 @@ public:
     
     Torus(float inner, float outer, int slices, int loops);
     void draw();
-
-	bool operator==(const Torus &t2) const;
-
-	virtual bool isSamePrimitive( const ScenePrimitive &p2 ) const;
 
 };
 
