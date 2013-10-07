@@ -109,7 +109,7 @@ void Triangle::calculateTexels() {
     if( this->getAppearance() ) {
 		appearance = this->getAppearance();
         
-        texelBs = 1.0 / appearance->getTexLength_s();
+        texelBs = abN / appearance->getTexLength_s();
         texelCs = AD / appearance->getTexLength_s() ;
         texelCt = AE / appearance->getTexLength_t() ;
 	}
