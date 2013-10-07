@@ -103,7 +103,7 @@ void Triangle::calculateTexels() {
     
     float cosAlfa = (ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
     float AD = acN*cosAlfa;
-    float AE = acN*sin(acos(cosAlfa));
+    float BD = acN*sin(acos(cosAlfa));
     
     Appearance* appearance = NULL;
     if( this->getAppearance() ) {
@@ -111,7 +111,7 @@ void Triangle::calculateTexels() {
         
         texelBs = abN / appearance->getTexLength_s();
         texelCs = AD / appearance->getTexLength_s() ;
-        texelCt = AE / appearance->getTexLength_t() ;
+        texelCt = BD / appearance->getTexLength_t() ;
 	}
     
     this->texelsReady = true;
