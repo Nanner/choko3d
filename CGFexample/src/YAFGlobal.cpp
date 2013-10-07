@@ -24,7 +24,7 @@ YAFGlobal::YAFGlobal( vector<float> rgbaValues, vector<string> backgroundAttribu
 void YAFGlobal::validate() {
     
     if ( !validRGBA(red, green, blue, alpha) ) {
-        throw(InvalidAttributeValueException("background (RGBA)"));
+        throw(InvalidAttributeValueException("Globals: background (RGBA)"));
     }
 
 	vector<string> drawmodeOptions;
@@ -33,7 +33,7 @@ void YAFGlobal::validate() {
 	drawmodeOptions.push_back("point");
 
 	if(find(drawmodeOptions.begin(), drawmodeOptions.end(), drawmode) == drawmodeOptions.end()) {
-		throw(InvalidAttributeValueException("drawmode"));
+		throw(InvalidAttributeValueException("Globals: drawmode"));
 	}
 
 	vector<string> shadingOptions;
@@ -41,7 +41,7 @@ void YAFGlobal::validate() {
 	shadingOptions.push_back("gouraud");
 
 	if(find(shadingOptions.begin(), shadingOptions.end(), shading) == shadingOptions.end()) {
-		throw(InvalidAttributeValueException("shading"));
+		throw(InvalidAttributeValueException("Globals: shading"));
 	}
 
 	vector<string> cullfaceOptions;
@@ -51,7 +51,7 @@ void YAFGlobal::validate() {
 	cullfaceOptions.push_back("both");
 
 	if(find(cullfaceOptions.begin(), cullfaceOptions.end(), cullface) == cullfaceOptions.end()) {
-		throw(InvalidAttributeValueException("cullface"));
+		throw(InvalidAttributeValueException("Globals: cullface"));
 	}
 
 	vector<string> cullorderOptions;
@@ -59,7 +59,7 @@ void YAFGlobal::validate() {
 	cullorderOptions.push_back("CW");
 
 	if(find(cullorderOptions.begin(), cullorderOptions.end(), cullorder) == cullorderOptions.end()) {
-		throw(InvalidAttributeValueException("cullorder"));
+		throw(InvalidAttributeValueException("Globals: cullorder"));
 	}
 
 

@@ -31,8 +31,9 @@ void Rectangle::draw() {
     
     if( this->getAppearance() ) {
 		Appearance* app = this->getAppearance();
-		xScaled = (x2 - x1) / app->getTexLength_s();
+        xScaled = (x2 - x1) / app->getTexLength_s();
 		yScaled = (y2 - y1) / app->getTexLength_t();
+
 	}
     
 	glNormal3f(0,0,1);
@@ -100,17 +101,17 @@ void Triangle::calculateTexels() {
     ab[0]=(x2-x1)/abN;  ab[1]=(y2-y1)/abN;  ab[2]=(z2-z1)/abN;
     ac[0]=(x3-x1)/acN;  ac[1]=(y3-y1)/acN;  ac[2]=(z3-z1)/acN;
     
-    float cosAlfa = fabs(ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
-    float AD = abN*cosAlfa;
-    float AE = abN*sin(acos(cosAlfa));
+    float cosAlfa = (ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
+    float AD = acN*cosAlfa;
+    float AE = acN*sin(acos(cosAlfa));
     
     Appearance* appearance = NULL;
     if( this->getAppearance() ) {
 		appearance = this->getAppearance();
         
-        texelBs = acN / appearance->getTexLength_s();
-        texelCs = AD / appearance->getTexLength_s();
-        texelCt = AE / appearance->getTexLength_t();
+        texelBs = abN / appearance->getTexLength_s();
+        texelCs = AD / appearance->getTexLength_s() ;
+        texelCt = AE / appearance->getTexLength_t() ;
 	}
     
     this->texelsReady = true;

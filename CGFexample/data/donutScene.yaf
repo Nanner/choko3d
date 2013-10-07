@@ -23,14 +23,14 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="1" enabled="false"
+    <omni id="1" enabled="true"
         location="4.0 30.0 5.0"
         ambient="0.2 0.2 0.2 1.0"
         diffuse="0.7 0.7 0.7 1.0"
         specular="1.0 1.0 1.0 1.0"
             />
 
-    <spot id="2" enabled="false" 
+    <spot id="2" enabled="true" 
         location="17.5 17 17.5" 
         ambient="1.0 1.0 1.0 1.0" 
         diffuse="1.0 1.0 1.0 1.0" 
@@ -236,15 +236,14 @@
 
     <node id="triangle">
       <transforms>
-        <translate to="10 10 10" />
-        <scale factor="10 10 5" />
-        <rotate axis="x" angle="-45" />
+        <translate to="26.5 25 0.2" />
+        <scale factor="9 12 0.0625" />
       </transforms>
 
       <appearanceref id="posterApp" />
 
       <children>
-        <triangle xyz1="-0.5 -0.5 0" xyz2="0.5 -0.5 0" xyz3="0 0.5 0" /> 
+        <triangle xyz1="-0.5 -0.5 0" xyz2="0.5 -0.5 0" xyz3="1.0 1.0 0" /> 
       </children>
     </node>
 

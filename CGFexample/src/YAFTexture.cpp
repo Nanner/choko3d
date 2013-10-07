@@ -13,6 +13,9 @@ void YAFTexture::validate() {
 	if(textFile.is_open()) {
 		textFile.close();
 	}
-	else
-		throw(InvalidAttributeValueException("Texture: file (Texture file doesn't exist?)"));
+	else {
+        char error[ERROR_LEN];
+        sprintf (error,"Texture: file (Texture '%s' doesn't exist?)", file.c_str() );
+		throw(InvalidAttributeValueException(error));
+    }
 }
