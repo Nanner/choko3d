@@ -47,11 +47,14 @@ void YAFAppearance::initiateValues(string id, vector<float> emissiveValues, vect
 }
 
 void YAFAppearance::validate() {
+    char errorMessage[ERROR_LEN];
 
 	if( !validRGBA(emissiveR, emissiveG, emissiveB, emissiveA) ) {
+        sprintf(errorMessage, "Appearance '%s': diffuse (RGBA)", id.c_str());
 		throw(InvalidAttributeValueException("Appearance: diffuse (RGBA)"));
 	}
 	if( !validRGBA(ambientR, ambientG, ambientB, ambientA) ) {
+        sprintf(errorMessage, "Appearance '%s': ambient (RGBA)", id.c_str());
 		throw(InvalidAttributeValueException("Appearance: ambient (RGBA)"));
 	}
 

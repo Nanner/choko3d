@@ -38,29 +38,39 @@ YAFCamera::YAFCamera(string id, vector<float> values): isOrtho(true) {
 }
 
 void YAFCamera::validate() {
+    char errorMessage[ERROR_LEN];
     
-	//TODO check the correct bounds for the defines
-    if ( ! validMinMax(near, far) )
-		throw(InvalidAttributeValueException("Camera: min/max"));
+    if ( ! validMinMax(near, far) ) {
+        sprintf(errorMessage, "Camera '%s': min/max error", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
+    }
     
 	if(isOrtho) {
         
-        if ( ! validMinMax(left, right) )
-            throw(InvalidAttributeValueException("Camera: left/right"));
+        if ( ! validMinMax(left, right) ) {
+            sprintf(errorMessage, "Camera '%s': left/right error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
+        }
         
-        if ( ! validMinMax(top, bottom))
-            throw(InvalidAttributeValueException("Camera: top/bottom"));
+        if ( ! validMinMax(top, bottom)) {
+            sprintf(errorMessage, "Camera '%s': top/bottom error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
+        }
 	}
 	else {
-		if( !validAngle(angle) )
-			throw(InvalidAttributeValueException("Camera: angle"));
+		if( !validAngle(angle) ) {
+            sprintf(errorMessage, "Camera '%s': angle error", id.c_str());
+			throw(InvalidAttributeValueException(errorMessage));
+        }
         
         if ( !validXYZ(posX, posY, posZ) ){
-            throw(InvalidAttributeValueException("Camera: XYZ position"));
+            sprintf(errorMessage, "Camera '%s': XYZ error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
         }
         
         if ( !validXYZ(targetX, targetY, targetZ) ) {
-            throw(InvalidAttributeValueException("Camera: Target's XYZ"));
+            sprintf(errorMessage, "Camera '%s': target XYZ error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
 
         }
 	}

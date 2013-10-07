@@ -8,7 +8,7 @@
 #define ANGLE_MAX 360.0
 
 #define XYZ_MIN -20000
-#define XYZ_MAX 20000
+#define XYZ_MAX  20000
 
 #define SHININESS_MIN 0.0
 #define SHININESS_MAX 128.0
@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
+
+#define ERROR_LEN 100
 
 using namespace std;
 

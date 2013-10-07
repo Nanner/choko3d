@@ -51,6 +51,7 @@
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
+		EB8E27D418020F33007F7D24 /* RendererInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB8E27D218020F33007F7D24 /* RendererInterface.cpp */; };
 		EBB90B8F17F83C730088FE94 /* SceneLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB90B8D17F83C730088FE94 /* SceneLight.cpp */; };
 		EBF5AAC417F8B07900E54147 /* beer.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC217F8B06900E54147 /* beer.jpg */; };
 		EBF5AAC517F8B07A00E54147 /* beerfoam.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC317F8B06900E54147 /* beerfoam.jpg */; };
@@ -261,6 +262,8 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
+		EB8E27D218020F33007F7D24 /* RendererInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RendererInterface.cpp; path = src/RendererInterface.cpp; sourceTree = SOURCE_ROOT; };
+		EB8E27D318020F33007F7D24 /* RendererInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RendererInterface.h; path = src/RendererInterface.h; sourceTree = SOURCE_ROOT; };
 		EBB90B8D17F83C730088FE94 /* SceneLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneLight.cpp; path = src/SceneLight.cpp; sourceTree = SOURCE_ROOT; };
 		EBB90B8E17F83C730088FE94 /* SceneLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneLight.h; path = src/SceneLight.h; sourceTree = SOURCE_ROOT; };
 		EBF5AAC217F8B06900E54147 /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				EB4CCA2D17F4BAA400A9A55E /* Transformation.cpp */,
 				EB4CCA2E17F4BAA400A9A55E /* SceneVertex.h */,
 				EB4CCA2F17F4BAA400A9A55E /* SceneVertex.cpp */,
+				EB8E27D218020F33007F7D24 /* RendererInterface.cpp */,
+				EB8E27D318020F33007F7D24 /* RendererInterface.h */,
 				EB65C2F817FDEF110031B667 /* RootVertex.h */,
 				EB65C2F717FDEF110031B667 /* RootVertex.cpp */,
 				EB4CCA3017F4BAA400A9A55E /* ScenePrimitive.h */,
@@ -579,6 +584,7 @@
 			files = (
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
 				EB4CCA3F17F4BAA400A9A55E /* YAFGlobalLighting.cpp in Sources */,
+				EB8E27D418020F33007F7D24 /* RendererInterface.cpp in Sources */,
 				EB4CCA4017F4BAA400A9A55E /* YAFGlobal.cpp in Sources */,
 				EB4CCA4717F4BAA400A9A55E /* SceneGraph.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,

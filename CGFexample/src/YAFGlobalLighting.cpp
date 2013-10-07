@@ -18,6 +18,6 @@ YAFGlobalLighting::YAFGlobalLighting(vector<bool> ligthingProperties, vector<flo
 void YAFGlobalLighting::validate() {
     
 	if( !validRGBA(ambientR, ambientG, ambientB, ambientA) ) {
-		throw(InvalidAttributeValueException("ambient (RGBA)"));
+		throw(InvalidAttributeValueException("Global light: ambient (RGBA) error"));
     }
 }

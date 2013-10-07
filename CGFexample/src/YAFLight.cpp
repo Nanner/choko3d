@@ -65,31 +65,39 @@ YAFLight::YAFLight(string id, bool enabled, vector<float> location, vector<float
 }
 
 void YAFLight::validate() {
+    char errorMessage[ERROR_LEN];
+    
     if ( !validXYZ(locationX, locationY, locationZ)) {
-        throw(InvalidAttributeValueException("location (XYZ)"));
+        sprintf(errorMessage, "Light '%s': location (XYZ) error", id.c_str());
+        throw(InvalidAttributeValueException(errorMessage));
     }
     
     if( !validRGBA(ambientR, ambientG, ambientB, ambientA) ) {
-		throw(InvalidAttributeValueException("ambient (RGBA)"));
+        sprintf(errorMessage, "Light '%s': ambient (RGBA) error", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
     }
     
     if( !validRGBA(diffuseR, diffuseG, diffuseB, diffuseA) ) {
-		throw(InvalidAttributeValueException("diffuse (RGBA)"));
+        sprintf(errorMessage, "Light '%s': diffuse (RGBA) error", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
     }
     
     if( !validRGBA(specularR, specularG, specularB, specularA) ) {
-		throw(InvalidAttributeValueException("specular (RGBA)"));
+        sprintf(errorMessage, "Light '%s': specular (RGBA) error", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
     }
     
     
     if ( !isOmni ){
         
         if ( ! validAngle(angle) ) {
-            throw(InvalidAttributeValueException("angle"));
+            sprintf(errorMessage, "Omni light '%s': angle error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
         }
         
         if ( !validXYZ(directionX, directionY, directionZ)){
-            throw(InvalidAttributeValueException("direction (XYZ)"));
+            sprintf(errorMessage, "Omni light '%s': direction (XYZ) error", id.c_str());
+            throw(InvalidAttributeValueException(errorMessage));
         }
         
     }
