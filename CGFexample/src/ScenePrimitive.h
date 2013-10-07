@@ -83,6 +83,7 @@ class Sphere : public ScenePrimitive {
 public:
     float radius;
     int slices, stacks;
+	GLUquadric *quad;
     
     Sphere(float radius, int slices, int stacks);
     void draw();

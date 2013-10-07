@@ -191,22 +191,13 @@ Sphere::Sphere(float radius, int slices, int stacks) {
     this->slices = slices;
     this->stacks = stacks;
     
-	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	quad = gluNewQuadric();
 }
 
 void Sphere::draw(){
-	glPushMatrix();
+	gluQuadricTexture(quad,1);
 
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
-    
-	glutSolidSphere(radius, slices, stacks);
-    
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
-    
-	glPopMatrix();
+	gluSphere(quad, radius, slices, stacks);
 }
 
 bool Sphere::operator==( const Sphere &s2 ) const {
