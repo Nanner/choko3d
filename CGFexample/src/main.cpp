@@ -21,12 +21,22 @@ using std::exception;
 
 
 int main(int argc, char* argv[]) {
-
+    
 	CGFapplication app = CGFapplication();
+    char yafFileName[512];
+    
+    if (argc < 2) {
+        printf("Usage:./CGFExample filename.yaf\n");
+        printf("No YAF file has been specified in the arguments.\n");
+        printf("Please enter the filename of the scene:\n> ");
+        scanf("%s", yafFileName);
+    } else {
+        strcpy(yafFileName, argv[1]);
+    }
 
 	try {
 		app.init(&argc, argv);
-		YAFReader* yafFile = new YAFReader( (char*)"donutScene.yaf");
+		YAFReader* yafFile = new YAFReader( yafFileName );
 		SceneGraph* sceneGraph = new SceneGraph(yafFile);
 		delete(yafFile);
 		app.setScene(new DemoScene(sceneGraph));
