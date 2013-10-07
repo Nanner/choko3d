@@ -77,17 +77,6 @@ void Rectangle::draw() {
     }
 }
 
-bool Rectangle::operator==( const Rectangle &r2 ) const {
-	return (this->x1 == r2.x1) && (this->y1 == r2.y1) &&
-    (this->x2 == r2.x2) && (this->y2 == r2.y2);
-}
-
-bool Rectangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
-	const Rectangle* rect2 = dynamic_cast< const Rectangle* >( &p2 );
-	return rect2 != NULL && *this == *rect2;
-}
-
-
 Triangle::Triangle(vector<float> xyz1, vector<float> xyz2, vector<float> xyz3) {
 	matrix = NULL;
     x1 = xyz1.at(0); x2 = xyz2.at(0); x3 = xyz3.at(0);
@@ -114,23 +103,36 @@ void Triangle::calculateNormal(){
 }
 
 void Triangle::calculateTexels() {
-    float acN= sqrt( (x3-x1)*(x3-x1) + (y3-y1)*(y3-y1) + (z3-z1)*(z3-z1));
-    float abN= sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
+	//First we calculate the distances between points A and B and points A and C
+    float AC= sqrt((x3-x1)*(x3-x1) + (y3-y1)*(y3-y1) + (z3-z1)*(z3-z1));
+    float AB= sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
+
+	//Now we calculate vectors ab and ac and normalize them
 	float ab[3],ac[3];
-    ab[0]=(x2-x1)/abN;  ab[1]=(y2-y1)/abN;  ab[2]=(z2-z1)/abN;
-    ac[0]=(x3-x1)/acN;  ac[1]=(y3-y1)/acN;  ac[2]=(z3-z1)/acN;
+    ab[0]=(x2-x1)/AB;  ab[1]=(y2-y1)/AB;  ab[2]=(z2-z1)/AB;
+    ac[0]=(x3-x1)/AC;  ac[1]=(y3-y1)/AC;  ac[2]=(z3-z1)/AC;
     
-    float cosAlfa = (ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
-    float AD = acN*cosAlfa;
-    float AE = acN*sin(acos(cosAlfa));
+    //Using the dot product between those two previous vectors, we can determine the cosine of the alpha angle,
+	//which we assume being the angle between AB and AC
+	float cosAlpha = (ab[0]*ac[0]+ab[1]*ac[1]+ab[2]*ac[2]);
+	//Therefore,
+	float alpha = acos(cosAlpha);
+
+	//Now, using the always useful trigonometry, we can assume a point D such that ABD is a right triangle,
+	//and calculate the distances between AD and BD (note here that depending on the triangle vertices,
+	//the AD/BD notations may not make much sense, but the calculations still apply)
+    float AD = AC*cosAlpha;
+    float BD = AC*sin(alpha);
     
+	//We can now use the calculated AD and BD distances to determine how to map the C point texel s and t coordinates,
+	//also bearing in mind the texlength s and t of the texture being used
     Appearance* appearance = NULL;
     if( this->getAppearance() ) {
 		appearance = this->getAppearance();
         
-        texelBs = abN / appearance->getTexLength_s();
+        texelBs = AB / appearance->getTexLength_s();
         texelCs = AD / appearance->getTexLength_s() ;
-        texelCt = AE / appearance->getTexLength_t() ;
+        texelCt = BD / appearance->getTexLength_t() ;
 	}
     
     this->texelsReady = true;
@@ -154,17 +156,6 @@ void Triangle::draw() {
     if(appearance) glTexCoord2f(texelCs, texelCt );
     glVertex3f(x3, y3, z3);
     glEnd();
-}
-
-bool Triangle::operator==( const Triangle &t2 ) const {
-	return (this->x1 == t2.x1) && (this->y1 == t2.y1) && (this->z1 == t2.z1) &&
-    (this->x2 == t2.x2) && (this->y2 == t2.y2) && (this->z2 == t2.z2) &&
-    (this->x3 == t2.x3) && (this->y3 == t2.y3) && (this->z3 == t2.z3);
-}
-
-bool Triangle::isSamePrimitive( const ScenePrimitive &p2 ) const {
-	const Triangle* triangle2 = dynamic_cast< const Triangle* >( &p2 );
-	return triangle2 != NULL && *this == *triangle2;
 }
 
 Cylinder::Cylinder(float base,
@@ -195,15 +186,6 @@ void Cylinder::draw() {
 	glPopMatrix();
 }
 
-bool Cylinder::operator==( const Cylinder &c2 ) const {
-	return (this->base == c2.base) && (this->top == c2.top) && (this->height == c2.height) && (this->slices == c2.slices) && (this->stacks == c2.stacks);
-}
-
-bool Cylinder::isSamePrimitive( const ScenePrimitive &p2 ) const {
-	const Cylinder* cyl2 = dynamic_cast< const Cylinder* >( &p2 );
-	return cyl2 != NULL && *this == *cyl2;
-}
-
 
 Sphere::Sphere(float radius, int slices, int stacks) {
 	matrix = NULL;
@@ -211,33 +193,14 @@ Sphere::Sphere(float radius, int slices, int stacks) {
     this->slices = slices;
     this->stacks = stacks;
     
-	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	quad = gluNewQuadric();
 }
 
 void Sphere::draw(){
-	glPushMatrix();
+	gluQuadricTexture(quad,1);
 
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
-    
-	glutSolidSphere(radius, slices, stacks);
-    
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
-    
-	glPopMatrix();
+	gluSphere(quad, radius, slices, stacks);
 }
-
-bool Sphere::operator==( const Sphere &s2 ) const {
-	return (this->radius == s2.radius) && (this->slices == s2.slices) && (this->stacks == s2.stacks);
-}
-
-bool Sphere::isSamePrimitive( const ScenePrimitive &p2 ) const {
-	const Sphere* sph2 = dynamic_cast< const Sphere* >( &p2 );
-	return sph2 != NULL && *this == *sph2;
-}
-
 
 Torus::Torus(float inner, float outer, int slices, int loops) {
 	matrix = NULL;
@@ -262,15 +225,6 @@ void Torus::draw(){
 	glDisable(GL_TEXTURE_GEN_T);
     
 	glPopMatrix();
-}
-
-bool Torus::operator==( const Torus &t2 ) const {
-	return (this->inner == t2.inner) && (this->outer == t2.outer) && (this->slices == t2.slices) && (this->loops == t2.loops);
-}
-
-bool Torus::isSamePrimitive( const ScenePrimitive &p2 ) const {
-	const Torus* tor2 = dynamic_cast< const Torus* >( &p2 );
-	return tor2 != NULL && *this == *tor2;
 }
 
 //TODO this may not be needed
