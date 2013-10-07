@@ -10,12 +10,6 @@ Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
     x1 = xy1.at(0); y1 = xy1.at(1);
     x2 = xy2.at(0); y2 = xy2.at(1);
     
-    if ( x1 > x2 && y1 > y2) {
-        float x3 = x1, y3 = y1;
-        this->x1 = x2; this->y1 = y2;
-        this->x2 = x3; this->y2 = y3;
-    }
-    
     xScaled = 1;
     yScaled = 1;
     
@@ -38,23 +32,48 @@ void Rectangle::draw() {
     
 	glNormal3f(0,0,1);
     
-    for (float bx = x1, tx = 0; bx < x2-0.01; bx += deltaX, tx += texDeltaX)
-    {
-        glBegin(GL_TRIANGLE_STRIP);
-        glTexCoord2d(tx * xScaled, 0);
-        glVertex3f(bx, y1, 0.0);
-        for (float by = y1, ty = 0; by < y2-0.01; by += deltaY, ty += texDeltaY)
+    if ( x1 > x2 && y1 > y2) {
+        // draw with texels reversed
+        for (float bx = x2, tx = 0.0; bx < x1-MARGIN; bx -= deltaX, tx += texDeltaX)
         {
-            glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
-            glVertex3f(bx + deltaX, by, 0.0);
+            glBegin(GL_TRIANGLE_STRIP);
+            glTexCoord2d(tx * xScaled, 0.0);
+            glVertex3f(bx, y2, 0.0);
             
-            glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
-            glVertex3f(bx, by + deltaY, 0.0);
+            for (float by = y2, ty = 0.0; by < y1-MARGIN; by -= deltaY, ty += texDeltaY)
+            {
+                glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
+                glVertex3f(bx - deltaX, by, 0.0);
+                
+                glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
+                glVertex3f(bx, by - deltaY, 0.0);
+            }
+            glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled );
+            glVertex3d(bx-deltaX, y1, 0.0);
+            
+            glEnd();
         }
-        glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
-        glVertex3d(bx+deltaX, y2, 0.0);
         
-        glEnd();
+    } else {
+        // draw with normal texels
+        for (float bx = x1, tx = 0; bx < x2-MARGIN; bx += deltaX, tx += texDeltaX)
+        {
+            glBegin(GL_TRIANGLE_STRIP);
+            glTexCoord2d(tx * xScaled, 0);
+            glVertex3f(bx, y1, 0.0);
+            for (float by = y1, ty = 0; by < y2-MARGIN; by += deltaY, ty += texDeltaY)
+            {
+                glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
+                glVertex3f(bx + deltaX, by, 0.0);
+                
+                glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
+                glVertex3f(bx, by + deltaY, 0.0);
+            }
+            glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
+            glVertex3d(bx+deltaX, y2, 0.0);
+            
+            glEnd();
+        }
     }
 }
 

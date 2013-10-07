@@ -10,6 +10,8 @@
 
 #include <math.h>
 
+#define MARGIN 0.01
+
 class ScenePrimitive: public SceneVertex {
 public:
 	virtual void draw() = 0;
