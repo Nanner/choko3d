@@ -590,7 +590,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
   
@@ -601,7 +601,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
   
@@ -612,7 +612,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
   
@@ -623,7 +623,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
   
@@ -634,7 +634,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
   
@@ -645,7 +645,7 @@
       </transforms>
 
       <children>
-        <rectangle xy1="0.5 0.5" xy2="-0.5 -0.5" />
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>   
 
