@@ -20,6 +20,7 @@ public:
 	void display();
 	void update(unsigned long t);
 	void setDrawMode(int mode);
+	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
 	DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
 	~DemoScene();

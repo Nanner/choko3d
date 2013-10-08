@@ -10,10 +10,10 @@ CameraView::CameraView(string id, float near, float far): id(id), near(near), fa
 }
 
 Perspective::Perspective(string id, float near, float far, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ):
-	CameraView(id, near, far), angle(angle) {
-		position[0] = posX;
-		position[1] = posY;
-		position[2] = posZ;
+	CameraView(id, near, far), angle(angle), iAngle(angle) {
+		position[0] = iPosition[0] = posX;
+		position[1] = iPosition[1] = posY;
+		position[2] = iPosition[2] = posZ;
 
 		target[0] = targetX;
 		target[1] = targetY;
@@ -21,7 +21,7 @@ Perspective::Perspective(string id, float near, float far, float angle, float po
 
 		//Calculate distance between the position of the camera and the target
 		//This will be our camera radius, that is, the radius of a sphere with center on the target
-		cameraRadius = distanceBetweenPoints(position, target);
+		cameraRadius = iCameraRadius = distanceBetweenPoints(position, target);
 
 		//Now we need to initiate the spherical coordinates according to our initial position
 		float radianPhi = acos(-(position[1] - target[1]) / cameraRadius);
@@ -31,13 +31,6 @@ Perspective::Perspective(string id, float near, float far, float angle, float po
 			radianTheta = asin((position[0] - target[0]) / (cameraRadius*sin(radianPhi)));
 		}
 		cameraRotation[1] = degrees(radianTheta);
-
-		cout << "Constr" << endl << endl;
-		cout << "Radian PHI" << radianPhi << endl;
-		cout << "CameraRotation 0" << cameraRotation[0] << endl;
-		cout << "Radian THETA" << radianTheta << endl;
-		cout << "CameraRotation 1" << cameraRotation[1] << endl;
-		cout << "End constr" << endl << endl;
 
 		//We start the up vector in the direction of yy axis, unless the camera has the same x and z coordinates as the target
 		if(position[0] == target[0] && position[2] == target[2] && position[1] > target[1]) {
@@ -55,6 +48,12 @@ Perspective::Perspective(string id, float near, float far, float angle, float po
 			upVector[1] = 1.0;
 			upVector[2] = 0.0;
 		}
+
+		iCameraRotation[0] = cameraRotation[0];
+		iCameraRotation[1] = cameraRotation[1];
+		iUpVector[0] = upVector[0];
+		iUpVector[1] = upVector[1];
+		iUpVector[2] = upVector[2];
 
 }
 
@@ -153,8 +152,24 @@ bool Perspective::translate(int axis, float value) {
 	return true;
 }
 
+void Perspective::resetCamera(){
+	position[0] = iPosition[0];
+	position[1] = iPosition[1];
+	position[2] = iPosition[2];
+
+	angle = iAngle;
+	cameraRadius = iCameraRadius;
+
+	cameraRotation[0] = iCameraRotation[0];
+	cameraRotation[1] = iCameraRotation[1];
+
+	upVector[0] = iUpVector[0];
+	upVector[1] = iUpVector[1];
+	upVector[2] = iUpVector[2];
+}
+
 Orthographic::Orthographic(string id, float near, float far, float left, float right, float top, float bottom):
-	CameraView(id, near, far), left(left), right(right), top(top), bottom(bottom) {}
+	CameraView(id, near, far),iLeft(left), iRight(right), iTop(top), iBottom(bottom), left(left), right(right), top(top), bottom(bottom) {}
 
 void Orthographic::applyView() {
 
@@ -208,6 +223,18 @@ bool Orthographic::translate(int axis, float value) {
 		}
 	}
 	return true;
+}
+
+void Orthographic::resetCamera() {
+	left = iLeft;
+	right = iRight;
+	top = iTop;
+	bottom = iBottom;
+
+	rotation[0] = 0;
+	rotation[1] = 0;
+	rotation[2] = 0;
+
 }
 
 float distanceBetweenPoints(float point1[3], float point2[3]) {

@@ -19,6 +19,8 @@ void RendererInterface::initGUI() {
 		lastID++;
 	}
 
+	lightsPanel->align();
+
 	addColumn();
 
 	GLUI_Panel* camerasPanel = addPanel((char*)"Cameras");
@@ -31,6 +33,11 @@ void RendererInterface::initGUI() {
 		if(cameraIterator->first == YAFCamera::initialCameraID)
 			cameraList->set_int_val(i);
 	}
+
+	camResetButton = addButtonToPanel(camerasPanel, (char*)"Reset camera view", lastID);
+	camResetButtonID = lastID;
+	lastID++;
+	camerasPanel->align();
 
 	addColumn();
 
@@ -50,6 +57,12 @@ void RendererInterface::initGUI() {
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
+	if( ((DemoScene*) scene)->activeCameraNum == 0) {
+		camResetButton->disable();
+	}
+	else
+		camResetButton->enable();
+
 	RootVertex* rootVertex = ((DemoScene*) scene)->getSceneGraph()->getRootVertex();
 
 	map<int, string>::iterator lightToToggle = lightMap.find(ctrl->user_id);
@@ -60,5 +73,9 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 			rootVertex->lights.find(lightToToggle->second)->second->enable();
 		}
 		return;
+	}
+
+	if(ctrl->user_id == camResetButtonID && camResetButton->enabled) {
+		((DemoScene*) scene)->resetCurrentCamera();
 	}
 }

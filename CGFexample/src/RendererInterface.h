@@ -8,6 +8,8 @@
 class RendererInterface :public CGFinterface {
 public:
 	map<int, string> lightMap;
+	int camResetButtonID;
+	GLUI_Button* camResetButton;
 	RendererInterface();
 
 	void initGUI();

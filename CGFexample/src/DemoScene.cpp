@@ -92,6 +92,10 @@ void DemoScene::setDrawMode(int mode) {
 	}
 }
 
+void DemoScene::resetCurrentCamera() {
+	((CameraView*) CGFscene::activeCamera)->resetCamera();
+}
+
 DemoScene::~DemoScene()
 {
 	delete(sceneGraph);
