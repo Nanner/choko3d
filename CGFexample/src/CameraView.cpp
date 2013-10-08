@@ -26,13 +26,35 @@ Perspective::Perspective(string id, float near, float far, float angle, float po
 		//Now we need to initiate the spherical coordinates according to our initial position
 		float radianPhi = acos(-(position[1] - target[1]) / cameraRadius);
 		cameraRotation[0] = 90 - degrees(radianPhi);
-		float radianTheta = asin((position[0] - target[0]) / (cameraRadius*sin(radianPhi)));
+		float radianTheta = 0;
+		if(radianPhi != 0 && radianPhi != M_PI) {
+			radianTheta = asin((position[0] - target[0]) / (cameraRadius*sin(radianPhi)));
+		}
 		cameraRotation[1] = degrees(radianTheta);
 
-		//We start the up vector in the direction of yy axis
-		upVector[0] = 0.0;
-		upVector[1] = 1.0;
-		upVector[2] = 0.0;
+		cout << "Constr" << endl << endl;
+		cout << "Radian PHI" << radianPhi << endl;
+		cout << "CameraRotation 0" << cameraRotation[0] << endl;
+		cout << "Radian THETA" << radianTheta << endl;
+		cout << "CameraRotation 1" << cameraRotation[1] << endl;
+		cout << "End constr" << endl << endl;
+
+		//We start the up vector in the direction of yy axis, unless the camera has the same x and z coordinates as the target
+		if(position[0] == target[0] && position[2] == target[2] && position[1] > target[1]) {
+			upVector[0] = 0.0;
+			upVector[1] = 0.0;
+			upVector[2] = -1.0;
+		}
+		else if(position[0] == target[0] && position[2] == target[2] && position[1] < target[1]) {
+			upVector[0] = 0.0;
+			upVector[1] = 0.0;
+			upVector[2] = 1.0;
+		}
+		else {
+			upVector[0] = 0.0;
+			upVector[1] = 1.0;
+			upVector[2] = 0.0;
+		}
 
 }
 
@@ -60,36 +82,54 @@ void Perspective::updateProjectionMatrix(int width, int height) {
 bool Perspective::rotate(int axis, float angle) {
 	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y && axis!=CG_CGFcamera_AXIS_Z) return false;
 
-	cameraRotation[axis] += angle; //AXIS X rotation determines zenith angle (phi), while AXIS Y rotation determines azimuth angle (theta)
+	float newCamRot[2];
+	newCamRot[0] = cameraRotation[0];
+	newCamRot[1] = cameraRotation[1];
+	newCamRot[axis] += angle; //AXIS X rotation determines zenith angle (phi), while AXIS Y rotation determines azimuth angle (theta)
 
 	//To ensure that we don't "overflow" our cameraRotation array, we bind the values from -360 to 360
-	if(cameraRotation[axis] < -360) {
-		cameraRotation[axis] += 360;
+	if(newCamRot[axis] < -360) {
+		newCamRot[axis] += 360;
 	}
-	else if(cameraRotation[axis] > 360) {
-		cameraRotation[axis] -= 360;
+	else if(newCamRot[axis] > 360) {
+		newCamRot[axis] -= 360;
 	}
-	
-	//When the camera angle zenith is between -270 and -90 or between 90 and 270 (this, in practice, is the same
-	//interval, but due to our way of manipulating angles, it's useful do define both of them)
-	//the up vector must be inverted because our camera will be upside down.
-	if(cameraRotation[CG_CGFcamera_AXIS_X] <= -90 && cameraRotation[CG_CGFcamera_AXIS_X] >= -270)
-		upVector[1] = -1;
-	else if(cameraRotation[CG_CGFcamera_AXIS_X] >= 90 && cameraRotation[CG_CGFcamera_AXIS_X] <= 270)
-		upVector[1] = -1;
-	else
-		upVector[1] = 1;
 
 	//Now we convert our angles to radians, and we take into account that the zenith is the angle between YY and Target-Position vectors,
 	//not the angle between Target-Position and the XZ plane. So we need to subtract our cameraRotation[0] from 90º
-	float radianPhi = radians(90-cameraRotation[0]);
-	float radianTheta = radians(cameraRotation[1]);
+	float radianPhi = radians(90-newCamRot[0]);
+	float radianTheta = radians(newCamRot[1]);
 
 	//Now, using spherical to cartesian coordinates conversion, and taking into account that the openGL axis work in a slightly different
 	//way from the axis we're used to, we calculate the new position for the camera
-	position[0] = target[0] + cameraRadius*sin(radianPhi)*sin(radianTheta);
-	position[1] = target[1] - cameraRadius*cos(radianPhi);
-	position[2] = target[2] + cameraRadius*sin(radianPhi)*cos(radianTheta);
+	float pos0 = target[0] + cameraRadius*sin(radianPhi)*sin(radianTheta);
+	float pos1 = target[1] - cameraRadius*cos(radianPhi);
+	float pos2 = target[2] + cameraRadius*sin(radianPhi)*cos(radianTheta);
+
+	//We choose to ignore whenever the user positions the camera directly on top or below the target,
+	//that is, when the x and z coordinates of the two points match. By doing so, we avoid nasty problems
+	//with the upvector suddenly changing and so we avoid some complicated calculations.
+	if(pos0 != target[0] || pos2 != target[2]) {
+		position[0] = pos0;
+		position[1] = pos1;
+		position[2] = pos2;
+
+		upVector[0] = 0;
+		upVector[1] = 0;
+		upVector[2] = 0;
+
+		cameraRotation[axis] = newCamRot[axis];
+
+		//When the camera angle zenith is between -270 and -90 or between 90 and 270 (this, in practice, is the same
+		//interval, but due to our way of manipulating angles, it's useful do define both of them)
+		//the up vector must be inverted because our camera will be upside down.
+		if(cameraRotation[CG_CGFcamera_AXIS_X] <= -90 && cameraRotation[CG_CGFcamera_AXIS_X] >= -270)
+			upVector[1] = -1;
+		else if(cameraRotation[CG_CGFcamera_AXIS_X] >= 90 && cameraRotation[CG_CGFcamera_AXIS_X] <= 270)
+			upVector[1] = -1;
+		else
+			upVector[1] = 1;
+	}
 
 	return true;
 }
