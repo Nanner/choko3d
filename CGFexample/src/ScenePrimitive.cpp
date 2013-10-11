@@ -21,59 +21,46 @@ Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
     texDeltaY = 1.0 / columns;
 }
 
+/*
+ Auxiliary function to help tesselation
+ */
+bool reachedEnd(float start, float end, int direction) {
+    if ( direction < 0 )
+        return start < (end + MARGIN);
+    
+    if (direction > 0)
+        return start > (end - MARGIN);
+    
+    return false;
+}
+
 void Rectangle::draw() {
     
     if( this->getAppearance() ) {
 		Appearance* app = this->getAppearance();
-        xScaled = (x2 - x1) / app->getTexLength_s();
-		yScaled = (y2 - y1) / app->getTexLength_t();
-
+        xScaled = fabs(x2 - x1) / app->getTexLength_s();
+		yScaled = fabs(y2 - y1) / app->getTexLength_t();
 	}
     
 	glNormal3f(0,0,1);
     
-    if ( x1 > x2 && y1 > y2) {
-        // draw with texels reversed
-        for (float bx = x2, tx = 0.0; bx < x1-MARGIN; bx -= deltaX, tx += texDeltaX)
+    for (float bx = x1, tx = 0; !reachedEnd(bx, x2, distX); bx += deltaX, tx += texDeltaX)
+    {
+        glBegin(GL_TRIANGLE_STRIP);
+        glTexCoord2d(tx * xScaled, 0);
+        glVertex3f(bx, y1, 0.0);
+        for (float by = y1, ty = 0; !reachedEnd(by, y2, distY); by += deltaY, ty += texDeltaY)
         {
-            glBegin(GL_TRIANGLE_STRIP);
-            glTexCoord2d(tx * xScaled, 0.0);
-            glVertex3f(bx, y2, 0.0);
+            glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
+            glVertex3f(bx + deltaX, by, 0.0);
             
-            for (float by = y2, ty = 0.0; by < y1-MARGIN; by -= deltaY, ty += texDeltaY)
-            {
-                glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
-                glVertex3f(bx - deltaX, by, 0.0);
-                
-                glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
-                glVertex3f(bx, by - deltaY, 0.0);
-            }
-            glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled );
-            glVertex3d(bx-deltaX, y1, 0.0);
-            
-            glEnd();
+            glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
+            glVertex3f(bx, by + deltaY, 0.0);
         }
+        glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
+        glVertex3d(bx+deltaX, y2, 0.0);
         
-    } else {
-        // draw with normal texels
-        for (float bx = x1, tx = 0; bx < x2-MARGIN; bx += deltaX, tx += texDeltaX)
-        {
-            glBegin(GL_TRIANGLE_STRIP);
-            glTexCoord2d(tx * xScaled, 0);
-            glVertex3f(bx, y1, 0.0);
-            for (float by = y1, ty = 0; by < y2-MARGIN; by += deltaY, ty += texDeltaY)
-            {
-                glTexCoord2d( (tx + texDeltaX) * xScaled ,  ty * yScaled);
-                glVertex3f(bx + deltaX, by, 0.0);
-                
-                glTexCoord2d( tx * xScaled, (ty + texDeltaY) * yScaled);
-                glVertex3f(bx, by + deltaY, 0.0);
-            }
-            glTexCoord2d( (tx + texDeltaX) * xScaled, 1.0 * yScaled);
-            glVertex3d(bx+deltaX, y2, 0.0);
-            
-            glEnd();
-        }
+        glEnd();
     }
 }
 
