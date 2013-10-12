@@ -89,4 +89,6 @@ public:
 
 };
 
+bool reachedEnd(float start, float end, float direction) ;
+
 #endif

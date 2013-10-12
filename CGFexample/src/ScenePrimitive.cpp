@@ -24,7 +24,7 @@ Rectangle::Rectangle(vector<float> xy1, vector<float> xy2) {
 /*
  Auxiliary function to help tesselation
  */
-bool reachedEnd(float start, float end, int direction) {
+bool reachedEnd(float start, float end, float direction) {
     if ( direction < 0 )
         return start < (end + MARGIN);
     
