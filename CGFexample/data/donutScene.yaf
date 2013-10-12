@@ -24,57 +24,64 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="1" enabled="true"
+    <omni id="corner" enabled="true"
         location="4.0 30.0 5.0"
         ambient="0.2 0.2 0.2 1.0"
         diffuse="0.7 0.7 0.7 1.0"
         specular="1.0 1.0 1.0 1.0"
             />
 
-    <spot id="2" enabled="true" 
-        location="17.5 17 17.5" 
-        ambient="0.0 0.0 0.0 0.0" 
-        diffuse="1.0 1.0 1.0 1.0" 
+    <spot id="donutSpot" enabled="true"
+        location="17.5 17 17.5"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
-        angle="30.0" 
-        exponent="15.0" 
-        direction="0.0 -1.0 0.0" 
+        angle="30.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+    
+    <omni id="lamp" enabled="true"
+          location="21.5 11.8 15.5"
+          ambient="0.1 0.1 0.1 1.0"
+          diffuse="0.3 0.3 0.3 1.0"
+          specular="0.0 0.0 0.0 1.0"
             />
 
   </lighting>
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
-    
+
     <texture id="woodTex" file="wood.jpg" />
-      
+
     <texture id="floorTex" file="floor.png" />
 
     <texture id="wallTex" file="wall.png" />
-    
+
     <texture id="posterTex" file="duffPoster.jpg" />
 
     <texture id="boxTex" file="box.jpg" />
-    
+
     <texture id="donut1Tex" file="donut1.png" />
-    
+
     <texture id="donut2Tex" file="donut2.png" />
-    
+
     <texture id="donut3Tex" file="donut3.png" />
-  
+
     <texture id="donut4Tex" file="donut4.png" />
-    
+
     <texture id="donut5Tex" file="donut5.png" />
 
     <texture id="beer" file="beer.jpg" />
 
     <texture id="foam" file="beerfoam.jpg" />
-  
+
   </textures>
 
-  <!-- bloco de materiais; --> 
-  <appearances> 
-    
+  <!-- bloco de materiais; -->
+  <appearances>
+
     <appearance id="Box"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
@@ -93,8 +100,8 @@
       specular="0.5 0.5 0.5 1.0"
       shininess="1.0">
     </appearance>
-  
-    <appearance id="posterApp" 
+
+    <appearance id="posterApp"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
@@ -102,10 +109,9 @@
       shininess="128.0"
       textureref="posterTex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-    
-    <appearance id="wallApp" 
+      texlength_t="1.0"/>
+
+    <appearance id="wallApp"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
@@ -113,10 +119,9 @@
       shininess="1.0"
       textureref="wallTex"
       texlength_s="2.0"
-      texlength_t="2.0">
-     </appearance>
-  
-    <appearance id="woodApp" 
+      texlength_t="2.0"/>
+
+    <appearance id="woodApp"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.3 0.1 0.0 1.0"
       diffuse="0.35 0.15 0.0 1.0"
@@ -124,10 +129,9 @@
       shininess="10.0"
       textureref="woodTex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-  
-    <appearance id="floorApp" 
+      texlength_t="1.0"/>
+
+    <appearance id="floorApp"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
@@ -135,10 +139,9 @@
       shininess="80.0"
       textureref="floorTex"
       texlength_s="0.1"
-      texlength_t="0.1">
-    </appearance>
-    
-    <appearance id="donut1App" 
+      texlength_t="0.1"/>
+
+    <appearance id="donut1App"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
       diffuse="0.5 0.5 0.5 1.0"
@@ -146,9 +149,8 @@
       shininess="1.0"
       textureref="donut1Tex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-    
+      texlength_t="1.0"/>
+
     <appearance id="donut2App"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
@@ -157,9 +159,8 @@
       shininess="1.0"
       textureref="donut2Tex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-    
+      texlength_t="1.0"/>
+
     <appearance id="donut3App"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
@@ -168,9 +169,8 @@
       shininess="1.0"
       textureref="donut3Tex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-    
+      texlength_t="1.0"/>
+
     <appearance id="donut4App"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
@@ -179,9 +179,8 @@
       shininess="1.0"
       textureref="donut4Tex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
-    
+      texlength_t="1.0"/>
+
     <appearance id="donut5App"
       emissive="0.0 0.0 0.0 0.0"
       ambient="0.5 0.5 0.5 1.0"
@@ -190,8 +189,7 @@
       shininess="1.0"
       textureref="donut5Tex"
       texlength_s="1.0"
-      texlength_t="1.0">
-    </appearance>
+      texlength_t="1.0"/>
 
     <appearance id="beer"
       emissive="1.0 1.0 1.0 1.0"
@@ -199,10 +197,9 @@
       diffuse="0.5 0.5 0.5 1.0"
       specular="0.5 0.5 0.5 1.0"
       shininess="100.0"
-      textureref="beer" 
-      texlength_s="1" 
-      texlength_t="1">     
-    </appearance>
+      textureref="beer"
+      texlength_s="1"
+      texlength_t="1"/>
 
     <appearance id="foam"
       emissive="1.0 1.0 1.0 1.0"
@@ -210,16 +207,32 @@
       diffuse="0.5 0.5 0.5 1.0"
       specular="0.5 0.5 0.5 1.0"
       shininess="100.0"
-      textureref="foam" 
-      texlength_s="1" 
-      texlength_t="1">     
-    </appearance>
+      textureref="foam"
+      texlength_s="1"
+      texlength_t="1"/>
 
-   </appearances>
+    <appearance id="lampBody"
+      emissive="0.3 0.3 0.3 0.3"
+      ambient="0.9 0.9 0.9 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"/>
+
+    <appearance id="lampHead"
+      emissive="0.4 0.4 0.4 0.4"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="woodTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+  </appearances>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="donutScene">
-    
+
     <node id="donutScene">
       <transforms>
       </transforms>
@@ -231,20 +244,117 @@
         <noderef id="donuts" />
         <noderef id="poster" />
         <noderef id="beer" />
-        <noderef id="triangle" />
+        <noderef id="lamp" />
       </children>
     </node>
 
-    <node id="triangle">
+    <node id="lamp">
       <transforms>
-        <translate to="26.5 25 0.2" />
-        <scale factor="9 12 0.0625" />
+        <translate to="21.5 9.8 15.5"/>
+        <scale factor="2.0 2.0 2.0" />
       </transforms>
 
-      <appearanceref id="posterApp" />
+      <children>
+        <noderef id="body" />
+        <noderef id="head" />
+      </children>
+    </node>
+
+    <node id="body">
+      <transforms>
+        <scale factor="1.0 1.5 1.0" />
+      </transforms>
+
+      <appearanceref id="lampBody" />
 
       <children>
-        <triangle xyz1="-0.5 -0.5 0" xyz2="0.5 -0.5 0" xyz3="1.0 1.0 0" /> 
+        <sphere radius="0.5" slices="20" stacks="20" />
+      </children>
+    </node>
+
+    <node id="head">
+      <transforms>
+        <translate to="0.0 0.4 0.0" />
+        <scale factor="1.4 1 1.4" />
+      </transforms>
+
+      <appearanceref id="lampHead" />
+
+      <children>
+        <noderef id="pyramid" />
+      </children>
+    </node>
+
+    <node id="pyramid">
+      <transforms>
+      </transforms>
+
+      <children>
+        <noderef id="triangleFace" />
+        <noderef id="triangleFront" />
+        <noderef id="triangleBack" />
+        <noderef id="triangleLeft" />
+        <noderef id="triangleRight" />
+        <noderef id="pyramidBase" />
+      </children>
+    </node>
+
+    <node id="pyramidBase">
+      <transforms>
+        <rotate axis="x" angle="90" />
+      </transforms>
+
+      <children>
+        <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+      </children>
+    </node>
+
+    <node id="triangleFace">
+      <transforms>
+        <translate to="0.0 0.5 0.5" />
+      </transforms>
+
+      <children>
+        <triangle xyz1="-0.5 -0.5 0.0" xyz2="0.5 -0.5 0.0" xyz3="0.0 0.5 -0.5"/>
+      </children>
+    </node>
+
+    <node id="triangleFront">
+      <transforms>
+      </transforms>
+
+      <children>
+        <noderef id="triangleFace" />
+      </children>
+    </node>
+
+    <node id="triangleBack">
+      <transforms>
+        <rotate axis="y" angle="180" />
+      </transforms>
+
+      <children>
+        <noderef id="triangleFace" />
+      </children>
+    </node>
+
+    <node id="triangleRight">
+      <transforms>
+        <rotate axis="y" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="triangleFace" />
+      </children>
+    </node>
+
+    <node id="triangleLeft">
+      <transforms>
+        <rotate axis="y" angle="-90" />
+      </transforms>
+
+      <children>
+        <noderef id="triangleFace" />
       </children>
     </node>
 
@@ -309,7 +419,7 @@
         <translate to="17.5 25 0.125" />
         <scale factor="9 12 0.0625" />
       </transforms>
-      
+
       <appearanceref id="posterApp" />
 
       <children>
@@ -323,7 +433,7 @@
         <rotate axis="y" angle="30" />
         <translate to="-6 4.125 -3.5" />
       </transforms>
-      
+
       <appearanceref id="woodApp" />
 
       <children>
@@ -503,7 +613,7 @@
         <torus inner="0.135" outer="0.3" slices="10" loops="20" />
       </children>
     </node>
-    
+
     <node id="donut1">
       <transforms>
         <translate to="0 4.6875 0" />
@@ -582,7 +692,7 @@
         <noderef id="right" />
       </children>
     </node>
-  
+
     <node id="top">
       <transforms>
         <translate to="0 0.5 0" />
@@ -593,7 +703,7 @@
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
-  
+
     <node id="bottom">
       <transforms>
         <translate to="0 -0.5 0" />
@@ -604,7 +714,7 @@
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
-  
+
     <node id="front">
       <transforms>
         <translate to="0 0 0.5" />
@@ -615,7 +725,7 @@
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
-  
+
     <node id="back">
       <transforms>
         <translate to="0 0 -0.5" />
@@ -626,7 +736,7 @@
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
-  
+
     <node id="left">
       <transforms>
         <translate to="-0.5 0 0" />
@@ -637,7 +747,7 @@
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
     </node>
-  
+
     <node id="right">
       <transforms>
         <translate to="0.5 0 0" />
@@ -647,58 +757,58 @@
       <children>
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
       </children>
-    </node>   
+    </node>
 
-    <node id="beer"> 
+    <node id="beer">
       <transforms>
         <translate to="13.5 8.625 17.5"/>
         <rotate axis="x" angle="270" />
-      </transforms> 
-    
+      </transforms>
+
       <appearanceref id="beer" />
 
-      <children> 
+      <children>
         <noderef id="beercup" />
         <noderef id="beerfoam" />
         <noderef id="beerholder" />
-      </children> 
+      </children>
     </node>
 
-    <node id="beercup"> 
+    <node id="beercup">
       <transforms>
-        <scale factor="0.9 0.9 1.6" /> 
-      </transforms> 
-        
-      <children> 
+        <scale factor="0.9 0.9 1.6" />
+      </transforms>
+
+      <children>
         <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
-      </children> 
+      </children>
     </node>
 
-    <node id="beerfoam"> 
+    <node id="beerfoam">
       <transforms>
-        <translate to="0 0 1.6" /> 
-        <scale factor="0.9 0.9 0.4" /> 
-      </transforms> 
-    
+        <translate to="0 0 1.6" />
+        <scale factor="0.9 0.9 0.4" />
+      </transforms>
+
       <appearanceref id="foam" />
-      
-      <children> 
+
+      <children>
         <cylinder base="1" top="1" height="1" slices="16" stacks="16" />
-      </children> 
+      </children>
     </node>
 
-    <node id="beerholder"> 
+    <node id="beerholder">
       <transforms>
-        <translate to="1 0 1" /> 
+        <translate to="1 0 1" />
         <rotate axis="x" angle="90" />
-      </transforms> 
-    
+      </transforms>
+
       <appearanceref id="foam" />
-      
-      <children> 
+
+      <children>
         <torus inner="0.15" outer="0.4" slices="100" loops="100" />
-      </children> 
-    </node>      
-  
+      </children>
+    </node>
+
   </graph>
 </yaf>
