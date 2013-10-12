@@ -79,8 +79,9 @@ void Perspective::updateProjectionMatrix(int width, int height) {
 }
 
 bool Perspective::rotate(int axis, float angle) {
-	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y && axis!=CG_CGFcamera_AXIS_Z) return false;
-
+    // TODO commented axis_z, is this right?
+	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y /*&& axis!=CG_CGFcamera_AXIS_Z*/) return false;
+    
 	float newCamRot[2];
 	newCamRot[0] = cameraRotation[0];
 	newCamRot[1] = cameraRotation[1];

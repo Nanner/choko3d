@@ -214,7 +214,7 @@ void Torus::draw(){
 	glPopMatrix();
 }
 
-//TODO this may not be needed
+//this may not be needed
 //Based on the GLUT implementation
 void solidTorus(GLfloat r, GLfloat R, GLint nsides, GLint rings) {
 		int i, j;

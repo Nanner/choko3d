@@ -37,42 +37,4 @@ YAFCamera::YAFCamera(string id, vector<float> values): isOrtho(true) {
 
 }
 
-void YAFCamera::validate() {
-    char errorMessage[ERROR_LEN];
-    
-    if ( ! validMinMax(near, far) ) {
-        sprintf(errorMessage, "Camera '%s': min/max error", id.c_str());
-		throw(InvalidAttributeValueException(errorMessage));
-    }
-    
-	if(isOrtho) {
-        
-        if ( ! validMinMax(left, right) ) {
-            sprintf(errorMessage, "Camera '%s': left/right error", id.c_str());
-            throw(InvalidAttributeValueException(errorMessage));
-        }
-        
-        if ( ! validMinMax(top, bottom)) {
-            sprintf(errorMessage, "Camera '%s': top/bottom error", id.c_str());
-            throw(InvalidAttributeValueException(errorMessage));
-        }
-	}
-	else {
-		if( !validAngle(angle) ) {
-            sprintf(errorMessage, "Camera '%s': angle error", id.c_str());
-			throw(InvalidAttributeValueException(errorMessage));
-        }
-        
-        if ( !validXYZ(posX, posY, posZ) ){
-            sprintf(errorMessage, "Camera '%s': XYZ error", id.c_str());
-            throw(InvalidAttributeValueException(errorMessage));
-        }
-        
-        if ( !validXYZ(targetX, targetY, targetZ) ) {
-            sprintf(errorMessage, "Camera '%s': target XYZ error", id.c_str());
-            throw(InvalidAttributeValueException(errorMessage));
-
-        }
-	}
-
-}
+void YAFCamera::validate() {}

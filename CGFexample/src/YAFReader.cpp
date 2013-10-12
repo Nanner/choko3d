@@ -86,7 +86,7 @@ YAFReader::YAFReader(char *filename) {
 					YAFCamera perspective(id, nfaValues, position, target);
 					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, perspective)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
+						printf("Tried to insert a camera with an already existing camera id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 
@@ -106,7 +106,7 @@ YAFReader::YAFReader(char *filename) {
 					YAFCamera ortho(id, orthoValues);
 					bool notRepeated = cameras.insert(pair<string, YAFCamera>(id, ortho)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a camera with an already existing camera id. Terminating!\n");
+						printf("Tried to insert a camera with an already existing camera id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 				}
@@ -163,7 +163,7 @@ YAFReader::YAFReader(char *filename) {
                     YAFLight omni(id, enabled, location, ambient, diffuse, specular);
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, omni)).second;
 					if(!notRepeated) {
-						printf("Tried to insert an omni light with an already existing light id. Terminating!\n");
+						printf("Tried to insert an omni light with an already existing light id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 				}
@@ -192,7 +192,7 @@ YAFReader::YAFReader(char *filename) {
                     
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, spot)).second;
 					if(!notRepeated) {
-						printf("Tried to insert a spot light with an already existing light id. Terminating!\n");
+						printf("Tried to insert a spot light with an already existing light id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 				}
@@ -224,7 +224,7 @@ YAFReader::YAFReader(char *filename) {
 
 				bool notRepeated = textures.insert(pair<string, YAFTexture>(id, texture)).second;
 				if(!notRepeated) {
-					printf("Tried to insert a texture with an already existing texture id. Terminating!\n");
+					printf("Tried to insert a texture with an already existing texture id '%s'. Terminating!\n", id.c_str());
 					exit(1);
 				}
 
@@ -275,7 +275,7 @@ YAFReader::YAFReader(char *filename) {
 
 					bool notRepeated = appearances.insert(pair<string, YAFAppearance>(id, apperance)).second;
 					if(!notRepeated) {
-						printf("Tried to insert an appearance with an already existing appearance id. Terminating!\n");
+						printf("Tried to insert an appearance with an already existing appearance id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 				}
@@ -284,7 +284,7 @@ YAFReader::YAFReader(char *filename) {
 
 					bool notRepeated = appearances.insert(pair<string, YAFAppearance>(id, apperance)).second;
 					if(!notRepeated) {
-						printf("Tried to insert an appearance with an already existing appearance id. Terminating!\n");
+						printf("Tried to insert an appearance with an already existing appearance id '%s'. Terminating!\n", id.c_str());
 						exit(1);
 					}
 				}
@@ -336,7 +336,6 @@ YAFReader::YAFReader(char *filename) {
 					}
 
 					if ( strcmp(currentTransform->Value(), "rotate") == 0 ) {
-						// TODO store translation
 						string axis = getValue<string>(currentTransform, (char*)"axis");
 						float angle = getValue<float>(currentTransform, (char*)"angle");
                                                 
@@ -344,7 +343,6 @@ YAFReader::YAFReader(char *filename) {
                     }
 
 					if ( strcmp(currentTransform->Value(), "scale") == 0 ) {
-						// TODO store translation
 						vector<float> factor = getValues<float>(currentTransform, (char*)"factor");
                                                 
                         t.push_back(new Scaling(factor));
@@ -363,7 +361,6 @@ YAFReader::YAFReader(char *filename) {
 				TiXmlElement * appearanceref = node->FirstChildElement("appearanceref");
 
 				if (appearanceref) {
-					// TODO store appearance
 					string appearanceID;
 
 					try {
@@ -452,7 +449,7 @@ YAFReader::YAFReader(char *filename) {
                 
                 bool notRepeated = nodes.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
                 if (!notRepeated) {
-                    printf("Tried to insert a node with an already existing node id. Terminating!\n");
+                    printf("Tried to insert a node with an already existing node id '%s'. Terminating!\n", nodeID.c_str());
                     exit(1);
                 }
 

@@ -50,24 +50,27 @@ void YAFAppearance::validate() {
     char errorMessage[ERROR_LEN];
 
 	if( !validRGBA(emissiveR, emissiveG, emissiveB, emissiveA) ) {
-        sprintf(errorMessage, "Appearance '%s': diffuse (RGBA)", id.c_str());
-		throw(InvalidAttributeValueException("Appearance: diffuse (RGBA)"));
+        sprintf(errorMessage, "Appearance '%s': emissive (RGBA)", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
 	}
 	if( !validRGBA(ambientR, ambientG, ambientB, ambientA) ) {
         sprintf(errorMessage, "Appearance '%s': ambient (RGBA)", id.c_str());
-		throw(InvalidAttributeValueException("Appearance: ambient (RGBA)"));
+		throw(InvalidAttributeValueException(errorMessage));
 	}
 
 	if( !validRGBA(diffuseR, diffuseG, diffuseB, diffuseA) ) {
-		throw(InvalidAttributeValueException("Appearance: diffuse (RGBA)"));
+        sprintf(errorMessage, "Appearance '%s': diffuse (RGBA)", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
 	}
 
 	if( !validRGBA(specularR, specularG, specularB, specularA) ) {
-		throw(InvalidAttributeValueException("Appearance: specular (RGBA)"));
+        sprintf(errorMessage, "Appearance '%s': specular (RGBA)", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
 	}
 
 	if( !validShininess(shininess) ) {
-		throw(InvalidAttributeValueException("Appearance: shininess"));
+        sprintf(errorMessage, "Appearance '%s': shininess", id.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
 	}
 }
 
@@ -75,8 +78,11 @@ void YAFAppearance::validate(string textureID, map<string, YAFTexture> loadedTex
 
 	validate();
 
-	if(loadedTextures.find(textureID) == loadedTextures.end())
-		throw(InvalidAttributeValueException("Appearance: textureref (Has the texture been loaded?)"));
+	if(loadedTextures.find(textureID) == loadedTextures.end()) {
+        char errorMessage[ERROR_LEN];
+        sprintf(errorMessage, "Appearance '%s': textureref (Has the texture '%s' been loaded?)", id.c_str(), textureID.c_str());
+		throw(InvalidAttributeValueException(errorMessage));
+    }
 }
 
 

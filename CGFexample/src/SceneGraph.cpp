@@ -10,7 +10,6 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
 
     //read the textures and appearances
-	//TODO emissive values missing!
     map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
     for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
         YAFAppearance a = appearanceItr->second;
@@ -58,34 +57,12 @@ SceneGraph::~SceneGraph() {
 }
 
 bool SceneGraph::addVertex(SceneVertex *in) {
-	//TODO check if vertex exists?
-	/*vector<SceneVertex*>::iterator it= vertexSet.begin();
-	vector<SceneVertex*>::iterator ite= vertexSet.end();
-	for (; it!=ite; it++)
-		if ( (*(*it)) == in ) return false;*/
 	vertexSet.push_back(in);
 	return true;
 }
 
 bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
-	vector<SceneVertex*>::iterator it= vertexSet.begin();
-	vector<SceneVertex*>::iterator ite= vertexSet.end();
-	int found=0;
-	//TODO verificar se edge já existe?
-	/*SceneVertex *vS, *vD;
-	while (found!=2 && it!=ite ) {
-		if ( (*(*it)->info) == sourc )
-		{ vS=*it; found++;}
-		if ( (*(*it)->info) == dest )
-		{ vD=*it; found++;}
-		it ++;
-	}
-	if (found!=2) return false;
-	vD->indegree++;
-	vS->addEdge(vD,w);*/
-
 	sourc->addEdge(dest);
-
 	return true;
 }
 
@@ -161,8 +138,6 @@ void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
 }
 
 void SceneGraph::processYAFNode(YAFNode yafNode) {
-	//TODO check that shady thing about repeated primitives
-
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
     if ( yafNode.appearanceID != "") {
         newVertex->setAppearance(appearances.at(yafNode.appearanceID));
@@ -192,7 +167,7 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 	vector<SceneVertex* >::iterator vertexIterator = vertexSet.begin();
 
 	//Find the vertex corresponding to this yafNode
-	SceneVertex* vertex;
+	SceneVertex* vertex = (*vertexIterator);
 
 	for(; vertexIterator != vertexSet.end(); vertexIterator++) {
 		if((*vertexIterator)->id == yafNode.id) {

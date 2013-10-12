@@ -10,11 +10,7 @@ void DemoScene::init()
 {
 	//Configure the different general scene attributes (background, lights, etc)
 	sceneGraph->configureScene();
-
-	//Configure cameras
 	initCameras();
-	
-
 	setUpdatePeriod(30);
 }
 

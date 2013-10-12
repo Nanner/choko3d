@@ -60,11 +60,9 @@ Rotation::Rotation(string axis, float angle) {
 
 void Rotation::validate() {
     if ( axis != X && axis != Y && axis != Z) {
-        throw InvalidAttributeValueException("Rotation axis");
-    }
-    
-    if ( !validAngle(angle) ) {
-        throw InvalidAttributeValueException("Rotation angle");
+        char errorMessage[ERROR_LEN];
+        sprintf(errorMessage, "Rotation '%c' axis", axis);
+        throw InvalidAttributeValueException(errorMessage);
     }
 }
 
