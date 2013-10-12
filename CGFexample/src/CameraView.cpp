@@ -79,8 +79,7 @@ void Perspective::updateProjectionMatrix(int width, int height) {
 }
 
 bool Perspective::rotate(int axis, float angle) {
-    // TODO commented axis_z, is this right?
-	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y /*&& axis!=CG_CGFcamera_AXIS_Z*/) return false;
+	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y) return false;
     
 	float newCamRot[2];
 	newCamRot[0] = cameraRotation[0];
@@ -136,12 +135,6 @@ bool Perspective::rotate(int axis, float angle) {
 
 bool Perspective::translate(int axis, float value) {
 	if (axis!=CG_CGFcamera_AXIS_X && axis!=CG_CGFcamera_AXIS_Y && axis!=CG_CGFcamera_AXIS_Z) return false;
-
-	//We will interpret the movement of the camera in the xx and yy axis as pointing the camera elsewhere, that is, changing the target
-	//TODO check if we need this. Gonna cut it for now.
-	/*if(axis == CG_CGFcamera_AXIS_X || axis == CG_CGFcamera_AXIS_Y) {
-		target[axis] -= value;
-	}*/
 
 	//If the movement is in the Z axis, means we want to zoom in on the scene
 	if(axis == CG_CGFcamera_AXIS_Z) {
