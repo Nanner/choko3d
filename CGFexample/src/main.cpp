@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     char yafFileName[512];
     
     if (argc < 2) {
-        printf("Usage:./CGFExample filename.yaf\n");
+        printf("Usage:./YafEngine filename.yaf\n");
         printf("No YAF file has been specified in the arguments.\n");
         printf("Please enter the filename of the scene:\n> ");
         scanf("%s", yafFileName);
