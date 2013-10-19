@@ -21,6 +21,9 @@ class SceneVertex {
 	bool nodeVisited;
     Appearance * appearance;
 	bool inheritedAppearance;
+    int displayList;
+    
+    static int currentDisplayList;
 
 protected:
 	float* matrix;
@@ -45,6 +48,12 @@ public:
     void setAppearance(Appearance * appearance);
     
 	virtual void draw() {}
+    
+    bool usesDisplayList;
+    bool initializedDisplayList;
+    void activateDisplayList();
+    void disableDisplayList();
+    int getDisplayList();
 };
 
 

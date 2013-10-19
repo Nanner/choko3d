@@ -427,7 +427,7 @@
       </children>
     </node>
 
-    <node id="table">
+    <node id="table" displaylist="true">
       <transforms>
         <translate to="17.5 0 17.5" />
         <rotate axis="y" angle="30" />

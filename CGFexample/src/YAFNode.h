@@ -14,6 +14,8 @@ public:
     vector<ScenePrimitive *> primitives;
     vector<string> nodeReferences;
     
+    bool usesDisplayList;
+    
     static string rootID;
     
     YAFNode(string id);
@@ -21,6 +23,8 @@ public:
     void setAppearanceID(string id);
     void addPrimitive(ScenePrimitive * primitive);
     void addNodeReference(string nodeID);
+    
+    void setDisplayList(bool usesDisplayList);
     
     ~YAFNode();
 };

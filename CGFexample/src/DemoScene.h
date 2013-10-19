@@ -22,7 +22,7 @@ public:
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
+	DemoScene(SceneGraph* sceneGraph);
 	~DemoScene();
 private:
 	SceneGraph* sceneGraph;

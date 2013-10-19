@@ -6,6 +6,8 @@
 
 #include "CGFappearance.h"
 
+DemoScene::DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
+
 void DemoScene::init() 
 {
 	//Configure the different general scene attributes (background, lights, etc)

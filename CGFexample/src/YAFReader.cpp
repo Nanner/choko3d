@@ -315,6 +315,11 @@ YAFReader::YAFReader(char *filename) {
 				string nodeID = node->Attribute("id");
                 
                 YAFNode yafNode(nodeID);
+                
+                try {
+                    bool usesDisplayList = getValue<bool>(node, (char*)"displaylist");
+                    yafNode.setDisplayList(usesDisplayList);
+                } catch (EmptyAttributeException &eae)  {}
 
 				TiXmlElement * transforms = node->FirstChildElement("transforms");
 

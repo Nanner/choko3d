@@ -5,6 +5,7 @@ string YAFNode::rootID = "";
 YAFNode::YAFNode(string id) {
     this->id = id;
     this->appearanceID = "";
+    this->usesDisplayList = false;
 }
 
 void YAFNode::setTransformations(vector<Transformation *> transformations) {
@@ -21,6 +22,10 @@ void YAFNode::addPrimitive(ScenePrimitive * primitive) {
 
 void YAFNode::addNodeReference(string nodeID) {
     nodeReferences.push_back(nodeID);
+}
+
+void YAFNode::setDisplayList(bool usesDisplayList) {
+    this->usesDisplayList = usesDisplayList;
 }
 
 YAFNode::~YAFNode(){

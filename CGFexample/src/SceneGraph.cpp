@@ -47,6 +47,8 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	for(; it != yafFile->nodes.end(); it++) {
 		processYAFNodeReferences(it->second);
 	}
+    
+    displayListsInitialized = false;
 }
 
 
@@ -68,6 +70,10 @@ bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
 
 
 void SceneGraph::render() {
+    if ( !displayListsInitialized ) {
+        initializeDisplayLists();
+    }
+    
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
@@ -90,32 +96,38 @@ void SceneGraph::render() {
 }
 
 void SceneGraph::render(SceneVertex *v) {
-
+    
 	v->nodeVisited = true;
 	v->childVisited = true;
-	vector<SceneEdge>::iterator it= (v->adj).begin();
-	vector<SceneEdge>::iterator ite= (v->adj).end();
-	for (; it !=ite; it++) {
-		if ( it->dest->childVisited == false ){
-			glPushMatrix();
-			rootVertex->defaultAppearance->apply();
-
-			if(it->dest->inheritedAppearance)
-				it->dest->setAppearance(v->getAppearance());
-
-			Appearance* appearance = it->dest->getAppearance();
-			if (appearance != NULL)
-				appearance->apply();
-			
-			float* matrix = it->dest->getMatrix();
-			if(matrix != NULL)
-				glMultMatrixf(matrix);
-			it->dest->draw();
-			render(it->dest);
-
-			glPopMatrix();
-		}
-	}
+    vector<SceneEdge>::iterator it, ite;
+    
+    if ( ! v->usesDisplayList ) {
+        it = (v->adj).begin();
+        ite = (v->adj).end();
+        for (; it !=ite; it++) {
+            if ( it->dest->childVisited == false ){
+                glPushMatrix();
+                rootVertex->defaultAppearance->apply();
+                
+                if(it->dest->inheritedAppearance)
+                    it->dest->setAppearance(v->getAppearance());
+                
+                Appearance* appearance = it->dest->getAppearance();
+                if (appearance != NULL)
+                    appearance->apply();
+                
+                float* matrix = it->dest->getMatrix();
+                if(matrix != NULL)
+                    glMultMatrixf(matrix);
+                it->dest->draw();
+                render(it->dest);
+                
+                glPopMatrix();
+            }
+        }
+    } else {
+        glCallList(index);
+    }
 
 	it = (v->adj).begin();
 	ite = (v->adj).end();
@@ -143,6 +155,9 @@ void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
 		newRoot->setAppearance(NULL);
 		newRoot->inheritedAppearance=false;
 	}
+    
+    if (root.usesDisplayList)
+        newRoot->activateDisplayList();
 
 	addVertex(newRoot);
 
@@ -159,6 +174,9 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
 		newVertex->setAppearance(NULL);
 		newVertex->inheritedAppearance = true;
 	}
+    
+    if (yafNode.usesDisplayList)
+        newVertex->activateDisplayList();
 
 	addVertex(newVertex);
 
@@ -237,4 +255,31 @@ void SceneGraph::drawLights() {
 	for(; it != rootVertex->lights.end(); it++) {
 		it->second->draw();
 	}
+}
+
+void SceneGraph::initializeDisplayLists() {
+    /*
+    index = glGenLists(SceneVertex::currentDisplayList);
+    if (!index)
+        printf("Error generating display lists!!");
+    
+    vector<SceneVertex* >::iterator vertexIterator = vertexSet.begin();
+    
+    
+	for(; vertexIterator != vertexSet.end(); vertexIterator++) {
+		if( (*vertexIterator)->usesDisplayList) {
+            SceneVertex * v = (*vertexIterator);
+            glNewList(index + v->getDisplayList(), GL_COMPILE);
+            glutSolidTeapot(10.0);
+            glEndList();
+		}
+	}
+    
+    */
+    index = glGenLists (1);
+    glNewList (index, GL_COMPILE);
+    glutSolidTeapot(10.0);
+    glEndList ();
+    
+    displayListsInitialized = true;
 }
