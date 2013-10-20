@@ -42,10 +42,6 @@ public:
 
 	void render(SceneVertex *v);
 	void render();
-    
-    GLuint index;
-    bool displayListsInitialized;
-    void initializeDisplayLists();
 };
 
 #endif

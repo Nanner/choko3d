@@ -1,8 +1,8 @@
 #include "SceneVertex.h"
 
-int SceneVertex::currentDisplayList = -1;
+unsigned int SceneVertex::currentDisplayList = 0;
 
-SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false),displayList(0), initializedDisplayList(false) {}
+SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), displayList(0), initializedDisplayList(false) {}
 
 void SceneVertex::addEdge(SceneVertex *dest) {
 	SceneEdge edgeD(dest);
@@ -55,7 +55,7 @@ void SceneVertex::disableDisplayList() {
     this->usesDisplayList = false;
 }
 
-int SceneVertex::getDisplayList() {
+unsigned int SceneVertex::getDisplayList() {
     return displayList;
 }
 

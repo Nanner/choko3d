@@ -233,7 +233,7 @@
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="donutScene">
 
-    <node id="donutScene">
+    <node id="donutScene" displaylist="true">
       <transforms>
       </transforms>
 
