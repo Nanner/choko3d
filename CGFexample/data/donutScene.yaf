@@ -233,7 +233,7 @@
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="donutScene">
 
-    <node id="donutScene" displaylist="true">
+    <node id="donutScene" displaylist="false">
       <transforms>
       </transforms>
 
@@ -245,6 +245,19 @@
         <noderef id="poster" />
         <noderef id="beer" />
         <noderef id="lamp" />
+        <noderef id="plane" />
+      </children>
+    </node>
+
+    <node id="plane">
+      <transforms>
+        <translate to="2.0 2.0 2.0" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <plane parts="100"/>
       </children>
     </node>
 
@@ -427,7 +440,7 @@
       </children>
     </node>
 
-    <node id="table" displaylist="true">
+    <node id="table" displaylist="false">
       <transforms>
         <translate to="17.5 0 17.5" />
         <rotate axis="y" angle="30" />
@@ -505,7 +518,7 @@
       </children>
     </node>
 
-    <node id="box">
+    <node id="box" displaylist="true">
       <transforms>
         <translate to="17.5 8.6875 17.5" />
       </transforms>

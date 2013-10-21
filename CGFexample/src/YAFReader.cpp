@@ -443,6 +443,11 @@ YAFReader::YAFReader(char *filename) {
 						int loops = getValue<int>(currentChild, (char*)"loops");
                         yafNode.addPrimitive( new Torus(inner, outter, slices, loops) );
 					}
+                    
+                    if ( strcmp(currentChild->Value(), "plane") == 0 ) {
+                        int parts = getValue<int>(currentChild, (char*)"parts");
+                        yafNode.addPrimitive( new Plane(parts) );
+                    }
 
 					currentChild = currentChild->NextSiblingElement();
 				}

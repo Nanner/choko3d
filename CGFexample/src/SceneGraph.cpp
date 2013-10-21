@@ -49,6 +49,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	}
     
 	// initialize display lists
+    // TODO check returned unsigned int from gen lists
     glGenLists(SceneVertex::currentDisplayList);
 }
 
@@ -70,8 +71,11 @@ bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
 }
 
 
-void SceneGraph::render() {
 
+
+
+void SceneGraph::render() {
+    
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
@@ -82,25 +86,25 @@ void SceneGraph::render() {
 	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList )
 		glCallList(rootVertex->getDisplayList());
 	else {
-
+        
 		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList )
 			glNewList(rootVertex->getDisplayList(), GL_COMPILE_AND_EXECUTE);
-
+        
 		glPushMatrix();
 		rootVertex->defaultAppearance->apply();
-
+        
 		Appearance* appearance = rootVertex->getAppearance();
 		if (appearance != NULL)
 			appearance->apply();
-
+        
 		float* matrix = rootVertex->getMatrix();
 		if(matrix != NULL)
 			glMultMatrixf(matrix);
-
+        
 		render(rootVertex);
-
+        
 		glPopMatrix();
-
+        
 		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList ){
 			glEndList();
 			rootVertex->initializedDisplayList = true;
@@ -113,57 +117,57 @@ void SceneGraph::render(SceneVertex *v) {
 	v->nodeVisited = true;
 	v->childVisited = true;
     vector<SceneEdge>::iterator it, ite;
-
+    
     // TODO display list inside display list doesn't work
     // extra verifications are still necessary
-	if ( v->usesDisplayList && v->initializedDisplayList )
-		glCallList(v->getDisplayList());
-	else {
-
-		if (v->usesDisplayList && ! v->initializedDisplayList )
-			glNewList(v->getDisplayList(), GL_COMPILE_AND_EXECUTE);
-
-		it = (v->adj).begin();
-		ite = (v->adj).end();
-		for (; it !=ite; it++) {
+    
+    it = (v->adj).begin();
+    ite = (v->adj).end();
+    for (; it !=ite; it++) {
+        if ( it->dest->usesDisplayList && it->dest->initializedDisplayList )
+            glCallList(it->dest->getDisplayList());
+        else {
+            if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList )
+                glNewList(it->dest->getDisplayList(), GL_COMPILE_AND_EXECUTE);
+            
 			if ( it->dest->childVisited == false ){
 				glPushMatrix();
 				rootVertex->defaultAppearance->apply();
-
+                
 				if(it->dest->inheritedAppearance)
 					it->dest->setAppearance(v->getAppearance());
-
+                
 				Appearance* appearance = it->dest->getAppearance();
 				if (appearance != NULL)
 					appearance->apply();
-
+                
 				float* matrix = it->dest->getMatrix();
 				if(matrix != NULL)
 					glMultMatrixf(matrix);
 				it->dest->draw();
 				render(it->dest);
-
+                
 				glPopMatrix();
 			}
-		}
-
-		if (v->usesDisplayList && ! v->initializedDisplayList ){
-			glEndList();
-			v->initializedDisplayList = true;
-		}
-	}
-
-
+        }
+        
+        if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList ){
+            glEndList();
+            it->dest->initializedDisplayList = true;
+        }
+    }
+    
+    
 	it = (v->adj).begin();
 	ite = (v->adj).end();
 	for (; it !=ite; it++) {
 		it->dest->childVisited = false;
 	}
-
+    
 	//Restore appearance back to null
 	if(v->inheritedAppearance)
 		v->appearance = NULL;
-
+    
 	//Re-apply default appearance
 	rootVertex->defaultAppearance->apply();
 }

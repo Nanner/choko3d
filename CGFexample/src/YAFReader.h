@@ -12,6 +12,7 @@
 #include "YAFNode.h"
 #include "Transformation.h"
 #include "ScenePrimitive.h"
+#include "Plane.h"
 
 #include <sstream>
 #include <iostream>
