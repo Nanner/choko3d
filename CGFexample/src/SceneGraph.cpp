@@ -113,6 +113,7 @@ void SceneGraph::render() {
 			glEndList();
 			rootVertex->initializedDisplayList = true;
 			displayListOrder.pop();
+            stackReady = false;
 		}
 	}
 
@@ -133,8 +134,6 @@ void SceneGraph::render(SceneVertex *v) {
     it = (v->adj).begin();
     ite = (v->adj).end();
     for (; it !=ite; it++) {
-		if(it->dest->id == "table")
-			printf("Hello kitty\n");
         if ( it->dest->usesDisplayList && it->dest->initializedDisplayList )
             glCallList(it->dest->getDisplayList());
         else {
@@ -167,6 +166,7 @@ void SceneGraph::render(SceneVertex *v) {
 				glEndList();
 				it->dest->initializedDisplayList = true;
 				displayListOrder.pop();
+                stackReady = false;
 			}
         }
         

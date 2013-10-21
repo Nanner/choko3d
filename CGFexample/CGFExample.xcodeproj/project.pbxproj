@@ -15,6 +15,7 @@
 		AA63E23416D4221C003287C6 /* libglui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23116D4221C003287C6 /* libglui.a */; };
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
+		EB5822D118142627001C3D45 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB5822CF18142627001C3D45 /* Plane.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
 		EB7BC63617F77BDD0069596B /* wall.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63317F77BC10069596B /* wall.png */; };
@@ -109,6 +110,8 @@
 		AA63E23116D4221C003287C6 /* libglui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglui.a; path = /usr/local/Cellar/glui/2.36/lib/libglui.a; sourceTree = "<absolute>"; };
 		AA63E23B16D422CA003287C6 /* texshader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.frag; sourceTree = "<group>"; };
 		AA63E23C16D422CA003287C6 /* texshader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.vert; sourceTree = "<group>"; };
+		EB5822CF18142627001C3D45 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = src/Plane.cpp; sourceTree = SOURCE_ROOT; };
+		EB5822D018142627001C3D45 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = src/Plane.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
 		EB7BC63317F77BC10069596B /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
 		EB7BC63417F77BCA0069596B /* duffPoster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = duffPoster.jpg; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				EB9E1BE518095B5F00F91761 /* SceneLight.h */,
 				EB9E1BE618095B5F00F91761 /* ScenePrimitive.cpp */,
 				EB9E1BE718095B5F00F91761 /* ScenePrimitive.h */,
+				EB5822CF18142627001C3D45 /* Plane.cpp */,
+				EB5822D018142627001C3D45 /* Plane.h */,
 				EB9E1BE818095B5F00F91761 /* SceneVertex.cpp */,
 				EB9E1BE918095B5F00F91761 /* SceneVertex.h */,
 				EB9E1BEA18095B5F00F91761 /* Transformation.cpp */,
@@ -594,6 +599,7 @@
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
 				EB9E1C0718095B5F00F91761 /* ScenePrimitive.cpp in Sources */,
+				EB5822D118142627001C3D45 /* Plane.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
 				EB9E1C0E18095B5F00F91761 /* YAFGlobalLighting.cpp in Sources */,
 				EB9E1C1218095B5F00F91761 /* YAFTexture.cpp in Sources */,
