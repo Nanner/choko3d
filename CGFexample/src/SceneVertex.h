@@ -10,6 +10,7 @@
 #include "YAFLight.h"
 #include "SceneLight.h"
 #include <vector>
+#include <stack>
 
 using namespace std;
 

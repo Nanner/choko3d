@@ -18,6 +18,9 @@ class SceneGraph {
     map<string, Appearance *> appearances;
 
 public:
+	stack<int> displayListOrder;
+	bool stackReady;
+
 	SceneGraph(){}
 	SceneGraph(YAFReader* yafFile);
 	~SceneGraph();

@@ -1,6 +1,8 @@
 #include "SceneGraph.h"
 
 SceneGraph::SceneGraph(YAFReader* yafFile) {
+	stackReady = false;
+
 	SceneLight::localLight = yafFile->globalLighting.local;
 	SceneLight::lightEnabled = yafFile->globalLighting.enabled;
 	SceneLight::doubleSided = yafFile->globalLighting.doublesided;
@@ -87,8 +89,10 @@ void SceneGraph::render() {
 		glCallList(rootVertex->getDisplayList());
 	else {
         
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList )
+		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList && stackReady && displayListOrder.top() == rootVertex->getDisplayList())
 			glNewList(rootVertex->getDisplayList(), GL_COMPILE_AND_EXECUTE);
+		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList && !stackReady)
+			displayListOrder.push(rootVertex->getDisplayList());
         
 		glPushMatrix();
 		rootVertex->defaultAppearance->apply();
@@ -105,11 +109,16 @@ void SceneGraph::render() {
         
 		glPopMatrix();
         
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList ){
+		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList && stackReady && displayListOrder.top() == rootVertex->getDisplayList()){
 			glEndList();
 			rootVertex->initializedDisplayList = true;
+			displayListOrder.pop();
 		}
 	}
+
+	//Indicate that the graph was rendered the first time and so the displayList order stack is ready to be used
+	if(!stackReady && !displayListOrder.empty())
+		stackReady = true;
 }
 
 void SceneGraph::render(SceneVertex *v) {
@@ -124,11 +133,15 @@ void SceneGraph::render(SceneVertex *v) {
     it = (v->adj).begin();
     ite = (v->adj).end();
     for (; it !=ite; it++) {
+		if(it->dest->id == "table")
+			printf("Hello kitty\n");
         if ( it->dest->usesDisplayList && it->dest->initializedDisplayList )
             glCallList(it->dest->getDisplayList());
         else {
-            if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList )
+            if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList && stackReady && displayListOrder.top() == it->dest->getDisplayList())
                 glNewList(it->dest->getDisplayList(), GL_COMPILE_AND_EXECUTE);
+			else if(it->dest->usesDisplayList && ! it->dest->initializedDisplayList && !stackReady)
+				displayListOrder.push(it->dest->getDisplayList());
             
 			if ( it->dest->childVisited == false ){
 				glPushMatrix();
@@ -149,12 +162,14 @@ void SceneGraph::render(SceneVertex *v) {
                 
 				glPopMatrix();
 			}
+
+			if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList && stackReady && displayListOrder.top() == it->dest->getDisplayList()){
+				glEndList();
+				it->dest->initializedDisplayList = true;
+				displayListOrder.pop();
+			}
         }
         
-        if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList ){
-            glEndList();
-            it->dest->initializedDisplayList = true;
-        }
     }
     
     

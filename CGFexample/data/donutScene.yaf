@@ -440,7 +440,7 @@
       </children>
     </node>
 
-    <node id="table" displaylist="false">
+    <node id="table" displaylist="true">
       <transforms>
         <translate to="17.5 0 17.5" />
         <rotate axis="y" angle="30" />
@@ -479,7 +479,7 @@
       </children>
     </node>
 
-    <node id="blLeg">
+    <node id="blLeg" displaylist="true">
       <transforms>
       </transforms>
 
@@ -518,7 +518,7 @@
       </children>
     </node>
 
-    <node id="box" displaylist="true">
+    <node id="box" displaylist="false">
       <transforms>
         <translate to="17.5 8.6875 17.5" />
       </transforms>
