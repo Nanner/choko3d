@@ -48,6 +48,9 @@ void Plane::draw() {
     
     glPushMatrix();
     
+    // TODO i think glrotated is an incorrect aproach,
+    // because it messes with the control points
+    // maybe changing the cullface?
     glRotated(180, 1, 0, 0);
     
     Appearance* appearance = NULL;

@@ -448,6 +448,36 @@ YAFReader::YAFReader(char *filename) {
                         int parts = getValue<int>(currentChild, (char*)"parts");
                         yafNode.addPrimitive( new Plane(parts) );
                     }
+                    
+                    if ( strcmp(currentChild->Value(), "patch") == 0 ) {
+                        int order = getValue<int>(currentChild, (char*)"order");
+                        int partsU = getValue<int>(currentChild, (char*)"partsU");
+                        int partsV = getValue<int>(currentChild, (char*)"partsV");
+                        string compute = getValue<string>(currentChild, (char*)"compute");
+                        
+                        TiXmlElement * currentControlPoint = currentChild->FirstChildElement();
+                        
+                        vector<float> controlPoints;
+                        
+                        while (currentControlPoint != NULL) {
+                            float x = getValue<float>(currentControlPoint, (char*)"x");
+                            controlPoints.push_back(x);
+                            float y = getValue<float>(currentControlPoint, (char*)"y");
+                            controlPoints.push_back(y);
+                            float z = getValue<float>(currentControlPoint, (char*)"z");
+                            controlPoints.push_back(z);
+                            
+                            currentControlPoint = currentControlPoint->NextSiblingElement();
+                        }
+                        
+                        try {
+                            Patch * patch = new Patch(order, partsU, partsV, compute, controlPoints);
+                            yafNode.addPrimitive(patch);
+                        } catch (InvalidAttributeValueException &iave) {
+                            cout << iave.error() << endl;
+                        }
+                        
+                    }
 
 					currentChild = currentChild->NextSiblingElement();
 				}

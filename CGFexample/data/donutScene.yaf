@@ -36,7 +36,7 @@
         ambient="0.0 0.0 0.0 0.0"
         diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
-        angle="30.0"
+        angle="45.0"
         exponent="15.0"
         direction="0.0 -1.0 0.0"
             />
@@ -246,18 +246,48 @@
         <noderef id="beer" />
         <noderef id="lamp" />
         <noderef id="plane" />
+        <noderef id="patch" />
       </children>
     </node>
 
     <node id="plane">
       <transforms>
-        <translate to="2.0 2.0 2.0" />
+        <translate to="5.5 15 5.5" />
+        <scale factor="3.0 3.0 3.0" />
       </transforms>
 
       <appearanceref id="posterApp" />
 
       <children>
-        <plane parts="100"/>
+        <plane parts="15"/>
+      </children>
+    </node>
+
+    <node id="patch">
+      <transforms>
+        <translate to="10 15 10" />
+        <scale factor="3.0 3.0 3.0" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-0.5" y="0.0" z="0.5" />
+          <controlpoint x="0.5" y="0.0" z="0.5" />
+
+          <controlpoint x="-0.5" y="2.0" z="0.25" />
+          <controlpoint x="0.5" y="2.0" z="0.25" />
+
+          <!-- What is this point? -->
+          <controlpoint x="0.25" y="3.0" z="0.25" />
+
+          <controlpoint x="-0.5" y="2.0" z="-0.25" />
+          <controlpoint x="0.5" y="2.0" z="-0.25" />
+
+          <controlpoint x="-0.5" y="0.0" z="-0.5" />
+          <controlpoint x="0.5" y="0.0" z="-0.5" />
+        </patch>
       </children>
     </node>
 
@@ -440,7 +470,7 @@
       </children>
     </node>
 
-    <node id="table" displaylist="true">
+    <node id="table" displaylist="false">
       <transforms>
         <translate to="17.5 0 17.5" />
         <rotate axis="y" angle="30" />
@@ -479,7 +509,7 @@
       </children>
     </node>
 
-    <node id="blLeg" displaylist="true">
+    <node id="blLeg" displaylist="false">
       <transforms>
       </transforms>
 

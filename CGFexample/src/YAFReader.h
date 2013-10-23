@@ -13,6 +13,7 @@
 #include "Transformation.h"
 #include "ScenePrimitive.h"
 #include "Plane.h"
+#include "Patch.h"
 
 #include <sstream>
 #include <iostream>
