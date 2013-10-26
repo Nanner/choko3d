@@ -105,7 +105,7 @@
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
-      specular="0.0 0.0 0.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
       shininess="128.0"
       textureref="posterTex"
       texlength_s="1.0"
@@ -247,12 +247,14 @@
         <noderef id="lamp" />
         <noderef id="plane" />
         <noderef id="patch" />
+        <noderef id="patch2" />
       </children>
     </node>
 
     <node id="plane">
       <transforms>
-        <translate to="5.5 15 5.5" />
+        <!-- <translate to="5.5 15 5.5" /> -->
+        <translate to="17.5 15 17.5" />
         <scale factor="3.0 3.0 3.0" />
       </transforms>
 
@@ -265,28 +267,61 @@
 
     <node id="patch">
       <transforms>
-        <translate to="10 15 10" />
+        <translate to="17.5 10 17.5" />
         <scale factor="3.0 3.0 3.0" />
       </transforms>
 
-      <appearanceref id="posterApp" />
+      <appearanceref id="Box" />
 
       <children>
         <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="-0.5" y="0.0" z="0.5" />
-          <controlpoint x="0.5" y="0.0" z="0.5" />
+          <controlpoint x="-0.5" y="1.0" z="0.5" />
+          <controlpoint x="0.0"  y="1.0" z="0.5" />
+          <controlpoint x="0.5"  y="1.0" z="0.5" />
 
-          <controlpoint x="-0.5" y="2.0" z="0.25" />
-          <controlpoint x="0.5" y="2.0" z="0.25" />
+          <controlpoint x="-0.5" y="0.0" z="0.0" />
+          <controlpoint x="0.0"  y="0.0" z="0.0" />
+          <controlpoint x="0.5"  y="0.0" z="0.0" />
 
-          <!-- What is this point? -->
-          <controlpoint x="0.25" y="3.0" z="0.25" />
+          <controlpoint x="-0.5" y="1.0" z="-0.5" />
+          <controlpoint x="0.0"  y="1.0" z="-0.5" />
+          <controlpoint x="0.5"  y="1.0" z="-0.5" />
+        </patch>
+      </children>
+    </node>
 
-          <controlpoint x="-0.5" y="2.0" z="-0.25" />
-          <controlpoint x="0.5" y="2.0" z="-0.25" />
+    <node id="patch2">
+      <transforms>
+        <translate to="10 10 10" />
+        <scale factor="3.0 3.0 3.0" />
+      </transforms>
 
-          <controlpoint x="-0.5" y="0.0" z="-0.5" />
-          <controlpoint x="0.5" y="0.0" z="-0.5" />
+      <appearanceref id="Box" />
+
+      <children>
+        <patch order="3" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.5"  y="-1.5" z="4.0" />
+          <controlpoint x="-0.5"  y="-1.5" z="2.0" />
+          <controlpoint x="0.5"   y="-1.5" z="-1.0" />
+          <controlpoint x="1.5"   y="-1.5" z="2.0" />
+
+
+
+          <controlpoint x="-1.5"  y="-0.5" z="1.0" />
+          <controlpoint x="-0.5"  y="-0.5" z="3.0" />
+          <controlpoint x="0.5"   y="-0.5" z="0.0" />
+          <controlpoint x="1.5"   y="-0.5" z="-1.0" />
+
+
+          <controlpoint x="-1.5"  y="0.5" z="4.0" />
+          <controlpoint x="-0.5"  y="0.5" z="0.0" />
+          <controlpoint x="0.5"   y="0.5" z="3.0" />
+          <controlpoint x="1.5"   y="0.5" z="4.0" />
+
+          <controlpoint x="-1.5"  y="1.5" z="-2.0" />
+          <controlpoint x="-0.5"  y="1.5" z="-2.0" />
+          <controlpoint x="0.5"   y="1.5" z="0.0" />
+          <controlpoint x="1.5"   y="1.5" z="-1.0" />
         </patch>
       </children>
     </node>

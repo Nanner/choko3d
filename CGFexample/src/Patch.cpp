@@ -1,19 +1,11 @@
 #include "Patch.h"
 
-GLfloat nrmlcompon2[4][3] = {	{  0.0, -1.0, 0.0},
-                                {  0.0, -1.0, 0.0},
-                                {  0.0, -1.0, 0.0},
-                                {  0.0, -1.0, 0.0} };
-
-GLfloat colorpoints2[4][4] = {	{ 0.0, 1.0, 1.0, 0},
-                                { 0.0, 0.0, 1.0, 0},
-                                { 0.0, 1.0, 0.0, 0},
-                                { 1.0, 0.0, 0.0, 0} };
-
-GLfloat textpoints2[4][2] = {	{ 0.0, 1.0},
-                                { 1.0, 1.0},
-                                { 0.0, 0.0},
-                                { 1.0, 0.0} };
+GLfloat Patch::texels[4][2] = {
+    {0.0, 0.0},
+    {0.0, 1.0},
+    {1.0, 0.0},
+    {1.0, 1.0}
+};
 
 
 Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> controlPoints) {
@@ -47,51 +39,36 @@ Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> co
     
 }
 
-void Patch::init() {
-    // TODO what the hell do the teachers want with the order?!?
-    
-    glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order,  0.0, 1.0, 6, order,  &controlPoints[0]);
-	//glMap2f(GL_MAP2_NORMAL,   0.0, 1.0, 3, 2,  0.0, 1.0, 6, 2,  &nrmlcompon2[0][0]);
-	//glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, 2,  0.0, 1.0, 8, 2,  &colorpoints2[0][0]);
-    //glMap2f(GL_MAP2_TEXTURE_COORD_2,  0.0, 1.0, 2, 2,  0.0, 1.0, 4, 2,  &textpoints2[0][0]);
-
-    
-    glEnable(GL_MAP2_VERTEX_3);
-	glEnable(GL_MAP2_NORMAL);
-	//glEnable(GL_MAP2_COLOR_4);
-    glEnable(GL_MAP2_TEXTURE_COORD_2);
-    
-	glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
-}
-
 void Patch::draw() {
-    this->init();
-    
     glPushMatrix();
-    
-    // TODO i think glrotated is an incorrect aproach,
-    // because it messes with the control points
-    // maybe changing the cullface?
-    glRotated(180, 1, 0, 0);
+    //glCullFace(GL_FRONT);
     
     Appearance* appearance = NULL;
     if( this->getAppearance() ) {
 		appearance = this->getAppearance();
         appearance->apply();
     }
+
+    glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1,  0.0, 1.0, (order+1)*3, order+1,  &controlPoints[0]);
+    glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, &Patch::texels[0][0]);
+    glEnable(GL_MAP2_TEXTURE_COORD_2);
+    
+    glEnable(GL_MAP2_VERTEX_3);
+    glEnable(GL_AUTO_NORMAL);
+    
+	glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
     
     glEvalMesh2(compute, 0, partsU, 0, partsV);
-
     
-     // prints vertex numbers for debugging purposes
-    glColor3f(1.0, 1.0, 0.0);
+    
+    // prints vertex numbers for debugging purposes
+    glColor3f(1.0, 0.0, 0.0);
 	for (int i = 0; i < controlPoints.size(); i+=3)
 	{
 		glRasterPos3f(controlPoints[i], controlPoints[i+1], controlPoints[i+2]);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0'+i/3);
 	}
-    
-    
-    glPopMatrix();
+    //glCullFace(GL_BACK);
 
+    glPopMatrix();
 }

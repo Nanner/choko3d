@@ -14,8 +14,8 @@ public:
     int partsV;
     int compute;
     vector<float> controlPoints;
+    static GLfloat texels[4][2];
     
-    void init();
     void draw();
 };
 
