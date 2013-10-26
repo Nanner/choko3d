@@ -5,6 +5,7 @@ string YAFNode::rootID = "";
 YAFNode::YAFNode(string id) {
     this->id = id;
     this->appearanceID = "";
+    this->animationID = "";
     this->usesDisplayList = false;
 }
 
@@ -26,6 +27,10 @@ void YAFNode::addNodeReference(string nodeID) {
 
 void YAFNode::setDisplayList(bool usesDisplayList) {
     this->usesDisplayList = usesDisplayList;
+}
+
+void YAFNode::setAnimationID(string id) {
+    this->animationID = id;
 }
 
 YAFNode::~YAFNode(){

@@ -16,6 +16,8 @@ public:
     
     bool usesDisplayList;
     
+    string animationID;
+    
     static string rootID;
     
     YAFNode(string id);
@@ -25,6 +27,8 @@ public:
     void addNodeReference(string nodeID);
     
     void setDisplayList(bool usesDisplayList);
+    
+    void setAnimationID(string id);
     
     ~YAFNode();
 };

@@ -14,6 +14,8 @@
 #include "ScenePrimitive.h"
 #include "Plane.h"
 #include "Patch.h"
+#include "Animation.h"
+#include "LinearAnimation.h"
 
 #include <sstream>
 #include <iostream>
@@ -37,6 +39,7 @@ public:
 	map<string, YAFTexture> textures;
 	map<string, YAFAppearance> appearances;
     map<string, YAFNode> nodes;
+    map<string, Animation> animations;
 
     
 protected:
@@ -49,6 +52,7 @@ protected:
     TiXmlElement* texturesElement;
     TiXmlElement* appearancesElement;
     TiXmlElement* graphElement;
+    TiXmlElement* animationsElement;
 
 };
 

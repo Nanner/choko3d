@@ -230,6 +230,14 @@
 
   </appearances>
 
+  <animations>
+      <animation id="1" span="10.0" type="linear">
+        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        <controlpoint xx="5.0" yy="0.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
+      </animation>
+  </animations>
+
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="donutScene">
 
@@ -844,6 +852,8 @@
       </transforms>
 
       <appearanceref id="beer" />
+
+      <animationref id="1" />
 
       <children>
         <noderef id="beercup" />

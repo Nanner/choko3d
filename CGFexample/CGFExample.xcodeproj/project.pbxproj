@@ -55,6 +55,8 @@
 		EB9E1C1018095B5F00F91761 /* YAFNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BF818095B5F00F91761 /* YAFNode.cpp */; };
 		EB9E1C1118095B5F00F91761 /* YAFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BFA18095B5F00F91761 /* YAFReader.cpp */; };
 		EB9E1C1218095B5F00F91761 /* YAFTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BFC18095B5F00F91761 /* YAFTexture.cpp */; };
+		EBB48509181C2404000E0A4A /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB48507181C2404000E0A4A /* Animation.cpp */; };
+		EBB4850C181C25C7000E0A4A /* LinearAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */; };
 		EBF5AAC417F8B07900E54147 /* beer.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC217F8B06900E54147 /* beer.jpg */; };
 		EBF5AAC517F8B07A00E54147 /* beerfoam.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC317F8B06900E54147 /* beerfoam.jpg */; };
 /* End PBXBuildFile section */
@@ -272,6 +274,10 @@
 		EB9E1BFB18095B5F00F91761 /* YAFReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAFReader.h; path = src/YAFReader.h; sourceTree = SOURCE_ROOT; };
 		EB9E1BFC18095B5F00F91761 /* YAFTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = YAFTexture.cpp; path = src/YAFTexture.cpp; sourceTree = SOURCE_ROOT; };
 		EB9E1BFD18095B5F00F91761 /* YAFTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAFTexture.h; path = src/YAFTexture.h; sourceTree = SOURCE_ROOT; };
+		EBB48507181C2404000E0A4A /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = src/Animation.cpp; sourceTree = SOURCE_ROOT; };
+		EBB48508181C2404000E0A4A /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = src/Animation.h; sourceTree = SOURCE_ROOT; };
+		EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearAnimation.cpp; path = src/LinearAnimation.cpp; sourceTree = SOURCE_ROOT; };
+		EBB4850B181C25C7000E0A4A /* LinearAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinearAnimation.h; path = src/LinearAnimation.h; sourceTree = SOURCE_ROOT; };
 		EBF5AAC217F8B06900E54147 /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
 		EBF5AAC317F8B06900E54147 /* beerfoam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beerfoam.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -361,6 +367,10 @@
 				EB9E1BFB18095B5F00F91761 /* YAFReader.h */,
 				EB9E1BFC18095B5F00F91761 /* YAFTexture.cpp */,
 				EB9E1BFD18095B5F00F91761 /* YAFTexture.h */,
+				EBB48507181C2404000E0A4A /* Animation.cpp */,
+				EBB48508181C2404000E0A4A /* Animation.h */,
+				EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */,
+				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -595,6 +605,7 @@
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
 				EB9E1C0418095B5F00F91761 /* SceneEdge.cpp in Sources */,
 				EB9E1C1018095B5F00F91761 /* YAFNode.cpp in Sources */,
+				EBB4850C181C25C7000E0A4A /* LinearAnimation.cpp in Sources */,
 				EB9E1C0018095B5F00F91761 /* DemoScene.cpp in Sources */,
 				EB9E1C0118095B5F00F91761 /* main.cpp in Sources */,
 				EB9E1C0A18095B5F00F91761 /* YAFAppearance.cpp in Sources */,
@@ -618,6 +629,7 @@
 				EB9E1C0F18095B5F00F91761 /* YAFLight.cpp in Sources */,
 				EB9E1C0818095B5F00F91761 /* SceneVertex.cpp in Sources */,
 				EB9E1C0618095B5F00F91761 /* SceneLight.cpp in Sources */,
+				EBB48509181C2404000E0A4A /* Animation.cpp in Sources */,
 				EB9E1C0218095B5F00F91761 /* RendererInterface.cpp in Sources */,
 				EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */,
 			);

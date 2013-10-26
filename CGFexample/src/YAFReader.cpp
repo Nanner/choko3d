@@ -27,6 +27,7 @@ YAFReader::YAFReader(char *filename) {
 		texturesElement =  yafElement->FirstChildElement( "textures" );
 		appearancesElement =  yafElement->FirstChildElement( "appearances" );
 		graphElement =  yafElement->FirstChildElement( "graph" );
+        animationsElement = yafElement->FirstChildElement("animations");
 
 		// -------------- GLOBALS -----------------------------------------
 
@@ -295,6 +296,55 @@ YAFReader::YAFReader(char *filename) {
 
 			printf("Appearances OK!\n");
 		}
+        
+        // -------------- ANIMATIONS -----------------------------------------
+        
+		if (animationsElement == NULL) {
+			printf("Animation block not found!\n");
+			exit(1);
+		}
+		else
+		{
+			printf("Processing animations... ");
+            
+			TiXmlElement* animationElement = animationsElement->FirstChildElement("animation");
+            
+			while ( animationElement ) {
+				string id = getValue<string>(animationElement, (char*)"id");
+				float span = getValue<float>(animationElement, (char*)"span");
+                string type = getValue<string>(animationElement, (char*)"type");
+                
+				if ( type.compare("linear") == 0 ) {
+                    TiXmlElement * controlPointElement = animationElement->FirstChildElement("controlpoint");
+                    vector<float> controlPoints;
+                    
+                    while (controlPointElement) {
+                        float x = getValue<float>(controlPointElement, (char*)"xx");
+                        float y = getValue<float>(controlPointElement, (char*)"yy");
+                        float z = getValue<float>(controlPointElement, (char*)"zz");
+                        controlPoints.push_back(x);
+                        controlPoints.push_back(y);
+                        controlPoints.push_back(z);
+                        
+                        controlPointElement = controlPointElement->NextSiblingElement();
+                    }
+                    
+                    LinearAnimation linear (span, controlPoints);
+                    
+                    bool notRepeated = animations.insert(pair<string, Animation>(id, linear)).second;
+                    if(!notRepeated) {
+                        printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
+                        exit(1);
+                    }
+                    
+                }
+                
+				animationElement = animationElement->NextSiblingElement();
+			}
+            
+			printf("Animations OK!\n");
+		}
+
 
 
 		// graph section
@@ -379,6 +429,27 @@ YAFReader::YAFReader(char *filename) {
                         yafNode.setAppearanceID(appearanceID);
                     } catch (exception &e) {
                         printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());
+                        exit(1);
+                    }
+                    
+				}
+                
+                TiXmlElement * animationref = node->FirstChildElement("animationref");
+                
+				if (animationref) {
+					string animationID;
+                    
+					try {
+						animationID = getValue<string>(animationref, (char*)"id");
+					} catch (EmptyAttributeException &eae) {}
+                    
+					try {
+						if(!animationID.empty()) {
+							Animation animation = animations.at(animationID);
+						}
+                        yafNode.setAnimationID(animationID);
+                    } catch (exception &e) {
+                        printf("Animation '%s' doesn't exist! Terminating...", animationID.c_str());
                         exit(1);
                     }
                     
