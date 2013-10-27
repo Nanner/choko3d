@@ -4,13 +4,14 @@
 #include "ScenePrimitive.h"
 
 class Animation {
+protected:
+    float * matrix;
 public:
-    vector<ScenePrimitive *> objects;
+    float * getMatrix();
     unsigned long startTime;
     unsigned char doReset;
     void init(unsigned long t);
-    void update(unsigned long t);
-    void draw();
+    virtual void update(unsigned long t) {};
     void reset();
     Animation();
 };

@@ -33,9 +33,14 @@ void DemoScene::initCameras() {
 	}
 }
 
-void DemoScene::update(unsigned long t)
-{}
-	
+void DemoScene::update(unsigned long t){
+    map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
+    for(; animationItr != sceneGraph->animations.end(); animationItr++) {
+        Animation * animation = animationItr->second;
+        animation->update(t);
+    }
+}
+
 void DemoScene::display() 
 {
 	setDrawMode(activeDrawMode);

@@ -12,7 +12,7 @@ public:
     
     LinearAnimation(float span, vector<float> controlPoints);
     
-    
+    void update(unsigned long t);
 };
 
 #endif

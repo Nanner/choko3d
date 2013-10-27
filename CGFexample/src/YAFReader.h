@@ -39,7 +39,7 @@ public:
 	map<string, YAFTexture> textures;
 	map<string, YAFAppearance> appearances;
     map<string, YAFNode> nodes;
-    map<string, Animation> animations;
+    map<string, Animation *> animations;
 
     
 protected:

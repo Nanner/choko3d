@@ -33,6 +33,8 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
         appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
 	}
     
+    this->animations = yafFile->animations;
+    
 	//Process the root node first
 	string rootID = YAFNode::rootID;
 	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
@@ -153,9 +155,16 @@ void SceneGraph::render(SceneVertex *v) {
 				if (appearance != NULL)
 					appearance->apply();
                 
+                // TODO fix applying animation matrix
+                if(it->dest->getAnimation() != NULL){
+                    float * animationMatrix = it->dest->getAnimation()->getMatrix();
+                    glMultMatrixf(animationMatrix);
+                }
+                
 				float* matrix = it->dest->getMatrix();
 				if(matrix != NULL)
 					glMultMatrixf(matrix);
+                
 				it->dest->draw();
 				render(it->dest);
                 
@@ -221,6 +230,11 @@ void SceneGraph::processYAFNode(YAFNode yafNode) {
     
     if (yafNode.usesDisplayList)
         newVertex->activateDisplayList();
+    
+    if (yafNode.animationID.compare("") != 0) {
+        Animation * animation = animations.at(yafNode.animationID);
+        newVertex->setAnimation(animation);
+    }
 
 	addVertex(newVertex);
 

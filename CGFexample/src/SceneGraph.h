@@ -18,6 +18,7 @@ class SceneGraph {
     map<string, Appearance *> appearances;
 
 public:
+    map<string, Animation *> animations;
 	stack<int> displayListOrder;
 	bool stackReady;
 

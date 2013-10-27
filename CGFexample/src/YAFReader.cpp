@@ -329,9 +329,9 @@ YAFReader::YAFReader(char *filename) {
                         controlPointElement = controlPointElement->NextSiblingElement();
                     }
                     
-                    LinearAnimation linear (span, controlPoints);
+                    LinearAnimation * linear = new LinearAnimation(span, controlPoints);
                     
-                    bool notRepeated = animations.insert(pair<string, Animation>(id, linear)).second;
+                    bool notRepeated = animations.insert(pair<string, Animation*>(id, linear)).second;
                     if(!notRepeated) {
                         printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
                         exit(1);
@@ -445,7 +445,7 @@ YAFReader::YAFReader(char *filename) {
                     
 					try {
 						if(!animationID.empty()) {
-							Animation animation = animations.at(animationID);
+							Animation * animation = animations.at(animationID);
 						}
                         yafNode.setAnimationID(animationID);
                     } catch (exception &e) {

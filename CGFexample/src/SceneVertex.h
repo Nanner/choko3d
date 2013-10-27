@@ -14,6 +14,7 @@
 
 using namespace std;
 
+class Animation;
 class SceneGraph;
 
 class SceneVertex {
@@ -55,6 +56,11 @@ public:
     void activateDisplayList();
     void disableDisplayList();
     unsigned int getDisplayList();
+    
+    Animation * animation;
+    
+    void setAnimation(Animation * animation);
+    Animation * getAnimation();
 };
 
 

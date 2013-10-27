@@ -2,7 +2,7 @@
 
 unsigned int SceneVertex::currentDisplayList = 0;
 
-SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), displayList(0), initializedDisplayList(false) {}
+SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), displayList(0), initializedDisplayList(false), animation(NULL) {}
 
 void SceneVertex::addEdge(SceneVertex *dest) {
 	SceneEdge edgeD(dest);
@@ -58,6 +58,15 @@ void SceneVertex::disableDisplayList() {
 unsigned int SceneVertex::getDisplayList() {
     return displayList;
 }
+
+void SceneVertex::setAnimation(Animation * animation){
+    this->animation = animation;
+}
+
+Animation * SceneVertex::getAnimation(){
+    return animation;
+}
+
 
 
 SceneComposite::SceneComposite(float* matrix, string id) {
