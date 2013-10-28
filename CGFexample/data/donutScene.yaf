@@ -765,7 +765,7 @@
       </children>
     </node>
 
-    <node id="cube">
+    <node id="cube" displaylist="false">
       <transforms>
       </transforms>
 
