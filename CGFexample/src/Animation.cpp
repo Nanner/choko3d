@@ -3,6 +3,7 @@
 Animation::Animation() {
     this->matrix = new float[16];
     glPushMatrix();
+	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     glPopMatrix();

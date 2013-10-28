@@ -200,7 +200,8 @@ Torus::Torus(float inner, float outer, int slices, int loops) {
 	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 }
 
-void Torus::draw(){glEnable(GL_TEXTURE_GEN_S);
+void Torus::draw(){
+	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
     
 	glutSolidTorus(inner, outer, slices, loops);
