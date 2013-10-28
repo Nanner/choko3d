@@ -7,7 +7,6 @@ GLfloat Patch::texels[4][2] = {
     {1.0, 1.0}
 };
 
-
 Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> controlPoints) {
     matrix = NULL;
     this->order = order;
@@ -40,8 +39,6 @@ Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> co
 }
 
 void Patch::draw() {
-    glPushMatrix();
-    //glCullFace(GL_FRONT);
     
     Appearance* appearance = NULL;
     if( this->getAppearance() ) {
@@ -49,17 +46,26 @@ void Patch::draw() {
         appearance->apply();
     }
 
-    glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1,  0.0, 1.0, (order+1)*3, order+1,  &controlPoints[0]);
-    glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, &Patch::texels[0][0]);
+    glEnable(GL_AUTO_NORMAL);
+    
+    glFrontFace(GL_CW);
+    
+    
     glEnable(GL_MAP2_TEXTURE_COORD_2);
     
     glEnable(GL_MAP2_VERTEX_3);
-    glEnable(GL_AUTO_NORMAL);
-    
+    glDisable(GL_MAP2_NORMAL);
+
+    glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1,  0.0, 1.0, (order+1)*3, order+1,  &controlPoints[0]);
+    glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, &Patch::texels[0][0]);
+
 	glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0);
     
     glEvalMesh2(compute, 0, partsU, 0, partsV);
     
+    glDisable(GL_AUTO_NORMAL);
+    
+    glFrontFace(GL_CCW);
     
     // prints vertex numbers for debugging purposes
     glColor3f(1.0, 0.0, 0.0);
@@ -68,7 +74,5 @@ void Patch::draw() {
 		glRasterPos3f(controlPoints[i], controlPoints[i+1], controlPoints[i+2]);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0'+i/3);
 	}
-    //glCullFace(GL_BACK);
 
-    glPopMatrix();
 }

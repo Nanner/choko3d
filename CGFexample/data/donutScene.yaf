@@ -32,7 +32,7 @@
             />
 
     <spot id="donutSpot" enabled="true"
-        location="17.5 17 17.5"
+        location="17.5 30 17.5"
         ambient="0.0 0.0 0.0 0.0"
         diffuse="1.0 1.0 1.0 1.0"
         specular="1.0 1.0 1.0 1.0"
@@ -246,6 +246,7 @@
       </transforms>
 
       <children>
+        <!--
         <noderef id="room" />
         <noderef id="box" />
         <noderef id="table" />
@@ -253,9 +254,11 @@
         <noderef id="poster" />
         <noderef id="beer" />
         <noderef id="lamp" />
+      -->
         <noderef id="plane" />
         <noderef id="patch" />
         <noderef id="patch2" />
+        <noderef id="patch3" />
       </children>
     </node>
 
@@ -263,10 +266,10 @@
       <transforms>
         <!-- <translate to="5.5 15 5.5" /> -->
         <translate to="17.5 15 17.5" />
-        <scale factor="3.0 3.0 3.0" />
+        <scale factor="10.0 1.0 2.0" />
       </transforms>
 
-      <appearanceref id="posterApp" />
+      <appearanceref id="Box" />
 
       <children>
         <plane parts="15"/>
@@ -298,6 +301,25 @@
       </children>
     </node>
 
+    <node id="patch3">
+      <transforms>
+        <translate to="17.5 20 17.5" />
+        <scale factor="10.0 10.0 10.0" />
+        <rotate axis="x" angle="40" />
+      </transforms>
+
+      <appearanceref id="Box" />
+
+      <children>
+        <patch order="1" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.5" y="0.0" z="-0.5" />
+          <controlpoint x="-0.5"  y="0.0" z="-0.5" />
+          <controlpoint x="0.5"  y="0.0" z="0.5" />
+          <controlpoint x="-0.5"  y="0.0" z="0.5" />
+        </patch>
+      </children>
+    </node>
+
     <node id="patch2">
       <transforms>
         <translate to="10 10 10" />
@@ -312,8 +334,6 @@
           <controlpoint x="-0.5"  y="-1.5" z="2.0" />
           <controlpoint x="0.5"   y="-1.5" z="-1.0" />
           <controlpoint x="1.5"   y="-1.5" z="2.0" />
-
-
 
           <controlpoint x="-1.5"  y="-0.5" z="1.0" />
           <controlpoint x="-0.5"  y="-0.5" z="3.0" />
