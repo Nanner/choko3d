@@ -7,11 +7,13 @@ Animation::Animation() {
     glLoadIdentity();
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     glPopMatrix();
+	isInitialized = false;
 }
 
 void Animation::init(unsigned long t) {
     this->startTime = t;
     this->doReset = false;
+	this->isInitialized = true;
 }
 
 float * Animation::getMatrix(){

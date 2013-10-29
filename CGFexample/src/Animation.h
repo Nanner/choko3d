@@ -7,10 +7,11 @@ class Animation {
 protected:
     float * matrix;
 public:
+	bool isInitialized;
     float * getMatrix();
     unsigned long startTime;
     unsigned char doReset;
-    void init(unsigned long t);
+    virtual void init(unsigned long t);
     virtual void update(unsigned long t) {};
     void reset();
     Animation();

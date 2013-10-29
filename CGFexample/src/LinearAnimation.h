@@ -20,6 +20,8 @@ public:
     
     void update(unsigned long t);
 
+	void init(unsigned long t);
+
 	int getTimespanIndex(unsigned long currentTime);
 };
 

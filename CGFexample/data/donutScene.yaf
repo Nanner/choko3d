@@ -246,7 +246,7 @@
       </transforms>
 
       <children>
-        <!--
+        
         <noderef id="room" />
         <noderef id="box" />
         <noderef id="table" />
@@ -254,7 +254,6 @@
         <noderef id="poster" />
         <noderef id="beer" />
         <noderef id="lamp" />
-      -->
         <noderef id="plane" />
         <noderef id="patch" />
         <noderef id="patch2" />
@@ -269,7 +268,7 @@
         <scale factor="10.0 1.0 2.0" />
       </transforms>
 
-      <appearanceref id="Box" />
+      <appearanceref id="posterApp" />
 
       <children>
         <plane parts="15"/>
@@ -282,7 +281,7 @@
         <scale factor="3.0 3.0 3.0" />
       </transforms>
 
-      <appearanceref id="Box" />
+      <appearanceref id="posterApp" />
 
       <children>
         <patch order="2" partsU="10" partsV="20" compute="fill">
@@ -308,14 +307,14 @@
         <rotate axis="x" angle="40" />
       </transforms>
 
-      <appearanceref id="Box" />
+      <appearanceref id="posterApp" />
 
       <children>
         <patch order="1" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.5" y="0.0" z="-0.5" />
-          <controlpoint x="-0.5"  y="0.0" z="-0.5" />
+          <controlpoint x="-0.5" y="0.0" z="0.5" />
           <controlpoint x="0.5"  y="0.0" z="0.5" />
-          <controlpoint x="-0.5"  y="0.0" z="0.5" />
+          <controlpoint x="-0.5"  y="0.0" z="-0.5" />
+          <controlpoint x="0.5"  y="0.0" z="-0.5" />
         </patch>
       </children>
     </node>
@@ -326,7 +325,7 @@
         <scale factor="3.0 3.0 3.0" />
       </transforms>
 
-      <appearanceref id="Box" />
+      <appearanceref id="posterApp" />
 
       <children>
         <patch order="3" partsU="10" partsV="20" compute="fill">
