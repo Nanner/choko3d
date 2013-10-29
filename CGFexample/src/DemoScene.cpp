@@ -1,10 +1,4 @@
 #include "DemoScene.h"
-#include "CGFaxis.h"
-#include "CGFapplication.h"
-
-#include <math.h>
-
-#include "CGFappearance.h"
 
 DemoScene::DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
 

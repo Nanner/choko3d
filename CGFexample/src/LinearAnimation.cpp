@@ -54,9 +54,9 @@ void LinearAnimation::init(unsigned long t) {
 		float distFraction = trajectoryDists.at(i) / totalDist;
 		unsigned long timeSpan = (distFraction * totalSpan) + t;
 		timeSpans.push_back(timeSpan);
-		printf("%i - %lu\n", i, timeSpan );
+	//	printf("%i - %lu\n", i, timeSpan );
 	}
-	printf("current time: %lu\n", t);
+	//printf("current time: %lu\n", t);
 	Animation::init(t);
 }
 
@@ -65,7 +65,7 @@ void LinearAnimation::update(unsigned long t) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	printf("current time: %lu\n", t);
+	//printf("current time: %lu\n", t);
     
     // TODO apply transformations and store in the matrix
     

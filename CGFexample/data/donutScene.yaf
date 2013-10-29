@@ -258,6 +258,7 @@
         <noderef id="patch" />
         <noderef id="patch2" />
         <noderef id="patch3" />
+        <noderef id="water" />
       </children>
     </node>
 
@@ -274,6 +275,18 @@
         <plane parts="15"/>
       </children>
     </node>
+
+    <node id="water">
+      <transforms>
+        <translate to="17.5 0.5 17.5" />
+        <rotate axis="y" angle="30" />
+        <scale factor="7.0 1.0 20.0" />
+      </transforms>
+
+      <children>
+        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="texshader.frag" vertexshader="texshader.vert"/>
+      </children>
+    </node>    
 
     <node id="patch">
       <transforms>

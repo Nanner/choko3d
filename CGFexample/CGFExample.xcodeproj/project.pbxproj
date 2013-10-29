@@ -28,6 +28,10 @@
 		EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64117F78FA00069596B /* donut3.png */; };
 		EB7BC64717F78FB70069596B /* donut4.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64217F78FA00069596B /* donut4.png */; };
 		EB7BC64817F78FB90069596B /* donut5.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC64317F78FA00069596B /* donut5.png */; };
+		EB7C0CA318202B2C000861A8 /* Waterline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7C0CA118202B2C000861A8 /* Waterline.cpp */; };
+		EB7C0CA618202E90000861A8 /* WaterShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7C0CA418202E90000861A8 /* WaterShader.cpp */; };
+		EB7C0CA918203924000861A8 /* water.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7C0CA7182033CE000861A8 /* water.jpg */; };
+		EB7C0CAA18203926000861A8 /* watermap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7C0CA8182033CE000861A8 /* watermap.jpg */; };
 		EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB81812917E712E5008DF2EB /* scene.xml */; };
 		EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0B17E61F4F00181AB4 /* tinystr.cpp */; };
 		EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D0D17E61F4F00181AB4 /* tinyxml.cpp */; };
@@ -84,6 +88,8 @@
 				EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */,
 				EB7BC64517F78FB40069596B /* donut2.png in CopyFiles */,
 				AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */,
+				EB7C0CA918203924000861A8 /* water.jpg in CopyFiles */,
+				EB7C0CAA18203926000861A8 /* watermap.jpg in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +134,12 @@
 		EB7BC64117F78FA00069596B /* donut3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut3.png; sourceTree = "<group>"; };
 		EB7BC64217F78FA00069596B /* donut4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut4.png; sourceTree = "<group>"; };
 		EB7BC64317F78FA00069596B /* donut5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donut5.png; sourceTree = "<group>"; };
+		EB7C0CA118202B2C000861A8 /* Waterline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Waterline.cpp; path = src/Waterline.cpp; sourceTree = SOURCE_ROOT; };
+		EB7C0CA218202B2C000861A8 /* Waterline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Waterline.h; path = src/Waterline.h; sourceTree = SOURCE_ROOT; };
+		EB7C0CA418202E90000861A8 /* WaterShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WaterShader.cpp; path = src/WaterShader.cpp; sourceTree = SOURCE_ROOT; };
+		EB7C0CA518202E90000861A8 /* WaterShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaterShader.h; path = src/WaterShader.h; sourceTree = SOURCE_ROOT; };
+		EB7C0CA7182033CE000861A8 /* water.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water.jpg; sourceTree = "<group>"; };
+		EB7C0CA8182033CE000861A8 /* watermap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = watermap.jpg; sourceTree = "<group>"; };
 		EB81812917E712E5008DF2EB /* scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.xml; sourceTree = "<group>"; };
 		EB873CB017E61F4F00181AB4 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		EB873CB217E61F4F00181AB4 /* annotated.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = annotated.html; sourceTree = "<group>"; };
@@ -345,6 +357,10 @@
 				EB5822D018142627001C3D45 /* Plane.h */,
 				EB0D1BB518182BE900E385CB /* Patch.cpp */,
 				EB0D1BB618182BE900E385CB /* Patch.h */,
+				EB7C0CA118202B2C000861A8 /* Waterline.cpp */,
+				EB7C0CA218202B2C000861A8 /* Waterline.h */,
+				EB7C0CA418202E90000861A8 /* WaterShader.cpp */,
+				EB7C0CA518202E90000861A8 /* WaterShader.h */,
 				EB9E1BE818095B5F00F91761 /* SceneVertex.cpp */,
 				EB9E1BE918095B5F00F91761 /* SceneVertex.h */,
 				EB9E1BEA18095B5F00F91761 /* Transformation.cpp */,
@@ -428,6 +444,8 @@
 				EB81812917E712E5008DF2EB /* scene.xml */,
 				AA63E23B16D422CA003287C6 /* texshader.frag */,
 				AA63E23C16D422CA003287C6 /* texshader.vert */,
+				EB7C0CA7182033CE000861A8 /* water.jpg */,
+				EB7C0CA8182033CE000861A8 /* watermap.jpg */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -615,6 +633,7 @@
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
 				EB9E1C0718095B5F00F91761 /* ScenePrimitive.cpp in Sources */,
+				EB7C0CA318202B2C000861A8 /* Waterline.cpp in Sources */,
 				EB5822D118142627001C3D45 /* Plane.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
 				EB9E1C0E18095B5F00F91761 /* YAFGlobalLighting.cpp in Sources */,
@@ -627,6 +646,7 @@
 				EB9E1C0D18095B5F00F91761 /* YAFGlobal.cpp in Sources */,
 				EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */,
 				EB9E1C0F18095B5F00F91761 /* YAFLight.cpp in Sources */,
+				EB7C0CA618202E90000861A8 /* WaterShader.cpp in Sources */,
 				EB9E1C0818095B5F00F91761 /* SceneVertex.cpp in Sources */,
 				EB9E1C0618095B5F00F91761 /* SceneLight.cpp in Sources */,
 				EBB48509181C2404000E0A4A /* Animation.cpp in Sources */,

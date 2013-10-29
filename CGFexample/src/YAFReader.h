@@ -16,6 +16,7 @@
 #include "Patch.h"
 #include "Animation.h"
 #include "LinearAnimation.h"
+#include "Waterline.h"
 
 #include <sstream>
 #include <iostream>

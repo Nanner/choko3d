@@ -8,6 +8,10 @@
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "SceneGraph.h"
+#include "CGFappearance.h"
+#include "CGFaxis.h"
+#include "CGFapplication.h"
+#include <math.h>
 
 class DemoScene : public CGFscene
 {

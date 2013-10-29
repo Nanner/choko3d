@@ -549,6 +549,15 @@ YAFReader::YAFReader(char *filename) {
                         }
                         
                     }
+                    
+                    if ( strcmp(currentChild->Value(), "waterline") == 0 ) {
+                        string heightmap = getValue<string>(currentChild, (char*)"heightmap");
+                        string texturemap = getValue<string>(currentChild, (char*)"texturemap");
+                        string fragmentshader = getValue<string>(currentChild, (char*)"fragmentshader");
+                        string vertexshader = getValue<string>(currentChild, (char*)"vertexshader");
+                        
+                        yafNode.addPrimitive( new Waterline(heightmap, texturemap, fragmentshader, vertexshader) );
+                    }
 
 					currentChild = currentChild->NextSiblingElement();
 				}
