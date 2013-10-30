@@ -38,20 +38,32 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		float point2Y = controlPoints.at(1 + ind2);
 		float point2Z = controlPoints.at(2 + ind2);
 
-		//if(i == 0) {
-			deltaX = point2X - point1X;
-			deltaY = point2Y - point1Y;
-			deltaZ = point2Z - point1Z;
-		/*}
-		else {
-			deltaX = trajectoryCoordDeltas.at(ind1 - 3) + (point2X - point1X);
-			deltaY = trajectoryCoordDeltas.at(ind1 - 2) + (point2Y - point1Y);
-			deltaZ = trajectoryCoordDeltas.at(ind1 - 1) + (point2Z - point1Z);
-		}*/
+		deltaX = point2X - point1X;
+		deltaY = point2Y - point1Y;
+		deltaZ = point2Z - point1Z;
 
 		trajectoryCoordDeltas.push_back(deltaX);
 		trajectoryCoordDeltas.push_back(deltaY);
 		trajectoryCoordDeltas.push_back(deltaZ);
+
+		int previousIndex;
+
+		if(i == 0) {
+			trajectoryCoordPreviousOffsets.push_back(0);
+			trajectoryCoordPreviousOffsets.push_back(0);
+			trajectoryCoordPreviousOffsets.push_back(0);
+
+			previousIndex = 0;
+		}
+		else
+			previousIndex = i*3;
+		
+		if(i < (numTrajectories - 1) ) {
+
+			trajectoryCoordPreviousOffsets.push_back(deltaX + trajectoryCoordPreviousOffsets.at(previousIndex + 0));
+			trajectoryCoordPreviousOffsets.push_back(deltaY + trajectoryCoordPreviousOffsets.at(previousIndex + 1));
+			trajectoryCoordPreviousOffsets.push_back(deltaZ + trajectoryCoordPreviousOffsets.at(previousIndex + 2));
+		}
 	}
 
 	currentTrajectory = 0;
@@ -106,12 +118,9 @@ void LinearAnimation::update(unsigned long t) {
 	unsigned int ind = (currentTrajectory * 3);
 
 	float currentTimeFragment = elapsedTimeInTraj / timeSpans.at(currentTrajectory);
-	float d1 = trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment;
-	float d2 = trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment;
-	float d3 = trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment;
-	glTranslatef(trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment,
-		trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment,
-		trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment);
+	glTranslatef(trajectoryCoordPreviousOffsets.at(ind + 0) + trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment,
+		trajectoryCoordPreviousOffsets.at(ind + 1) + trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment,
+		trajectoryCoordPreviousOffsets.at(ind + 2) + trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment);
     
     //glRotated(t, 1.0, 0.0, 0.0);
     

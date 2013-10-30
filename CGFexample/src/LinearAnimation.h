@@ -19,6 +19,7 @@ public:
     vector<float> controlPoints;
 	vector<float> trajectoryDists;
 	vector<float> trajectoryCoordDeltas;
+	vector<float> trajectoryCoordPreviousOffsets;
     
     LinearAnimation(float span, vector<float> controlPoints);
     

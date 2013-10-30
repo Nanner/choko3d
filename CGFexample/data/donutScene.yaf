@@ -231,10 +231,18 @@
   </appearances>
 
   <animations>
-      <animation id="1" span="10.0" type="linear">
+      <animation id="1" span="40.0" type="linear">
         <controlpoint xx="0.0" yy="0.0" zz="0.0" />
         <controlpoint xx="5.0" yy="0.0" zz="5.0" />
         <controlpoint xx="3.0" yy="0.0" zz="3.0" />
+        <controlpoint xx="5.0" yy="1.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+        <controlpoint xx="5.0" yy="3.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="4.0" zz="3.0" />
+        <controlpoint xx="5.0" yy="5.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="6.0" zz="3.0" />
+        <controlpoint xx="5.0" yy="7.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="8.0" zz="3.0" />
       </animation>
   </animations>
 
