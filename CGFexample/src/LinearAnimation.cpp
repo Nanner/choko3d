@@ -38,44 +38,77 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		float point2Y = controlPoints.at(1 + ind2);
 		float point2Z = controlPoints.at(2 + ind2);
 
-		deltaX = point2X - point1X;
-		deltaY = point2Y - point1Y;
-		deltaZ = point2Z - point1Z;
+		//if(i == 0) {
+			deltaX = point2X - point1X;
+			deltaY = point2Y - point1Y;
+			deltaZ = point2Z - point1Z;
+		/*}
+		else {
+			deltaX = trajectoryCoordDeltas.at(ind1 - 3) + (point2X - point1X);
+			deltaY = trajectoryCoordDeltas.at(ind1 - 2) + (point2Y - point1Y);
+			deltaZ = trajectoryCoordDeltas.at(ind1 - 1) + (point2Z - point1Z);
+		}*/
 
 		trajectoryCoordDeltas.push_back(deltaX);
 		trajectoryCoordDeltas.push_back(deltaY);
 		trajectoryCoordDeltas.push_back(deltaZ);
 	}
 
+	currentTrajectory = 0;
+	elapsedTimeInTraj = 0;
 }
 
 void LinearAnimation::init(unsigned long t) {
 	for(unsigned int i = 0; i < numTrajectories; i++) {
 		float distFraction = trajectoryDists.at(i) / totalDist;
-		unsigned long timeSpan = (distFraction * totalSpan) + t;
+		unsigned long timeSpan = (distFraction * totalSpan);
 		timeSpans.push_back(timeSpan);
-	//	printf("%i - %lu\n", i, timeSpan );
+		//printf("%i - %lu\n", i, timeSpan );
 	}
 	//printf("current time: %lu\n", t);
 	Animation::init(t);
+	totalElapsedTime = 0;
 }
 
 void LinearAnimation::update(unsigned long t) {
+
+	float curTime = t - this->startTime;
+	if(curTime > totalSpan)
+		return;
+
     glPushMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//printf("current time: %lu\n", t);
+	//printf("current time: %lu\n", curTime);
     
     // TODO apply transformations and store in the matrix
     
-    float distance = t * 0.0001;
-	int currentTrajectory = getTimespanIndex(t);
-	if(currentTrajectory == -1)
+    //float distance = curTime * 0.0001;
+	int currentTraj = getTimespanIndex(curTime);
+	if(currentTraj == -1)
 		return;
+
+	//If we moved on to a new trajectory
+	if(currentTraj != currentTrajectory) {
+		//Calculate the current elapsed time in the new trajectory, ignoring possibly "lost" time from the previous one
+		elapsedTimeInTraj += curTime - totalElapsedTime;
+		elapsedTimeInTraj = abs(timeSpans.at(currentTrajectory) - elapsedTimeInTraj);
+
+		//Update the indicator
+		currentTrajectory = currentTraj;
+	}
+	else
+		elapsedTimeInTraj += curTime - totalElapsedTime;
+
+	totalElapsedTime = curTime;
+
 	unsigned int ind = (currentTrajectory * 3);
 
-	float currentTimeFragment = t / timeSpans.at(currentTrajectory);
+	float currentTimeFragment = elapsedTimeInTraj / timeSpans.at(currentTrajectory);
+	float d1 = trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment;
+	float d2 = trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment;
+	float d3 = trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment;
 	glTranslatef(trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment,
 		trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment,
 		trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment);
@@ -87,9 +120,12 @@ void LinearAnimation::update(unsigned long t) {
 }
 
 int LinearAnimation::getTimespanIndex(unsigned long currentTime) {
+	float timePart = 0;
 	for(unsigned int i = 0; i < timeSpans.size(); i++) {
-		if(currentTime <= timeSpans.at(i))
+		if(currentTime <= timePart + timeSpans.at(i))
 			return i;
+
+		timePart += timeSpans.at(i);
 	}
 
 	return -1;

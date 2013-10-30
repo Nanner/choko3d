@@ -10,6 +10,10 @@ public:
     float totalSpan;
 	vector<float> timeSpans;
 
+	float totalElapsedTime;
+	float elapsedTimeInTraj;
+	int currentTrajectory;
+
 	int numTrajectories;
 	float totalDist;
     vector<float> controlPoints;
