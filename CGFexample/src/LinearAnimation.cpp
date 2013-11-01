@@ -66,6 +66,30 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		}
 	}
 
+	for(unsigned int i = 0; i < numTrajectories - 1; i++) {
+
+		float previousAngle;
+		if(i == 0)
+			previousAngle = 0;
+		else
+			previousAngle = trajectoryAngles.at(i - 1);
+
+		int ind = i * 3;
+		int ind2 = i * 3 + 3;
+		float vector1[3];
+		vector1[0] = trajectoryCoordDeltas.at(ind + 0);
+		vector1[1] = trajectoryCoordDeltas.at(ind + 1);
+		vector1[2] = trajectoryCoordDeltas.at(ind + 2);
+
+		float vector2[3];
+		vector2[0] = trajectoryCoordDeltas.at(ind2 + 0);
+		vector2[1] = trajectoryCoordDeltas.at(ind2 + 1);
+		vector2[2] = trajectoryCoordDeltas.at(ind2 + 2);
+
+		trajectoryAngles.push_back(previousAngle + 180 - angleBetweenVectors(vector1, trajectoryDists.at(i), vector2, trajectoryDists.at(i)) );
+
+	}
+
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 }
@@ -87,6 +111,8 @@ void LinearAnimation::update(unsigned long t) {
 	float curTime = t - this->startTime;
 	if(curTime > totalSpan)
 		return;
+
+	printf("Time: %f\n", curTime);
 
     glPushMatrix();
 	glMatrixMode(GL_MODELVIEW);
@@ -121,6 +147,10 @@ void LinearAnimation::update(unsigned long t) {
 	glTranslatef(trajectoryCoordPreviousOffsets.at(ind + 0) + trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment,
 		trajectoryCoordPreviousOffsets.at(ind + 1) + trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment,
 		trajectoryCoordPreviousOffsets.at(ind + 2) + trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment);
+
+	//TODO This doesn't work, we need to somehow get the object to the center, rotate it and then get it back on spot.
+	if(currentTrajectory != 0)
+		glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
     
     //glRotated(t, 1.0, 0.0, 0.0);
     
@@ -143,3 +173,14 @@ int LinearAnimation::getTimespanIndex(unsigned long currentTime) {
 /*float distanceBetweenPoints(float point1[3], float point2[3]) {
 	return sqrt((point2[0]-point1[0])*(point2[0]-point1[0]) + (point2[1]-point1[1])*(point2[1]-point1[1]) + (point2[2]-point1[2])*(point2[2]-point1[2]));
 }*/
+
+float angleBetweenVectors(float vector1[3], float len1, float vector2[3], float len2) {
+	float angle = 0;
+
+	float cosTheta = ( (vector1[0] * vector2[0]) + (vector1[1] * vector2[1]) + (vector1[2] * vector2[2]) ) / (len1 * len2);
+	cosTheta /= (180 / M_PI);
+	angle = acosf(cosTheta);
+	angle *= (180 / M_PI);
+
+	return angle;
+}
