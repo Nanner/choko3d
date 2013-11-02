@@ -12,7 +12,8 @@ public:
     unsigned long startTime;
     unsigned char doReset;
     virtual void init(unsigned long t);
-    virtual void update(unsigned long t) {};
+    virtual void update(unsigned long t) {}
+	virtual void applyRotation() {}
     void reset();
     Animation();
 };

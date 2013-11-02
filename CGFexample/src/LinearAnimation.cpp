@@ -78,20 +78,25 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		int ind2 = i * 3 + 3;
 		float vector1[3];
 		vector1[0] = trajectoryCoordDeltas.at(ind + 0);
-		vector1[1] = trajectoryCoordDeltas.at(ind + 1);
+		//Since we want the vector projections in the XZ plane, we consider y = 0
+		vector1[1] = 0;
 		vector1[2] = trajectoryCoordDeltas.at(ind + 2);
 
 		float vector2[3];
 		vector2[0] = trajectoryCoordDeltas.at(ind2 + 0);
-		vector2[1] = trajectoryCoordDeltas.at(ind2 + 1);
+		//Since we want the vector projections in the XZ plane, we consider y = 0
+		vector2[1] = 0;
 		vector2[2] = trajectoryCoordDeltas.at(ind2 + 2);
 
-		trajectoryAngles.push_back(previousAngle + 180 - angleBetweenVectors(vector1, trajectoryDists.at(i), vector2, trajectoryDists.at(i)) );
+		float origin[3] = {0.0,0.0,0.0};
+		trajectoryAngles.push_back(previousAngle + angleBetweenVectors(vector1, distanceBetweenPoints(origin, vector1),
+			vector2, distanceBetweenPoints(origin, vector2)) );
 
 	}
 
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
+	ended = false;
 }
 
 void LinearAnimation::init(unsigned long t) {
@@ -108,15 +113,19 @@ void LinearAnimation::init(unsigned long t) {
 
 void LinearAnimation::update(unsigned long t) {
 
-	float curTime = t - this->startTime;
-	if(curTime > totalSpan)
+	if(ended)
 		return;
+
+	float curTime = t - this->startTime;
+	/*if(curTime > totalSpan)
+		return;*/
 
 	printf("Time: %f\n", curTime);
 
     glPushMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
 
 	//printf("current time: %lu\n", curTime);
     
@@ -129,9 +138,8 @@ void LinearAnimation::update(unsigned long t) {
 
 	//If we moved on to a new trajectory
 	if(currentTraj != currentTrajectory) {
-		//Calculate the current elapsed time in the new trajectory, ignoring possibly "lost" time from the previous one
-		elapsedTimeInTraj += curTime - totalElapsedTime;
-		elapsedTimeInTraj = abs(timeSpans.at(currentTrajectory) - elapsedTimeInTraj);
+		//Reset elapsed time
+		elapsedTimeInTraj = 0;
 
 		//Update the indicator
 		currentTrajectory = currentTraj;
@@ -144,16 +152,29 @@ void LinearAnimation::update(unsigned long t) {
 	unsigned int ind = (currentTrajectory * 3);
 
 	float currentTimeFragment = elapsedTimeInTraj / timeSpans.at(currentTrajectory);
+
+	//This allows us to finish the animation in case the application is interrupted for longer after the animation would be over
+	if(currentTimeFragment > 1)
+		currentTimeFragment = 1;
+
 	glTranslatef(trajectoryCoordPreviousOffsets.at(ind + 0) + trajectoryCoordDeltas.at(ind + 0) * currentTimeFragment,
 		trajectoryCoordPreviousOffsets.at(ind + 1) + trajectoryCoordDeltas.at(ind + 1) * currentTimeFragment,
 		trajectoryCoordPreviousOffsets.at(ind + 2) + trajectoryCoordDeltas.at(ind + 2) * currentTimeFragment);
 
+
+	//If we are already on the last fragment of the last trajectory, indicate that the animation is over
+	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1))
+		ended = true;
+
 	//TODO This doesn't work, we need to somehow get the object to the center, rotate it and then get it back on spot.
-	if(currentTrajectory != 0)
-		glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
+	/*if(currentTrajectory != 0) {
+		//glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
+		//printf("angle: %f\n", trajectoryAngles.at(currentTrajectory - 1));
+	}*/
     
     //glRotated(t, 1.0, 0.0, 0.0);
-    
+    //applyRotation();
+
 	glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     glPopMatrix();
 }
@@ -167,7 +188,14 @@ int LinearAnimation::getTimespanIndex(unsigned long currentTime) {
 		timePart += timeSpans.at(i);
 	}
 
-	return -1;
+	return timeSpans.size() - 1;
+}
+
+void LinearAnimation::applyRotation() {
+	if(currentTrajectory != 0) {
+		//glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
+		printf("angle: %f\n", trajectoryAngles.at(currentTrajectory - 1));
+	}
 }
 
 /*float distanceBetweenPoints(float point1[3], float point2[3]) {
@@ -183,4 +211,134 @@ float angleBetweenVectors(float vector1[3], float len1, float vector2[3], float 
 	angle *= (180 / M_PI);
 
 	return angle;
+}
+
+bool gluInvertMatrix(const float m[16], float invOut[16])
+{
+    double inv[16], det;
+    int i;
+
+    inv[0] = m[5]  * m[10] * m[15] - 
+             m[5]  * m[11] * m[14] - 
+             m[9]  * m[6]  * m[15] + 
+             m[9]  * m[7]  * m[14] +
+             m[13] * m[6]  * m[11] - 
+             m[13] * m[7]  * m[10];
+
+    inv[4] = -m[4]  * m[10] * m[15] + 
+              m[4]  * m[11] * m[14] + 
+              m[8]  * m[6]  * m[15] - 
+              m[8]  * m[7]  * m[14] - 
+              m[12] * m[6]  * m[11] + 
+              m[12] * m[7]  * m[10];
+
+    inv[8] = m[4]  * m[9] * m[15] - 
+             m[4]  * m[11] * m[13] - 
+             m[8]  * m[5] * m[15] + 
+             m[8]  * m[7] * m[13] + 
+             m[12] * m[5] * m[11] - 
+             m[12] * m[7] * m[9];
+
+    inv[12] = -m[4]  * m[9] * m[14] + 
+               m[4]  * m[10] * m[13] +
+               m[8]  * m[5] * m[14] - 
+               m[8]  * m[6] * m[13] - 
+               m[12] * m[5] * m[10] + 
+               m[12] * m[6] * m[9];
+
+    inv[1] = -m[1]  * m[10] * m[15] + 
+              m[1]  * m[11] * m[14] + 
+              m[9]  * m[2] * m[15] - 
+              m[9]  * m[3] * m[14] - 
+              m[13] * m[2] * m[11] + 
+              m[13] * m[3] * m[10];
+
+    inv[5] = m[0]  * m[10] * m[15] - 
+             m[0]  * m[11] * m[14] - 
+             m[8]  * m[2] * m[15] + 
+             m[8]  * m[3] * m[14] + 
+             m[12] * m[2] * m[11] - 
+             m[12] * m[3] * m[10];
+
+    inv[9] = -m[0]  * m[9] * m[15] + 
+              m[0]  * m[11] * m[13] + 
+              m[8]  * m[1] * m[15] - 
+              m[8]  * m[3] * m[13] - 
+              m[12] * m[1] * m[11] + 
+              m[12] * m[3] * m[9];
+
+    inv[13] = m[0]  * m[9] * m[14] - 
+              m[0]  * m[10] * m[13] - 
+              m[8]  * m[1] * m[14] + 
+              m[8]  * m[2] * m[13] + 
+              m[12] * m[1] * m[10] - 
+              m[12] * m[2] * m[9];
+
+    inv[2] = m[1]  * m[6] * m[15] - 
+             m[1]  * m[7] * m[14] - 
+             m[5]  * m[2] * m[15] + 
+             m[5]  * m[3] * m[14] + 
+             m[13] * m[2] * m[7] - 
+             m[13] * m[3] * m[6];
+
+    inv[6] = -m[0]  * m[6] * m[15] + 
+              m[0]  * m[7] * m[14] + 
+              m[4]  * m[2] * m[15] - 
+              m[4]  * m[3] * m[14] - 
+              m[12] * m[2] * m[7] + 
+              m[12] * m[3] * m[6];
+
+    inv[10] = m[0]  * m[5] * m[15] - 
+              m[0]  * m[7] * m[13] - 
+              m[4]  * m[1] * m[15] + 
+              m[4]  * m[3] * m[13] + 
+              m[12] * m[1] * m[7] - 
+              m[12] * m[3] * m[5];
+
+    inv[14] = -m[0]  * m[5] * m[14] + 
+               m[0]  * m[6] * m[13] + 
+               m[4]  * m[1] * m[14] - 
+               m[4]  * m[2] * m[13] - 
+               m[12] * m[1] * m[6] + 
+               m[12] * m[2] * m[5];
+
+    inv[3] = -m[1] * m[6] * m[11] + 
+              m[1] * m[7] * m[10] + 
+              m[5] * m[2] * m[11] - 
+              m[5] * m[3] * m[10] - 
+              m[9] * m[2] * m[7] + 
+              m[9] * m[3] * m[6];
+
+    inv[7] = m[0] * m[6] * m[11] - 
+             m[0] * m[7] * m[10] - 
+             m[4] * m[2] * m[11] + 
+             m[4] * m[3] * m[10] + 
+             m[8] * m[2] * m[7] - 
+             m[8] * m[3] * m[6];
+
+    inv[11] = -m[0] * m[5] * m[11] + 
+               m[0] * m[7] * m[9] + 
+               m[4] * m[1] * m[11] - 
+               m[4] * m[3] * m[9] - 
+               m[8] * m[1] * m[7] + 
+               m[8] * m[3] * m[5];
+
+    inv[15] = m[0] * m[5] * m[10] - 
+              m[0] * m[6] * m[9] - 
+              m[4] * m[1] * m[10] + 
+              m[4] * m[2] * m[9] + 
+              m[8] * m[1] * m[6] - 
+              m[8] * m[2] * m[5];
+
+    det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
+
+    if (det == 0)
+        return false;
+
+    det = 1.0 / det;
+
+    for (i = 0; i < 16; i++)
+        invOut[i] = inv[i] * det;
+
+    return true;
 }

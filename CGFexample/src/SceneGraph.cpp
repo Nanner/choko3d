@@ -170,6 +170,7 @@ void SceneGraph::render(SceneVertex *v) {
                 
                 // TODO fix applying animation matrix
                 if(it->dest->getAnimation() != NULL){
+					//it->dest->getAnimation()->applyRotation();
                     float * animationMatrix = it->dest->getAnimation()->getMatrix();
                     glMultMatrixf(animationMatrix);
                 }
