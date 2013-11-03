@@ -15,7 +15,7 @@ public:
     int compute;
     vector<float> controlPoints;
     static GLfloat texels[4][2];
-    
+    GLint * previousFrontFace;
     void draw();
 };
 

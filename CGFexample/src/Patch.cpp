@@ -2,8 +2,8 @@
 
 GLfloat Patch::texels[4][2] = {
     {0.0, 0.0},
-    {0.0, 1.0},
     {1.0, 0.0},
+    {0.0, 1.0},
     {1.0, 1.0}
 };
 
@@ -36,6 +36,7 @@ Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> co
 		throw(InvalidAttributeValueException(errorMessage));
     }
     
+    previousFrontFace = new GLint();
 }
 
 void Patch::draw() {
@@ -48,8 +49,8 @@ void Patch::draw() {
 
     glEnable(GL_AUTO_NORMAL);
     
+    glGetIntegerv(GL_FRONT_FACE, previousFrontFace);
     glFrontFace(GL_CW);
-    
     
     glEnable(GL_MAP2_TEXTURE_COORD_2);
     
@@ -65,7 +66,7 @@ void Patch::draw() {
     
     glDisable(GL_AUTO_NORMAL);
     
-    glFrontFace(GL_CCW);
+    glFrontFace(*previousFrontFace);
     
     // prints vertex numbers for debugging purposes
     glColor3f(1.0, 0.0, 0.0);
