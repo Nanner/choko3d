@@ -1,0 +1,661 @@
+<!-- Os comentarios devem ter espacos no inicio e no fim, para -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
+
+<yaf>
+
+  <!-- bloco de configuracoes globais -->
+  <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="back" cullorder="CCW" />
+
+  <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
+  <cameras initial="1" >
+    <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
+
+    <perspective id="1" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="17.5 17.0 17.5" />
+    <perspective id="3" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="35.0 0.0 27.0" />
+    <ortho id="2" left="0" right="35" bottom="0" top="35" near="-45" far="45"/>
+
+  </cameras>
+
+
+  <!-- bloco de iluminacao; segue os parametros do OpenGL -->
+  <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
+    <!-- Deve existir um ou mais blocos "light" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+    <omni id="corner" enabled="true"
+        location="4.0 30.0 5.0"
+        ambient="0.2 0.2 0.2 1.0"
+        diffuse="0.7 0.7 0.7 1.0"
+        specular="1.0 1.0 1.0 1.0"
+            />
+
+    <spot id="donutSpot" enabled="true"
+        location="17.5 30 17.5"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 1.0 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+    
+    <omni id="lamp" enabled="true"
+          location="21.5 11.8 15.5"
+          ambient="0.1 0.1 0.1 1.0"
+          diffuse="0.3 0.3 0.3 1.0"
+          specular="0.0 0.0 0.0 1.0"
+            />
+
+  </lighting>
+
+  <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
+  <textures>
+
+    <texture id="woodTex" file="wood.jpg" />
+
+    <texture id="floorTex" file="floor.png" />
+
+    <texture id="wallTex" file="wall.png" />
+
+    <texture id="posterTex" file="duffPoster.jpg" />
+
+    <texture id="boxTex" file="box.jpg" />
+
+    <texture id="donut1Tex" file="donut1.png" />
+
+    <texture id="donut2Tex" file="donut2.png" />
+
+    <texture id="donut3Tex" file="donut3.png" />
+
+    <texture id="donut4Tex" file="donut4.png" />
+
+    <texture id="donut5Tex" file="donut5.png" />
+
+    <texture id="beer" file="beer.jpg" />
+
+    <texture id="foam" file="beerfoam.jpg" />
+
+    <texture id="cabinTex" file="cabinText.png" />
+
+    <texture id="cabinBottomTex" file="cabinBottomText.png" />
+
+    <texture id="balloonTex" file="balloonText.png" />
+
+  </textures>
+
+  <!-- bloco de materiais; -->
+  <appearances>
+
+    <appearance id="Box"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="1.0"
+      textureref="boxTex"
+      texlength_s="1.0"
+      texlength_t="1.0">
+    </appearance>
+
+    <appearance id="Box2"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="1.0">
+    </appearance>
+
+    <appearance id="posterApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="1.0 1.0 1.0 1.0"
+      shininess="128.0"
+      textureref="posterTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="wallApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="1.0"
+      textureref="wallTex"
+      texlength_s="2.0"
+      texlength_t="2.0"/>
+
+    <appearance id="woodApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="woodTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="floorApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="80.0"
+      textureref="floorTex"
+      texlength_s="0.1"
+      texlength_t="0.1"/>
+
+    <appearance id="donut1App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="1.0"
+      textureref="donut1Tex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="donut2App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="1.0"
+      textureref="donut2Tex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="donut3App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="1.0"
+      textureref="donut3Tex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="donut4App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="1.0"
+      textureref="donut4Tex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="donut5App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="1.0"
+      textureref="donut5Tex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="beer"
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"
+      textureref="beer"
+      texlength_s="1"
+      texlength_t="1"/>
+
+    <appearance id="foam"
+      emissive="1.0 1.0 1.0 1.0"
+      ambient="0.5 0.5 0.5 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"
+      textureref="foam"
+      texlength_s="1"
+      texlength_t="1"/>
+
+    <appearance id="lampBody"
+      emissive="0.3 0.3 0.3 0.3"
+      ambient="0.9 0.9 0.9 1.0"
+      diffuse="0.5 0.5 0.5 1.0"
+      specular="0.5 0.5 0.5 1.0"
+      shininess="100.0"/>
+
+    <appearance id="lampHead"
+      emissive="0.4 0.4 0.4 0.4"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="woodTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="wingApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.7 0.0 0.0 1.0"
+      diffuse="0.4 0.0 0.0 1.0"
+      specular="0.1 0.0 0.0 1.0"
+      shininess="50.0"
+      textureref="cabinBottomTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="cabinApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.23 0.23 0.23 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="100.0"
+      textureref="cabinTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="cabinBottomApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.43 0.43 0.43 1.0"
+      diffuse="0.43 0.43 0.43 1.0"
+      specular="0.43 0.43 0.43 1.0"
+      shininess="100.0"
+      textureref="cabinBottomTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="balloonApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.63 0.63 0.63 1.0"
+      diffuse="0.63 0.63 0.63 1.0"
+      specular="0.63 0.63 0.63 1.0"
+      shininess="100.0"
+      textureref="balloonTex"
+      texlength_s="7.0"
+      texlength_t="5.0"/>
+
+  </appearances>
+
+  <animations>
+  
+      <animation id="1" span="200.0" type="linear">
+        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="15.0" />
+        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
+        <controlpoint xx="6.0" yy="1.0" zz="16.0" />
+        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="3.0" zz="15.0" />
+        <controlpoint xx="3.0" yy="4.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="5.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="10.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="10.0" zz="15.0" />
+        <controlpoint xx="3.0" yy="10.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="7.0" zz="25.0" />
+        <controlpoint xx="13.0" yy="6.0" zz="3.0" />
+        <controlpoint xx="5.0" yy="5.0" zz="15.0" />
+        <controlpoint xx="3.0" yy="4.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="3.0" zz="8.0" />
+        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="1.0" zz="10.0" />
+        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      </animation>
+  </animations>
+
+  <!-- bloco do grafo; "rootid" identifica o no de raiz -->
+  <graph rootid="zeppelinScene">
+
+    <node id="zeppelinScene" displaylist="false">
+      <transforms>
+      </transforms>
+
+      <children>
+        <noderef id="zeppelin" />
+      </children>
+    </node>
+
+    <node id="zeppelin">
+      <transforms>
+        <translate to="0.0 2.0 0.0"/>
+      </transforms>
+
+      <animationref id="1" />
+
+      <children>
+        <noderef id="balloon" />
+        <noderef id="cabinRight" />
+        <noderef id="cabinLeft" />
+        <noderef id="cabinBottom" />
+        <noderef id="wings" />
+      </children>
+    </node>
+
+    <node id="plane">
+      <transforms>
+        <!-- <translate to="5.5 15 5.5" /> -->
+        <translate to="17.5 15 17.5" />
+        <scale factor="10.0 1.0 2.0" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <plane parts="15"/>
+      </children>
+    </node>
+
+    <node id="water">
+      <transforms>
+        <translate to="17.5 0.5 17.5" />
+        <rotate axis="y" angle="30" />
+        <scale factor="7.0 1.0 20.0" />
+      </transforms>
+
+      <children>
+        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="texshader.frag" vertexshader="texshader.vert"/>
+      </children>
+    </node>
+
+    <node id="balloon">
+      <transforms>
+        <translate to="0.0 1.7 -2.0" />
+        <scale factor="3.0 3.0 14.0" />
+      </transforms>
+
+      <appearanceref id="balloonApp" />
+
+      <children>
+        <sphere radius="0.5" slices="10" stacks="20" />
+      </children>
+    </node>
+
+    <node id="wings">
+      <transforms>
+        <translate to="0.0 1.7 -5.0" />
+      </transforms>
+
+      <children>
+        <noderef id="topWing" />
+        <noderef id="bottomWing" />
+        <noderef id="rightWing" />
+        <noderef id="leftWing" />
+      </children>
+    </node>
+
+    <node id="topWing">
+      <transforms>
+        <translate to="0.0 2.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+
+          <controlpoint x="0.0" y="-1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="bottomWing">
+      <transforms>
+        <translate to="0.0 -2.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+
+          <controlpoint x="0.0" y="1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>  
+
+    <node id="rightWing">
+      <transforms>
+        <translate to="2.0 0.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.5" y="-0.0" z="-1.5" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.5" y="-0.0" z="-1.5" />
+
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="leftWing">
+      <transforms>
+        <translate to="-2.0 0.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="1.0" y="-0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.5" />
+
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="-0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.5" />
+        </patch>
+      </children>
+    </node>      
+
+    <node id="cabinBottom">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinBottomApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+
+          <controlpoint x="1.0" y="-0.5" z="0.0" />
+          <controlpoint x="0.0" y="-1.5" z="0.0" />
+          <controlpoint x="-1.0" y="-0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>   
+
+    <node id="cabinRight">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+
+          <controlpoint x="1.0" y="-0.5" z="0.0" />
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="1.0" y="0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="1.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="cabinLeft">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="1.5" />
+          
+          <controlpoint x="-1.0" y="-0.5" z="0.0" />
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="-1.0" y="0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="patch3">
+      <transforms>
+        <translate to="17.5 20 17.5" />
+        <scale factor="10.0 10.0 10.0" />
+        <rotate axis="x" angle="40" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <patch order="1" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-0.5" y="0.0" z="0.5" />
+          <controlpoint x="0.5"  y="0.0" z="0.5" />
+          <controlpoint x="-0.5"  y="0.0" z="-0.5" />
+          <controlpoint x="0.5"  y="0.0" z="-0.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="patch2">
+      <transforms>
+        <translate to="10 10 10" />
+        <scale factor="3.0 3.0 3.0" />
+      </transforms>
+
+      <appearanceref id="posterApp" />
+
+      <children>
+        <patch order="3" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.5"  y="-1.5" z="4.0" />
+          <controlpoint x="-0.5"  y="-1.5" z="2.0" />
+          <controlpoint x="0.5"   y="-1.5" z="-1.0" />
+          <controlpoint x="1.5"   y="-1.5" z="2.0" />
+
+          <controlpoint x="-1.5"  y="-0.5" z="1.0" />
+          <controlpoint x="-0.5"  y="-0.5" z="3.0" />
+          <controlpoint x="0.5"   y="-0.5" z="0.0" />
+          <controlpoint x="1.5"   y="-0.5" z="-1.0" />
+
+
+          <controlpoint x="-1.5"  y="0.5" z="4.0" />
+          <controlpoint x="-0.5"  y="0.5" z="0.0" />
+          <controlpoint x="0.5"   y="0.5" z="3.0" />
+          <controlpoint x="1.5"   y="0.5" z="4.0" />
+
+          <controlpoint x="-1.5"  y="1.5" z="-2.0" />
+          <controlpoint x="-0.5"  y="1.5" z="-2.0" />
+          <controlpoint x="0.5"   y="1.5" z="0.0" />
+          <controlpoint x="1.5"   y="1.5" z="-1.0" />
+        </patch>
+      </children>
+    </node>
+
+  </graph>
+</yaf>
