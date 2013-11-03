@@ -231,18 +231,29 @@
   </appearances>
 
   <animations>
-      <animation id="1" span="40.0" type="linear">
+  
+      <animation id="1" span="100.0" type="linear">
         <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-        <controlpoint xx="5.0" yy="0.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="5.0" />
         <controlpoint xx="3.0" yy="0.0" zz="3.0" />
-        <controlpoint xx="5.0" yy="1.0" zz="5.0" />
+        <controlpoint xx="6.0" yy="1.0" zz="6.0" />
         <controlpoint xx="3.0" yy="2.0" zz="3.0" />
-        <controlpoint xx="5.0" yy="3.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="3.0" zz="5.0" />
         <controlpoint xx="3.0" yy="4.0" zz="3.0" />
-        <controlpoint xx="5.0" yy="5.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="5.0" zz="5.0" />
         <controlpoint xx="3.0" yy="6.0" zz="3.0" />
-        <controlpoint xx="5.0" yy="7.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="7.0" zz="5.0" />
         <controlpoint xx="3.0" yy="8.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="7.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="6.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="5.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="4.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="3.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="1.0" zz="5.0" />
+        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="5.0" />
+        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
       </animation>
   </animations>
 
@@ -254,7 +265,6 @@
       </transforms>
 
       <children>
-        
         <noderef id="room" />
         <noderef id="box" />
         <noderef id="table" />
@@ -885,10 +895,10 @@
       </children>
     </node>
 
-    <node id="beer">
+    <node id="beer" displaylist="false">
       <transforms>
         <translate to="13.5 8.625 17.5"/>
-        <rotate axis="x" angle="270" />
+       <!-- <rotate axis="x" angle="270" /> -->
       </transforms>
 
       <appearanceref id="beer" />

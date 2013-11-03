@@ -37,8 +37,6 @@ public:
 
 //float distanceBetweenPoints(float point1[3], float point2[3]);
 
-float angleBetweenVectors(float vector1[3], float len1, float vector2[3], float len2);
-
-bool gluInvertMatrix(const float m[16], float invOut[16]);
+float angleBetweenVectors(float vector1[3], float vector2[3]);
 
 #endif

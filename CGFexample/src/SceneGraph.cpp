@@ -86,11 +86,14 @@ void SceneGraph::render() {
 		glRasterPos3f(0, 0, 0);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'A');
 
-		glRasterPos3f(5, 0, 5);
+		glRasterPos3f(0, 0, 5);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'B');
 
 		glRasterPos3f(3, 0, 3);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'C');
+
+		glRasterPos3f(6, 1, 6);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'D');
 	glPopMatrix();
     
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
@@ -170,7 +173,6 @@ void SceneGraph::render(SceneVertex *v) {
                 
                 // TODO fix applying animation matrix
                 if(it->dest->getAnimation() != NULL){
-					//it->dest->getAnimation()->applyRotation();
                     float * animationMatrix = it->dest->getAnimation()->getMatrix();
                     glMultMatrixf(animationMatrix);
                 }
@@ -178,6 +180,10 @@ void SceneGraph::render(SceneVertex *v) {
 				float* matrix = it->dest->getMatrix();
 				if(matrix != NULL)
 					glMultMatrixf(matrix);
+
+				if(it->dest->getAnimation() != NULL)
+					it->dest->getAnimation()->applyRotation();
+
                 
 				it->dest->draw();
 				render(it->dest);

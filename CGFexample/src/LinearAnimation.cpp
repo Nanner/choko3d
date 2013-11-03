@@ -88,9 +88,17 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		vector2[1] = 0;
 		vector2[2] = trajectoryCoordDeltas.at(ind2 + 2);
 
-		float origin[3] = {0.0,0.0,0.0};
-		trajectoryAngles.push_back(previousAngle + angleBetweenVectors(vector1, distanceBetweenPoints(origin, vector1),
-			vector2, distanceBetweenPoints(origin, vector2)) );
+		float rotAngle = angleBetweenVectors(vector2, vector1);
+
+		if(rotAngle > 360)
+			rotAngle -= 360;
+		else if(rotAngle < 0)
+			rotAngle += 360;
+
+		rotAngle += previousAngle;
+
+		trajectoryAngles.push_back(rotAngle);
+		
 
 	}
 
@@ -117,8 +125,6 @@ void LinearAnimation::update(unsigned long t) {
 		return;
 
 	float curTime = t - this->startTime;
-	/*if(curTime > totalSpan)
-		return;*/
 
 	printf("Time: %f\n", curTime);
 
@@ -128,8 +134,6 @@ void LinearAnimation::update(unsigned long t) {
 
 
 	//printf("current time: %lu\n", curTime);
-    
-    // TODO apply transformations and store in the matrix
     
     //float distance = curTime * 0.0001;
 	int currentTraj = getTimespanIndex(curTime);
@@ -166,15 +170,6 @@ void LinearAnimation::update(unsigned long t) {
 	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1))
 		ended = true;
 
-	//TODO This doesn't work, we need to somehow get the object to the center, rotate it and then get it back on spot.
-	/*if(currentTrajectory != 0) {
-		//glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
-		//printf("angle: %f\n", trajectoryAngles.at(currentTrajectory - 1));
-	}*/
-    
-    //glRotated(t, 1.0, 0.0, 0.0);
-    //applyRotation();
-
 	glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     glPopMatrix();
 }
@@ -192,9 +187,9 @@ int LinearAnimation::getTimespanIndex(unsigned long currentTime) {
 }
 
 void LinearAnimation::applyRotation() {
+
 	if(currentTrajectory != 0) {
-		//glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
-		printf("angle: %f\n", trajectoryAngles.at(currentTrajectory - 1));
+		glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
 	}
 }
 
@@ -202,143 +197,15 @@ void LinearAnimation::applyRotation() {
 	return sqrt((point2[0]-point1[0])*(point2[0]-point1[0]) + (point2[1]-point1[1])*(point2[1]-point1[1]) + (point2[2]-point1[2])*(point2[2]-point1[2]));
 }*/
 
-float angleBetweenVectors(float vector1[3], float len1, float vector2[3], float len2) {
-	float angle = 0;
+float angleBetweenVectors(float vector1[3], float vector2[3]) {
 
-	float cosTheta = ( (vector1[0] * vector2[0]) + (vector1[1] * vector2[1]) + (vector1[2] * vector2[2]) ) / (len1 * len2);
-	cosTheta /= (180 / M_PI);
-	angle = acosf(cosTheta);
-	angle *= (180 / M_PI);
+	float ux = vector1[0];
+	float uz = vector1[2];
+	float vx = vector2[0];
+	float vz = vector2[2];
+
+	float angle = atan2(-uz * vx + ux * vz, ux * vx + uz * vz);
+	angle *= (180 / M_PI);	
 
 	return angle;
-}
-
-bool gluInvertMatrix(const float m[16], float invOut[16])
-{
-    double inv[16], det;
-    int i;
-
-    inv[0] = m[5]  * m[10] * m[15] - 
-             m[5]  * m[11] * m[14] - 
-             m[9]  * m[6]  * m[15] + 
-             m[9]  * m[7]  * m[14] +
-             m[13] * m[6]  * m[11] - 
-             m[13] * m[7]  * m[10];
-
-    inv[4] = -m[4]  * m[10] * m[15] + 
-              m[4]  * m[11] * m[14] + 
-              m[8]  * m[6]  * m[15] - 
-              m[8]  * m[7]  * m[14] - 
-              m[12] * m[6]  * m[11] + 
-              m[12] * m[7]  * m[10];
-
-    inv[8] = m[4]  * m[9] * m[15] - 
-             m[4]  * m[11] * m[13] - 
-             m[8]  * m[5] * m[15] + 
-             m[8]  * m[7] * m[13] + 
-             m[12] * m[5] * m[11] - 
-             m[12] * m[7] * m[9];
-
-    inv[12] = -m[4]  * m[9] * m[14] + 
-               m[4]  * m[10] * m[13] +
-               m[8]  * m[5] * m[14] - 
-               m[8]  * m[6] * m[13] - 
-               m[12] * m[5] * m[10] + 
-               m[12] * m[6] * m[9];
-
-    inv[1] = -m[1]  * m[10] * m[15] + 
-              m[1]  * m[11] * m[14] + 
-              m[9]  * m[2] * m[15] - 
-              m[9]  * m[3] * m[14] - 
-              m[13] * m[2] * m[11] + 
-              m[13] * m[3] * m[10];
-
-    inv[5] = m[0]  * m[10] * m[15] - 
-             m[0]  * m[11] * m[14] - 
-             m[8]  * m[2] * m[15] + 
-             m[8]  * m[3] * m[14] + 
-             m[12] * m[2] * m[11] - 
-             m[12] * m[3] * m[10];
-
-    inv[9] = -m[0]  * m[9] * m[15] + 
-              m[0]  * m[11] * m[13] + 
-              m[8]  * m[1] * m[15] - 
-              m[8]  * m[3] * m[13] - 
-              m[12] * m[1] * m[11] + 
-              m[12] * m[3] * m[9];
-
-    inv[13] = m[0]  * m[9] * m[14] - 
-              m[0]  * m[10] * m[13] - 
-              m[8]  * m[1] * m[14] + 
-              m[8]  * m[2] * m[13] + 
-              m[12] * m[1] * m[10] - 
-              m[12] * m[2] * m[9];
-
-    inv[2] = m[1]  * m[6] * m[15] - 
-             m[1]  * m[7] * m[14] - 
-             m[5]  * m[2] * m[15] + 
-             m[5]  * m[3] * m[14] + 
-             m[13] * m[2] * m[7] - 
-             m[13] * m[3] * m[6];
-
-    inv[6] = -m[0]  * m[6] * m[15] + 
-              m[0]  * m[7] * m[14] + 
-              m[4]  * m[2] * m[15] - 
-              m[4]  * m[3] * m[14] - 
-              m[12] * m[2] * m[7] + 
-              m[12] * m[3] * m[6];
-
-    inv[10] = m[0]  * m[5] * m[15] - 
-              m[0]  * m[7] * m[13] - 
-              m[4]  * m[1] * m[15] + 
-              m[4]  * m[3] * m[13] + 
-              m[12] * m[1] * m[7] - 
-              m[12] * m[3] * m[5];
-
-    inv[14] = -m[0]  * m[5] * m[14] + 
-               m[0]  * m[6] * m[13] + 
-               m[4]  * m[1] * m[14] - 
-               m[4]  * m[2] * m[13] - 
-               m[12] * m[1] * m[6] + 
-               m[12] * m[2] * m[5];
-
-    inv[3] = -m[1] * m[6] * m[11] + 
-              m[1] * m[7] * m[10] + 
-              m[5] * m[2] * m[11] - 
-              m[5] * m[3] * m[10] - 
-              m[9] * m[2] * m[7] + 
-              m[9] * m[3] * m[6];
-
-    inv[7] = m[0] * m[6] * m[11] - 
-             m[0] * m[7] * m[10] - 
-             m[4] * m[2] * m[11] + 
-             m[4] * m[3] * m[10] + 
-             m[8] * m[2] * m[7] - 
-             m[8] * m[3] * m[6];
-
-    inv[11] = -m[0] * m[5] * m[11] + 
-               m[0] * m[7] * m[9] + 
-               m[4] * m[1] * m[11] - 
-               m[4] * m[3] * m[9] - 
-               m[8] * m[1] * m[7] + 
-               m[8] * m[3] * m[5];
-
-    inv[15] = m[0] * m[5] * m[10] - 
-              m[0] * m[6] * m[9] - 
-              m[4] * m[1] * m[10] + 
-              m[4] * m[2] * m[9] + 
-              m[8] * m[1] * m[6] - 
-              m[8] * m[2] * m[5];
-
-    det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
-
-    if (det == 0)
-        return false;
-
-    det = 1.0 / det;
-
-    for (i = 0; i < 16; i++)
-        invOut[i] = inv[i] * det;
-
-    return true;
 }
