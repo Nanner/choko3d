@@ -16,6 +16,10 @@
 		AA63E24016D422F1003287C6 /* texshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23B16D422CA003287C6 /* texshader.frag */; };
 		AA63E24116D422F1003287C6 /* texshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA63E23C16D422CA003287C6 /* texshader.vert */; };
 		EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB0D1BB518182BE900E385CB /* Patch.cpp */; };
+		EB2654E71826DDC7007FCBBC /* balloonText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E41826DDC1007FCBBC /* balloonText.png */; };
+		EB2654E81826DDC8007FCBBC /* cabinBottomText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E51826DDC1007FCBBC /* cabinBottomText.png */; };
+		EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E61826DDC1007FCBBC /* cabinText.png */; };
+		EB2654EA1826DDCB007FCBBC /* zeppelinScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */; };
 		EB5822D118142627001C3D45 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB5822CF18142627001C3D45 /* Plane.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
@@ -72,6 +76,9 @@
 			dstPath = .;
 			dstSubfolderSpec = 16;
 			files = (
+				EB2654E71826DDC7007FCBBC /* balloonText.png in CopyFiles */,
+				EB2654E81826DDC8007FCBBC /* cabinBottomText.png in CopyFiles */,
+				EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */,
 				EBF5AAC417F8B07900E54147 /* beer.jpg in CopyFiles */,
 				EBF5AAC517F8B07A00E54147 /* beerfoam.jpg in CopyFiles */,
 				EB81812A17E712EC008DF2EB /* scene.xml in CopyFiles */,
@@ -83,6 +90,7 @@
 				EB7BC63E17F78F550069596B /* donutScene.yaf in CopyFiles */,
 				EB7BC63C17F788320069596B /* box.jpg in CopyFiles */,
 				EB7BC64417F78FB30069596B /* donut1.png in CopyFiles */,
+				EB2654EA1826DDCB007FCBBC /* zeppelinScene.yaf in CopyFiles */,
 				EB7BC64817F78FB90069596B /* donut5.png in CopyFiles */,
 				EB7BC64717F78FB70069596B /* donut4.png in CopyFiles */,
 				EB7BC64617F78FB60069596B /* donut3.png in CopyFiles */,
@@ -121,6 +129,10 @@
 		AA63E23C16D422CA003287C6 /* texshader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texshader.vert; sourceTree = "<group>"; };
 		EB0D1BB518182BE900E385CB /* Patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Patch.cpp; path = src/Patch.cpp; sourceTree = SOURCE_ROOT; };
 		EB0D1BB618182BE900E385CB /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Patch.h; path = src/Patch.h; sourceTree = SOURCE_ROOT; };
+		EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zeppelinScene.yaf; sourceTree = "<group>"; };
+		EB2654E41826DDC1007FCBBC /* balloonText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloonText.png; sourceTree = "<group>"; };
+		EB2654E51826DDC1007FCBBC /* cabinBottomText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinBottomText.png; sourceTree = "<group>"; };
+		EB2654E61826DDC1007FCBBC /* cabinText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinText.png; sourceTree = "<group>"; };
 		EB5822CF18142627001C3D45 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = src/Plane.cpp; sourceTree = SOURCE_ROOT; };
 		EB5822D018142627001C3D45 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = src/Plane.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
@@ -428,6 +440,9 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				EB2654E41826DDC1007FCBBC /* balloonText.png */,
+				EB2654E51826DDC1007FCBBC /* cabinBottomText.png */,
+				EB2654E61826DDC1007FCBBC /* cabinText.png */,
 				EBF5AAC217F8B06900E54147 /* beer.jpg */,
 				EBF5AAC317F8B06900E54147 /* beerfoam.jpg */,
 				EB7BC63F17F78FA00069596B /* donut1.png */,
@@ -436,6 +451,7 @@
 				EB7BC64217F78FA00069596B /* donut4.png */,
 				EB7BC64317F78FA00069596B /* donut5.png */,
 				EB7BC63D17F78F500069596B /* donutScene.yaf */,
+				EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */,
 				EB7BC63B17F7882E0069596B /* box.jpg */,
 				EB7BC63917F77CCD0069596B /* floor.png */,
 				EB7BC63417F77BCA0069596B /* duffPoster.jpg */,

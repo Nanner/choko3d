@@ -76,6 +76,12 @@
     <texture id="beer" file="beer.jpg" />
 
     <texture id="foam" file="beerfoam.jpg" />
+    
+    <texture id="cabinTex" file="cabinText.png" />
+
+    <texture id="cabinBottomTex" file="cabinBottomText.png" />
+
+    <texture id="balloonTex" file="balloonText.png" />
 
   </textures>
 
@@ -227,6 +233,46 @@
       textureref="woodTex"
       texlength_s="1.0"
       texlength_t="1.0"/>
+      
+    <appearance id="wingApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.7 0.0 0.0 1.0"
+      diffuse="0.4 0.0 0.0 1.0"
+      specular="0.1 0.0 0.0 1.0"
+      shininess="50.0"
+      textureref="cabinBottomTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="cabinApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.23 0.23 0.23 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="100.0"
+      textureref="cabinTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="cabinBottomApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.43 0.43 0.43 1.0"
+      diffuse="0.43 0.43 0.43 1.0"
+      specular="0.43 0.43 0.43 1.0"
+      shininess="100.0"
+      textureref="cabinBottomTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="balloonApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.63 0.63 0.63 1.0"
+      diffuse="0.63 0.63 0.63 1.0"
+      specular="0.63 0.63 0.63 1.0"
+      shininess="100.0"
+      textureref="balloonTex"
+      texlength_s="7.0"
+      texlength_t="5.0"/>
 
   </appearances>
 
@@ -277,6 +323,7 @@
         <noderef id="patch2" />
         <noderef id="patch3" />
         <noderef id="water" />
+        <noderef id="zeppelin" />
       </children>
     </node>
 
@@ -945,6 +992,269 @@
 
       <children>
         <torus inner="0.15" outer="0.4" slices="100" loops="100" />
+      </children>
+    </node>
+    
+    <node id="zeppelin">
+      <transforms>
+        <translate to="15.0 10.0 15.0"/>
+      </transforms>
+
+      <animationref id="1" />
+
+      <children>
+        <noderef id="balloon" />
+        <noderef id="cabinRight" />
+        <noderef id="cabinLeft" />
+        <noderef id="cabinBottom" />
+        <noderef id="wings" />
+      </children>
+    </node>
+    
+        <node id="balloon">
+      <transforms>
+        <translate to="0.0 1.7 -2.0" />
+        <scale factor="3.0 3.0 14.0" />
+      </transforms>
+
+      <appearanceref id="balloonApp" />
+
+      <children>
+        <sphere radius="0.5" slices="10" stacks="20" />
+      </children>
+    </node>
+
+    <node id="wings">
+      <transforms>
+        <translate to="0.0 1.7 -5.0" />
+      </transforms>
+
+      <children>
+        <noderef id="topWing" />
+        <noderef id="bottomWing" />
+        <noderef id="rightWing" />
+        <noderef id="leftWing" />
+      </children>
+    </node>
+
+    <node id="topWing">
+      <transforms>
+        <translate to="0.0 2.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+
+          <controlpoint x="0.0" y="-1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="-1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="bottomWing">
+      <transforms>
+        <translate to="0.0 -2.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+
+          <controlpoint x="0.0" y="1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="1.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="-0.5" z="-1.0" />
+
+          <controlpoint x="0.0" y="1.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>  
+
+    <node id="rightWing">
+      <transforms>
+        <translate to="2.0 0.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.5" y="-0.0" z="-1.5" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="-1.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.5" y="-0.0" z="-1.5" />
+
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="-1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.5" y="0.0" z="-1.0" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="leftWing">
+      <transforms>
+        <translate to="-2.0 0.0 0.0" />
+      </transforms>
+
+      <appearanceref id="wingApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="1.0" y="-0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.5" />
+
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+        </patch>
+
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="1.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="0.0" y="0.0" z="0.0" />
+          <controlpoint x="-0.5" y="0.0" z="-1.0" />
+
+          <controlpoint x="1.0" y="-0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="-0.5" y="0.0" z="-1.5" />
+        </patch>
+      </children>
+    </node>      
+
+    <node id="cabinBottom">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinBottomApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+
+          <controlpoint x="1.0" y="-0.5" z="0.0" />
+          <controlpoint x="0.0" y="-1.5" z="0.0" />
+          <controlpoint x="-1.0" y="-0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+        </patch>
+      </children>
+    </node>   
+
+    <node id="cabinRight">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+
+          <controlpoint x="1.0" y="-0.5" z="0.0" />
+          <controlpoint x="1.0" y="0.0" z="0.0" />
+          <controlpoint x="1.0" y="0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="1.5" />
+        </patch>
+      </children>
+    </node>
+
+    <node id="cabinLeft">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="cabinApp" />
+
+      <children>
+        <patch order="2" partsU="10" partsV="20" compute="fill">
+          <controlpoint x="0.0" y="-0.5" z="1.5" />
+          <controlpoint x="0.0" y="0.0" z="1.5" />
+          <controlpoint x="0.0" y="0.5" z="1.5" />
+          
+          <controlpoint x="-1.0" y="-0.5" z="0.0" />
+          <controlpoint x="-1.0" y="0.0" z="0.0" />
+          <controlpoint x="-1.0" y="0.5" z="0.0" />
+
+          <controlpoint x="0.0" y="-0.5" z="-1.5" />
+          <controlpoint x="0.0" y="0.0" z="-1.5" />
+          <controlpoint x="0.0" y="0.5" z="-1.5" />
+        </patch>
       </children>
     </node>
 

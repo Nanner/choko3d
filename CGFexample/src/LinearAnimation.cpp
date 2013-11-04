@@ -126,7 +126,7 @@ void LinearAnimation::update(unsigned long t) {
 
 	float curTime = t - this->startTime;
 
-	printf("Time: %f\n", curTime);
+	//printf("Time: %f\n", curTime);
 
     glPushMatrix();
 	glMatrixMode(GL_MODELVIEW);
