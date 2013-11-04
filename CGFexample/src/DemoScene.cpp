@@ -36,6 +36,9 @@ void DemoScene::update(unsigned long t){
 		else
 			animation->init(t);
     }
+
+	if(sceneGraph->hasShader)
+		sceneGraph->updateShaders(t);
 }
 
 void DemoScene::display() 

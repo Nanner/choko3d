@@ -6,11 +6,14 @@ Waterline::Waterline(string heightmap, string texturemap, string fragmentshader,
     this->plane = new Plane(50);
     plane->setAppearance(NULL);
     plane->setAnimation(NULL);
-    
 }
 
 void Waterline::draw() {
     shader->bind();
     plane->draw();
     shader->unbind();
+}
+
+CGFshader* Waterline::getShader() {
+	return shader;
 }

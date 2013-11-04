@@ -55,6 +55,8 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	// initialize display lists
     // TODO check returned unsigned int from gen lists
     glGenLists(SceneVertex::currentDisplayList);
+
+	findShaders();
 }
 
 
@@ -332,5 +334,32 @@ void SceneGraph::drawLights() {
 	map<string, SceneLight*>::iterator it = rootVertex->lights.begin();
 	for(; it != rootVertex->lights.end(); it++) {
 		it->second->draw();
+	}
+}
+
+//This function searches the graph to see if any shaders are used, adding them to the shader vector
+//And toggling the hasShader bool to true. This is needed for the demoscene update function
+void SceneGraph::findShaders() {
+	CGFshader* shader;
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		shader = vertexSet.at(i)->getShader();
+		if(shader != NULL) {
+			printf("Found shader!\n");
+			currentShaders.push_back(shader);
+			hasShader = true;
+		}
+	}
+}
+
+//This function updates the shaders with a time t
+void SceneGraph::updateShaders(unsigned long t) {
+	if(!hasShader)
+		return;
+
+	for(unsigned int i = 0; i < currentShaders.size(); i++) {
+		currentShaders.at(i)->bind();
+		currentShaders.at(i)->update(t);
+		currentShaders.at(i)->unbind();
 	}
 }

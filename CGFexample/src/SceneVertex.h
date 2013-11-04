@@ -9,6 +9,7 @@
 #include "Appearance.h"
 #include "YAFLight.h"
 #include "SceneLight.h"
+#include "CGFshader.h"
 #include <vector>
 #include <stack>
 
@@ -61,6 +62,7 @@ public:
     
     void setAnimation(Animation * animation);
     Animation * getAnimation();
+	virtual CGFshader* getShader() {return NULL;}
 };
 
 

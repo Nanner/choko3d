@@ -22,6 +22,9 @@ public:
 	stack<int> displayListOrder;
 	bool stackReady;
 
+	bool hasShader;
+	vector<CGFshader* > currentShaders;
+
 	SceneGraph(){}
 	SceneGraph(YAFReader* yafFile);
 	~SceneGraph();
@@ -46,6 +49,13 @@ public:
 
 	void render(SceneVertex *v);
 	void render();
+
+	//This function searches the graph to see if any shaders are used, adding them to the shader vector
+	//And toggling the hasShader bool to true. This is needed for the demoscene update function
+	void findShaders();
+
+	//This function updates the shaders with a time t
+	void updateShaders(unsigned long t);
 };
 
 #endif
