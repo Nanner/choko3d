@@ -9,7 +9,10 @@ class Waterline : public ScenePrimitive {
 
 protected:
 	WaterShader * shader;
-    Plane * plane;
+    Plane * plane1;
+	Plane * plane2;
+	Plane * plane3;
+	Plane * plane4;
     
 public:
     string heightmap;

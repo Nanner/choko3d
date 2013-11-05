@@ -36,14 +36,10 @@ void WaterShader::bind(void) {
 	//Activate texture unit and apply it
 	glActiveTexture(GL_TEXTURE0 + waterTextureIndex);
 	waterTexture->apply();
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	//Same
 	glActiveTexture(GL_TEXTURE0 + heightMapIndex);
 	heightMap->apply();
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
 void WaterShader::unbind(void) {
