@@ -1,11 +1,18 @@
 #include "Appearance.h"
 
+int Appearance::currentTextIndex = 0;
+
 float Appearance::getTexLength_s() {
 	return texLength_s;
 }
 
 float Appearance::getTexLength_t() {
 	return texLength_t;
+}
+
+void Appearance::setTexture(string t) {
+	CGFappearance::setTexture(t);
+	currentTextIndex++;
 }
 
 void Appearance::setTexLength_s(float s) {

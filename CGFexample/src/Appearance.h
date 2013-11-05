@@ -11,8 +11,10 @@ protected:
 	float emissivity[4];
 
 public:
+	static int currentTextIndex;
 	float getTexLength_s();
 	float getTexLength_t();
+	void setTexture(string t);
 	void setTexLength_s(float s);
 	void setTexLength_t(float t);
 	void apply();

@@ -2,7 +2,8 @@
 #define WATERSHADER_H
 
 #include "CGFshader.h"
-#include "CGFtexture.h"
+#include "ShaderTexture.h"
+#include "Appearance.h"
 #include <string>
 
 #ifdef __APPLE__
@@ -21,14 +22,17 @@ class WaterShader : public CGFshader {
 public:
     WaterShader(string heightmap, string texturemap, string fragmentshader, string vertexshader);
     virtual void bind(void);
+	virtual void unbind(void);
     ~WaterShader();
     
 protected:
-	CGFtexture * heightTexture;
-	CGFtexture * texture;
+	unsigned int waterTextureIndex;
+	unsigned int heightMapIndex;
+	ShaderTexture * waterTexture;
+	ShaderTexture * heightMap;
     
 	GLint heightImageLoc;
-	GLint imageLoc;
+	GLint waterImageLoc;
 };
 
 #endif
