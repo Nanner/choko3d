@@ -25,8 +25,9 @@ class SceneVertex {
 	bool nodeVisited;
     Appearance * appearance;
 	bool inheritedAppearance;
-    map<unsigned int, unsigned int> displayLists;
-	map<unsigned int, bool> initializedDisplayLists;
+    map<pair<string, unsigned int>, unsigned int> displayLists;
+	map<pair<string, unsigned int>, bool> initializedDisplayLists;
+	map<pair<string, unsigned int>, bool> displayListsInStack;
     
     static unsigned int currentDisplayList;
 
@@ -55,11 +56,15 @@ public:
 	virtual void draw() {}
     
     bool usesDisplayList;
-	void initializeDisplayList(unsigned int id);
-    bool initializedDisplayList(unsigned int id);
+	void initializeDisplayList(pair<string, unsigned int> vertexAppearance);
+    bool initializedDisplayList(pair<string, unsigned int> vertexAppearance);
+
+	bool displayListInStack(pair<string, unsigned int> vertexAppearance);
+	void putInStack(pair<string, unsigned int> vertexAppearance);
+
     void activateDisplayList();
     void disableDisplayList();
-    unsigned int getDisplayList(unsigned int id);
+    unsigned int getDisplayList(pair<string, unsigned int> vertexAppearance);
     
     Animation * animation;
     

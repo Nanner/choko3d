@@ -55,30 +55,47 @@ void SceneVertex::disableDisplayList() {
     this->usesDisplayList = false;
 }
 
-unsigned int SceneVertex::getDisplayList(unsigned int id) {
-	map<unsigned int, unsigned int>::iterator it = displayLists.find(id);
+unsigned int SceneVertex::getDisplayList(pair<string, unsigned int> vertexAppearance) {
+	map<pair<string, unsigned int>, unsigned int>::iterator it = displayLists.find(vertexAppearance);
 	if(it != displayLists.end())
 		return it->second;
 	else {
 		currentDisplayList++;
-		displayLists.insert(pair<unsigned int, unsigned int>(id, currentDisplayList));
-		initializedDisplayLists.insert(pair<unsigned int, bool>(id, false));
+		displayLists.insert(pair<pair<string, unsigned int>, unsigned int>(vertexAppearance, currentDisplayList));
+		initializedDisplayLists.insert(pair<pair<string, unsigned int>, bool>(vertexAppearance, false));
+		displayListsInStack.insert(pair<pair<string, unsigned int>, bool>(vertexAppearance, false));
 		return currentDisplayList;
 	}
 }
 
-void SceneVertex::initializeDisplayList(unsigned int id) {
-	map<unsigned int, bool>::iterator it = initializedDisplayLists.find(id);
-	if(it != initializedDisplayLists.end())
+void SceneVertex::initializeDisplayList(pair<string, unsigned int> vertexAppearance) {
+	map<pair<string, unsigned int>, bool>::iterator it = initializedDisplayLists.find(vertexAppearance);
+	if(it != initializedDisplayLists.end()) {
+		glGenLists(1);
 		it->second = true;
+	}
 }
 
-bool SceneVertex::initializedDisplayList(unsigned int id) {
-	map<unsigned int, bool>::iterator it = initializedDisplayLists.find(id);
+bool SceneVertex::initializedDisplayList(pair<string, unsigned int> vertexAppearance) {
+	map<pair<string, unsigned int>, bool>::iterator it = initializedDisplayLists.find(vertexAppearance);
 	if(it != initializedDisplayLists.end())
 		return it->second;
 	else
 		return false;
+}
+
+bool SceneVertex::displayListInStack(pair<string, unsigned int> vertexAppearance) {
+	map<pair<string, unsigned int>, bool>::iterator it = displayListsInStack.find(vertexAppearance);
+	if(it != displayListsInStack.end())
+		return it->second;
+	else
+		return false;
+}
+
+void SceneVertex::putInStack(pair<string, unsigned int> vertexAppearance) {
+	map<pair<string, unsigned int>, bool>::iterator it = displayListsInStack.find(vertexAppearance);
+	if(it != displayListsInStack.end())
+		it->second = true;
 }
 
 void SceneVertex::setAnimation(Animation * animation){

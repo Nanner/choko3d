@@ -107,13 +107,15 @@ void SceneGraph::render() {
 	if(appearance == NULL)
 		appearance = rootVertex->defaultAppearance;
 
-	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList(appearance->id) );
+	pair<string, unsigned int> vertexAppearance(rootVertex->id, appearance->id);
+
+	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList(vertexAppearance) );
 		//glCallList(rootVertex->getDisplayList(appearance->id));
 	else {
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(appearance->id) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(appearance->id))
-			glNewList(rootVertex->getDisplayList(appearance->id), GL_COMPILE_AND_EXECUTE);
-		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(appearance->id) && !stackReady)
-			displayListOrder.push(rootVertex->getDisplayList(appearance->id));
+		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance))
+			glNewList(rootVertex->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
+		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && !stackReady)
+			displayListOrder.push(rootVertex->getDisplayList(vertexAppearance));
 
 		glPushMatrix();
 		rootVertex->defaultAppearance->apply();
@@ -128,9 +130,9 @@ void SceneGraph::render() {
 
 		render(rootVertex);
 
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(appearance->id) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(appearance->id)){
+		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance)){
 			glEndList();
-			rootVertex->initializeDisplayList(appearance->id);
+			rootVertex->initializeDisplayList(vertexAppearance);
 			displayListOrder.pop();
 			stackReady = false;
 		}
@@ -164,17 +166,24 @@ void SceneGraph::render(SceneVertex *v) {
 			if(appearance == NULL)
 				appearance = rootVertex->defaultAppearance;
 
-			if(v->id == "leftWall")
-				printf("Creating for leftWall\n");
+			pair<string, unsigned int> vertexAppearance(v->id, appearance->id);
 
-
-			if ( it->dest->usesDisplayList && it->dest->initializedDisplayList(appearance->id) );
-				//glCallList(it->dest->getDisplayList(appearance->id));
+			if ( it->dest->usesDisplayList && it->dest->initializedDisplayList(vertexAppearance) )
+				glCallList(it->dest->getDisplayList(vertexAppearance));
 			else {
-				if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList(appearance->id) && stackReady && displayListOrder.top() == it->dest->getDisplayList(appearance->id))
-					glNewList(it->dest->getDisplayList(appearance->id), GL_COMPILE_AND_EXECUTE);
-				else if(it->dest->usesDisplayList && ! it->dest->initializedDisplayList(appearance->id) && !stackReady)
-					displayListOrder.push(it->dest->getDisplayList(appearance->id));
+				//printf("Display list: %u\n", it->dest->getDisplayList(appearance->id));
+				/*if(stackReady)
+					printf("Top: %u\n", displayListOrder.top());*/
+				if (it->dest->usesDisplayList && !it->dest->initializedDisplayList(vertexAppearance) && stackReady && (unsigned int) displayListOrder.top() == it->dest->getDisplayList(vertexAppearance)) {
+					glNewList(it->dest->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
+				}
+				else if(it->dest->usesDisplayList && !stackReady && !it->dest->initializedDisplayList(vertexAppearance) && !it->dest->displayListInStack(vertexAppearance)) {
+					displayListOrder.push(it->dest->getDisplayList(vertexAppearance));
+					it->dest->putInStack(vertexAppearance);
+					printf("This number: %u\n", it->dest->getDisplayList(vertexAppearance));
+					printf("This parent: %s\n", v->id.c_str());
+					printf("This appearance: %u\n", appearance->id);
+				}
 
 				glPushMatrix();
 				rootVertex->defaultAppearance->apply();
@@ -207,12 +216,14 @@ void SceneGraph::render(SceneVertex *v) {
 
 				glPopMatrix();
 
-				if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList(appearance->id) && stackReady && displayListOrder.top() == it->dest->getDisplayList(appearance->id)){
+				if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == it->dest->getDisplayList(vertexAppearance)){
 					glEndList();
-					it->dest->initializeDisplayList(appearance->id);
-					printf("Created displayList for %s, with appearance %u\n", it->dest->id.c_str(), appearance->id);
+					it->dest->initializeDisplayList(vertexAppearance);
+					printf("Created displayList for %s, with appearance %u\n", v->id.c_str(), appearance->id);
 					displayListOrder.pop();
-					stackReady = false;
+
+
+					//stackReady = false;
 				}
 			}
 		}
