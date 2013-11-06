@@ -349,7 +349,7 @@
       </transforms>
 
       <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="texshader.frag" vertexshader="texshader.vert"/>
+        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
       </children>
     </node>    
 
