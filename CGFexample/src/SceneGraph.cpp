@@ -98,139 +98,196 @@ void SceneGraph::render() {
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)
 		(*it)->nodeVisited=false;
-	
-    // TODO display lists still cause errors when used in the root vertex
-    // some transformations seem to be reseting
 
 	Appearance* appearance = rootVertex->getAppearance();
 
 	if(appearance == NULL)
 		appearance = rootVertex->defaultAppearance;
 
+	//Create an identifier for the vertex being drawn based on its id and its current appearance
 	pair<string, unsigned int> vertexAppearance(rootVertex->id, appearance->id);
 
-	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList(vertexAppearance) );
-		//glCallList(rootVertex->getDisplayList(appearance->id));
+	//If it uses display lists and the display list for this vertex identifier is initialized, call it instead of rendering the usual way
+	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList(vertexAppearance) )
+		glCallList(rootVertex->getDisplayList(vertexAppearance));
+	//If not:
 	else {
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance))
+		//If the vertex uses display lists, its current one is not initialized, but the display list order stack is ready and its display list is at the top,
+		if (rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance))
+			//Create a new list with what is going to be drawn
 			glNewList(rootVertex->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
-		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && !stackReady)
+		//If the vertex uses display lists, its current is not initialized, the display list order stack is not ready yet and this display list is not on the stack yet
+		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && !stackReady && !rootVertex->displayListInStack(vertexAppearance)) {
+			//Push this list to the display list order stack, which is the same as saying we're specifying in what order this display list must be created
 			displayListOrder.push(rootVertex->getDisplayList(vertexAppearance));
+			//And indicate that this display list is now on the stack
+			rootVertex->putInStack(vertexAppearance);
+		}
 
+		//Start drawing the vertex
 		glPushMatrix();
+		//Apply the default appearance, to clean any that could have been applied and shouldn't be used
 		rootVertex->defaultAppearance->apply();
 
+		//Get this vertex appearance
 		Appearance* app = rootVertex->getAppearance();
+		//If it's not empty, apply it
 		if (app != NULL)
 			app->apply();
 
+		//Get this vertex pre-calculated transformation matrix and apply it (multiply to the current matrix)
 		float* matrix = rootVertex->getMatrix();
 		if(matrix != NULL)
 			glMultMatrixf(matrix);
 
+		//Render its descendants
 		render(rootVertex);
 
-		if (rootVertex->usesDisplayList && ! rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance)){
+		glPopMatrix();
+
+		//If the vertex uses display lists, its current one is not initialized yet, but the stack is ready and this display list is at the top of it,
+		//And we're at this point, it means we ended drawing what is going to be displayed in the display list
+		if (rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance)){
+			//So we end the display list
 			glEndList();
+
+			//Indicate it as initialized
 			rootVertex->initializeDisplayList(vertexAppearance);
+
+			//And pop it from the display list order stack, so that another list can be started
 			displayListOrder.pop();
+
+
 			stackReady = false;
 		}
 	}
 
-	glPopMatrix();
-
 	//Indicate that the graph was rendered the first time and so the displayList order stack is ready to be used
 	if(!stackReady && !displayListOrder.empty())
 		stackReady = true;
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
 }
 
 void SceneGraph::render(SceneVertex *v) {
     
+	//Indicate this vertex as visited (this also works as a verifier against cycles inside the graph)
 	v->nodeVisited = true;
 	v->childVisited = true;
+
+	//Prepare to iterate over this vertex's children
     vector<SceneEdge>::iterator it, ite;
-    
-    // TODO display list inside display list doesn't work
-    // extra verifications are still necessary
-    
     it = (v->adj).begin();
     ite = (v->adj).end();
+
 	for (; it !=ite; it++) {
+		//If we haven't visited this child yet
 		if ( it->dest->childVisited == false ) {
+
+			//First we get the appearance that will be used on the child vertex
 			Appearance* appearance = it->dest->getAppearance();
 
+			//If the child vertex inherits its appearance, we get this vertex's appearance and not the child's
 			if(it->dest->inheritedAppearance)
 				appearance = v->getAppearance();
 
+			//If neither the parent nor the child have appearances, we use the default one
 			if(appearance == NULL)
 				appearance = rootVertex->defaultAppearance;
 
+			//Create an identifier for the vertex being drawn based on its id and its current appearance
 			pair<string, unsigned int> vertexAppearance(v->id, appearance->id);
 
+			//If it uses display lists and the display list for this vertex identifier is initialized, call it instead of rendering the usual way
 			if ( it->dest->usesDisplayList && it->dest->initializedDisplayList(vertexAppearance) )
 				glCallList(it->dest->getDisplayList(vertexAppearance));
+			//If not:
 			else {
-				//printf("Display list: %u\n", it->dest->getDisplayList(appearance->id));
-				/*if(stackReady)
-					printf("Top: %u\n", displayListOrder.top());*/
+				//If the vertex uses display lists, its current one is not initialized, but the display list order stack is ready and its display list is at the top,
 				if (it->dest->usesDisplayList && !it->dest->initializedDisplayList(vertexAppearance) && stackReady && (unsigned int) displayListOrder.top() == it->dest->getDisplayList(vertexAppearance)) {
+					//Create a new list with what is going to be drawn
 					glNewList(it->dest->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
 				}
+				//If the vertex uses display lists, its current is not initialized, the display list order stack is not ready yet and this display list is not on the stack yet
 				else if(it->dest->usesDisplayList && !stackReady && !it->dest->initializedDisplayList(vertexAppearance) && !it->dest->displayListInStack(vertexAppearance)) {
+
+					//Push this list to the display list order stack, which is the same as saying we're specifying in what order this display list must be created
 					displayListOrder.push(it->dest->getDisplayList(vertexAppearance));
+
+					//And indicate that this display list is now on the stack
 					it->dest->putInStack(vertexAppearance);
+
 					printf("This number: %u\n", it->dest->getDisplayList(vertexAppearance));
 					printf("This parent: %s\n", v->id.c_str());
 					printf("This appearance: %u\n", appearance->id);
 				}
 
+				//Start drawing the child vertex
 				glPushMatrix();
+
+				//Apply the default appearance, to clean any that could have been applied and shouldn't be used
 				rootVertex->defaultAppearance->apply();
 
+				//If the child vertex inherits its appearance, we set its appearance to the parent's
 				if(it->dest->inheritedAppearance)
 					it->dest->setAppearance(v->getAppearance());
 				
+				//We retrieve the child vertex's appearance
 				Appearance* app;
 				app = it->dest->getAppearance();
 
+				//If it's not empty, apply it
 				if (app != NULL)
 					app->apply();
-					
 
 				// TODO fix applying animation matrix
+				//If the child vertex has an animation, multiply the current matrix by the animation transformation matrix
 				if(it->dest->getAnimation() != NULL){
 					float * animationMatrix = it->dest->getAnimation()->getMatrix();
 					glMultMatrixf(animationMatrix);
 				}
 
+				//Get the child vertex transformation matrix, and if it's not empty, multiply it to the current matrix
 				float* matrix = it->dest->getMatrix();
 				if(matrix != NULL)
 					glMultMatrixf(matrix);
 
+				//If the child vertex has an animation, apply the rotation
 				if(it->dest->getAnimation() != NULL)
 					it->dest->getAnimation()->applyRotation();
 
+				//Draw the child vertex
 				it->dest->draw();
+
+				//Render the child vertex's children
 				render(it->dest);
 
 				glPopMatrix();
 
+				//If the vertex uses display lists, its current one is not initialized yet, but the stack is ready and this display list is at the top of it,
+				//And we're at this point, it means we ended drawing what is going to be displayed in the display list
 				if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == it->dest->getDisplayList(vertexAppearance)){
+					
+					//So we end the display list
 					glEndList();
+
+					//Indicate it as initialized
 					it->dest->initializeDisplayList(vertexAppearance);
 					printf("Created displayList for %s, with appearance %u\n", v->id.c_str(), appearance->id);
+
+					//And pop it from the display list order stack, so that another list can be started
 					displayListOrder.pop();
 
 
-					//stackReady = false;
+					stackReady = false;
 				}
 			}
 		}
         
     }
     
-    
+    //Reset the childVisited bools back to false, because a child vertex can have multiple parents
 	it = (v->adj).begin();
 	ite = (v->adj).end();
 	for (; it !=ite; it++) {
