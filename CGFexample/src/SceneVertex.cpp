@@ -2,7 +2,7 @@
 
 unsigned int SceneVertex::currentDisplayList = 0;
 
-SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), displayList(0), initializedDisplayList(false), animation(NULL) {}
+SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), animation(NULL) {}
 
 void SceneVertex::addEdge(SceneVertex *dest) {
 	SceneEdge edgeD(dest);
@@ -47,16 +47,38 @@ void SceneVertex::setAppearance(Appearance * appearance){
 
 void SceneVertex::activateDisplayList() {
     this->usesDisplayList = true;
-    currentDisplayList++;
-    this->displayList = currentDisplayList;
+    /*currentDisplayList++;
+    this->displayList = currentDisplayList;*/
 }
 
 void SceneVertex::disableDisplayList() {
     this->usesDisplayList = false;
 }
 
-unsigned int SceneVertex::getDisplayList() {
-    return displayList;
+unsigned int SceneVertex::getDisplayList(unsigned int id) {
+	map<unsigned int, unsigned int>::iterator it = displayLists.find(id);
+	if(it != displayLists.end())
+		return it->second;
+	else {
+		currentDisplayList++;
+		displayLists.insert(pair<unsigned int, unsigned int>(id, currentDisplayList));
+		initializedDisplayLists.insert(pair<unsigned int, bool>(id, false));
+		return currentDisplayList;
+	}
+}
+
+void SceneVertex::initializeDisplayList(unsigned int id) {
+	map<unsigned int, bool>::iterator it = initializedDisplayLists.find(id);
+	if(it != initializedDisplayLists.end())
+		it->second = true;
+}
+
+bool SceneVertex::initializedDisplayList(unsigned int id) {
+	map<unsigned int, bool>::iterator it = initializedDisplayLists.find(id);
+	if(it != initializedDisplayLists.end())
+		return it->second;
+	else
+		return false;
 }
 
 void SceneVertex::setAnimation(Animation * animation){

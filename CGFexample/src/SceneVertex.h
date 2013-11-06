@@ -12,6 +12,7 @@
 #include "CGFshader.h"
 #include <vector>
 #include <stack>
+#include <map>
 
 using namespace std;
 
@@ -24,7 +25,8 @@ class SceneVertex {
 	bool nodeVisited;
     Appearance * appearance;
 	bool inheritedAppearance;
-    unsigned int displayList;
+    map<unsigned int, unsigned int> displayLists;
+	map<unsigned int, bool> initializedDisplayLists;
     
     static unsigned int currentDisplayList;
 
@@ -53,10 +55,11 @@ public:
 	virtual void draw() {}
     
     bool usesDisplayList;
-    bool initializedDisplayList;
+	void initializeDisplayList(unsigned int id);
+    bool initializedDisplayList(unsigned int id);
     void activateDisplayList();
     void disableDisplayList();
-    unsigned int getDisplayList();
+    unsigned int getDisplayList(unsigned int id);
     
     Animation * animation;
     

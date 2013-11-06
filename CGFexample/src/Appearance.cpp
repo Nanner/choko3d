@@ -1,6 +1,7 @@
 #include "Appearance.h"
 
 int Appearance::currentTextIndex = 0;
+unsigned int Appearance::currentID = 0;
 
 float Appearance::getTexLength_s() {
 	return texLength_s;
@@ -33,5 +34,7 @@ Appearance::Appearance(float* a, float* d, float* sp, float* emis, float sh):CGF
 	emissivity[1] = emis[1];
 	emissivity[2] = emis[2];
 	emissivity[3] = emis[3];
+	id = currentID;
+	currentID++;
 }
 
