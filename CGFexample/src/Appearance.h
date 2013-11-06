@@ -6,12 +6,15 @@
 
 class Appearance: public CGFappearance {
 protected:
+	static unsigned int currentID;
 	float texLength_s;
 	float texLength_t;
 	float emissivity[4];
 
 public:
 	static int currentTextIndex;
+
+	unsigned int id;
 	float getTexLength_s();
 	float getTexLength_t();
 	void setTexture(string t);
