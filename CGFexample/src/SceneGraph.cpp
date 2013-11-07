@@ -51,10 +51,6 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	for(; it != yafFile->nodes.end(); it++) {
 		processYAFNodeReferences(it->second);
 	}
-    
-	// initialize display lists
-    // TODO check returned unsigned int from gen lists
-    glGenLists(SceneVertex::currentDisplayList);
 
 	findShaders();
 }
@@ -241,7 +237,6 @@ void SceneGraph::render(SceneVertex *v) {
 				if (app != NULL)
 					app->apply();
 
-				// TODO fix applying animation matrix
 				//If the child vertex has an animation, multiply the current matrix by the animation transformation matrix
 				if(it->dest->getAnimation() != NULL){
 					float * animationMatrix = it->dest->getAnimation()->getMatrix();

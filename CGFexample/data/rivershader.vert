@@ -8,7 +8,7 @@ void main()
         vec4 distortion = gl_Vertex;
         
 		vec4 textCoords = gl_MultiTexCoord0;
-		textCoords.t += mod(time, 10000.0) / 10000.0;
+		textCoords.t += time * 0.00001;
         vec4 heightMap = texture2D(heightImage, textCoords.st);
 
 		// change vertex distortion in relation to height map information
