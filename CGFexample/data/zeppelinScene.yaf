@@ -10,12 +10,12 @@
   <globals background="0 0 0 0" drawmode="fill" shading="gouraud" cullface="back" cullorder="CCW" />
 
   <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial -->
-  <cameras initial="1" >
+  <cameras initial="frontViewPers" >
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
-    <perspective id="1" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="17.5 17.0 17.5" />
-    <perspective id="3" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="35.0 0.0 27.0" />
-    <ortho id="2" left="0" right="35" bottom="0" top="35" near="-45" far="45"/>
+    <perspective id="frontViewPers" near="1" far="150" angle="90" pos="0.0 7.0 35.0" target="0.0 10.0 0.0" />
+    <perspective id="globalView" near="1" far="150" angle="90" pos="25.0 35.0 17.0" target="0.0 0.0 0.0" />
+    <ortho id="frontView" left="-20" right="20" bottom="3" top="43" near="-80" far="80"/>
 
   </cameras>
 
@@ -24,28 +24,31 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="corner" enabled="true"
-        location="4.0 30.0 5.0"
-        ambient="0.2 0.2 0.2 1.0"
+    <omni id="main" enabled="true"
+        location="0.0 60.0 0.0"
+        ambient="0.4 0.4 0.4 1.0"
         diffuse="0.7 0.7 0.7 1.0"
-        specular="1.0 1.0 1.0 1.0"
+        specular="0.3 0.3 0.3 1.0"
             />
 
-    <spot id="donutSpot" enabled="true"
-        location="17.5 30 17.5"
+    <spot id="attackSpot1" enabled="true"
+        location="15.0 30.0 0.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 1.0 1.0 1.0"
-        specular="1.0 1.0 1.0 1.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
         angle="45.0"
         exponent="15.0"
         direction="0.0 -1.0 0.0"
             />
-    
-    <omni id="lamp" enabled="true"
-          location="21.5 11.8 15.5"
-          ambient="0.1 0.1 0.1 1.0"
-          diffuse="0.3 0.3 0.3 1.0"
-          specular="0.0 0.0 0.0 1.0"
+
+    <spot id="attackSpot2" enabled="true"
+        location="-15.0 30.0 0.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
             />
 
   </lighting>
@@ -194,6 +197,48 @@
       <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
       <controlpoint xx="0.0" yy="0.0" zz="0.0" />
     </animation>
+
+    <animation id="bomb1" span="60.0" type="linear">
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="15.0" yy="-200.0" zz="3.0" />
+    </animation>
+
+    <animation id="bomb2" span="60.0" type="linear">
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="0.0" />
+      <controlpoint xx="15.0" yy="-200.0" zz="0.0" />
+    </animation>
+
+    <animation id="bomb3" span="117.0" type="linear">
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="-20.0" />
+      <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="0.0" yy="-5.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="-15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="-15.0" yy="-200.0" zz="3.0" />
+    </animation>
+
+    <animation id="bomb4" span="117.0" type="linear">
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="-20.0" />
+      <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="0.0" yy="-5.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="-15.0" yy="10.0" zz="0.0" />
+      <controlpoint xx="-15.0" yy="-200.0" zz="0.0" />
+    </animation>
   </animations>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
@@ -206,7 +251,7 @@
       <children>
         <noderef id="water" />
         <noderef id="zeppelin" />
-        <!--<noderef id="bomb" /> -->
+        <noderef id="bombs" />
         <noderef id="buildingsLeft" />
         <noderef id="buildingsRight" />
         <noderef id="cityLeftSide" />
@@ -387,9 +432,66 @@
       </children>
     </node>
 
+    <node id="bombs">
+      <transforms>
+        <translate to="0.0 15.0 0.0" />
+      </transforms>
+
+      <children>
+        <noderef id="bomb1" />
+        <noderef id="bomb2" />
+        <noderef id="bomb3" />
+        <noderef id="bomb4" />
+      </children>
+    </node>
+
+    <node id="bomb1">
+      <transforms>
+      </transforms>
+
+      <animationref id="bomb1" />
+
+      <children>
+        <noderef id="bomb" />
+      </children>
+    </node>
+
+    <node id="bomb2">
+      <transforms>
+      </transforms>
+
+      <animationref id="bomb2" />
+
+      <children>
+        <noderef id="bomb" />
+      </children>
+    </node>
+
+    <node id="bomb3">
+      <transforms>
+      </transforms>
+
+      <animationref id="bomb3" />
+
+      <children>
+        <noderef id="bomb" />
+      </children>
+    </node>
+
+    <node id="bomb4">
+      <transforms>
+      </transforms>
+
+      <animationref id="bomb4" />
+
+      <children>
+        <noderef id="bomb" />
+      </children>
+    </node>
+
     <node id="bomb">
       <transforms>
-        <scale factor="0.5 0.5 0.5" />
+        <scale factor="0.4 0.4 0.3" />
         <translate to="0.0 2.0 0.0"/>
       </transforms>
 
