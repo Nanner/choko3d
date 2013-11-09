@@ -303,7 +303,7 @@
       </animation>
   
       <animation id="beer" span="10.0" type="linear">
-        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        <controlpoint xx="1.0" yy="1.0" zz="1.0" />
         <controlpoint xx="0.0" yy="0.0" zz="5.0" />
         <controlpoint xx="3.0" yy="0.0" zz="3.0" />
         <controlpoint xx="6.0" yy="1.0" zz="6.0" />

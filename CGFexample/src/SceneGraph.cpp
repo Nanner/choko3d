@@ -496,7 +496,6 @@ void SceneGraph::updateShaders(unsigned long t) {
 //This function updates the shader scales according to the current control values
 void SceneGraph::updateWaterShaderScales() {
 	for(unsigned int i = 0; i < currentShaders.size(); i++) {
-		printf("%d, %d, %d\n", currentShaderSpeedControl, currentShaderHeightControl, currentShaderInclineControl);
 		currentShaders.at(i)->setScalesFromControlValues(currentShaderSpeedControl, currentShaderHeightControl, currentShaderInclineControl);
 	}
 }
