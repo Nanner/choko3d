@@ -9,6 +9,7 @@ Animation::Animation() {
     glPopMatrix();
 	isInitialized = false;
 	this->loop = false;
+	this->pausedTime = 0;
 }
 
 void Animation::init(unsigned long t) {

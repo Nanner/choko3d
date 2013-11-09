@@ -105,6 +105,10 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		unsigned long timeSpan = (distFraction * totalSpan);
 		timeSpans.push_back(timeSpan);
 	}
+
+	currentTrajectory = 0;
+	elapsedTimeInTraj = 0;
+	totalElapsedTime = 0;
 }
 
 void LinearAnimation::init(unsigned long t) {
