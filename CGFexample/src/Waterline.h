@@ -5,11 +5,19 @@
 #include "WaterShader.h"
 #include "Plane.h"
 
+#define WATERLINE_EVAL_W_PARTS 30
+#define WATERLINE_EVAL_H_PARTS 300
+
+
 class Waterline : public ScenePrimitive {
 
 protected:
 	WaterShader * shader;
-    Plane * plane;
+
+	static GLfloat ctrlpoints[10][3];
+	static GLfloat nrmlcompon[10][3];
+	static GLfloat texels[10][2];
+	GLint previousFrontFace;
 
     
 public:
@@ -20,6 +28,7 @@ public:
     
     Waterline(string heightmap, string texturemap, string fragmentshader, string vertexshader);
 	void draw();
+	void drawEval();
 	WaterShader* getShader();
 
 };

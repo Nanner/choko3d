@@ -221,10 +221,6 @@ void SceneGraph::render(SceneVertex *v) {
 
 					//And indicate that this display list is now on the stack
 					it->dest->putInStack(vertexAppearance);
-
-					printf("This number: %u\n", it->dest->getDisplayList(vertexAppearance));
-					printf("This parent: %s\n", v->id.c_str());
-					printf("This appearance: %u\n", appearance->id);
 				}
 
 				//Start drawing the child vertex
