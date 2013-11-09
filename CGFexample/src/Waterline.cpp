@@ -14,6 +14,6 @@ void Waterline::draw() {
     shader->unbind();
 }
 
-CGFshader* Waterline::getShader() {
+WaterShader* Waterline::getShader() {
 	return shader;
 }

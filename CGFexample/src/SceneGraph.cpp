@@ -53,6 +53,11 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	}
 
 	findShaders();
+
+	currentShaderSpeedControl = 50;
+	currentShaderHeightControl = 50;
+	currentShaderInclineControl = 50;
+	shaderScalesUpdated = false;
 }
 
 
@@ -416,15 +421,60 @@ void SceneGraph::drawLights() {
 	}
 }
 
+void SceneGraph::resetAnimation(string id) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		animation->second->reset();
+}
+
+void SceneGraph::resetAllAnimations() {
+	map<string, Animation*>::iterator it = animations.begin();
+	for(; it != animations.end(); it++)
+		it->second->reset();
+}
+
+void SceneGraph::setAnimationLoop(string id, bool value) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		animation->second->loop = value;
+}
+
+bool SceneGraph::animationIsLooping(string id) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		return animation->second->loop;
+
+	return false;
+}
+
+void SceneGraph::pauseAnimation(string id) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		animation->second->pause();
+}
+
+void SceneGraph::resumeAnimation(string id) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		animation->second->resume();
+}
+
+bool SceneGraph::animationIsPaused(string id) {
+	map<string, Animation*>::iterator animation = animations.find(id);
+	if(animation != animations.end())
+		return animation->second->paused;
+
+	return false;
+}
+
 //This function searches the graph to see if any shaders are used, adding them to the shader vector
 //And toggling the hasShader bool to true. This is needed for the demoscene update function
 void SceneGraph::findShaders() {
-	CGFshader* shader;
+	WaterShader* shader;
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
 		shader = vertexSet.at(i)->getShader();
 		if(shader != NULL) {
-			printf("Found shader!\n");
 			currentShaders.push_back(shader);
 			hasShader = true;
 		}
@@ -440,5 +490,13 @@ void SceneGraph::updateShaders(unsigned long t) {
 		currentShaders.at(i)->bind();
 		currentShaders.at(i)->update(t);
 		currentShaders.at(i)->unbind();
+	}
+}
+
+//This function updates the shader scales according to the current control values
+void SceneGraph::updateWaterShaderScales() {
+	for(unsigned int i = 0; i < currentShaders.size(); i++) {
+		printf("%d, %d, %d\n", currentShaderSpeedControl, currentShaderHeightControl, currentShaderInclineControl);
+		currentShaders.at(i)->setScalesFromControlValues(currentShaderSpeedControl, currentShaderHeightControl, currentShaderInclineControl);
 	}
 }

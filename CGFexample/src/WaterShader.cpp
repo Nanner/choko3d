@@ -16,7 +16,15 @@ WaterShader::WaterShader(string heightmap, string texturemap, string fragmentsha
 	waterTextureIndex = Appearance::currentTextIndex;
 	waterTexture = new ShaderTexture(texturemap.c_str());
 
+	//Get the uniform location for the scales and set the default values
+	speedScaleLoc = glGetUniformLocation(id(), "speedScale");
+	glUniform1f(speedScaleLoc, DEFAULT_SPEED);
 	
+	heightScaleLoc = glGetUniformLocation(id(), "heightScale");
+	glUniform1f(heightScaleLoc, DEFAULT_HEIGHT);
+
+	inclineScaleLoc = glGetUniformLocation(id(), "inclineScale");
+	glUniform1f(inclineScaleLoc, DEFAULT_INCLINE);
 
 	//Get the uniform location for the water texture sampler and set the associated texture
 	waterImageLoc = glGetUniformLocation(id(), "waterImage");
@@ -49,7 +57,17 @@ void WaterShader::unbind(void) {
 	glActiveTexture(GL_TEXTURE0);
 }
 
+void WaterShader::setScalesFromControlValues(int sControl, int hControl, int iControl) {
+	float speedScale = (float) (sControl * DEFAULT_SPEED) / 50.0;
+	float heightScale = (float) (hControl * DEFAULT_HEIGHT) / 50.0;
+	float inclineScale = (float) (iControl * DEFAULT_INCLINE) / 50.0;
 
+	bind();
+	glUniform1f(speedScaleLoc, speedScale);
+	glUniform1f(heightScaleLoc, heightScale);
+	glUniform1f(inclineScaleLoc, inclineScale);
+	unbind();
+}
 
 WaterShader::~WaterShader(void) {
 	delete heightMap;

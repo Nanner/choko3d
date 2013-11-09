@@ -6,7 +6,9 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 	this->numTrajectories = (this->controlPoints.size() / 3) - 1;
 	this->totalDist = 0;
 
+	//Load trajectory distances, calculate total distance and coordinate deltas between trajectories
 	for(unsigned int i = 0; i < numTrajectories; i++) {
+		//Get this point and the next
 		float point1[3], point2[3];
 		int ind1 = (i * 3);
 		int ind2 = ((i+1) * 3);
@@ -18,34 +20,26 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		point2[1] = controlPoints.at(1 + ind2);
 		point2[2] = controlPoints.at(2 + ind2);
 
+		//Calculate distance between those 2 points and add it to total distance and trajectory distances vector
 		float trajDist = distanceBetweenPoints(point1, point2);
 		totalDist += trajDist;
 		trajectoryDists.push_back(trajDist);
-	}
 
-	for(unsigned int i = 0; i < numTrajectories; i++) {
+		//Calculate deltas between coordinates of the two points and add them to deltas vector
 		float deltaX;
 		float deltaY;
 		float deltaZ;
 
-		int ind1 = (i * 3);
-		int ind2 = ((i+1) * 3);
-		float point1X = controlPoints.at(0 + ind1);
-		float point1Y = controlPoints.at(1 + ind1);
-		float point1Z = controlPoints.at(2 + ind1);
-
-		float point2X = controlPoints.at(0 + ind2);
-		float point2Y = controlPoints.at(1 + ind2);
-		float point2Z = controlPoints.at(2 + ind2);
-
-		deltaX = point2X - point1X;
-		deltaY = point2Y - point1Y;
-		deltaZ = point2Z - point1Z;
+		deltaX = point2[0] - point1[0];
+		deltaY = point2[1] - point1[1];
+		deltaZ = point2[2] - point1[2];
 
 		trajectoryCoordDeltas.push_back(deltaX);
 		trajectoryCoordDeltas.push_back(deltaY);
 		trajectoryCoordDeltas.push_back(deltaZ);
 
+
+		//Calculate the previous offsets for the trajectory coordinates (that is, the sum of the previous deltas), and push them to the vector
 		int previousIndex;
 
 		if(i == 0) {
@@ -57,7 +51,7 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		}
 		else
 			previousIndex = i*3;
-		
+
 		if(i < (numTrajectories - 1) ) {
 
 			trajectoryCoordPreviousOffsets.push_back(deltaX + trajectoryCoordPreviousOffsets.at(previousIndex + 0));
@@ -66,8 +60,8 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		}
 	}
 
+	//Calculate angles between the trajectories based on the trajectory vector components on the XZ plane, always summing the angle with the previous one
 	for(unsigned int i = 0; i < numTrajectories - 1; i++) {
-
 		float previousAngle;
 		if(i == 0)
 			previousAngle = 0;
@@ -78,64 +72,74 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 		int ind2 = i * 3 + 3;
 		float vector1[3];
 		vector1[0] = trajectoryCoordDeltas.at(ind + 0);
+
 		//Since we want the vector projections in the XZ plane, we consider y = 0
 		vector1[1] = 0;
 		vector1[2] = trajectoryCoordDeltas.at(ind + 2);
 
 		float vector2[3];
 		vector2[0] = trajectoryCoordDeltas.at(ind2 + 0);
+
 		//Since we want the vector projections in the XZ plane, we consider y = 0
 		vector2[1] = 0;
 		vector2[2] = trajectoryCoordDeltas.at(ind2 + 2);
 
 		float rotAngle = angleBetweenVectors(vector2, vector1);
-
+		
+		//To ensure we use angles between 0 and 360, for simplicity
 		if(rotAngle > 360)
 			rotAngle -= 360;
 		else if(rotAngle < 0)
 			rotAngle += 360;
 
 		rotAngle += previousAngle;
-
-		trajectoryAngles.push_back(rotAngle);
 		
-
+		trajectoryAngles.push_back(rotAngle);
 	}
 
-	currentTrajectory = 0;
-	elapsedTimeInTraj = 0;
-	ended = false;
-}
-
-void LinearAnimation::init(unsigned long t) {
+	// Using the trajectory distances and the total distance, calculate the fraction of total animation
+	//that each trajectory represents, and thus calculate the different time spans each trajectory
+	//shall need to complete its animation.
 	for(unsigned int i = 0; i < numTrajectories; i++) {
 		float distFraction = trajectoryDists.at(i) / totalDist;
 		unsigned long timeSpan = (distFraction * totalSpan);
 		timeSpans.push_back(timeSpan);
-		//printf("%i - %lu\n", i, timeSpan );
 	}
-	//printf("current time: %lu\n", t);
+}
+
+void LinearAnimation::init(unsigned long t) {
 	Animation::init(t);
+	currentTrajectory = 0;
+	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
+
+	ended = false;
 }
 
 void LinearAnimation::update(unsigned long t) {
+	if(paused == true) {
+		//If pauseStartTime = 0, initialize value with current time
+		if(pauseStartTime == 0)
+			pauseStartTime = t;
+		else
+			pausedTime = t - pauseStartTime;
+	}
 
-	if(ended)
+	if(ended && loop)
+		isInitialized = false;
+	else if(ended) {
+		this->paused = true;
+		this->pausedTime = 0;
+		this->pauseStartTime = 0;
 		return;
+	}
 
-	float curTime = t - this->startTime;
-
-	//printf("Time: %f\n", curTime);
+	float curTime = t - this->startTime - pausedTime;
 
     glPushMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-	//printf("current time: %lu\n", curTime);
-    
-    //float distance = curTime * 0.0001;
 	int currentTraj = getTimespanIndex(curTime);
 	if(currentTraj == -1)
 		return;
@@ -187,18 +191,12 @@ int LinearAnimation::getTimespanIndex(unsigned long currentTime) {
 }
 
 void LinearAnimation::applyRotation() {
-
 	if(currentTrajectory != 0) {
 		glRotatef(trajectoryAngles.at(currentTrajectory - 1), 0, 1.0, 0);
 	}
 }
 
-/*float distanceBetweenPoints(float point1[3], float point2[3]) {
-	return sqrt((point2[0]-point1[0])*(point2[0]-point1[0]) + (point2[1]-point1[1])*(point2[1]-point1[1]) + (point2[2]-point1[2])*(point2[2]-point1[2]));
-}*/
-
 float angleBetweenVectors(float vector1[3], float vector2[3]) {
-
 	float ux = vector1[0];
 	float uz = vector1[2];
 	float vx = vector2[0];

@@ -20,7 +20,7 @@ public:
     
     Waterline(string heightmap, string texturemap, string fragmentshader, string vertexshader);
 	void draw();
-	CGFshader* getShader();
+	WaterShader* getShader();
 
 };
 

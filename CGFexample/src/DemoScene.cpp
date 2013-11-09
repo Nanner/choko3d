@@ -37,8 +37,14 @@ void DemoScene::update(unsigned long t){
 			animation->init(t);
     }
 
-	if(sceneGraph->hasShader)
+	if(sceneGraph->hasShader) {
+		if(sceneGraph->shaderScalesUpdated) {
+			sceneGraph->updateWaterShaderScales();
+			sceneGraph->shaderScalesUpdated = false;
+		}
+
 		sceneGraph->updateShaders(t);
+	}
 }
 
 void DemoScene::display() 

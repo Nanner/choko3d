@@ -10,6 +10,7 @@
 #include "YAFLight.h"
 #include "SceneLight.h"
 #include "CGFshader.h"
+#include "WaterShader.h"
 #include <vector>
 #include <stack>
 #include <map>
@@ -70,7 +71,7 @@ public:
     
     void setAnimation(Animation * animation);
     Animation * getAnimation();
-	virtual CGFshader* getShader() {return NULL;}
+	virtual WaterShader* getShader() {return NULL;}
 };
 
 

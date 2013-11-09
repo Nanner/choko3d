@@ -8,13 +8,19 @@ protected:
     float * matrix;
 public:
 	bool isInitialized;
+	bool loop;
+	bool paused;
+	unsigned long startTime;
+	unsigned long pauseStartTime;
+	unsigned long pausedTime;
+
     float * getMatrix();
-    unsigned long startTime;
-    unsigned char doReset;
     virtual void init(unsigned long t);
     virtual void update(unsigned long t) {}
 	virtual void applyRotation() {}
-    void reset();
+    virtual void reset();
+	virtual void pause();
+	virtual void resume();
     Animation();
 };
 

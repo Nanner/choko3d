@@ -1,20 +1,23 @@
-uniform float normScale;
+uniform float speedScale;
+uniform float heightScale;
+uniform float inclineScale;
+
 uniform sampler2D heightImage;
 uniform sampler2D waterImage;
 uniform float time;
 
-void main() 
+void main()
 {
         vec4 distortion = gl_Vertex;
         
 		vec4 textCoords = gl_MultiTexCoord0;
-		textCoords.t += time * 0.00001;
+		textCoords.t += time * speedScale;
         vec4 heightMap = texture2D(heightImage, textCoords.st);
 
 		// change vertex distortion in relation to height map information
 		// The "whiter" the current texel is, the higher and more dislocated our wave needs to be
-        distortion.y += float(heightMap.r + heightMap.g + heightMap.b);
-		distortion.z += float(heightMap.r + heightMap.g + heightMap.b) * 0.05;
+        distortion.y += float(heightMap.r + heightMap.g + heightMap.b) * heightScale;
+		distortion.z += float(heightMap.r + heightMap.g + heightMap.b) * inclineScale;
          
         // Set the position of the current vertex
         gl_Position = gl_ModelViewProjectionMatrix * distortion;
