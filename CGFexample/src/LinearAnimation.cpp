@@ -109,6 +109,8 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
+
+	ended = false;
 }
 
 void LinearAnimation::init(unsigned long t) {
