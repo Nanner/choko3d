@@ -125,8 +125,10 @@ void LinearAnimation::update(unsigned long t) {
 			pausedTime = t - pauseStartTime;
 	}
 
-	if(ended && loop)
-		isInitialized = false;
+	if(ended && loop) {
+		reset();
+		return;
+	}
 	else if(ended) {
 		this->paused = true;
 		this->pausedTime = 0;

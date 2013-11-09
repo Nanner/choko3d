@@ -21,6 +21,7 @@ public:
     map<string, Animation *> animations;
 	stack<int> displayListOrder;
 	bool stackReady;
+	bool drawDisplayLists;
 
 	bool hasShader;
 	vector<WaterShader* > currentShaders;

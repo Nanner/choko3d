@@ -38,6 +38,15 @@ void RendererInterface::initGUI() {
 	lastID++;
 	camerasPanel->align();
 
+	GLUI_Checkbox* displayListsCheckbox = addCheckbox("Use display lists", NULL, lastID);
+	if(sceneGraph->drawDisplayLists == true)
+		displayListsCheckbox->set_int_val(1);
+	else
+		displayListsCheckbox->set_int_val(0);
+
+	displayListCheckboxID = lastID;
+	lastID++;
+
 	addColumn();
 
 	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
@@ -184,15 +193,36 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
 	if(ctrl->user_id == animationResetButtonID) {
 		map<int, string>::iterator animationToToggle = animationMap.find(selectedAnimation);
+		
+		//If the animation isn't looping, pressing reset will pause it on the initial point
+		if(!sceneGraph->animationIsLooping(animationToToggle->second) ) {
+			animationPauseButton->set_name("Start");
+			animationPaused = true;
+		}
+		//If the animation is looping and is initially paused when we press reset, it's going to unpause itself, so we need to toggle the button
+		else if(sceneGraph->animationIsLooping(animationToToggle->second) && sceneGraph->animationIsPaused(animationToToggle->second)) {
+			animationPauseButton->set_name("Pause");
+			animationPaused = false;
+		}
+
 		sceneGraph->resetAnimation(animationToToggle->second);
-		animationPauseButton->set_name("Start");
-		animationPaused = true;
 	}
 
 	if(ctrl->user_id == allAnimationResetButtonID) {
+		map<int, string>::iterator animationToToggle = animationMap.find(selectedAnimation);
+
+		//If the animation isn't looping, pressing reset will pause it on the initial point
+		if(!sceneGraph->animationIsLooping(animationToToggle->second) ) {
+			animationPauseButton->set_name("Start");
+			animationPaused = true;
+		}
+		//If the animation is looping and is initially paused when we press reset, it's going to unpause itself, so we need to toggle the button
+		else if(sceneGraph->animationIsLooping(animationToToggle->second) && sceneGraph->animationIsPaused(animationToToggle->second)) {
+			animationPauseButton->set_name("Pause");
+			animationPaused = false;
+		}
+
 		sceneGraph->resetAllAnimations();
-		animationPauseButton->set_name("Start");
-		animationPaused = true;
 	}
 
 	if(ctrl->user_id == animationPauseButtonID) {
@@ -209,6 +239,12 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 		}
 	}
 
-	if(ctrl->user_id == speedSpinnerID || ctrl->user_id == heightSpinnerID || ctrl->user_id == inclineSpinnerID)
+	if(ctrl->user_id == speedSpinnerID || ctrl->user_id == heightSpinnerID || ctrl->user_id == inclineSpinnerID) {
+		//Inform the graph that the shader scales need to be updated on the next scene update
 		sceneGraph->shaderScalesUpdated = true;
+	}
+
+	if(ctrl->user_id == displayListCheckboxID) {
+		sceneGraph->drawDisplayLists = !sceneGraph->drawDisplayLists;
+	}
 }

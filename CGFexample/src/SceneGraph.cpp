@@ -53,6 +53,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	}
 
 	findShaders();
+	drawDisplayLists = true;
 
 	currentShaderSpeedControl = 50;
 	currentShaderHeightControl = 50;
@@ -108,8 +109,9 @@ void SceneGraph::render() {
 	//Create an identifier for the vertex being drawn based on its id and its current appearance
 	pair<string, unsigned int> vertexAppearance(rootVertex->id, appearance->id);
 
-	//If it uses display lists and the display list for this vertex identifier is initialized, call it instead of rendering the usual way
-	if ( rootVertex->usesDisplayList && rootVertex->initializedDisplayList(vertexAppearance) )
+	//If displayLists are enabled, the vertex uses display lists and the display list for this vertex identifier is initialized, 
+	//call it instead of rendering the usual way
+	if (drawDisplayLists && rootVertex->usesDisplayList && rootVertex->initializedDisplayList(vertexAppearance))
 		glCallList(rootVertex->getDisplayList(vertexAppearance));
 	//If not:
 	else {
@@ -200,8 +202,9 @@ void SceneGraph::render(SceneVertex *v) {
 			//Create an identifier for the vertex being drawn based on its id and its current appearance
 			pair<string, unsigned int> vertexAppearance(v->id, appearance->id);
 
-			//If it uses display lists and the display list for this vertex identifier is initialized, call it instead of rendering the usual way
-			if ( it->dest->usesDisplayList && it->dest->initializedDisplayList(vertexAppearance) )
+			//If displayLists are enabled, the vertex uses display lists and the display list for this vertex identifier is initialized, 
+			//call it instead of rendering the usual way
+			if (drawDisplayLists && it->dest->usesDisplayList && it->dest->initializedDisplayList(vertexAppearance) )
 				glCallList(it->dest->getDisplayList(vertexAppearance));
 			//If not:
 			else {

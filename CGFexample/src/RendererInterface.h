@@ -28,6 +28,8 @@ public:
 	int heightSpinnerID;
 	int inclineSpinnerID;
 
+	int displayListCheckboxID;
+
 	RendererInterface();
 
 	void initGUI();
