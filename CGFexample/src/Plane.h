@@ -9,10 +9,16 @@ public:
     static GLfloat ctrlpoints[4][3];
     static GLfloat nrmlcompon[4][3];
     static GLfloat colorpoints[4][4];
-    static GLfloat textpoints[4][2];
+    vector<float> texels;
     
     int parts;
     void draw();
+    
+    bool texelsInitialized;
+    
+    void initializeTexels();
+    GLint * previousFrontFace;
+
 };
 
 #endif

@@ -14,9 +14,12 @@ public:
     int partsV;
     int compute;
     vector<float> controlPoints;
-    static GLfloat texels[4][2];
+    vector<float> texels;
     GLint * previousFrontFace;
     void draw();
+    
+    bool texelsInitialized;
+    void initializeTexels();
 };
 
 #endif
