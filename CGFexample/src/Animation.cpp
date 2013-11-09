@@ -16,6 +16,7 @@ void Animation::init(unsigned long t) {
     this->startTime = t;
 	this->isInitialized = true;
 	this->pausedTime = 0;
+    this->paused = false;
 }
 
 float * Animation::getMatrix(){
