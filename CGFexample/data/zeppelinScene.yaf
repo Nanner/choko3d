@@ -56,21 +56,21 @@
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
 
-    <texture id="cabinTex" file="cabinText.png" />
+    <texture id="cabinTex" file="..\data\cabinText.png" />
 
-    <texture id="cabinBottomTex" file="cabinBottomText.png" />
+    <texture id="cabinBottomTex" file="..\data\cabinBottomText.png" />
 
-    <texture id="balloonTex" file="balloonText.png" />
+    <texture id="balloonTex" file="..\data\balloonText.png" />
 
-    <texture id="building1Tex" file="building1.jpg" />
+    <texture id="building1Tex" file="..\data\building1.jpg" />
 
-    <texture id="building2Tex" file="building2.jpg" />
+    <texture id="building2Tex" file="..\data\building2.jpg" />
 
-    <texture id="building3Tex" file="building3.jpg" />
+    <texture id="building3Tex" file="..\data\building3.jpg" />
 
-    <texture id="building4Tex" file="building4.jpg" />
+    <texture id="building4Tex" file="..\data\building4.jpg" />
 
-    <texture id="roadTex" file="road.jpg" />
+    <texture id="roadTex" file="..\data\road.jpg" />
 
   </textures>
 
@@ -181,7 +181,24 @@
 
   <animations>
 
-    <animation id="zeppelin" span="100.0" type="linear">
+    <animation id="zeppelin1" span="100.0" type="linear">
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="15.0" yy="10.0" zz="-20.0" />
+      <controlpoint xx="3.0" yy="2.0" zz="3.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="0.0" yy="-5.0" zz="0.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
+      <controlpoint xx="-15.0" yy="10.0" zz="3.0" />
+      <controlpoint xx="-15.0" yy="10.0" zz="-20.0" />
+      <controlpoint xx="-3.0" yy="2.0" zz="-3.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
+      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+    </animation>
+
+    <animation id="zeppelin2" span="150.0" type="linear">
       <controlpoint xx="0.0" yy="0.0" zz="0.0" />
       <controlpoint xx="0.0" yy="0.0" zz="40.0" />
       <controlpoint xx="15.0" yy="10.0" zz="3.0" />
@@ -422,7 +439,7 @@
         <translate to="0.0 10.0 0.0"/>
       </transforms>
 
-      <animationref id="zeppelin" />
+      <animationref id="zeppelin1" />
 
       <children>
         <vehicle />
@@ -432,10 +449,10 @@
     <node id="zeppelin2">
       <transforms>
         <scale factor="1.5 1.5 1.5" />
-        <translate to="5.0 15.0 0.0"/>
+        <translate to="5.0 18.0 0.0"/>
       </transforms>
 
-      <animationref id="zeppelin" />
+      <animationref id="zeppelin2" />
 
       <children>
         <noderef id="balloon" />
@@ -547,7 +564,7 @@
       </transforms>
 
       <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
+        <waterline heightmap="..\data\watermap.jpg" texturemap="..\data\water.jpg" fragmentshader="..\data\rivershader.frag" vertexshader="..\data\rivershader.vert"/>
       </children>
     </node>
 
