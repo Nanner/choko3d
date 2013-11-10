@@ -331,80 +331,19 @@
         <noderef id="poster" />
         <noderef id="beer" />
         <noderef id="lamp" />
-        <noderef id="plane" />
         <noderef id="patch" />
         <noderef id="patch2" />
-        <noderef id="patch3" />
         <noderef id="water" />
         <noderef id="zeppelin" />
-        <noderef id="testCube" />
       </children>
     </node>
-
-    <node id="plane">
-      <transforms>
-        <!-- <translate to="5.5 15 5.5" /> -->
-        <translate to="17.5 15 17.5" />
-        <scale factor="10.0 1.0 2.0" />
-      </transforms>
-
-      <appearanceref id="posterApp" />
-
-      <children>
-        <plane parts="15"/>
-      </children>
-    </node>
-
+    
     <node id="water">
       <transforms>
-        <translate to="17.5 0.5 17.5" />
-        <rotate axis="y" angle="30" />
-      </transforms>
-
-      <children>
-        <noderef id="water1" />
-        <noderef id="water2" />
-        <noderef id="water3" />
-        <noderef id="water4" />
-      </children>
-    </node>
-    
-    <node id="water1">
-      <transforms>
-        <scale factor="20.0 1.0 20.0" />
-      </transforms>
-
-      <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
-      </children>
-    </node> 
-        
-        <node id="water2">
-      <transforms>
-        <translate to="0.0 0.0 20.0" />
-        <scale factor="20.0 1.0 20.0" />
-      </transforms>
-
-      <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
-      </children>
-    </node> 
-    
-    <node id="water3">
-      <transforms>
-        <translate to="0.0 0.0 40.0" />
-        <scale factor="20.0 1.0 20.0" />
-      </transforms>
-
-      <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
-      </children>
-    </node> 
-        
-    <node id="water4">
-      <transforms>
-        <translate to="0.0 0.0 60.0" />
-        <scale factor="20.0 1.0 20.0" />
+        <translate to="0.1 16 25" />        
+        <rotate axis="y" angle="90.0" />
+        <rotate axis="x" angle="90.0" />
+        <scale factor="10.0 1.0 10.0" />
       </transforms>
 
       <children>
@@ -414,8 +353,9 @@
 
     <node id="patch">
       <transforms>
-        <translate to="17.5 10 17.5" />
+        <translate to="25.0 20.0 -1.2" />
         <scale factor="3.0 3.0 3.0" />
+        <rotate axis="x" angle="90.0" />
       </transforms>
 
       <appearanceref id="posterApp" />
@@ -437,29 +377,11 @@
       </children>
     </node>
 
-    <node id="patch3">
-      <transforms>
-        <translate to="17.5 20 17.5" />
-        <scale factor="10.0 10.0 10.0" />
-        <rotate axis="x" angle="40" />
-      </transforms>
-
-      <appearanceref id="posterApp" />
-
-      <children>
-        <patch order="1" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="-0.5" y="0.0" z="0.5" />
-          <controlpoint x="0.5"  y="0.0" z="0.5" />
-          <controlpoint x="-0.5"  y="0.0" z="-0.5" />
-          <controlpoint x="0.5"  y="0.0" z="-0.5" />
-        </patch>
-      </children>
-    </node>
-
     <node id="patch2">
       <transforms>
-        <translate to="10 10 10" />
+        <translate to="6 20 4.5" />
         <scale factor="3.0 3.0 3.0" />
+        <rotate axis="y" angle="20.0" />
       </transforms>
 
       <appearanceref id="posterApp" />
@@ -615,27 +537,28 @@
     <node id="floor">
       <transforms>
         <translate to="0 0.0625 0" />
-        <scale factor="35 0.125 35" />
+        <scale factor="35 1.0 35" />
       </transforms>
 
+      <appearanceref id="floorApp" />
 
       <children>
-        <noderef id="cube" />
+        <plane parts="10" />
       </children>
     </node>
 
     <node id="leftWall">
       <transforms>
         <translate to="-17.375 17.625 0" />
-        <rotate axis="z" angle="90" />
+        <rotate axis="z" angle="-90" />
         <translate to="0 0.0625 0" />
-        <scale factor="35 0.125 35" />
+        <scale factor="35 1.0 35" />
       </transforms>
 
       <appearanceref id="wallApp" />
 
       <children>
-        <noderef id="cube" />
+        <plane parts="10" />
       </children>
     </node>
 
@@ -643,28 +566,30 @@
       <transforms>
         <rotate axis="y" angle="270" />
         <translate to="-17.375 17.625 0" />
-        <rotate axis="z" angle="90" />
+        <rotate axis="z" angle="-90" />
         <translate to="0 0.0625 0" />
-        <scale factor="35 0.125 35" />
+        <scale factor="35 1.0 35" />
       </transforms>
 
       <appearanceref id="wallApp" />
 
       <children>
-        <noderef id="cube" />
+        <plane parts="10" />
       </children>
     </node>
 
     <node id="poster">
       <transforms>
-        <translate to="17.5 25 0.125" />
-        <scale factor="9 12 0.0625" />
+        <translate to="17.5 25 0.2" />
+        <scale factor="9 12 1.0" />
+        <rotate axis="x" angle="90.0" />
+
       </transforms>
 
       <appearanceref id="posterApp" />
 
       <children>
-        <noderef id="cube" />
+        <plane parts="10" />
       </children>
     </node>
 
@@ -690,53 +615,6 @@
       <transforms>
         <translate to="6 4.25 3.5" />
         <scale factor="13 0.5 8" />
-      </transforms>
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-    
-    <node id="testCube" displaylist="false">
-      <transforms>
-      </transforms>
-
-      <children>
-        <noderef id="lol1Cube" />
-        <noderef id="lol2Cube" />
-      </children>
-    </node>
-    
-    <node id="lol1Cube" displaylist="false">
-      <transforms>
-        <translate to="-10 -10 -10" />
-        <scale factor="3 3 3" />
-      </transforms>
-      
-      <appearanceref id="floorApp" />
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-    
-    <node id="lol2Cube" displaylist="false">
-      <transforms>
-        <translate to="10 10 10" />
-        <scale factor="7 7 7" />
-      </transforms>
-      
-      <appearanceref id="floorApp" />
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-    
-    <node id="lolCube" displaylist="false">
-      <transforms>
-        <translate to="10 10 10" />
-        <scale factor="7 7 7" />
       </transforms>
 
       <children>
@@ -778,8 +656,6 @@
         <translate to="12 0 7" />
       </transforms>
       
-      <appearanceref id="lampBody" />
-
       <children>
         <noderef id="tableLeg" />
       </children>
@@ -1051,7 +927,8 @@
 
     <node id="beer" displaylist="false">
       <transforms>
-        <translate to="13.5 8.625 17.5"/>
+        <translate to="13.5 12 17.5"/>
+       <!--  <translate to="13.5 8.625 17.5"/> -->
        <!-- <rotate axis="x" angle="270" /> -->
       </transforms>
 
@@ -1104,7 +981,7 @@
     
     <node id="zeppelin">
       <transforms>
-        <translate to="15.0 10.0 15.0"/>
+        <translate to="25.0 10.0 15.0"/>
       </transforms>
 
       <animationref id="zeppelin" />
