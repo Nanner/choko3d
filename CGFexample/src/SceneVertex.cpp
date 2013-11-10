@@ -37,6 +37,10 @@ float* SceneVertex::getMatrix() {
 	return matrix;
 }
 
+void SceneVertex::setMatrix(float matrix[]) {
+	this->matrix = matrix;
+}
+
 Appearance * SceneVertex::getAppearance() {
     return appearance;
 }

@@ -36,7 +36,7 @@ Patch::Patch(int order, int partsU, int partsV, string compute, vector<float> co
 void Patch::initializeTexels() {
     float s = 1.0; float t = 1.0;
     Appearance* appearance = NULL;
-    if( this->getAppearance() ) {
+    if(this->getAppearance() != NULL) {
 		appearance = this->getAppearance();
         s = 1.0 / appearance->getTexLength_s();
         t = 1.0 / appearance->getTexLength_t();

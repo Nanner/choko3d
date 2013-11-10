@@ -588,6 +588,10 @@ YAFReader::YAFReader(char *filename) {
                         yafNode.addPrimitive( new Waterline(heightmap, texturemap, fragmentshader, vertexshader) );
                     }
 
+					if ( strcmp(currentChild->Value(), "vehicle") == 0 ) {
+						yafNode.addPrimitive( new Vehicle() );
+					}
+
 					currentChild = currentChild->NextSiblingElement();
 				}
 
