@@ -78,13 +78,4 @@ void Patch::draw() {
     glDisable(GL_AUTO_NORMAL);
     
     glFrontFace(*previousFrontFace);
-    
-    // prints vertex numbers for debugging purposes
-    glColor3f(1.0, 0.0, 0.0);
-	for (int i = 0; i < controlPoints.size(); i+=3)
-	{
-		glRasterPos3f(controlPoints[i], controlPoints[i+1], controlPoints[i+2]);
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0'+i/3);
-	}
-
 }

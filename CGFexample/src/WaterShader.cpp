@@ -41,8 +41,6 @@ WaterShader::WaterShader(string heightmap, string texturemap, string fragmentsha
 void WaterShader::bind(void) {
     CGFshader::bind();
 
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);*/
 	//Activate texture unit and apply it
 	glActiveTexture(GL_TEXTURE0 + waterTextureIndex);
 	waterTexture->apply();

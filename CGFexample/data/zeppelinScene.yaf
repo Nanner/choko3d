@@ -244,7 +244,7 @@
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
   <graph rootid="zeppelinScene">
 
-    <node id="zeppelinScene" displaylist="false">
+    <node id="zeppelinScene">
       <transforms>
       </transforms>
 
@@ -260,7 +260,7 @@
       </children>
     </node>
 
-    <node id="buildingsLeft">
+    <node id="buildingsLeft" displaylist="true">
       <transforms>
       </transforms>
 
@@ -390,7 +390,7 @@
       </children>
     </node>
 
-    <node id="cityLeftSide">
+    <node id="cityLeftSide" displaylist="true">
       <transforms>
         <translate to="-25.0 3.0 0.0" />
         <scale factor="30.0 4.0 80.0" />

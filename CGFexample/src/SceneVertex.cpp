@@ -51,8 +51,6 @@ void SceneVertex::setAppearance(Appearance * appearance){
 
 void SceneVertex::activateDisplayList() {
     this->usesDisplayList = true;
-    /*currentDisplayList++;
-    this->displayList = currentDisplayList;*/
 }
 
 void SceneVertex::disableDisplayList() {

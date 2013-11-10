@@ -79,23 +79,6 @@ bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
 }
 
 void SceneGraph::render() {
-
-	glPushMatrix();
-		glTranslatef(13.5, 8.625, 17.5);
-
-		glRasterPos3f(0, 0, 0);
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'A');
-
-		glRasterPos3f(0, 0, 5);
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'B');
-
-		glRasterPos3f(3, 0, 3);
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'C');
-
-		glRasterPos3f(6, 1, 6);
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'D');
-	glPopMatrix();
-    
 	vector<SceneVertex *>::const_iterator it= vertexSet.begin();
 	vector<SceneVertex *>::const_iterator ite= vertexSet.end();
 	for (; it !=ite; it++)

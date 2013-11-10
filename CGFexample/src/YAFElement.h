@@ -7,9 +7,6 @@
 #define SHININESS_MIN 0.0
 #define SHININESS_MAX 128.0
 
-/*#define TEXLENGTH_MIN 0;
-#define TEXLENGTH_MAX 1;*/
-
 #include <iostream>
 #include <algorithm>
 #include <string>
