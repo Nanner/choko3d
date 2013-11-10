@@ -143,6 +143,7 @@ void SceneGraph::render() {
 			//And pop it from the display list order stack, so that another list can be started
 			displayListOrder.pop();
 
+			//We need this because, in our current implementation, we should only initialize one list per frame
 			stackReady = false;
 		}
 	}
@@ -264,7 +265,7 @@ void SceneGraph::render(SceneVertex *v) {
 					//And pop it from the display list order stack, so that another list can be started
 					displayListOrder.pop();
 
-
+					//We need this because, in our current implementation, we should only initialize one list per frame
 					stackReady = false;
 				}
 			}
