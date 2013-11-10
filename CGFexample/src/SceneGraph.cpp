@@ -143,7 +143,6 @@ void SceneGraph::render() {
 			//And pop it from the display list order stack, so that another list can be started
 			displayListOrder.pop();
 
-
 			stackReady = false;
 		}
 	}
@@ -256,7 +255,11 @@ void SceneGraph::render(SceneVertex *v) {
 
 					//Indicate it as initialized
 					it->dest->initializeDisplayList(vertexAppearance);
+
+					/*
+					//Print the parent and appearance for the vertex whose displayList was created, for debug purposes
 					printf("Created displayList for %s, with appearance %u\n", v->id.c_str(), appearance->id);
+					*/
 
 					//And pop it from the display list order stack, so that another list can be started
 					displayListOrder.pop();

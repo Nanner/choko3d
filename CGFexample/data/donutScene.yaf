@@ -14,7 +14,6 @@
     <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
 
     <perspective id="1" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="17.5 17.0 17.5" />
-    <perspective id="3" near="1" far="150" angle="90" pos="35.0 19.0 27.0" target="35.0 0.0 27.0" />
     <ortho id="2" left="0" right="35" bottom="0" top="35" near="-45" far="45"/>
 
   </cameras>
@@ -301,19 +300,6 @@
         <controlpoint xx="0.0" yy="0.0" zz="5.0" />
         <controlpoint xx="0.0" yy="0.0" zz="0.0" />
       </animation>
-  
-      <animation id="beer" span="10.0" type="linear">
-        <controlpoint xx="1.0" yy="1.0" zz="1.0" />
-        <controlpoint xx="0.0" yy="0.0" zz="5.0" />
-        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
-        <controlpoint xx="6.0" yy="1.0" zz="6.0" />
-        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
-        <controlpoint xx="3.0" yy="2.0" zz="3.0" />
-        <controlpoint xx="0.0" yy="1.0" zz="5.0" />
-        <controlpoint xx="3.0" yy="0.0" zz="3.0" />
-        <controlpoint xx="0.0" yy="0.0" zz="5.0" />
-        <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      </animation>
   </animations>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
@@ -412,7 +398,7 @@
       </children>
     </node>
 
-    <node id="lamp">
+    <node id="lamp" displaylist="true">
       <transforms>
         <translate to="21.5 9.8 15.5"/>
         <scale factor="2.0 2.0 2.0" />
@@ -881,7 +867,7 @@
       </children>
     </node>
 
-    <node id="front" displaylist="false">
+    <node id="front">
       <transforms>
         <translate to="0 0 0.5" />
         <rotate axis="x" angle="0" />
@@ -892,7 +878,7 @@
       </children>
     </node>
 
-    <node id="back" displaylist="false">
+    <node id="back">
       <transforms>
         <translate to="0 0 -0.5" />
         <rotate axis="y" angle="180.0" />
@@ -903,7 +889,7 @@
       </children>
     </node>
 
-    <node id="left" displaylist="false">
+    <node id="left">
       <transforms>
         <translate to="-0.5 0 0" />
         <rotate axis="y" angle="270.0" />
@@ -914,7 +900,7 @@
       </children>
     </node>
 
-    <node id="right" displaylist="false">
+    <node id="right">
       <transforms>
         <translate to="0.5 0 0" />
         <rotate axis="y" angle="90.0" />
@@ -925,16 +911,13 @@
       </children>
     </node>
 
-    <node id="beer" displaylist="false">
+    <node id="beer" displaylist="true">
       <transforms>
-        <translate to="13.5 12 17.5"/>
-       <!--  <translate to="13.5 8.625 17.5"/> -->
-       <!-- <rotate axis="x" angle="270" /> -->
+       <translate to="13.5 8.625 17.5"/>
+       <rotate axis="x" angle="270" />
       </transforms>
 
       <appearanceref id="beer" />
-
-      <animationref id="beer" />
 
       <children>
         <noderef id="beercup" />

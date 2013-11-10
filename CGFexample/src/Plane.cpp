@@ -74,6 +74,7 @@ void Plane::draw() {
     
     glFrontFace(*previousFrontFace);
     
+	/*
     // prints vertex numbers for debugging purposes
     glColor3f(1.0, 1.0, 0.0);
 	for (int i = 0; i < 4; i++)
@@ -81,5 +82,5 @@ void Plane::draw() {
 		glRasterPos3f(ctrlpoints[i][0],ctrlpoints[i][1],ctrlpoints[i][2]);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0'+i);
 	}
-    
+    */
 }
