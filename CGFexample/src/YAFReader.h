@@ -17,6 +17,7 @@
 #include "Animation.h"
 #include "LinearAnimation.h"
 #include "Waterline.h"
+#include "Vehicle.h"
 
 #include <sstream>
 #include <iostream>

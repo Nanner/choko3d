@@ -26,7 +26,7 @@
     <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="main" enabled="true"
         location="0.0 60.0 0.0"
-        ambient="0.4 0.4 0.4 1.0"
+        ambient="0.8 0.8 0.8 1.0"
         diffuse="0.7 0.7 0.7 1.0"
         specular="0.3 0.3 0.3 1.0"
             />
@@ -250,7 +250,8 @@
 
       <children>
         <noderef id="water" />
-        <noderef id="zeppelin" />
+        <noderef id="zeppelin1" />
+        <noderef id="zeppelin2" />
         <noderef id="bombs" />
         <noderef id="buildingsLeft" />
         <noderef id="buildingsRight" />
@@ -334,7 +335,7 @@
         <scale factor="2.0 1.5 2.0" />
       </transforms>
 
-      <appearanceref id="building4App" />"
+      <appearanceref id="building4App" />
 
       <children>
         <noderef id="building" />
@@ -347,7 +348,7 @@
         <scale factor="1 0.7 1.0" />
       </transforms>
 
-      <appearanceref id="building3App" />"
+      <appearanceref id="building3App" />
 
       <children>
         <noderef id="building" />
@@ -360,7 +361,7 @@
         <scale factor="1.5 0.8 1.0" />
       </transforms>
 
-      <appearanceref id="building2App" />"
+      <appearanceref id="building2App" />
 
       <children>
         <noderef id="building" />
@@ -371,7 +372,7 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="building1App" />"
+      <appearanceref id="building1App" />
 
       <children>
         <noderef id="building" />
@@ -414,11 +415,24 @@
         <noderef id="cube" />
       </children>
     </node>
-
-    <node id="zeppelin">
+    
+    <node id="zeppelin1">
       <transforms>
         <scale factor="1.5 1.5 1.5" />
         <translate to="0.0 10.0 0.0"/>
+      </transforms>
+
+      <animationref id="zeppelin" />
+
+      <children>
+        <vehicle />
+      </children>
+    </node>
+
+    <node id="zeppelin2">
+      <transforms>
+        <scale factor="1.5 1.5 1.5" />
+        <translate to="5.0 15.0 0.0"/>
       </transforms>
 
       <animationref id="zeppelin" />

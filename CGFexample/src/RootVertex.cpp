@@ -1,5 +1,7 @@
 #include "RootVertex.h"
 
+unsigned int RootVertex::defaultAppearanceID = 0;
+
 RootVertex::RootVertex(float* matrix,
                        string id,
                        YAFGlobal globals,
@@ -62,6 +64,7 @@ void RootVertex::loadDefaultAppearance() {
 	float shininess = 0.0;
     
 	defaultAppearance = new Appearance(ambient, diffuse, specular, emissivity, shininess);
+	defaultAppearanceID = defaultAppearance->id;
 }
 
 void RootVertex::setGlobals() {

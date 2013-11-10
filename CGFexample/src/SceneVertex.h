@@ -50,6 +50,7 @@ public:
 	vector<SceneVertex*> getEdges();
 
 	float* getMatrix();
+	void setMatrix(float matrix[]);
     
     Appearance * getAppearance();
     void setAppearance(Appearance * appearance);

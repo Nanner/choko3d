@@ -6,6 +6,7 @@
 
 class RootVertex: public SceneVertex {
 public:
+	static unsigned int defaultAppearanceID;
 	Appearance* defaultAppearance;
 	YAFGlobal globals;
     
