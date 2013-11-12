@@ -20,6 +20,7 @@
 		EB2654E81826DDC8007FCBBC /* cabinBottomText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E51826DDC1007FCBBC /* cabinBottomText.png */; };
 		EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E61826DDC1007FCBBC /* cabinText.png */; };
 		EB2654EA1826DDCB007FCBBC /* zeppelinScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */; };
+		EB3A6871182FF16C002837B6 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3A686F182FF16C002837B6 /* Vehicle.cpp */; };
 		EB5822D118142627001C3D45 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB5822CF18142627001C3D45 /* Plane.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
@@ -72,6 +73,7 @@
 		EBE3937D1829A0C0006C5A5F /* rivershader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBE393791829A0AD006C5A5F /* rivershader.vert */; };
 		EBF5AAC417F8B07900E54147 /* beer.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC217F8B06900E54147 /* beer.jpg */; };
 		EBF5AAC517F8B07A00E54147 /* beerfoam.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF5AAC317F8B06900E54147 /* beerfoam.jpg */; };
+		EBFC83791832C4ED0091D07D /* CurvedAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBFC83771832C4ED0091D07D /* CurvedAnimation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -140,6 +142,8 @@
 		EB2654E41826DDC1007FCBBC /* balloonText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloonText.png; sourceTree = "<group>"; };
 		EB2654E51826DDC1007FCBBC /* cabinBottomText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinBottomText.png; sourceTree = "<group>"; };
 		EB2654E61826DDC1007FCBBC /* cabinText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinText.png; sourceTree = "<group>"; };
+		EB3A686F182FF16C002837B6 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vehicle.cpp; path = src/Vehicle.cpp; sourceTree = SOURCE_ROOT; };
+		EB3A6870182FF16C002837B6 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vehicle.h; path = src/Vehicle.h; sourceTree = SOURCE_ROOT; };
 		EB5822CF18142627001C3D45 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = src/Plane.cpp; sourceTree = SOURCE_ROOT; };
 		EB5822D018142627001C3D45 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = src/Plane.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
@@ -315,6 +319,8 @@
 		EBE393791829A0AD006C5A5F /* rivershader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rivershader.vert; sourceTree = "<group>"; };
 		EBF5AAC217F8B06900E54147 /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
 		EBF5AAC317F8B06900E54147 /* beerfoam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beerfoam.jpg; sourceTree = "<group>"; };
+		EBFC83771832C4ED0091D07D /* CurvedAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurvedAnimation.cpp; path = src/CurvedAnimation.cpp; sourceTree = SOURCE_ROOT; };
+		EBFC83781832C4ED0091D07D /* CurvedAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedAnimation.h; path = src/CurvedAnimation.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +388,8 @@
 				EB5822D018142627001C3D45 /* Plane.h */,
 				EB0D1BB518182BE900E385CB /* Patch.cpp */,
 				EB0D1BB618182BE900E385CB /* Patch.h */,
+				EB3A686F182FF16C002837B6 /* Vehicle.cpp */,
+				EB3A6870182FF16C002837B6 /* Vehicle.h */,
 				EB7C0CA118202B2C000861A8 /* Waterline.cpp */,
 				EB7C0CA218202B2C000861A8 /* Waterline.h */,
 				EB7C0CA418202E90000861A8 /* WaterShader.cpp */,
@@ -410,6 +418,8 @@
 				EBB48508181C2404000E0A4A /* Animation.h */,
 				EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */,
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
+				EBFC83771832C4ED0091D07D /* CurvedAnimation.cpp */,
+				EBFC83781832C4ED0091D07D /* CurvedAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
 				EBE393761829A082006C5A5F /* ShaderTexture.h */,
 			);
@@ -660,6 +670,7 @@
 				EB9E1C0A18095B5F00F91761 /* YAFAppearance.cpp in Sources */,
 				EB9E1C0C18095B5F00F91761 /* YAFElement.cpp in Sources */,
 				EB9E1C1118095B5F00F91761 /* YAFReader.cpp in Sources */,
+				EBFC83791832C4ED0091D07D /* CurvedAnimation.cpp in Sources */,
 				EB9E1BFE18095B5F00F91761 /* Appearance.cpp in Sources */,
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
@@ -667,6 +678,7 @@
 				EB7C0CA318202B2C000861A8 /* Waterline.cpp in Sources */,
 				EB5822D118142627001C3D45 /* Plane.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
+				EB3A6871182FF16C002837B6 /* Vehicle.cpp in Sources */,
 				EB9E1C0E18095B5F00F91761 /* YAFGlobalLighting.cpp in Sources */,
 				EB9E1C1218095B5F00F91761 /* YAFTexture.cpp in Sources */,
 				EB9E1C0318095B5F00F91761 /* RootVertex.cpp in Sources */,

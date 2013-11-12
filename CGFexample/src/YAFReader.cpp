@@ -354,58 +354,110 @@ YAFReader::YAFReader(char *filename) {
 						else {
 							printf("\nFound a repeated control point on animation '%s', ignoring it.\n", id.c_str());
 						}
-                        
-                        controlPointElement = controlPointElement->NextSiblingElement();
-                    }
-                    
-                    LinearAnimation * linear = new LinearAnimation(span, controlPoints);
-                    
-                    bool notRepeated = animations.insert(pair<string, Animation*>(id, linear)).second;
-                    if(!notRepeated) {
-                        printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
-                        exit(1);
-                    }
-                    
-                }
-                
+
+						controlPointElement = controlPointElement->NextSiblingElement();
+					}
+
+					LinearAnimation * linear = new LinearAnimation(span, controlPoints);
+
+					bool notRepeated = animations.insert(pair<string, Animation*>(id, linear)).second;
+					if(!notRepeated) {
+						printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
+						exit(1);
+					}
+				}
+
+				if ( type.compare("curved") == 0 ) {
+					TiXmlElement * controlPointElement = animationElement->FirstChildElement("controlpoint");
+					vector<float> controlPoints;
+
+					//Add the first control point outside the loop so we can initialize the prevx, prevy, prevz values first
+					float prevX;
+					float prevY;
+					float prevZ;
+					if(controlPointElement) {
+						float x = getValue<float>(controlPointElement, (char*)"xx");
+						float y = getValue<float>(controlPointElement, (char*)"yy");
+						float z = getValue<float>(controlPointElement, (char*)"zz");
+
+						controlPoints.push_back(x);
+						controlPoints.push_back(y);
+						controlPoints.push_back(z);
+
+						prevX = getValue<float>(controlPointElement, (char*)"xx");
+						prevY = getValue<float>(controlPointElement, (char*)"yy");
+						prevZ = getValue<float>(controlPointElement, (char*)"zz");
+
+						controlPointElement = controlPointElement->NextSiblingElement();
+					}
+
+					while (controlPointElement) {
+						float x = getValue<float>(controlPointElement, (char*)"xx");
+						float y = getValue<float>(controlPointElement, (char*)"yy");
+						float z = getValue<float>(controlPointElement, (char*)"zz");
+
+						//Check if we are not getting repeated points, if we do, ignore them
+						if(x != prevX || y != prevY || z != prevZ) {
+							controlPoints.push_back(x);
+							controlPoints.push_back(y);
+							controlPoints.push_back(z);
+
+							prevX = x; prevY = y; prevZ = z;
+						}
+						else {
+							printf("\nFound a repeated control point on animation '%s', ignoring it.\n", id.c_str());
+						}
+
+						controlPointElement = controlPointElement->NextSiblingElement();
+					}
+
+					CurvedAnimation * curved = new CurvedAnimation(span, controlPoints);
+
+					bool notRepeated = animations.insert(pair<string, Animation*>(id, curved)).second;
+					if(!notRepeated) {
+						printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
+						exit(1);
+					}
+				}
+
 				animationElement = animationElement->NextSiblingElement();
 			}
-            
+
 			printf("Animations OK!\n");
 		}
 
 
 
-		// graph section
-		if (graphElement == NULL) {
-			printf("Graph block not found!\n");
-			exit(1);
-		}
-		else
-		{
-			string rootid = getValue<string>(graphElement, (char*)"rootid");
-            
-            YAFNode::rootID = rootid;
-            
-			TiXmlElement *node = graphElement->FirstChildElement();
-
-			while (node)
+			// graph section
+			if (graphElement == NULL) {
+				printf("Graph block not found!\n");
+				exit(1);
+			}
+			else
 			{
-				string nodeID = node->Attribute("id");
-                
-                YAFNode yafNode(nodeID);
-                
-                try {
-                    bool usesDisplayList = getValue<bool>(node, (char*)"displaylist");
-                    yafNode.setDisplayList(usesDisplayList);
-                } catch (EmptyAttributeException &eae)  {}
+				string rootid = getValue<string>(graphElement, (char*)"rootid");
 
-				TiXmlElement * transforms = node->FirstChildElement("transforms");
+				YAFNode::rootID = rootid;
 
-				if ( transforms == NULL) {
-					printf("obligatory transforms block doesn't exist!");
-                    exit(1);
-				}
+				TiXmlElement *node = graphElement->FirstChildElement();
+
+				while (node)
+				{
+					string nodeID = node->Attribute("id");
+
+					YAFNode yafNode(nodeID);
+
+					try {
+						bool usesDisplayList = getValue<bool>(node, (char*)"displaylist");
+						yafNode.setDisplayList(usesDisplayList);
+					} catch (EmptyAttributeException &eae)  {}
+
+					TiXmlElement * transforms = node->FirstChildElement("transforms");
+
+					if ( transforms == NULL) {
+						printf("obligatory transforms block doesn't exist!");
+						exit(1);
+					}
 
 				TiXmlElement * currentTransform = transforms->FirstChildElement();
                 
