@@ -20,6 +20,7 @@ public:
     
     static string rootID;
     
+	YAFNode() {};
     YAFNode(string id);
     void setTransformations(vector<Transformation *> transformations);
     void setAppearanceID(string id);

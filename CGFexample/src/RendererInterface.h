@@ -5,8 +5,12 @@
 #include "CGFinterface.h"
 #include "DemoScene.h"
 
+#define BUFSIZE 256
+
 class RendererInterface :public CGFinterface {
 public:
+	GLuint selectBuf[BUFSIZE];
+
 	map<int, string> lightMap;
 
 	int camResetButtonID;
@@ -34,5 +38,8 @@ public:
 
 	void initGUI();
 	void processGUI(GLUI_Control *ctrl);
+	virtual void processMouse(int button, int state, int x, int y);	
+	void performPicking(int x, int y);
+	void processHits(GLint hits, GLuint buffer[]); 
 };
 

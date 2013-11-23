@@ -14,6 +14,10 @@ using namespace std;
 
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
+
+	SceneVertex* pickingSquaresRoot;
+	vector<SceneVertex *> pickingSquaresSet;
+
 	RootVertex* rootVertex;
     map<string, Appearance *> appearances;
 
@@ -36,19 +40,19 @@ public:
 	SceneGraph(){}
 	SceneGraph(YAFReader* yafFile);
 	~SceneGraph();
-	bool addVertex(SceneVertex *in);
-	bool addEdge(SceneVertex *sourc, SceneVertex *dest);
-	bool removeVertex(SceneVertex *in);
-	bool removeEdge(SceneVertex *sourc, SceneVertex *dest);
+	bool addVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet);
+	bool addEdge(SceneVertex *sourc, SceneVertex *dest, vector<SceneVertex *> &vertexSet);
+	bool removeVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet);
+	bool removeEdge(SceneVertex *sourc, SceneVertex *dest, vector<SceneVertex *> &vertexSet);
 
 	
 	vector<SceneVertex * > getVertexSet() const;
 	unsigned long getNumVertex() const;
 
 	void processRootNode(YAFNode root, YAFReader* yafFile);
-	void processYAFNode(YAFNode yafNode);
-	void loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex);
-	void processYAFNodeReferences(YAFNode yafNode);
+	void processYAFNode(YAFNode yafNode, vector<SceneVertex *> &vertexSet);
+	void loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex, vector<SceneVertex *> &vertexSet);
+	void processYAFNodeReferences(YAFNode yafNode, vector<SceneVertex *> &vertexSet);
 
 	RootVertex* getRootVertex();
 
@@ -75,6 +79,10 @@ public:
 	void updateShaders(unsigned long t);
 
 	void updateWaterShaderScales();
+
+	void processPickingSquares();
+	void renderPickingSquares();
+	void renderPickingSquares(SceneVertex* v);
 };
 
 #endif

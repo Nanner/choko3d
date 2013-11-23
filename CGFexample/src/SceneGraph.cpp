@@ -11,30 +11,30 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	SceneLight::ambient[2] = yafFile->globalLighting.ambientB;
 	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
 
-    //read the textures and appearances
-    map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
-    for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
-        YAFAppearance a = appearanceItr->second;
+	//read the textures and appearances
+	map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
+	for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
+		YAFAppearance a = appearanceItr->second;
 		float amb[4]  = {a.ambientR,  a.ambientG,  a.ambientB,  a.ambientA };
-        float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
-        float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
+		float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
+		float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
 		float emis[4] = {a.emissiveR, a.emissiveG, a.emissiveB, a.emissiveA};
-        float shininess =  a.shininess;
-        Appearance* appearance = new Appearance(amb, dif, spec, emis, shininess);
-        
-        if ( a.usesTexture ) {
-            YAFTexture yafTexture = yafFile->textures.at(a.textureID);
-            appearance->setTexture(yafTexture.file);
+		float shininess =  a.shininess;
+		Appearance* appearance = new Appearance(amb, dif, spec, emis, shininess);
+
+		if ( a.usesTexture ) {
+			YAFTexture yafTexture = yafFile->textures.at(a.textureID);
+			appearance->setTexture(yafTexture.file);
 			appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
 			appearance->setTexLength_s(a.texlength_s);
 			appearance->setTexLength_t(a.texlength_t);
-        }
-        
-        appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
+		}
+
+		appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
 	}
-    
-    this->animations = yafFile->animations;
-    
+
+	this->animations = yafFile->animations;
+
 	//Process the root node first
 	string rootID = YAFNode::rootID;
 	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
@@ -43,13 +43,28 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	map<string, YAFNode>::iterator it = yafFile->nodes.begin();
 	for(; it != yafFile->nodes.end(); it++) {
 		if(it->first != rootID)
-			processYAFNode(it->second);
+			processYAFNode(it->second, vertexSet);
 	}
 
 	//Process the links between nodes
 	it = yafFile->nodes.begin();
 	for(; it != yafFile->nodes.end(); it++) {
-		processYAFNodeReferences(it->second);
+		processYAFNodeReferences(it->second, vertexSet);
+	}
+
+	//Process the picking squares nodes
+	processYAFNode(yafFile->pickingSquares.find("pickingSquares")->second, pickingSquaresSet);
+
+	map<string, YAFNode>::iterator it2 = yafFile->pickingSquares.begin();
+	for(; it2 != yafFile->pickingSquares.end(); it2++) {
+		if(it2->first != "pickingSquares")
+			processYAFNode(it2->second, pickingSquaresSet);
+	}
+
+	//Process the links between nodes
+	it2 = yafFile->pickingSquares.begin();
+	for(; it2 != yafFile->pickingSquares.end(); it2++) {
+		processYAFNodeReferences(it2->second, pickingSquaresSet);
 	}
 
 	findShaders();
@@ -68,12 +83,12 @@ SceneGraph::~SceneGraph() {
 	}
 }
 
-bool SceneGraph::addVertex(SceneVertex *in) {
+bool SceneGraph::addVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet) {
 	vertexSet.push_back(in);
 	return true;
 }
 
-bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest) {
+bool SceneGraph::addEdge(SceneVertex *sourc, SceneVertex *dest, vector<SceneVertex *> &vertexSet) {
 	sourc->addEdge(dest);
 	return true;
 }
@@ -101,7 +116,7 @@ void SceneGraph::render() {
 		//If the vertex uses display lists, its current one is not initialized, but the display list order stack is ready and its display list is at the top,
 		if (rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == rootVertex->getDisplayList(vertexAppearance))
 			//Create a new list with what is going to be drawn
-			glNewList(rootVertex->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
+				glNewList(rootVertex->getDisplayList(vertexAppearance), GL_COMPILE_AND_EXECUTE);
 		//If the vertex uses display lists, its current is not initialized, the display list order stack is not ready yet and this display list is not on the stack yet
 		else if(rootVertex->usesDisplayList && !rootVertex->initializedDisplayList(vertexAppearance) && !stackReady && !rootVertex->displayListInStack(vertexAppearance)) {
 			//Push this list to the display list order stack, which is the same as saying we're specifying in what order this display list must be created
@@ -157,15 +172,15 @@ void SceneGraph::render() {
 }
 
 void SceneGraph::render(SceneVertex *v) {
-    
+
 	//Indicate this vertex as visited (this also works as a verifier against cycles inside the graph)
 	v->nodeVisited = true;
 	v->childVisited = true;
 
 	//Prepare to iterate over this vertex's children
-    vector<SceneEdge>::iterator it, ite;
-    it = (v->adj).begin();
-    ite = (v->adj).end();
+	vector<SceneEdge>::iterator it, ite;
+	it = (v->adj).begin();
+	ite = (v->adj).end();
 
 	for (; it !=ite; it++) {
 		//If we haven't visited this child yet
@@ -215,7 +230,7 @@ void SceneGraph::render(SceneVertex *v) {
 				//If the child vertex inherits its appearance, we set its appearance to the parent's
 				if(it->dest->inheritedAppearance)
 					it->dest->setAppearance(v->getAppearance());
-				
+
 				//We retrieve the child vertex's appearance
 				Appearance* app;
 				app = it->dest->getAppearance();
@@ -230,14 +245,14 @@ void SceneGraph::render(SceneVertex *v) {
 					glMultMatrixf(animationMatrix);
 				}
 
+				//If the child vertex has an animation, apply the rotation
+				if(it->dest->getAnimation() != NULL)
+					it->dest->getAnimation()->applyRotation();
+
 				//Get the child vertex transformation matrix, and if it's not empty, multiply it to the current matrix
 				float* matrix = it->dest->getMatrix();
 				if(matrix != NULL)
 					glMultMatrixf(matrix);
-
-				//If the child vertex has an animation, apply the rotation
-				if(it->dest->getAnimation() != NULL)
-					it->dest->getAnimation()->applyRotation();
 
 				//Draw the child vertex
 				it->dest->draw();
@@ -250,7 +265,7 @@ void SceneGraph::render(SceneVertex *v) {
 				//If the vertex uses display lists, its current one is not initialized yet, but the stack is ready and this display list is at the top of it,
 				//And we're at this point, it means we ended drawing what is going to be displayed in the display list
 				if (it->dest->usesDisplayList && ! it->dest->initializedDisplayList(vertexAppearance) && stackReady && displayListOrder.top() == it->dest->getDisplayList(vertexAppearance)){
-					
+
 					//So we end the display list
 					glEndList();
 
@@ -270,20 +285,20 @@ void SceneGraph::render(SceneVertex *v) {
 				}
 			}
 		}
-        
-    }
-    
-    //Reset the childVisited bools back to false, because a child vertex can have multiple parents
+
+	}
+
+	//Reset the childVisited bools back to false, because a child vertex can have multiple parents
 	it = (v->adj).begin();
 	ite = (v->adj).end();
 	for (; it !=ite; it++) {
 		it->dest->childVisited = false;
 	}
-    
+
 	//Restore appearance back to null
 	if(v->inheritedAppearance)
 		v->appearance = NULL;
-    
+
 	//Re-apply default appearance
 	rootVertex->defaultAppearance->apply();
 }
@@ -300,50 +315,50 @@ void SceneGraph::processRootNode(YAFNode root, YAFReader* yafFile) {
 		newRoot->setAppearance(NULL);
 		newRoot->inheritedAppearance=false;
 	}
-    
-    if (root.usesDisplayList)
-        newRoot->activateDisplayList();
 
-	addVertex(newRoot);
+	if (root.usesDisplayList)
+		newRoot->activateDisplayList();
 
-	loadVertexPrimitives(root.primitives, newRoot);
+	addVertex(newRoot, vertexSet);
+
+	loadVertexPrimitives(root.primitives, newRoot, vertexSet);
 }
 
-void SceneGraph::processYAFNode(YAFNode yafNode) {
+void SceneGraph::processYAFNode(YAFNode yafNode, vector<SceneVertex *> &vertexSet) {
 	SceneComposite* newVertex = new SceneComposite(yafNode.transformationMatrix, yafNode.id);
-    if ( yafNode.appearanceID != "") {
-        newVertex->setAppearance(appearances.at(yafNode.appearanceID));
+	if ( yafNode.appearanceID != "") {
+		newVertex->setAppearance(appearances.at(yafNode.appearanceID));
 		newVertex->inheritedAppearance = false;
 	}
 	else {
 		newVertex->setAppearance(NULL);
 		newVertex->inheritedAppearance = true;
 	}
-    
-    if (yafNode.usesDisplayList)
-        newVertex->activateDisplayList();
-    
-    if (yafNode.animationID.compare("") != 0) {
-        Animation * animation = animations.at(yafNode.animationID);
-        newVertex->setAnimation(animation);
-    }
 
-	addVertex(newVertex);
+	if (yafNode.usesDisplayList)
+		newVertex->activateDisplayList();
 
-	loadVertexPrimitives(yafNode.primitives, newVertex);
+	if (yafNode.animationID.compare("") != 0) {
+		Animation * animation = animations.at(yafNode.animationID);
+		newVertex->setAnimation(animation);
+	}
+
+	addVertex(newVertex, vertexSet);
+
+	loadVertexPrimitives(yafNode.primitives, newVertex, vertexSet);
 }
 
-void SceneGraph::loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex) {
+void SceneGraph::loadVertexPrimitives(vector<ScenePrimitive*> primitives, SceneVertex* vertex, vector<SceneVertex *> &vertexSet) {
 	for(unsigned int i = 0; i < primitives.size(); i++) {
 		ScenePrimitive* primitive = primitives.at(i);
-        primitive->setAppearance(vertex->getAppearance());
+		primitive->setAppearance(vertex->getAppearance());
 		primitive->inheritedAppearance = true;
-		addVertex(primitive);
-		addEdge(vertex, primitive);
+		addVertex(primitive, vertexSet);
+		addEdge(vertex, primitive, vertexSet);
 	}
 }
 
-void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
+void SceneGraph::processYAFNodeReferences(YAFNode yafNode, vector<SceneVertex *> &vertexSet) {
 	vector<SceneVertex* >::iterator vertexIterator = vertexSet.begin();
 
 	//Find the vertex corresponding to this yafNode
@@ -361,7 +376,7 @@ void SceneGraph::processYAFNodeReferences(YAFNode yafNode) {
 	for(; idIterator != yafNode.nodeReferences.end(); idIterator++) {
 		for(vertexIterator = vertexSet.begin(); vertexIterator != vertexSet.end(); vertexIterator++) {
 			if((*vertexIterator)->id == (*idIterator)) {
-				addEdge(vertex, (*vertexIterator));
+				addEdge(vertex, (*vertexIterator), vertexSet);
 			}
 		}
 	}
@@ -484,4 +499,99 @@ void SceneGraph::updateWaterShaderScales() {
 	for(unsigned int i = 0; i < currentShaders.size(); i++) {
 		currentShaders.at(i)->setScalesFromControlValues(currentShaderSpeedControl, currentShaderHeightControl, currentShaderInclineControl);
 	}
+}
+
+//Render picking squares (for picking purposes)
+void SceneGraph::renderPickingSquares() {
+	vector<SceneVertex *>::const_iterator it= pickingSquaresSet.begin();
+	vector<SceneVertex *>::const_iterator ite= pickingSquaresSet.end();
+	for (; it !=ite; it++)
+		(*it)->nodeVisited=false;
+
+	//Start drawing the vertex
+	glPushMatrix();
+
+	//Apply the default appearance, to clean any that could have been applied and shouldn't be used
+	rootVertex->defaultAppearance->apply();
+	(*pickingSquaresSet.begin())->setAppearance(rootVertex->defaultAppearance);
+
+	//Get this vertex pre-calculated transformation matrix and apply it (multiply to the current matrix)
+	float* matrix = (*pickingSquaresSet.begin())->getMatrix();
+	if(matrix != NULL)
+		glMultMatrixf(matrix);
+
+	//Render its descendants
+	renderPickingSquares(*pickingSquaresSet.begin());
+
+	glPopMatrix();
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
+}
+
+void SceneGraph::renderPickingSquares(SceneVertex *v) {
+
+	//Indicate this vertex as visited (this also works as a verifier against cycles inside the graph)
+	v->nodeVisited = true;
+	v->childVisited = true;
+
+	//Prepare to iterate over this vertex's children
+	vector<SceneEdge>::iterator it, ite;
+	it = (v->adj).begin();
+	ite = (v->adj).end();
+
+	unsigned int objNum = 0;
+	for (; it !=ite; it++, objNum++) {
+		//If we haven't visited this child yet
+		if ( it->dest->childVisited == false ) {
+				//Start drawing the child vertex
+				glPushMatrix();
+
+				//Apply the default appearance, to clean any that could have been applied and shouldn't be used
+				rootVertex->defaultAppearance->apply();
+
+				//If the child vertex inherits its appearance, we set its appearance to the parent's
+				if(it->dest->inheritedAppearance)
+					it->dest->setAppearance(v->getAppearance());
+
+				//If the child vertex has an animation, multiply the current matrix by the animation transformation matrix
+				if(it->dest->getAnimation() != NULL){
+					float * animationMatrix = it->dest->getAnimation()->getMatrix();
+					glMultMatrixf(animationMatrix);
+				}
+
+				//If the child vertex has an animation, apply the rotation
+				if(it->dest->getAnimation() != NULL)
+					it->dest->getAnimation()->applyRotation();
+
+				//Get the child vertex transformation matrix, and if it's not empty, multiply it to the current matrix
+				float* matrix = it->dest->getMatrix();
+				if(matrix != NULL)
+					glMultMatrixf(matrix);
+
+				//Draw the child vertex
+				glPushName(objNum);
+				it->dest->draw();
+
+				//Render the child vertex's children
+				renderPickingSquares(it->dest);
+
+				glPopName();
+				glPopMatrix();
+		}
+	}
+
+	//Reset the childVisited bools back to false, because a child vertex can have multiple parents
+	it = (v->adj).begin();
+	ite = (v->adj).end();
+	for (; it !=ite; it++) {
+		it->dest->childVisited = false;
+	}
+
+	//Restore appearance back to null
+	if(v->inheritedAppearance)
+		v->appearance = NULL;
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
 }

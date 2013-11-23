@@ -18,6 +18,7 @@ class DemoScene : public CGFscene
 public:
 	int activeCameraNum;
 	int activeDrawMode;
+	bool isSelectMode;
 
 	void init();
 	void initCameras();

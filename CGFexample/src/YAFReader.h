@@ -42,6 +42,7 @@ public:
 	map<string, YAFAppearance> appearances;
     map<string, YAFNode> nodes;
     map<string, Animation *> animations;
+	map<string, YAFNode> pickingSquares;
 
     
 protected:

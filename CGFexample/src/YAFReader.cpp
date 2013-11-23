@@ -27,7 +27,7 @@ YAFReader::YAFReader(char *filename) {
 		texturesElement =  yafElement->FirstChildElement( "textures" );
 		appearancesElement =  yafElement->FirstChildElement( "appearances" );
 		graphElement =  yafElement->FirstChildElement( "graph" );
-        animationsElement = yafElement->FirstChildElement("animations");
+		animationsElement = yafElement->FirstChildElement("animations");
 
 		// -------------- GLOBALS -----------------------------------------
 
@@ -47,9 +47,9 @@ YAFReader::YAFReader(char *filename) {
 
 			vector<string> backgroundAttributes = getValues<string>(globalsElement, bgAttributeNames);
 
-            globals = YAFGlobal(rgba, backgroundAttributes);
-            
-            printf("Globals OK!\n");
+			globals = YAFGlobal(rgba, backgroundAttributes);
+
+			printf("Globals OK!\n");
 		}
 
 		// -------------- CAMERAS -----------------------------------------
@@ -115,8 +115,8 @@ YAFReader::YAFReader(char *filename) {
 				currentCamera = currentCamera->NextSiblingElement();
 
 			}
-            
-            printf("Cameras OK!\n");
+
+			printf("Cameras OK!\n");
 		}
 
 		// -------------- LIGHTS -----------------------------------------
@@ -136,8 +136,8 @@ YAFReader::YAFReader(char *filename) {
 			vector<bool> attributes = getValues<bool>(lightingElement, attributeNames);
 
 			vector<float> ambient = getValues<float>(lightingElement, (char*) "ambient");
-            
-            globalLighting = YAFGlobalLighting(attributes, ambient);
+
+			globalLighting = YAFGlobalLighting(attributes, ambient);
 
 			TiXmlElement* currentLight = lightingElement->FirstChildElement();
 			if(currentLight == NULL) {
@@ -160,8 +160,8 @@ YAFReader::YAFReader(char *filename) {
 					vector<float> diffuse = getValues<float>(currentLight, (char*)"diffuse");
 
 					vector<float> specular = getValues<float>(currentLight, (char*)"specular");
-                    
-                    YAFLight omni(id, enabled, location, ambient, diffuse, specular);
+
+					YAFLight omni(id, enabled, location, ambient, diffuse, specular);
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, omni)).second;
 					if(!notRepeated) {
 						printf("Tried to insert an omni light with an already existing light id '%s'. Terminating!\n", id.c_str());
@@ -188,9 +188,9 @@ YAFReader::YAFReader(char *filename) {
 					float exponent = getValue<float>(currentLight, (char*)"exponent");
 
 					vector<float> direction = getValues<float>(currentLight, (char*)"direction");
-                    
-                    YAFLight spot(id, enabled, location, ambient, diffuse, specular, angle, exponent, direction);
-                    
+
+					YAFLight spot(id, enabled, location, ambient, diffuse, specular, angle, exponent, direction);
+
 					bool notRepeated = lights.insert(pair<string, YAFLight>(id, spot)).second;
 					if(!notRepeated) {
 						printf("Tried to insert a spot light with an already existing light id '%s'. Terminating!\n", id.c_str());
@@ -201,10 +201,10 @@ YAFReader::YAFReader(char *filename) {
 				currentLight = currentLight->NextSiblingElement();
 
 			}
-            
-            printf("Lights OK!\n");
+
+			printf("Lights OK!\n");
 		}
-        
+
 		// -------------- TEXTURES -----------------------------------------
 
 		if (texturesElement == NULL) {
@@ -296,9 +296,9 @@ YAFReader::YAFReader(char *filename) {
 
 			printf("Appearances OK!\n");
 		}
-        
-        // -------------- ANIMATIONS -----------------------------------------
-        
+
+		// -------------- ANIMATIONS -----------------------------------------
+
 		if (animationsElement == NULL) {
 			printf("Animation block not found!\n");
 			exit(1);
@@ -306,18 +306,18 @@ YAFReader::YAFReader(char *filename) {
 		else
 		{
 			printf("Processing animations... ");
-            
+
 			TiXmlElement* animationElement = animationsElement->FirstChildElement("animation");
-            
+
 			while ( animationElement ) {
 				string id = getValue<string>(animationElement, (char*)"id");
 				float span = getValue<float>(animationElement, (char*)"span");
-                string type = getValue<string>(animationElement, (char*)"type");
-                
+				string type = getValue<string>(animationElement, (char*)"type");
+
 				if ( type.compare("linear") == 0 ) {
-                    TiXmlElement * controlPointElement = animationElement->FirstChildElement("controlpoint");
-                    vector<float> controlPoints;
-                    
+					TiXmlElement * controlPointElement = animationElement->FirstChildElement("controlpoint");
+					vector<float> controlPoints;
+
 					//Add the first control point outside the loop so we can initialize the prevx, prevy, prevz values first
 					float prevX;
 					float prevY;
@@ -338,10 +338,10 @@ YAFReader::YAFReader(char *filename) {
 						controlPointElement = controlPointElement->NextSiblingElement();
 					}
 
-                    while (controlPointElement) {
-                        float x = getValue<float>(controlPointElement, (char*)"xx");
-                        float y = getValue<float>(controlPointElement, (char*)"yy");
-                        float z = getValue<float>(controlPointElement, (char*)"zz");
+					while (controlPointElement) {
+						float x = getValue<float>(controlPointElement, (char*)"xx");
+						float y = getValue<float>(controlPointElement, (char*)"yy");
+						float z = getValue<float>(controlPointElement, (char*)"zz");
 
 						//Check if we are not getting repeated points, if we do, ignore them
 						if(x != prevX || y != prevY || z != prevZ) {
@@ -354,23 +354,23 @@ YAFReader::YAFReader(char *filename) {
 						else {
 							printf("\nFound a repeated control point on animation '%s', ignoring it.\n", id.c_str());
 						}
-                        
-                        controlPointElement = controlPointElement->NextSiblingElement();
-                    }
-                    
-                    LinearAnimation * linear = new LinearAnimation(span, controlPoints);
-                    
-                    bool notRepeated = animations.insert(pair<string, Animation*>(id, linear)).second;
-                    if(!notRepeated) {
-                        printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
-                        exit(1);
-                    }
-                    
-                }
-                
+
+						controlPointElement = controlPointElement->NextSiblingElement();
+					}
+
+					LinearAnimation * linear = new LinearAnimation(span, controlPoints);
+
+					bool notRepeated = animations.insert(pair<string, Animation*>(id, linear)).second;
+					if(!notRepeated) {
+						printf("Tried to insert an animation with an already existing animation id '%s'. Terminating!\n", id.c_str());
+						exit(1);
+					}
+
+				}
+
 				animationElement = animationElement->NextSiblingElement();
 			}
-            
+
 			printf("Animations OK!\n");
 		}
 
@@ -384,63 +384,63 @@ YAFReader::YAFReader(char *filename) {
 		else
 		{
 			string rootid = getValue<string>(graphElement, (char*)"rootid");
-            
-            YAFNode::rootID = rootid;
-            
+
+			YAFNode::rootID = rootid;
+
 			TiXmlElement *node = graphElement->FirstChildElement();
 
 			while (node)
 			{
 				string nodeID = node->Attribute("id");
-                
-                YAFNode yafNode(nodeID);
-                
-                try {
-                    bool usesDisplayList = getValue<bool>(node, (char*)"displaylist");
-                    yafNode.setDisplayList(usesDisplayList);
-                } catch (EmptyAttributeException &eae)  {}
+
+				YAFNode yafNode(nodeID);
+
+				try {
+					bool usesDisplayList = getValue<bool>(node, (char*)"displaylist");
+					yafNode.setDisplayList(usesDisplayList);
+				} catch (EmptyAttributeException &eae)  {}
 
 				TiXmlElement * transforms = node->FirstChildElement("transforms");
 
 				if ( transforms == NULL) {
 					printf("obligatory transforms block doesn't exist!");
-                    exit(1);
+					exit(1);
 				}
 
 				TiXmlElement * currentTransform = transforms->FirstChildElement();
-                
-                vector<Transformation *> t;
+
+				vector<Transformation *> t;
 
 				while (currentTransform) {
-                    
+
 					if ( strcmp(currentTransform->Value(), "translate") == 0 ) {
 						vector<float> to = getValues<float>(currentTransform, (char*)"to");
-                        
-                        t.push_back(new Translation(to));
+
+						t.push_back(new Translation(to));
 					}
 
 					if ( strcmp(currentTransform->Value(), "rotate") == 0 ) {
 						string axis = getValue<string>(currentTransform, (char*)"axis");
 						float angle = getValue<float>(currentTransform, (char*)"angle");
-                                                
-                        t.push_back(new Rotation(axis, angle));
-                    }
+
+						t.push_back(new Rotation(axis, angle));
+					}
 
 					if ( strcmp(currentTransform->Value(), "scale") == 0 ) {
 						vector<float> factor = getValues<float>(currentTransform, (char*)"factor");
-                                                
-                        t.push_back(new Scaling(factor));
+
+						t.push_back(new Scaling(factor));
 					}
 
 					currentTransform = currentTransform->NextSiblingElement();
 				}
-                
-                yafNode.setTransformations(t);
-                
-                for (int i = 0; i < t.size(); i++) {
-                    // clean up pointers
-                    delete t.at(i);
-                }
+
+				yafNode.setTransformations(t);
+
+				for (int i = 0; i < t.size(); i++) {
+					// clean up pointers
+					delete t.at(i);
+				}
 
 				TiXmlElement * appearanceref = node->FirstChildElement("appearanceref");
 
@@ -450,45 +450,45 @@ YAFReader::YAFReader(char *filename) {
 					try {
 						appearanceID = getValue<string>(appearanceref, (char*)"id");
 					} catch (EmptyAttributeException &eae) {}
-						
+
 					try {
 						if(!appearanceID.empty()) {
 							YAFAppearance appearance = appearances.at(appearanceID);
 						}
-                        yafNode.setAppearanceID(appearanceID);
-                    } catch (exception &e) {
-                        printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());
-                        exit(1);
-                    }
-                    
+						yafNode.setAppearanceID(appearanceID);
+					} catch (exception &e) {
+						printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());
+						exit(1);
+					}
+
 				}
-                
-                TiXmlElement * animationref = node->FirstChildElement("animationref");
-                
+
+				TiXmlElement * animationref = node->FirstChildElement("animationref");
+
 				if (animationref) {
 					string animationID;
-                    
+
 					try {
 						animationID = getValue<string>(animationref, (char*)"id");
 					} catch (EmptyAttributeException &eae) {}
-                    
+
 					try {
 						if(!animationID.empty()) {
 							Animation * animation = animations.at(animationID);
 						}
-                        yafNode.setAnimationID(animationID);
-                    } catch (exception &e) {
-                        printf("Animation '%s' doesn't exist! Terminating...", animationID.c_str());
-                        exit(1);
-                    }
-                    
+						yafNode.setAnimationID(animationID);
+					} catch (exception &e) {
+						printf("Animation '%s' doesn't exist! Terminating...", animationID.c_str());
+						exit(1);
+					}
+
 				}
 
 				TiXmlElement * children = node->FirstChildElement("children");
 
 				if (children == NULL) {
 					printf("obligatory children block doesn't exist!");
-                    exit(1);
+					exit(1);
 				}
 
 				TiXmlElement * currentChild = children->FirstChildElement();
@@ -500,7 +500,7 @@ YAFReader::YAFReader(char *filename) {
 					if ( strcmp(currentChild->Value(), "noderef") == 0 ) {
 						nodeRefCounter++;
 						string id = getValue<string>(currentChild, (char*)"id");
-                        yafNode.addNodeReference(id);
+						yafNode.addNodeReference(id);
 					} else {
 						// it is not a reference to a node
 						// it can only be a primitive now
@@ -510,14 +510,14 @@ YAFReader::YAFReader(char *filename) {
 					if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
 						vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
 						vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
-                        yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
+						yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
 					}
 
 					if ( strcmp(currentChild->Value(), "triangle") == 0 ) {
 						vector<float> xyz1 = getValues<float>(currentChild, (char*)"xyz1");
 						vector<float> xyz2 = getValues<float>(currentChild, (char*)"xyz2");
 						vector<float> xyz3 = getValues<float>(currentChild, (char*)"xyz3");
-                        yafNode.addPrimitive( new Triangle(xyz1, xyz2, xyz3) );
+						yafNode.addPrimitive( new Triangle(xyz1, xyz2, xyz3) );
 					}
 
 					if ( strcmp(currentChild->Value(), "cylinder") == 0 ) {
@@ -526,14 +526,14 @@ YAFReader::YAFReader(char *filename) {
 						float height = getValue<float>(currentChild, (char*)"height");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int stacks = getValue<int>(currentChild, (char*)"stacks");
-                        yafNode.addPrimitive( new Cylinder(base, top, height, slices, stacks));
+						yafNode.addPrimitive( new Cylinder(base, top, height, slices, stacks));
 					}
 
 					if ( strcmp(currentChild->Value(), "sphere") == 0 ) {
 						float radius = getValue<float>(currentChild, (char*)"radius");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int stacks = getValue<int>(currentChild, (char*)"stacks");
-                        yafNode.addPrimitive( new Sphere(radius, slices, stacks) );
+						yafNode.addPrimitive( new Sphere(radius, slices, stacks) );
 					}
 
 					if ( strcmp(currentChild->Value(), "torus") == 0 ) {
@@ -541,52 +541,52 @@ YAFReader::YAFReader(char *filename) {
 						float outter = getValue<float>(currentChild, (char*)"outer");
 						int slices = getValue<int>(currentChild, (char*)"slices");
 						int loops = getValue<int>(currentChild, (char*)"loops");
-                        yafNode.addPrimitive( new Torus(inner, outter, slices, loops) );
+						yafNode.addPrimitive( new Torus(inner, outter, slices, loops) );
 					}
-                    
-                    if ( strcmp(currentChild->Value(), "plane") == 0 ) {
-                        int parts = getValue<int>(currentChild, (char*)"parts");
-                        yafNode.addPrimitive( new Plane(parts) );
-                    }
-                    
-                    if ( strcmp(currentChild->Value(), "patch") == 0 ) {
-                        int order = getValue<int>(currentChild, (char*)"order");
-                        int partsU = getValue<int>(currentChild, (char*)"partsU");
-                        int partsV = getValue<int>(currentChild, (char*)"partsV");
-                        string compute = getValue<string>(currentChild, (char*)"compute");
-                        
-                        TiXmlElement * currentControlPoint = currentChild->FirstChildElement();
-                        
-                        vector<float> controlPoints;
-                        
-                        while (currentControlPoint != NULL) {
-                            float x = getValue<float>(currentControlPoint, (char*)"x");
-                            controlPoints.push_back(x);
-                            float y = getValue<float>(currentControlPoint, (char*)"y");
-                            controlPoints.push_back(y);
-                            float z = getValue<float>(currentControlPoint, (char*)"z");
-                            controlPoints.push_back(z);
-                            
-                            currentControlPoint = currentControlPoint->NextSiblingElement();
-                        }
-                        
-                        try {
-                            Patch * patch = new Patch(order, partsU, partsV, compute, controlPoints);
-                            yafNode.addPrimitive(patch);
-                        } catch (InvalidAttributeValueException &iave) {
-                            cout << iave.error() << endl;
-                        }
-                        
-                    }
-                    
-                    if ( strcmp(currentChild->Value(), "waterline") == 0 ) {
-                        string heightmap = getValue<string>(currentChild, (char*)"heightmap");
-                        string texturemap = getValue<string>(currentChild, (char*)"texturemap");
-                        string fragmentshader = getValue<string>(currentChild, (char*)"fragmentshader");
-                        string vertexshader = getValue<string>(currentChild, (char*)"vertexshader");
-                        
-                        yafNode.addPrimitive( new Waterline(heightmap, texturemap, fragmentshader, vertexshader) );
-                    }
+
+					if ( strcmp(currentChild->Value(), "plane") == 0 ) {
+						int parts = getValue<int>(currentChild, (char*)"parts");
+						yafNode.addPrimitive( new Plane(parts) );
+					}
+
+					if ( strcmp(currentChild->Value(), "patch") == 0 ) {
+						int order = getValue<int>(currentChild, (char*)"order");
+						int partsU = getValue<int>(currentChild, (char*)"partsU");
+						int partsV = getValue<int>(currentChild, (char*)"partsV");
+						string compute = getValue<string>(currentChild, (char*)"compute");
+
+						TiXmlElement * currentControlPoint = currentChild->FirstChildElement();
+
+						vector<float> controlPoints;
+
+						while (currentControlPoint != NULL) {
+							float x = getValue<float>(currentControlPoint, (char*)"x");
+							controlPoints.push_back(x);
+							float y = getValue<float>(currentControlPoint, (char*)"y");
+							controlPoints.push_back(y);
+							float z = getValue<float>(currentControlPoint, (char*)"z");
+							controlPoints.push_back(z);
+
+							currentControlPoint = currentControlPoint->NextSiblingElement();
+						}
+
+						try {
+							Patch * patch = new Patch(order, partsU, partsV, compute, controlPoints);
+							yafNode.addPrimitive(patch);
+						} catch (InvalidAttributeValueException &iave) {
+							cout << iave.error() << endl;
+						}
+
+					}
+
+					if ( strcmp(currentChild->Value(), "waterline") == 0 ) {
+						string heightmap = getValue<string>(currentChild, (char*)"heightmap");
+						string texturemap = getValue<string>(currentChild, (char*)"texturemap");
+						string fragmentshader = getValue<string>(currentChild, (char*)"fragmentshader");
+						string vertexshader = getValue<string>(currentChild, (char*)"vertexshader");
+
+						yafNode.addPrimitive( new Waterline(heightmap, texturemap, fragmentshader, vertexshader) );
+					}
 
 					if ( strcmp(currentChild->Value(), "vehicle") == 0 ) {
 						yafNode.addPrimitive( new Vehicle() );
@@ -597,14 +597,20 @@ YAFReader::YAFReader(char *filename) {
 
 				if (primitiveCounter == 0 && nodeRefCounter == 0) {
 					printf("There must be at least one primitive or one node reference for each child in the children block! Terminating ...");
-                    exit(1);
+					exit(1);
 				}
-                
-                bool notRepeated = nodes.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
-                if (!notRepeated) {
-                    printf("Tried to insert a node with an already existing node id '%s'. Terminating!\n", nodeID.c_str());
-                    exit(1);
-                }
+
+				if(nodeID.find("pickingSquares") != string::npos || nodeID.find("pickRow") != string::npos || nodeID.find("pick") != string::npos) {
+					printf("Found pickingSquares, processing\n");
+					pickingSquares.insert(pair<string, YAFNode>(nodeID, yafNode));
+				}
+				else {
+					bool notRepeated = nodes.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
+					if (!notRepeated) {
+						printf("Tried to insert a node with an already existing node id '%s'. Terminating!\n", nodeID.c_str());
+						exit(1);
+					}
+				}
 
 				node=node->NextSiblingElement();
 			}

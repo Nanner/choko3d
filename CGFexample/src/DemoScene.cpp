@@ -8,6 +8,7 @@ void DemoScene::init()
 	sceneGraph->configureScene();
 	initCameras();
 	setUpdatePeriod(30);
+	isSelectMode = false;
 }
 
 void DemoScene::initCameras() {
@@ -28,22 +29,24 @@ void DemoScene::initCameras() {
 }
 
 void DemoScene::update(unsigned long t){
-    map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
-    for(; animationItr != sceneGraph->animations.end(); animationItr++) {
-        Animation * animation = animationItr->second;
-		if (animation->isInitialized)
-			animation->update(t);
-		else
-			animation->init(t);
-    }
-
-	if(sceneGraph->hasShader) {
-		if(sceneGraph->shaderScalesUpdated) {
-			sceneGraph->updateWaterShaderScales();
-			sceneGraph->shaderScalesUpdated = false;
+	if(!isSelectMode) {
+		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
+		for(; animationItr != sceneGraph->animations.end(); animationItr++) {
+			Animation * animation = animationItr->second;
+			if (animation->isInitialized)
+				animation->update(t);
+			else
+				animation->init(t);
 		}
 
-		sceneGraph->updateShaders(t);
+		if(sceneGraph->hasShader) {
+			if(sceneGraph->shaderScalesUpdated) {
+				sceneGraph->updateWaterShaderScales();
+				sceneGraph->shaderScalesUpdated = false;
+			}
+
+			sceneGraph->updateShaders(t);
+		}
 	}
 }
 
@@ -51,7 +54,7 @@ void DemoScene::display()
 {
 	setDrawMode(activeDrawMode);
 	// ---- BEGIN Background, camera and axis setup
-	
+
 	// Clear image and depth buffer everytime we update the scene
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -65,7 +68,7 @@ void DemoScene::display()
 
 	// Draw (and update) lights
 	sceneGraph->drawLights();
-    
+
 	// Draw axis
 	axis.draw();
 
@@ -74,7 +77,10 @@ void DemoScene::display()
 
 
 	// ---- BEGIN feature demos
-	sceneGraph->render();
+	if(!isSelectMode)
+		sceneGraph->render();
+	else
+		sceneGraph->renderPickingSquares();
 
 	// ---- END feature demos
 

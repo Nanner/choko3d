@@ -72,6 +72,8 @@
 
     <texture id="roadTex" file="road.jpg" />
 
+    <texture id="boardTex" file="woodBoard.jpg" />
+
   </textures>
 
   <!-- bloco de materiais; -->
@@ -177,6 +179,16 @@
       texlength_s="0.1"
       texlength_t="0.1"/>
 
+    <appearance id="boardApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.23 0.23 0.23 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="100.0"
+      textureref="boardTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
   </appearances>
 
   <animations>
@@ -215,65 +227,25 @@
       <controlpoint xx="7.5" yy="27.0" zz="0.0" />
     </animation>
 
-    <animation id="bomb1" span="60.0" type="linear">
-      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
-      <controlpoint xx="15.0" yy="-200.0" zz="3.0" />
-    </animation>
-
-    <animation id="bomb2" span="60.0" type="linear">
-      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="0.0" />
-      <controlpoint xx="15.0" yy="-200.0" zz="0.0" />
-    </animation>
-
-    <animation id="bomb3" span="117.0" type="linear">
-      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="-20.0" />
-      <controlpoint xx="3.0" yy="2.0" zz="3.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="0.0" yy="-5.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="-15.0" yy="10.0" zz="3.0" />
-      <controlpoint xx="-15.0" yy="-200.0" zz="3.0" />
-    </animation>
-
-    <animation id="bomb4" span="117.0" type="linear">
-      <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="3.0" />
-      <controlpoint xx="15.0" yy="10.0" zz="-20.0" />
-      <controlpoint xx="3.0" yy="2.0" zz="3.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="0.0" yy="-5.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="-40.0" />
-      <controlpoint xx="0.0" yy="0.0" zz="40.0" />
-      <controlpoint xx="-15.0" yy="10.0" zz="0.0" />
-      <controlpoint xx="-15.0" yy="-200.0" zz="0.0" />
-    </animation>
   </animations>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
-  <graph rootid="zeppelinScene">
+  <graph rootid="gameScene">
 
-    <node id="zeppelinScene">
+    <node id="gameScene">
       <transforms>
       </transforms>
 
       <children>
-        <noderef id="water" />
+        <noderef id="board" />
+        <!--
         <noderef id="zeppelin1" />
         <noderef id="zeppelin2" />
-        <noderef id="bombs" />
         <noderef id="buildingsLeft" />
         <noderef id="buildingsRight" />
         <noderef id="cityLeftSide" />
         <noderef id="cityRightSide" />
+        -->
       </children>
     </node>
 
@@ -312,7 +284,7 @@
 
     <node id="buildingsFront">
       <transforms>
-        
+
       </transforms>
 
       <children>
@@ -432,7 +404,7 @@
         <noderef id="cube" />
       </children>
     </node>
-    
+
     <node id="zeppelin1">
       <transforms>
         <scale factor="1.5 1.5 1.5" />
@@ -458,111 +430,6 @@
         <noderef id="cabinLeft" />
         <noderef id="cabinBottom" />
         <noderef id="wings" />
-      </children>
-    </node>
-
-    <node id="bombs">
-      <transforms>
-        <translate to="0.0 15.0 0.0" />
-      </transforms>
-
-      <children>
-        <noderef id="bomb1" />
-        <noderef id="bomb2" />
-        <noderef id="bomb3" />
-        <noderef id="bomb4" />
-      </children>
-    </node>
-
-    <node id="bomb1">
-      <transforms>
-      </transforms>
-
-      <animationref id="bomb1" />
-
-      <children>
-        <noderef id="bomb" />
-      </children>
-    </node>
-
-    <node id="bomb2">
-      <transforms>
-      </transforms>
-
-      <animationref id="bomb2" />
-
-      <children>
-        <noderef id="bomb" />
-      </children>
-    </node>
-
-    <node id="bomb3">
-      <transforms>
-      </transforms>
-
-      <animationref id="bomb3" />
-
-      <children>
-        <noderef id="bomb" />
-      </children>
-    </node>
-
-    <node id="bomb4">
-      <transforms>
-      </transforms>
-
-      <animationref id="bomb4" />
-
-      <children>
-        <noderef id="bomb" />
-      </children>
-    </node>
-
-    <node id="bomb">
-      <transforms>
-        <scale factor="0.4 0.4 0.3" />
-        <translate to="0.0 2.0 0.0"/>
-      </transforms>
-
-      <children>
-        <noderef id="bombBody" />
-        <noderef id="bombWings" />
-      </children>
-    </node>
-
-    <node id="bombBody">
-      <transforms>
-        <translate to="0.0 1.7 -2.0" />
-        <scale factor="3.0 3.0 11.0" />
-      </transforms>
-
-      <appearanceref id="bombBodyApp" />
-
-      <children>
-        <sphere radius="0.5" slices="10" stacks="20" />
-      </children>
-    </node>
-
-    <node id="bombWings">
-      <transforms>
-        <translate to="0.0 1.7 -5.0" />
-      </transforms>
-
-      <children>
-        <noderef id="topWing" />
-        <noderef id="bottomWing" />
-        <noderef id="rightWing" />
-        <noderef id="leftWing" />
-      </children>
-    </node>
-
-    <node id="water">
-      <transforms>
-        <scale factor="20.0 1.0 20.0" />
-      </transforms>
-
-      <children>
-        <waterline heightmap="watermap.jpg" texturemap="water.jpg" fragmentshader="rivershader.frag" vertexshader="rivershader.vert"/>
       </children>
     </node>
 
@@ -666,7 +533,7 @@
           <controlpoint x="0.0" y="-0.5" z="-1.5" />
         </patch>
       </children>
-    </node>  
+    </node>
 
     <node id="rightWing">
       <transforms>
@@ -742,7 +609,7 @@
           <controlpoint x="-0.5" y="0.0" z="-1.5" />
         </patch>
       </children>
-    </node>      
+    </node>
 
     <node id="cabinBottom">
       <transforms>
@@ -765,7 +632,7 @@
           <controlpoint x="0.0" y="-0.5" z="-1.5" />
         </patch>
       </children>
-    </node>   
+    </node>
 
     <node id="cabinRight">
       <transforms>
@@ -801,7 +668,7 @@
           <controlpoint x="0.0" y="-0.5" z="1.5" />
           <controlpoint x="0.0" y="0.0" z="1.5" />
           <controlpoint x="0.0" y="0.5" z="1.5" />
-          
+
           <controlpoint x="-1.0" y="-0.5" z="0.0" />
           <controlpoint x="-1.0" y="0.0" z="0.0" />
           <controlpoint x="-1.0" y="0.5" z="0.0" />
@@ -890,6 +757,247 @@
 
       <children>
         <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+      </children>
+    </node>
+
+    <!-- Game elements -->
+
+    <!-- Board -->
+
+    <node id="board">
+      <transforms>
+        <translate to="10.0 -1.25 10.0" />
+      </transforms>
+
+      <children>
+        <noderef id="boardFrame" />
+        <noderef id="boardInner" />
+      </children>
+    </node>
+
+    <!-- First columns, then rows -->
+    <node id="pickingSquares">
+      <transforms>
+        <translate to="10.0 0.0 10.0" />
+        <scale factor="4 1 4" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow1" />
+        <noderef id="pickRow2" />
+        <noderef id="pickRow3" />
+        <noderef id="pickRow4" />
+        <noderef id="pickRow5" />
+      </children>
+    </node>
+
+    <node id="pickRow1">
+      <transforms>
+        <translate to="0.0 0.0 -2.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow" />
+      </children>
+    </node>
+
+    <node id="pickRow2">
+      <transforms>
+        <translate to="0.0 0.0 -1.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow" />
+      </children>
+    </node>
+
+    <node id="pickRow3">
+      <transforms>
+        <translate to="0.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow" />
+      </children>
+    </node>
+
+    <node id="pickRow4">
+      <transforms>
+        <translate to="0.0 0.0 1.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow" />
+      </children>
+    </node>
+
+    <node id="pickRow5">
+      <transforms>
+        <translate to="0.0 0.0 2.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pickRow" />
+      </children>
+    </node>
+
+    <node id="pickRow">
+      <transforms>
+        <translate to="0.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <noderef id="pick1" />
+        <noderef id="pick2" />
+        <noderef id="pick3" />
+        <noderef id="pick4" />
+        <noderef id="pick5" />
+      </children>
+    </node>
+
+    <node id="pick1">
+      <transforms>
+        <translate to="-2.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="pick2">
+      <transforms>
+        <translate to="-1.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="pick3">
+      <transforms>
+        <translate to="0.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="pick4">
+      <transforms>
+        <translate to="1.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="pick5">
+      <transforms>
+        <translate to="2.0 0.0 0.0" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardFrame">
+      <transforms>
+
+      </transforms>
+
+      <children>
+        <noredef id="temp" />
+      </children>
+    </node>
+
+    <node id="boardInner">
+      <transforms>
+        <scale factor="20 20 20" />
+      </transforms>
+
+      <children>
+        <noderef id="boardTop" />
+        <noderef id="boardBottom" />
+        <noderef id="boardLeft" />
+        <noderef id="boardRight" />
+        <noderef id="boardFront" />
+        <noderef id="boardBack" />
+      </children>
+    </node>
+
+    <node id="boardTop">
+      <transforms>
+        <translate to="0.0 0.0625 0.0" />
+      </transforms>
+
+      <appearanceref id="boardApp" />
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardBottom">
+      <transforms>
+        <translate to="0.0 -0.0625 0.0" />
+        <rotate angle="180" axis="x" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardLeft">
+      <transforms>
+        <translate to="-0.5 0.0 0.0" />
+        <scale factor="1.0 0.125 1.0" />
+        <rotate angle="90" axis="z" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardRight">
+      <transforms>
+        <translate to="0.5 0.0 0.0" />
+        <scale factor="1.0 0.125 1.0" />
+        <rotate angle="270" axis="z" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardBack">
+      <transforms>
+        <translate to="0.0 0.0 -0.5" />
+        <scale factor="1.0 0.125 1.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
+      </children>
+    </node>
+
+    <node id="boardFront">
+      <transforms>
+        <translate to="0.0 0.0 0.5" />
+        <scale factor="1.0 0.125 1.0" />
+        <rotate angle="90" axis="x" />
+      </transforms>
+
+      <children>
+        <plane parts="10" />
       </children>
     </node>
 
