@@ -7,6 +7,7 @@
 #include "SceneEdge.h"
 #include "YAFReader.h"
 #include "Appearance.h"
+#include "GameState.h"
 
 #include <vector>
 
@@ -15,11 +16,14 @@ using namespace std;
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
 
-	SceneVertex* pickingSquaresRoot;
 	vector<SceneVertex *> pickingSquaresSet;
+
+	vector<SceneVertex* > boardPiecesSet;
 
 	RootVertex* rootVertex;
     map<string, Appearance *> appearances;
+
+	GameState* gameState;
 
 public:
     map<string, Animation *> animations;
@@ -80,9 +84,11 @@ public:
 
 	void updateWaterShaderScales();
 
-	void processPickingSquares();
 	void renderPickingSquares();
 	void renderPickingSquares(SceneVertex* v);
+
+	void renderBoardPieces();
+	void renderBoardPieces(SceneVertex* v);
 };
 
 #endif

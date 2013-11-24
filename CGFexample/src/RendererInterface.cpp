@@ -333,8 +333,9 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 	{
 		// this should be replaced by code handling the picked object's ID's (stored in "selected"), 
 		// possibly invoking a method on the scene class and passing "selected" and "nselected"
-		if(nselected >= 2)
-			printf("Row: %d, Column: %d\n", selected[0], selected[2]);
+
+		for(unsigned int i = 0; i < nselected; i++)
+			printf("Square selected: %d\n", selected[i]);
 	}
 	else
 		printf("Nothing selected while picking \n");	

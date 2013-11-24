@@ -43,6 +43,7 @@ public:
     map<string, YAFNode> nodes;
     map<string, Animation *> animations;
 	map<string, YAFNode> pickingSquares;
+	map<string, YAFNode> boardPieces;
 
     
 protected:
@@ -56,6 +57,7 @@ protected:
     TiXmlElement* appearancesElement;
     TiXmlElement* graphElement;
     TiXmlElement* animationsElement;
+	TiXmlElement* boardPiecesElement;
 
 };
 

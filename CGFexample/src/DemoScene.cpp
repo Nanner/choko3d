@@ -77,10 +77,14 @@ void DemoScene::display()
 
 
 	// ---- BEGIN feature demos
-	if(!isSelectMode)
+	if(!isSelectMode) {
 		sceneGraph->render();
-	else
+	}
+	else {
 		sceneGraph->renderPickingSquares();
+	}
+
+	sceneGraph->renderBoardPieces();
 
 	// ---- END feature demos
 

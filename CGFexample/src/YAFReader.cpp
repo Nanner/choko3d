@@ -28,6 +28,7 @@ YAFReader::YAFReader(char *filename) {
 		appearancesElement =  yafElement->FirstChildElement( "appearances" );
 		graphElement =  yafElement->FirstChildElement( "graph" );
 		animationsElement = yafElement->FirstChildElement("animations");
+		boardPiecesElement = yafElement->FirstChildElement( "boardPieces" );
 
 		// -------------- GLOBALS -----------------------------------------
 
@@ -616,6 +617,196 @@ YAFReader::YAFReader(char *filename) {
 			}
 		}
 
+		// board pieces
+		if (boardPiecesElement == NULL) {
+			printf("Graph block not found!\n");
+			exit(1);
+		}
+		else
+		{
+			TiXmlElement *node = boardPiecesElement->FirstChildElement();
+
+			while (node)
+			{
+				string nodeID = node->Attribute("id");
+
+				YAFNode yafNode(nodeID);
+
+				TiXmlElement * transforms = node->FirstChildElement("transforms");
+
+				if ( transforms == NULL) {
+					printf("obligatory transforms block doesn't exist!");
+					exit(1);
+				}
+
+				TiXmlElement * currentTransform = transforms->FirstChildElement();
+
+				vector<Transformation *> t;
+
+				while (currentTransform) {
+
+					if ( strcmp(currentTransform->Value(), "translate") == 0 ) {
+						vector<float> to = getValues<float>(currentTransform, (char*)"to");
+
+						t.push_back(new Translation(to));
+					}
+
+					if ( strcmp(currentTransform->Value(), "rotate") == 0 ) {
+						string axis = getValue<string>(currentTransform, (char*)"axis");
+						float angle = getValue<float>(currentTransform, (char*)"angle");
+
+						t.push_back(new Rotation(axis, angle));
+					}
+
+					if ( strcmp(currentTransform->Value(), "scale") == 0 ) {
+						vector<float> factor = getValues<float>(currentTransform, (char*)"factor");
+
+						t.push_back(new Scaling(factor));
+					}
+
+					currentTransform = currentTransform->NextSiblingElement();
+				}
+
+				yafNode.setTransformations(t);
+
+				for (int i = 0; i < t.size(); i++) {
+					// clean up pointers
+					delete t.at(i);
+				}
+
+				TiXmlElement * appearanceref = node->FirstChildElement("appearanceref");
+
+				if (appearanceref) {
+					string appearanceID;
+
+					try {
+						appearanceID = getValue<string>(appearanceref, (char*)"id");
+					} catch (EmptyAttributeException &eae) {}
+
+					try {
+						if(!appearanceID.empty()) {
+							YAFAppearance appearance = appearances.at(appearanceID);
+						}
+						yafNode.setAppearanceID(appearanceID);
+					} catch (exception &e) {
+						printf("Appeareance '%s' doesn't exist! Terminating...", appearanceID.c_str());
+						exit(1);
+					}
+
+				}
+
+				TiXmlElement * children = node->FirstChildElement("children");
+
+				if (children == NULL) {
+					printf("obligatory children block doesn't exist!");
+					exit(1);
+				}
+
+				TiXmlElement * currentChild = children->FirstChildElement();
+
+				int primitiveCounter = 0;
+				int nodeRefCounter = 0;
+
+				while (currentChild) {
+					if ( strcmp(currentChild->Value(), "noderef") == 0 ) {
+						nodeRefCounter++;
+						string id = getValue<string>(currentChild, (char*)"id");
+						yafNode.addNodeReference(id);
+					} else {
+						// it is not a reference to a node
+						// it can only be a primitive now
+						primitiveCounter++;
+					}
+
+					if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
+						vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
+						vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
+						yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
+					}
+
+					if ( strcmp(currentChild->Value(), "triangle") == 0 ) {
+						vector<float> xyz1 = getValues<float>(currentChild, (char*)"xyz1");
+						vector<float> xyz2 = getValues<float>(currentChild, (char*)"xyz2");
+						vector<float> xyz3 = getValues<float>(currentChild, (char*)"xyz3");
+						yafNode.addPrimitive( new Triangle(xyz1, xyz2, xyz3) );
+					}
+
+					if ( strcmp(currentChild->Value(), "cylinder") == 0 ) {
+						float base = getValue<float>(currentChild, (char*)"base");
+						float top = getValue<float>(currentChild, (char*)"top");
+						float height = getValue<float>(currentChild, (char*)"height");
+						int slices = getValue<int>(currentChild, (char*)"slices");
+						int stacks = getValue<int>(currentChild, (char*)"stacks");
+						yafNode.addPrimitive( new Cylinder(base, top, height, slices, stacks));
+					}
+
+					if ( strcmp(currentChild->Value(), "sphere") == 0 ) {
+						float radius = getValue<float>(currentChild, (char*)"radius");
+						int slices = getValue<int>(currentChild, (char*)"slices");
+						int stacks = getValue<int>(currentChild, (char*)"stacks");
+						yafNode.addPrimitive( new Sphere(radius, slices, stacks) );
+					}
+
+					if ( strcmp(currentChild->Value(), "torus") == 0 ) {
+						float inner = getValue<float>(currentChild, (char*)"inner");
+						float outter = getValue<float>(currentChild, (char*)"outer");
+						int slices = getValue<int>(currentChild, (char*)"slices");
+						int loops = getValue<int>(currentChild, (char*)"loops");
+						yafNode.addPrimitive( new Torus(inner, outter, slices, loops) );
+					}
+
+					if ( strcmp(currentChild->Value(), "plane") == 0 ) {
+						int parts = getValue<int>(currentChild, (char*)"parts");
+						yafNode.addPrimitive( new Plane(parts) );
+					}
+
+					if ( strcmp(currentChild->Value(), "patch") == 0 ) {
+						int order = getValue<int>(currentChild, (char*)"order");
+						int partsU = getValue<int>(currentChild, (char*)"partsU");
+						int partsV = getValue<int>(currentChild, (char*)"partsV");
+						string compute = getValue<string>(currentChild, (char*)"compute");
+
+						TiXmlElement * currentControlPoint = currentChild->FirstChildElement();
+
+						vector<float> controlPoints;
+
+						while (currentControlPoint != NULL) {
+							float x = getValue<float>(currentControlPoint, (char*)"x");
+							controlPoints.push_back(x);
+							float y = getValue<float>(currentControlPoint, (char*)"y");
+							controlPoints.push_back(y);
+							float z = getValue<float>(currentControlPoint, (char*)"z");
+							controlPoints.push_back(z);
+
+							currentControlPoint = currentControlPoint->NextSiblingElement();
+						}
+
+						try {
+							Patch * patch = new Patch(order, partsU, partsV, compute, controlPoints);
+							yafNode.addPrimitive(patch);
+						} catch (InvalidAttributeValueException &iave) {
+							cout << iave.error() << endl;
+						}
+
+					}
+
+					currentChild = currentChild->NextSiblingElement();
+				}
+
+				if (primitiveCounter == 0 && nodeRefCounter == 0) {
+					printf("There must be at least one primitive or one node reference for each child in the children block! Terminating ...");
+					exit(1);
+				}
+
+				bool notRepeated = boardPieces.insert(pair<string, YAFNode>(nodeID, yafNode)).second;
+				if (!notRepeated) {
+					printf("Tried to insert a node with an already existing node id '%s'. Terminating!\n", nodeID.c_str());
+					exit(1);
+				}
+
+				node=node->NextSiblingElement();
+			}
+		}
 	}
 	catch (InvalidAttributeValueException &iave) {
 		cout << endl << iave.error() << endl << endl << "Terminating parser." << endl;

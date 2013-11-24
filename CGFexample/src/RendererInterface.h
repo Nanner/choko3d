@@ -1,3 +1,6 @@
+#ifndef RENDERERINTERFACE_H
+#define RENDERERINTERFACE_H
+
 #include <map>
 #include <sstream>
 #include <string>
@@ -43,3 +46,4 @@ public:
 	void processHits(GLint hits, GLuint buffer[]); 
 };
 
+#endif

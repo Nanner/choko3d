@@ -1,6 +1,8 @@
 #include "SceneGraph.h"
 
 SceneGraph::SceneGraph(YAFReader* yafFile) {
+	gameState = new GameState();
+
 	stackReady = false;
 
 	SceneLight::localLight = yafFile->globalLighting.local;
@@ -57,7 +59,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 
 	map<string, YAFNode>::iterator it2 = yafFile->pickingSquares.begin();
 	for(; it2 != yafFile->pickingSquares.end(); it2++) {
-		if(it2->first != "pickingSquares")
+		if(it2->first.compare("pickingSquares") != 0)
 			processYAFNode(it2->second, pickingSquaresSet);
 	}
 
@@ -65,6 +67,35 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	it2 = yafFile->pickingSquares.begin();
 	for(; it2 != yafFile->pickingSquares.end(); it2++) {
 		processYAFNodeReferences(it2->second, pickingSquaresSet);
+	}
+
+	//Process the board pieces nodes
+	processYAFNode(yafFile->boardPieces.find("boardPieces")->second, boardPiecesSet);
+
+	map<string, YAFNode>::iterator it3 = yafFile->boardPieces.begin();
+	for(; it3 != yafFile->boardPieces.end(); it3++) {
+		if(it3->first.compare("boardPieces") != 0)
+			processYAFNode(it3->second, boardPiecesSet);
+
+		//If we are processing a "piece" node, create a board piece object with its id
+		if(it3->first.compare("boardPieces") != 0 && it3->first.compare("p1pieces") != 0
+			&& it3->first.compare("p2pieces") != 0 && it3->first.compare("piece") != 0) {
+			
+				unsigned int id = strtoul(it3->first.c_str(), NULL, 10);
+				if(id == 0L || id == ULONG_MAX) {
+					printf("Error, the piece IDs must be numbers!\n Terminating.\n");
+					exit(-1);
+				}
+
+				BoardPiece p(id);
+				gameState->addPiece(p);
+		}
+	}
+
+	//Process the links between nodes
+	it3 = yafFile->boardPieces.begin();
+	for(; it3 != yafFile->boardPieces.end(); it3++) {
+		processYAFNodeReferences(it3->second, boardPiecesSet);
 	}
 
 	findShaders();
@@ -530,7 +561,8 @@ void SceneGraph::renderPickingSquares() {
 }
 
 void SceneGraph::renderPickingSquares(SceneVertex *v) {
-
+	static unsigned int objNum = 0;
+	
 	//Indicate this vertex as visited (this also works as a verifier against cycles inside the graph)
 	v->nodeVisited = true;
 	v->childVisited = true;
@@ -540,8 +572,7 @@ void SceneGraph::renderPickingSquares(SceneVertex *v) {
 	it = (v->adj).begin();
 	ite = (v->adj).end();
 
-	unsigned int objNum = 0;
-	for (; it !=ite; it++, objNum++) {
+	for (; it !=ite; it++) {
 		//If we haven't visited this child yet
 		if ( it->dest->childVisited == false ) {
 				//Start drawing the child vertex
@@ -570,7 +601,14 @@ void SceneGraph::renderPickingSquares(SceneVertex *v) {
 					glMultMatrixf(matrix);
 
 				//Draw the child vertex
-				glPushName(objNum);
+				if(it->dest->id.empty()) {
+					objNum++;
+
+					if(objNum > 25)
+						objNum = 1;
+
+					glPushName(objNum);
+				}
 				it->dest->draw();
 
 				//Render the child vertex's children
@@ -578,6 +616,121 @@ void SceneGraph::renderPickingSquares(SceneVertex *v) {
 
 				glPopName();
 				glPopMatrix();
+		}
+	}
+
+	//Reset the childVisited bools back to false, because a child vertex can have multiple parents
+	it = (v->adj).begin();
+	ite = (v->adj).end();
+	for (; it !=ite; it++) {
+		it->dest->childVisited = false;
+	}
+
+	//Restore appearance back to null
+	if(v->inheritedAppearance)
+		v->appearance = NULL;
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
+}
+
+//Render board pieces (for picking and drawing purposes)
+void SceneGraph::renderBoardPieces() {
+	vector<SceneVertex *>::const_iterator it= boardPiecesSet.begin();
+	vector<SceneVertex *>::const_iterator ite= boardPiecesSet.end();
+	for (; it !=ite; it++)
+		(*it)->nodeVisited=false;
+
+	//Start drawing the vertex
+	glPushMatrix();
+	SceneVertex* root = (*boardPiecesSet.begin());
+
+	//Apply the default appearance, to clean any that could have been applied and shouldn't be used
+	rootVertex->defaultAppearance->apply();
+
+	//Get this vertex appearance
+	Appearance* app = root->getAppearance();
+	//If it's not empty, apply it
+	if (app != NULL)
+		app->apply();
+
+	//Get this vertex pre-calculated transformation matrix and apply it (multiply to the current matrix)
+	float* matrix = root->getMatrix();
+	if(matrix != NULL)
+		glMultMatrixf(matrix);
+
+	//Render its descendants
+	renderBoardPieces(root);
+
+	glPopMatrix();
+
+	//Re-apply default appearance
+	rootVertex->defaultAppearance->apply();
+}
+
+void SceneGraph::renderBoardPieces(SceneVertex *v) {
+
+	//Indicate this vertex as visited (this also works as a verifier against cycles inside the graph)
+	v->nodeVisited = true;
+	v->childVisited = true;
+
+	//Prepare to iterate over this vertex's children
+	vector<SceneEdge>::iterator it, ite;
+	it = (v->adj).begin();
+	ite = (v->adj).end();
+
+	for (; it !=ite; it++) {
+		//If we haven't visited this child yet
+		if ( it->dest->childVisited == false ) {
+			//Start drawing the child vertex
+			glPushMatrix();
+
+			//Apply the default appearance, to clean any that could have been applied and shouldn't be used
+			rootVertex->defaultAppearance->apply();
+
+			//If the child vertex inherits its appearance, we set its appearance to the parent's
+			if(it->dest->inheritedAppearance)
+				it->dest->setAppearance(v->getAppearance());
+
+			//We retrieve the child vertex's appearance
+			Appearance* app;
+			app = it->dest->getAppearance();
+
+			//If it's not empty, apply it
+			if (app != NULL)
+				app->apply();
+
+			//If the child vertex has an animation, multiply the current matrix by the animation transformation matrix
+			if(it->dest->getAnimation() != NULL){
+				float * animationMatrix = it->dest->getAnimation()->getMatrix();
+				glMultMatrixf(animationMatrix);
+			}
+
+			//If the child vertex has an animation, apply the rotation
+			if(it->dest->getAnimation() != NULL)
+				it->dest->getAnimation()->applyRotation();
+
+			//Get the child vertex transformation matrix, and if it's not empty, multiply it to the current matrix
+			float* matrix = it->dest->getMatrix();
+			if(matrix != NULL)
+				glMultMatrixf(matrix);
+
+			//Draw the child vertex, if it's a piece add it's id to the name stack
+			if(it->dest->id.compare("boardPieces") != 0 && it->dest->id.compare("p1pieces") != 0
+				&& it->dest->id.compare("p2pieces") != 0 && it->dest->id.compare("piece") != 0) {
+
+					unsigned int id = gameState->getPieceID(it->dest->id);
+
+					if(id != -1)
+						glPushName(id);
+			}
+			it->dest->draw();
+
+			//Render the child vertex's children
+			renderBoardPieces(it->dest);
+
+			glPopName();
+			glPopMatrix();
 		}
 	}
 
