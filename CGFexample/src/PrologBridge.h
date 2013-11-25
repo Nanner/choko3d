@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "connection.h"
+#include "GameState.h"
 
 class PrologBridge {
 private:
@@ -34,14 +35,11 @@ public:
 #ifdef linux
     static pid_t procId;
 #endif
-    string execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative);
+    GameState execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative);
     
-    string calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty);
+    GameState calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty);
     
     string gameOver(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces);
-    
-    string toString(vector<string> board);
-    vector<string> toVector(string board);
     
 };
 
