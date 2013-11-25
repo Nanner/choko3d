@@ -84,6 +84,8 @@ public:
 
 	void updateWaterShaderScales();
 
+	GameState* getGameState();
+
 	void renderPickingSquares();
 	void renderPickingSquares(SceneVertex* v);
 

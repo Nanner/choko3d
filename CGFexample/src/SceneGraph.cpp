@@ -87,7 +87,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 					exit(-1);
 				}
 
-				BoardPiece p(id);
+				BoardPiece p(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
 				gameState->addPiece(p);
 		}
 	}
@@ -532,6 +532,10 @@ void SceneGraph::updateWaterShaderScales() {
 	}
 }
 
+GameState* SceneGraph::getGameState() {
+	return gameState;
+}
+
 //Render picking squares (for picking purposes)
 void SceneGraph::renderPickingSquares() {
 	vector<SceneVertex *>::const_iterator it= pickingSquaresSet.begin();
@@ -720,9 +724,13 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 				&& it->dest->id.compare("p2pieces") != 0 && it->dest->id.compare("piece") != 0) {
 
 					unsigned int id = gameState->getPieceID(it->dest->id);
-
-					if(id != -1)
+					if(id != -1) {
 						glPushName(id);
+						if(id == gameState->selectedPieceID) {
+							it->dest->setAppearance(rootVertex->defaultAppearance);
+							rootVertex->defaultAppearance->apply();
+						}
+					}
 			}
 			it->dest->draw();
 
