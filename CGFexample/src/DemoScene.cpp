@@ -1,4 +1,5 @@
 #include "DemoScene.h"
+#include "PrologBridge.h"
 
 DemoScene::DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
 
@@ -9,6 +10,8 @@ void DemoScene::init()
 	initCameras();
 	setUpdatePeriod(30);
 	isSelectMode = false;
+    
+    PrologBridge choko;
 }
 
 void DemoScene::initCameras() {

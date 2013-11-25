@@ -2,6 +2,9 @@
 #define GAMESTATE_H
 
 #include <map>
+#include <limits.h>
+#include <string>
+#include <stdlib.h>
 
 using namespace std;
 

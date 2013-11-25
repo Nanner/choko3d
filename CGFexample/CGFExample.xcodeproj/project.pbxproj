@@ -20,6 +20,11 @@
 		EB2654E81826DDC8007FCBBC /* cabinBottomText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E51826DDC1007FCBBC /* cabinBottomText.png */; };
 		EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E61826DDC1007FCBBC /* cabinText.png */; };
 		EB2654EA1826DDCB007FCBBC /* zeppelinScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */; };
+		EB3285B11842249100394272 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3285AF1842249100394272 /* Vehicle.cpp */; };
+		EB36691B1843632200DAB083 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3669191843632200DAB083 /* GameState.cpp */; };
+		EB366923184371ED00DAB083 /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB36691F184371ED00DAB083 /* Connection.cpp */; };
+		EB366926184379A800DAB083 /* choko in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB366925184379A300DAB083 /* choko */; };
+		EB366929184379EE00DAB083 /* PrologBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB366927184379EE00DAB083 /* PrologBridge.cpp */; };
 		EB5822D118142627001C3D45 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB5822CF18142627001C3D45 /* Plane.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
@@ -81,6 +86,7 @@
 			dstPath = .;
 			dstSubfolderSpec = 16;
 			files = (
+				EB366926184379A800DAB083 /* choko in CopyFiles */,
 				EB2654E71826DDC7007FCBBC /* balloonText.png in CopyFiles */,
 				EB2654E81826DDC8007FCBBC /* cabinBottomText.png in CopyFiles */,
 				EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */,
@@ -140,6 +146,15 @@
 		EB2654E41826DDC1007FCBBC /* balloonText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloonText.png; sourceTree = "<group>"; };
 		EB2654E51826DDC1007FCBBC /* cabinBottomText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinBottomText.png; sourceTree = "<group>"; };
 		EB2654E61826DDC1007FCBBC /* cabinText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinText.png; sourceTree = "<group>"; };
+		EB3285AF1842249100394272 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vehicle.cpp; path = src/Vehicle.cpp; sourceTree = SOURCE_ROOT; };
+		EB3285B01842249100394272 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vehicle.h; path = src/Vehicle.h; sourceTree = SOURCE_ROOT; };
+		EB3669191843632200DAB083 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = src/GameState.cpp; sourceTree = SOURCE_ROOT; };
+		EB36691A1843632200DAB083 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = src/GameState.h; sourceTree = SOURCE_ROOT; };
+		EB36691F184371ED00DAB083 /* Connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Connection.cpp; path = src/Connection.cpp; sourceTree = SOURCE_ROOT; };
+		EB366920184371ED00DAB083 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = src/Connection.h; sourceTree = SOURCE_ROOT; };
+		EB366925184379A300DAB083 /* choko */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = choko; sourceTree = "<group>"; };
+		EB366927184379EE00DAB083 /* PrologBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrologBridge.cpp; path = src/PrologBridge.cpp; sourceTree = SOURCE_ROOT; };
+		EB366928184379EE00DAB083 /* PrologBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrologBridge.h; path = src/PrologBridge.h; sourceTree = SOURCE_ROOT; };
 		EB5822CF18142627001C3D45 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = src/Plane.cpp; sourceTree = SOURCE_ROOT; };
 		EB5822D018142627001C3D45 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = src/Plane.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
@@ -382,6 +397,8 @@
 				EB5822D018142627001C3D45 /* Plane.h */,
 				EB0D1BB518182BE900E385CB /* Patch.cpp */,
 				EB0D1BB618182BE900E385CB /* Patch.h */,
+				EB3285AF1842249100394272 /* Vehicle.cpp */,
+				EB3285B01842249100394272 /* Vehicle.h */,
 				EB7C0CA118202B2C000861A8 /* Waterline.cpp */,
 				EB7C0CA218202B2C000861A8 /* Waterline.h */,
 				EB7C0CA418202E90000861A8 /* WaterShader.cpp */,
@@ -412,6 +429,12 @@
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
 				EBE393761829A082006C5A5F /* ShaderTexture.h */,
+				EB3669191843632200DAB083 /* GameState.cpp */,
+				EB36691A1843632200DAB083 /* GameState.h */,
+				EB36691F184371ED00DAB083 /* Connection.cpp */,
+				EB366920184371ED00DAB083 /* Connection.h */,
+				EB366927184379EE00DAB083 /* PrologBridge.cpp */,
+				EB366928184379EE00DAB083 /* PrologBridge.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -453,6 +476,7 @@
 		AA63E23916D422CA003287C6 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				EB366925184379A300DAB083 /* choko */,
 				EB2654E41826DDC1007FCBBC /* balloonText.png */,
 				EB2654E51826DDC1007FCBBC /* cabinBottomText.png */,
 				EB2654E61826DDC1007FCBBC /* cabinText.png */,
@@ -654,6 +678,7 @@
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
 				EB9E1C0418095B5F00F91761 /* SceneEdge.cpp in Sources */,
 				EB9E1C1018095B5F00F91761 /* YAFNode.cpp in Sources */,
+				EB366929184379EE00DAB083 /* PrologBridge.cpp in Sources */,
 				EBB4850C181C25C7000E0A4A /* LinearAnimation.cpp in Sources */,
 				EB9E1C0018095B5F00F91761 /* DemoScene.cpp in Sources */,
 				EB9E1C0118095B5F00F91761 /* main.cpp in Sources */,
@@ -667,6 +692,7 @@
 				EB7C0CA318202B2C000861A8 /* Waterline.cpp in Sources */,
 				EB5822D118142627001C3D45 /* Plane.cpp in Sources */,
 				EB873D1C17E61F4F00181AB4 /* tinyxml.cpp in Sources */,
+				EB3285B11842249100394272 /* Vehicle.cpp in Sources */,
 				EB9E1C0E18095B5F00F91761 /* YAFGlobalLighting.cpp in Sources */,
 				EB9E1C1218095B5F00F91761 /* YAFTexture.cpp in Sources */,
 				EB9E1C0318095B5F00F91761 /* RootVertex.cpp in Sources */,
@@ -676,12 +702,14 @@
 				EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */,
 				EBE393771829A082006C5A5F /* ShaderTexture.cpp in Sources */,
 				EB9E1C0D18095B5F00F91761 /* YAFGlobal.cpp in Sources */,
+				EB36691B1843632200DAB083 /* GameState.cpp in Sources */,
 				EBE3937A1829A0AD006C5A5F /* rivershader.frag in Sources */,
 				EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */,
 				EB9E1C0F18095B5F00F91761 /* YAFLight.cpp in Sources */,
 				EB7C0CA618202E90000861A8 /* WaterShader.cpp in Sources */,
 				EB9E1C0818095B5F00F91761 /* SceneVertex.cpp in Sources */,
 				EBE3937B1829A0AD006C5A5F /* rivershader.vert in Sources */,
+				EB366923184371ED00DAB083 /* Connection.cpp in Sources */,
 				EB9E1C0618095B5F00F91761 /* SceneLight.cpp in Sources */,
 				EBB48509181C2404000E0A4A /* Animation.cpp in Sources */,
 				EB9E1C0218095B5F00F91761 /* RendererInterface.cpp in Sources */,

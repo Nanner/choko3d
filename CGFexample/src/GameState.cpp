@@ -8,7 +8,7 @@ void GameState::addPiece(BoardPiece piece) {
 
 int GameState::getPieceID(string idStr) {
 	unsigned int id = strtoul(idStr.c_str(), NULL, 10);
-	if(id != 0L && id != ULONG_MAX) {
+	if(id != 0L && id != UINT_MAX) {
 		map<unsigned int, BoardPiece>::iterator it = boardPieces.find(id);
 		if(it != boardPieces.end())
 			return(id);
