@@ -24,16 +24,16 @@
 using namespace std;
 
 class Connection {
- public:
-  Connection(short port);
-
-  string sendMsg(string msg);
-  string readLine();
- private: 
+public:
+    Connection(short port);
+    
+    string sendMsg(string msg);
+    string readLine();
+private:
 #ifdef linux
-  int sock;
+    int sock;
 #else
-  SOCKET sock;
+    SOCKET sock;
 #endif
 };
 

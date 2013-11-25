@@ -21,10 +21,11 @@
 		EB2654E91826DDCA007FCBBC /* cabinText.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E61826DDC1007FCBBC /* cabinText.png */; };
 		EB2654EA1826DDCB007FCBBC /* zeppelinScene.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB2654E31826DDB3007FCBBC /* zeppelinScene.yaf */; };
 		EB3285B11842249100394272 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3285AF1842249100394272 /* Vehicle.cpp */; };
-		EB36691B1843632200DAB083 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3669191843632200DAB083 /* GameState.cpp */; };
+		EB36691B1843632200DAB083 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3669191843632200DAB083 /* Game.cpp */; };
 		EB366923184371ED00DAB083 /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB36691F184371ED00DAB083 /* Connection.cpp */; };
 		EB366926184379A800DAB083 /* choko in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB366925184379A300DAB083 /* choko */; };
 		EB366929184379EE00DAB083 /* PrologBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB366927184379EE00DAB083 /* PrologBridge.cpp */; };
+		EB36692C1843E11700DAB083 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB36692A1843E11700DAB083 /* GameState.cpp */; };
 		EB5822D118142627001C3D45 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB5822CF18142627001C3D45 /* Plane.cpp */; };
 		EB7BC62F17F754E90069596B /* wood.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC62E17F754E70069596B /* wood.jpg */; };
 		EB7BC63517F77BD70069596B /* duffPoster.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB7BC63417F77BCA0069596B /* duffPoster.jpg */; };
@@ -148,13 +149,15 @@
 		EB2654E61826DDC1007FCBBC /* cabinText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabinText.png; sourceTree = "<group>"; };
 		EB3285AF1842249100394272 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vehicle.cpp; path = src/Vehicle.cpp; sourceTree = SOURCE_ROOT; };
 		EB3285B01842249100394272 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vehicle.h; path = src/Vehicle.h; sourceTree = SOURCE_ROOT; };
-		EB3669191843632200DAB083 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = src/GameState.cpp; sourceTree = SOURCE_ROOT; };
-		EB36691A1843632200DAB083 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = src/GameState.h; sourceTree = SOURCE_ROOT; };
+		EB3669191843632200DAB083 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = src/Game.cpp; sourceTree = SOURCE_ROOT; };
+		EB36691A1843632200DAB083 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = src/Game.h; sourceTree = SOURCE_ROOT; };
 		EB36691F184371ED00DAB083 /* Connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Connection.cpp; path = src/Connection.cpp; sourceTree = SOURCE_ROOT; };
 		EB366920184371ED00DAB083 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = src/Connection.h; sourceTree = SOURCE_ROOT; };
 		EB366925184379A300DAB083 /* choko */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = choko; sourceTree = "<group>"; };
 		EB366927184379EE00DAB083 /* PrologBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrologBridge.cpp; path = src/PrologBridge.cpp; sourceTree = SOURCE_ROOT; };
 		EB366928184379EE00DAB083 /* PrologBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrologBridge.h; path = src/PrologBridge.h; sourceTree = SOURCE_ROOT; };
+		EB36692A1843E11700DAB083 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = src/GameState.cpp; sourceTree = SOURCE_ROOT; };
+		EB36692B1843E11700DAB083 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = src/GameState.h; sourceTree = SOURCE_ROOT; };
 		EB5822CF18142627001C3D45 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plane.cpp; path = src/Plane.cpp; sourceTree = SOURCE_ROOT; };
 		EB5822D018142627001C3D45 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = src/Plane.h; sourceTree = SOURCE_ROOT; };
 		EB7BC62E17F754E70069596B /* wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood.jpg; sourceTree = "<group>"; };
@@ -429,8 +432,10 @@
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
 				EBE393761829A082006C5A5F /* ShaderTexture.h */,
-				EB3669191843632200DAB083 /* GameState.cpp */,
-				EB36691A1843632200DAB083 /* GameState.h */,
+				EB3669191843632200DAB083 /* Game.cpp */,
+				EB36691A1843632200DAB083 /* Game.h */,
+				EB36692A1843E11700DAB083 /* GameState.cpp */,
+				EB36692B1843E11700DAB083 /* GameState.h */,
 				EB36691F184371ED00DAB083 /* Connection.cpp */,
 				EB366920184371ED00DAB083 /* Connection.h */,
 				EB366927184379EE00DAB083 /* PrologBridge.cpp */,
@@ -676,6 +681,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
+				EB36692C1843E11700DAB083 /* GameState.cpp in Sources */,
 				EB9E1C0418095B5F00F91761 /* SceneEdge.cpp in Sources */,
 				EB9E1C1018095B5F00F91761 /* YAFNode.cpp in Sources */,
 				EB366929184379EE00DAB083 /* PrologBridge.cpp in Sources */,
@@ -702,7 +708,7 @@
 				EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */,
 				EBE393771829A082006C5A5F /* ShaderTexture.cpp in Sources */,
 				EB9E1C0D18095B5F00F91761 /* YAFGlobal.cpp in Sources */,
-				EB36691B1843632200DAB083 /* GameState.cpp in Sources */,
+				EB36691B1843632200DAB083 /* Game.cpp in Sources */,
 				EBE3937A1829A0AD006C5A5F /* rivershader.frag in Sources */,
 				EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */,
 				EB9E1C0F18095B5F00F91761 /* YAFLight.cpp in Sources */,

@@ -7,7 +7,7 @@
 #include "SceneEdge.h"
 #include "YAFReader.h"
 #include "Appearance.h"
-#include "GameState.h"
+#include "Game.h"
 
 #include <vector>
 
@@ -23,7 +23,7 @@ class SceneGraph {
 	RootVertex* rootVertex;
     map<string, Appearance *> appearances;
 
-	GameState* gameState;
+	Game* game;
 
 public:
     map<string, Animation *> animations;
@@ -84,7 +84,7 @@ public:
 
 	void updateWaterShaderScales();
 
-	GameState* getGameState();
+	Game * getGame();
 
 	void renderPickingSquares();
 	void renderPickingSquares(SceneVertex* v);

@@ -1,7 +1,7 @@
 #include "SceneGraph.h"
 
 SceneGraph::SceneGraph(YAFReader* yafFile) {
-	gameState = new GameState();
+	game = new Game();
 
 	stackReady = false;
 
@@ -88,7 +88,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 				}
 
 				BoardPiece p(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
-				gameState->addPiece(p);
+				game->addPiece(p);
 		}
 	}
 
@@ -532,8 +532,8 @@ void SceneGraph::updateWaterShaderScales() {
 	}
 }
 
-GameState* SceneGraph::getGameState() {
-	return gameState;
+Game * SceneGraph::getGame() {
+	return game;
 }
 
 //Render picking squares (for picking purposes)
@@ -723,10 +723,10 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 			if(it->dest->id.compare("boardPieces") != 0 && it->dest->id.compare("p1pieces") != 0
 				&& it->dest->id.compare("p2pieces") != 0 && it->dest->id.compare("piece") != 0) {
 
-					unsigned int id = gameState->getPieceID(it->dest->id);
+					unsigned int id = game->getPieceID(it->dest->id);
 					if(id != -1) {
 						glPushName(id);
-						if(id == gameState->selectedPieceID) {
+						if(id == game->selectedPieceID) {
 							it->dest->setAppearance(rootVertex->defaultAppearance);
 							rootVertex->defaultAppearance->apply();
 						}
