@@ -12,6 +12,17 @@ void DemoScene::init()
 	isSelectMode = false;
     
     PrologBridge choko;
+
+	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
+	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
+	float specular[4] = {0.0, 0.0, 0.0, 1.0};
+	float emissivity[4] = {0.0, 0.0, 0.0, 0.0};
+	float shininess = 0.0;
+
+	squareSelectionAppearance = new Appearance(ambient, diffuse, specular, emissivity, shininess);
+
+	squareSelection = new Plane(10);
+	squareSelection->setAppearance(squareSelectionAppearance);
 }
 
 void DemoScene::initCameras() {
@@ -88,6 +99,17 @@ void DemoScene::display()
 	}
 
 	sceneGraph->renderBoardPieces();
+
+	PositionPoint selectedSquare = sceneGraph->getGameState()->getSelectedSquarePosition();
+	//if p = {0, 0, 0}, no square is selected
+	if(selectedSquare.x != 0 || selectedSquare.y != 0 || selectedSquare.z != 0) {
+		glPushMatrix();
+		glTranslatef(selectedSquare.x, selectedSquare.y + 0.1, selectedSquare.z);
+		glScalef(3, 3, 3);
+		squareSelectionAppearance->apply();
+		squareSelection->draw();
+		glPopMatrix();
+	}
 
 	// ---- END feature demos
 

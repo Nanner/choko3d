@@ -31,6 +31,8 @@ public:
 	~DemoScene();
 private:
 	SceneGraph* sceneGraph;
+	Appearance* squareSelectionAppearance;
+	Plane* squareSelection;
 };
 
 #endif

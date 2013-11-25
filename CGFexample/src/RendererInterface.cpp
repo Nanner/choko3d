@@ -336,6 +336,8 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 
 		for(unsigned int i = 0; i < nselected; i++)
 			printf("Square selected: %d\n", selected[i]);
+
+		((DemoScene*) scene)->getSceneGraph()->getGameState()->selectedPieceID = selected[0];
 	}
 	else
 		printf("Nothing selected while picking \n");	
