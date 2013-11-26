@@ -16,10 +16,10 @@ class CameraView: public CGFcamera {
 public:
 	float aspect;
 	string id;
-	float near;
-	float far;
+	float camNear;
+	float camFar;
 
-	CameraView(string id, float near, float far);
+	CameraView(string id, float near, float camFar);
     virtual void applyView() = 0;
 	virtual void updateProjectionMatrix(int width, int height) = 0;
 	virtual void resetCamera() = 0;
@@ -39,7 +39,7 @@ public:
 	float cameraRadius;
 
 
-	Perspective(string id, float near, float far, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
+	Perspective(string id, float near, float camFar, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ);
 
     void applyView();
 	void updateProjectionMatrix(int width, int height);
@@ -60,7 +60,7 @@ public:
 	float top;
 	float bottom;
 
-	Orthographic(string id, float near, float far, float left, float right, float top, float bottom);
+	Orthographic(string id, float near, float camFar, float left, float right, float top, float bottom);
 
 	void applyView();
 	void updateProjectionMatrix(int width, int height);

@@ -17,11 +17,11 @@ RootVertex::RootVertex(float* matrix,
 	for(; it != cameras.end(); it++) {
 		YAFCamera cam = it->second;
 		if(cam.isOrtho) {
-			Orthographic* newOrtho = new Orthographic(cam.id, cam.near, cam.far, cam.left, cam.right, cam.top, cam.bottom);
+			Orthographic* newOrtho = new Orthographic(cam.id, cam.camNear, cam.camFar, cam.left, cam.right, cam.top, cam.bottom);
 			this->cameras.insert(pair<string, CameraView*>(newOrtho->id, newOrtho));
 		}
 		else {
-			Perspective* newPerspective = new Perspective(cam.id, cam.near, cam.far, cam.angle, cam.posX, cam.posY, cam.posZ, cam.targetX, cam.targetY, cam.targetZ);
+			Perspective* newPerspective = new Perspective(cam.id, cam.camNear, cam.camFar, cam.angle, cam.posX, cam.posY, cam.posZ, cam.targetX, cam.targetY, cam.targetZ);
 			this->cameras.insert(pair<string, CameraView*>(newPerspective->id, newPerspective));
 		}
 	}

@@ -9,8 +9,8 @@ public:
 
 	bool isOrtho;
 	string id;
-	float near;
-	float far;
+	float camNear;
+	float camFar;
 
 	//If ortho camera:
 	float left;

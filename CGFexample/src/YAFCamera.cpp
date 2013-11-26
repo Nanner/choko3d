@@ -6,8 +6,8 @@ YAFCamera::YAFCamera(string id, vector<float> nfaValues, vector<float> position,
 
 	this->id = id;
     
-	near = nfaValues.at(0);
-	far = nfaValues.at(1);
+	camNear = nfaValues.at(0);
+	camFar = nfaValues.at(1);
 	angle = nfaValues.at(2);
 
 	posX = position.at(0);
@@ -26,8 +26,8 @@ YAFCamera::YAFCamera(string id, vector<float> values): isOrtho(true) {
 
 	this->id = id;
 
-	near = values.at(0);
-	far = values.at(1);
+	camNear = values.at(0);
+	camFar = values.at(1);
 	left = values.at(2);
 	right = values.at(3);
 	top = values.at(4);

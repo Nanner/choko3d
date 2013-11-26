@@ -16,6 +16,7 @@
 #include <netdb.h>
 #else
 #include <winsock2.h>
+#pragma comment(lib, "ws2_32.lib")
 #endif
 
 #include <string>

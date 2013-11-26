@@ -1,5 +1,5 @@
-#include "DemoScene.h"
 #include "PrologBridge.h"
+#include "DemoScene.h"
 
 DemoScene::DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
 

@@ -1,7 +1,7 @@
 #include "CameraView.h"
 #include <iostream>
 
-CameraView::CameraView(string id, float near, float far): id(id), near(near), far(far) {
+CameraView::CameraView(string id, float camNear, float camFar): id(id), camNear(camNear), camFar(camFar) {
 	
 	//Calculate the aspect ratio of the scene/app viewport
 	GLint m_viewport[4];
@@ -9,8 +9,8 @@ CameraView::CameraView(string id, float near, float far): id(id), near(near), fa
 	aspect = (float) m_viewport[2] / (float) m_viewport[3];
 }
 
-Perspective::Perspective(string id, float near, float far, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ):
-	CameraView(id, near, far), angle(angle), iAngle(angle) {
+Perspective::Perspective(string id, float near, float camFar, float angle, float posX, float posY, float posZ, float targetX, float targetY, float targetZ):
+	CameraView(id, near, camFar), angle(angle), iAngle(angle) {
 		position[0] = iPosition[0] = posX;
 		position[1] = iPosition[1] = posY;
 		position[2] = iPosition[2] = posZ;
@@ -62,7 +62,7 @@ void Perspective::applyView() {
 	//Load the camera view projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(angle, aspect, near, far);
+	gluPerspective(angle, aspect, camNear, camFar);
 
 	//Load the camera position related matrix transformations
 	glMatrixMode(GL_MODELVIEW);
@@ -75,7 +75,7 @@ void Perspective::updateProjectionMatrix(int width, int height) {
 	aspect = (float) width / (float) height;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(angle, aspect, near, far);
+	gluPerspective(angle, aspect, camNear, camFar);
 }
 
 bool Perspective::rotate(int axis, float angle) {
@@ -162,15 +162,15 @@ void Perspective::resetCamera(){
 	upVector[2] = iUpVector[2];
 }
 
-Orthographic::Orthographic(string id, float near, float far, float left, float right, float top, float bottom):
-	CameraView(id, near, far),iLeft(left), iRight(right), iTop(top), iBottom(bottom), left(left), right(right), top(top), bottom(bottom) {}
+Orthographic::Orthographic(string id, float near, float camFar, float left, float right, float top, float bottom):
+	CameraView(id, near, camFar),iLeft(left), iRight(right), iTop(top), iBottom(bottom), left(left), right(right), top(top), bottom(bottom) {}
 
 void Orthographic::applyView() {
 
 	//Load the camera view projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(left*aspect, right*aspect, bottom, top, near, far);
+	glOrtho(left*aspect, right*aspect, bottom, top, camNear, camFar);
 
 	//Same as above, model matrix
 	glMatrixMode(GL_MODELVIEW);
@@ -185,7 +185,7 @@ void Orthographic::updateProjectionMatrix(int width, int height) {
 	aspect = (float) width / (float) height;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(left*aspect, right*aspect, bottom, top, near, far);
+	glOrtho(left*aspect, right*aspect, bottom, top, camNear, camFar);
 }
 
 bool Orthographic::translate(int axis, float value) {
