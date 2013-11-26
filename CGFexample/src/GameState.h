@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -15,6 +17,11 @@ public:
     int player2UnusedPieces;
     char dropInitiative;
     string move;
+    
+    GameState(string);
+    
+    static string toString(vector<string> board);
+    static vector<string> toVector(string board);
 };
 
 #endif

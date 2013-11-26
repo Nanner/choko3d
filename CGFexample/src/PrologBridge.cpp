@@ -69,47 +69,30 @@ string PrologBridge::initializeGame() {
     return con->sendMsg(str);
 }
 
-string PrologBridge::toString(vector<string> board) {
-    string boardString = "[";
-    for (int i = 0; i < board.size(); i++) {
-        boardString += board.at(i);
-        if (i < board.size()-1)
-            boardString += ",";
-    }
-    boardString += "]";
-    return boardString;
-}
-
-vector<string> PrologBridge::toVector(string board) {
-    vector<string> boardVector;
-    stringstream ss(board);
-    ss.ignore(1, '[');
-    string boardCell;
-    while (getline(ss, boardCell, ',')) {
-        if (boardCell.at(boardCell.size()-1) == ']')
-            boardCell.pop_back();
-        boardVector.push_back(boardCell);
-    }
-    return boardVector;
-}
-
-string PrologBridge::execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative) {
+GameState PrologBridge::execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative) {
     stringstream ss;
-    ss << "execute(" << move << ',' << toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ").\n";
+    ss << "execute(" << move << ',' << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ").\n";
     
-    return con->sendMsg(ss.str());
+    string reply = con->sendMsg(ss.str());
+    reply.pop_back(); reply.pop_back(); // remove "]."
+    reply = reply + "," + move + "]";
+    GameState gameState(reply);
+    
+    return gameState;
 }
 
-string PrologBridge::calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty) {
+GameState PrologBridge::calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty) {
     stringstream ss;
-    ss << "calculate(" << toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ',' << playerDifficulty << ").\n";
+    ss << "calculate(" << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ',' << playerDifficulty << ").\n";
     
-    return con->sendMsg(ss.str());
+    string reply = con->sendMsg(ss.str());
+    GameState gameState(reply);
+    return gameState;
 }
 
 string PrologBridge::gameOver(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces) {
     stringstream ss;
-    ss << "gameOver(" << toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ").\n";
+    ss << "gameOver(" << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ").\n";
     
     return con->sendMsg(ss.str());
 }
