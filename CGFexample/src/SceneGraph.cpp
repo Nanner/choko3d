@@ -59,8 +59,9 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 
 	map<string, YAFNode>::iterator it2 = yafFile->pickingSquares.begin();
 	for(; it2 != yafFile->pickingSquares.end(); it2++) {
-		if(it2->first.compare("pickingSquares") != 0)
+		if(it2->first.compare("pickingSquares") != 0) {
 			processYAFNode(it2->second, pickingSquaresSet);
+		}
 	}
 
 	//Process the links between nodes
@@ -87,7 +88,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 					exit(-1);
 				}
 
-				BoardPiece p(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+				BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
 				game->addPiece(p);
 		}
 	}
@@ -97,6 +98,9 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	for(; it3 != yafFile->boardPieces.end(); it3++) {
 		processYAFNodeReferences(it3->second, boardPiecesSet);
 	}
+
+	game->loadBoardPiecesPositions();
+	game->loadPickingSquaresPositions();
 
 	findShaders();
 	drawDisplayLists = true;

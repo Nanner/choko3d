@@ -9,7 +9,7 @@
 using namespace std;
 
 class GameState {
-    
+
 public:
     vector<string> board;
     char nextPlayer;
@@ -17,7 +17,7 @@ public:
     int player2UnusedPieces;
     char dropInitiative;
     string move;
-    
+
     GameState(string);
     
     static string toString(vector<string> board);
