@@ -64,35 +64,78 @@ void PrologBridge::initialize(int port_n) {
 #endif
 }
 
-string PrologBridge::initializeGame() {
+GameState PrologBridge::initializeGame() {
     string str("initialize.\n");
-    return con->sendMsg(str);
+    string reply = con->sendMsg(str);
+    
+    if ( !reply.compare("invalid.") )
+        throw InvalidMove();
+    
+    // add move 0 to the reply since there wasn't an executed move
+    reply.pop_back(); reply.pop_back(); // remove "]."
+    reply = reply + ",0]";
+    
+    GameState gameState(reply);
+    return gameState;
 }
 
-GameState PrologBridge::execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative) {
+GameState PrologBridge::execute(GameState gameState, string move) {
     stringstream ss;
-    ss << "execute(" << move << ',' << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ").\n";
+    ss << "execute("
+    << move << ','
+    << GameState::toString(gameState.board) << ','
+    << gameState.nextPlayer << ','
+    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.enemyPlayerUnusedPieces << ','
+    << gameState.dropInitiative << ").\n";
     
     string reply = con->sendMsg(ss.str());
+    
+    if ( !reply.compare("invalid.") )
+        throw InvalidMove();
+    
+    // add player move to the reply
     reply.pop_back(); reply.pop_back(); // remove "]."
     reply = reply + "," + move + "]";
-    GameState gameState(reply);
     
-    return gameState;
+    GameState newGameState(reply);
+    newGameState = checkGameOver(newGameState);
+    return newGameState;
 }
 
-GameState PrologBridge::calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty) {
+GameState PrologBridge::calculate(GameState gameState, string playerDifficulty) {
     stringstream ss;
-    ss << "calculate(" << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ',' << dropInitiative << ',' << playerDifficulty << ").\n";
+    ss << "calculate("
+    << GameState::toString(gameState.board) << ','
+    << gameState.nextPlayer << ','
+    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.enemyPlayerUnusedPieces << ','
+    << gameState.dropInitiative << ','
+    << playerDifficulty << ").\n";
     
     string reply = con->sendMsg(ss.str());
-    GameState gameState(reply);
-    return gameState;
+    
+    if ( !reply.compare("invalid.") )
+        throw InvalidMove();
+    
+    GameState newGameState(reply);
+    newGameState = checkGameOver(newGameState);
+    return newGameState;
 }
 
-string PrologBridge::gameOver(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces) {
+GameState PrologBridge::checkGameOver(GameState gameState) {
     stringstream ss;
-    ss << "gameOver(" << GameState::toString(board) << ',' << player << ',' << playerUnusedPieces << ',' << enemyUnusedPieces << ").\n";
+    ss << "gameOver("
+    << GameState::toString(gameState.board) << ','
+    << gameState.nextPlayer << ','
+    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.enemyPlayerUnusedPieces << ").\n";
     
-    return con->sendMsg(ss.str());
+    string reply = con->sendMsg(ss.str());
+    if ( !reply.compare("invalid.") ) {
+        gameState.gameOver = true;
+        gameState.winner = reply.at(0);
+    }
+    
+    return gameState;
 }

@@ -30,17 +30,20 @@ public:
     static short port;
     PrologBridge();
     PrologBridge(int);
-    string initializeGame();
     
 #ifdef linux
     static pid_t procId;
 #endif
-    GameState execute(string move, vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative);
+    GameState initializeGame();
     
-    GameState calculate(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces, char dropInitiative, string playerDifficulty);
+    GameState execute(GameState gamestate, string move);
     
-    string gameOver(vector<string> board, char player, int playerUnusedPieces, int enemyUnusedPieces);
+    GameState calculate(GameState gameState, string playerDifficulty);
+    
+    GameState checkGameOver(GameState gameState);
     
 };
+
+class InvalidMove {};
 
 #endif

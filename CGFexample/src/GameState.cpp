@@ -29,11 +29,18 @@ GameState::GameState(string stateString) {
     
     if (nextPlayer == 'x') {
         this->player1UnusedPieces = atoi(playerUnusedPieces.c_str());
+        this->nextPlayerUnusedPieces = player1UnusedPieces;
         this->player2UnusedPieces = atoi(enemyUnusedPieces.c_str());
+        this->enemyPlayerUnusedPieces = player2UnusedPieces;
     } else {
         this->player2UnusedPieces = atoi(playerUnusedPieces.c_str());
+        this->nextPlayerUnusedPieces = player2UnusedPieces;
         this->player1UnusedPieces = atoi(enemyUnusedPieces.c_str());
+        this->enemyPlayerUnusedPieces = player1UnusedPieces;
     }
+    
+    this->winner = '0';
+    this->gameOver = false;
 }
 
 string GameState::toString(vector<string> board) {

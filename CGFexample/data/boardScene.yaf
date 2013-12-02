@@ -238,7 +238,6 @@
 
       <children>
         <noderef id="board" />
-        <noderef id="p1pieces" />
         <!--
         <noderef id="zeppelin1" />
         <noderef id="zeppelin2" />

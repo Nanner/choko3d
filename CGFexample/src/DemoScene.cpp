@@ -14,13 +14,15 @@ void DemoScene::init()
     
     // TODO remove this, for tests only
     PrologBridge choko;
-    string gameState = choko.initializeGame();
-    vector<string> board = GameState::toVector("[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]");
-    choko.execute("5", board, 'x', 12, 12, 'x');
-    choko.calculate(board, 'o', 12, 12, 'o', "hard");
-    choko.gameOver(board, 'x', 12, 12);
-    choko.gameOver(board, 'x', 0, 2);
     
+    try {
+        GameState gameState = choko.initializeGame();
+        gameState = choko.execute(gameState, "5");
+        gameState = choko.calculate(gameState, "hard");
+    } catch (InvalidMove &invalid) {
+        cout << "invalid move" << endl;
+    }
+     
 	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
 	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
 	float specular[4] = {0.0, 0.0, 0.0, 1.0};

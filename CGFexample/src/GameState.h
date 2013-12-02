@@ -13,10 +13,14 @@ class GameState {
 public:
     vector<string> board;
     char nextPlayer;
+    int nextPlayerUnusedPieces;
+    int enemyPlayerUnusedPieces;
     int player1UnusedPieces;
     int player2UnusedPieces;
     char dropInitiative;
     string move;
+    char winner;
+    bool gameOver;
     
     GameState(string);
     
