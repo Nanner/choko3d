@@ -28,6 +28,9 @@
 #define FIRST_SQUARE_POSITION_Y 0.0
 #define FIRST_SQUARE_POSITION_Z 2.0
 
+#define SELECT_ANY 0
+#define SELECT_TO_SQUARE 1
+
 using namespace std;
 
 struct PositionPoint {
@@ -35,6 +38,15 @@ struct PositionPoint {
 	float y;
 	float z;
 };
+
+/*class PickingSquare {
+public:
+	PickingSquare(unsigned int id);
+	unsigned int id;
+	unsigned int pieceID;
+	float position[3];
+	bool hasPiece;
+};*/
 
 class BoardPiece {
 public:
@@ -48,19 +60,27 @@ public:
 
 class Game {
 private:
-	map<unsigned int, BoardPiece> boardPieces;
+	map<unsigned int, BoardPiece*> boardPieces;
+	//map<unsigned int, PickingSquare*> pickingSquares;
 	map<unsigned int, PositionPoint> boardPiecesInitialPositions;
 	map<unsigned int, PositionPoint> pickingSquaresPositions;
+	int selectState;
 
 public:
 	unsigned int selectedPieceID;
 	void loadBoardPiecesPositions();
 	void loadPickingSquaresPositions();
 	Game();
-	void addPiece(BoardPiece piece);
+	void addPiece(BoardPiece* piece);
+	//void addPickingSquare(PickingSquare* square);
 	int getPieceID(string idStr);
 	PositionPoint getSelectedSquarePosition();
-
+	int getSelectState();
+	void setSelectState(int selectState);
+	int getPieceWithPosition(PositionPoint position);
+	int pickingSquareHasPiece(unsigned int squareID);
+	bool isBoardPiece(unsigned int id);
+	bool canMoveTo(unsigned int squareID);
 };
 
 #endif

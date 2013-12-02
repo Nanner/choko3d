@@ -337,7 +337,17 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 		for(unsigned int i = 0; i < nselected; i++)
 			printf("Square selected: %d\n", selected[i]);
 
-		((DemoScene*) scene)->getSceneGraph()->getGame()->selectedPieceID = selected[0];
+		Game* game = ((DemoScene*) scene)->getSceneGraph()->getGame();
+		if( game->getSelectState() == SELECT_ANY ) {
+			game->selectedPieceID = selected[0];
+			game->setSelectState(SELECT_TO_SQUARE);
+			printf("Changed state to to square\n");
+		}
+		else if(game->getSelectState() == SELECT_TO_SQUARE) {
+			unsigned int selectedPosition = selected[0];
+			game->canMoveTo(selectedPosition);
+			printf("Changed state to select any\n");
+		}
 	}
 	else
 		printf("Nothing selected while picking \n");	

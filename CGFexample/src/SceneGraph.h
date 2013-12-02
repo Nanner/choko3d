@@ -91,6 +91,9 @@ public:
 
 	void renderBoardPieces();
 	void renderBoardPieces(SceneVertex* v);
+
+	BoardPiece getPiece(unsigned int pieceID);
+	
 };
 
 #endif
