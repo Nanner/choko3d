@@ -5,6 +5,7 @@
 #include <limits.h>
 #include <string>
 #include <stdlib.h>
+#include <vector>
 
 #define NUMBER_OF_PLAYER_PIECES 12
 
@@ -74,6 +75,7 @@ public:
 	void addPiece(BoardPiece* piece);
 	//void addPickingSquare(PickingSquare* square);
 	int getPieceID(string idStr);
+	string getPieceIDStr(unsigned int id);
 	PositionPoint getSelectedSquarePosition();
 	int getSelectState();
 	void setSelectState(int selectState);
@@ -81,6 +83,9 @@ public:
 	int pickingSquareHasPiece(unsigned int squareID);
 	bool isBoardPiece(unsigned int id);
 	bool canMoveTo(unsigned int squareID);
+	PositionPoint getBoardPiecePosition(unsigned int pieceID);
+	PositionPoint getPickingSquarePosition(unsigned int squareID);
+	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
 };
 
 #endif

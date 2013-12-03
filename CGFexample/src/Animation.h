@@ -1,7 +1,9 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include "ScenePrimitive.h"
+//#include "ScenePrimitive.h"
+#include "CGFscene.h"
+#include "CameraView.h" //For M_PI and distanceBetweenPoints
 
 class Animation {
 protected:

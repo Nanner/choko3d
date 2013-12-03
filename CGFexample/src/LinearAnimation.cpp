@@ -182,7 +182,7 @@ void LinearAnimation::update(unsigned long t) {
 	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1))
 		ended = true;
 
-	glTranslatef(controlPoints.at(0), controlPoints.at(1), controlPoints.at(2));
+	//glTranslatef(controlPoints.at(0), controlPoints.at(1), controlPoints.at(2));
 
 	glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     glPopMatrix();

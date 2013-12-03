@@ -108,7 +108,31 @@ Animation * SceneVertex::getAnimation(){
     return animation;
 }
 
+void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
+	float origin[3] = {0.0, 0.0, 0.0};
+	float destination[3] = {0.0, 0.0, 0.0};
 
+	origin[0] = p1.x; origin[1] = p1.y; origin[2] = p1.z;
+	destination[0] = p2.x; destination[1] = p2.y; destination[2] = p2.z;
+	vector<float> controlPoints;
+	controlPoints.push_back(origin[0]); controlPoints.push_back(origin[1]); controlPoints.push_back(origin[2]);
+	controlPoints.push_back(origin[0]); controlPoints.push_back(origin[1] + 5.0); controlPoints.push_back(origin[2]);
+	controlPoints.push_back(destination[0]); controlPoints.push_back(origin[1] + 5.0); controlPoints.push_back(destination[2]);
+	controlPoints.push_back(destination[0]); controlPoints.push_back(destination[1]); controlPoints.push_back(destination[2]);
+
+	LinearAnimation* anim = new LinearAnimation(1.0, controlPoints);
+	if(this->getAnimation() != NULL) {
+		glPushMatrix();
+		glLoadIdentity();
+		glMultMatrixf(this->getAnimation()->getMatrix());
+		if(this->getMatrix() != NULL)
+			glMultMatrixf(this->getMatrix());
+		glGetFloatv(GL_MODELVIEW_MATRIX, this->matrix);
+		glPopMatrix();
+	}
+	free(this->getAnimation());
+	this->setAnimation(anim);
+}
 
 SceneComposite::SceneComposite(float* matrix, string id) {
 	this->matrix = matrix;

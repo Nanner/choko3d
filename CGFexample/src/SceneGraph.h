@@ -92,8 +92,7 @@ public:
 	void renderBoardPieces();
 	void renderBoardPieces(SceneVertex* v);
 
-	BoardPiece getPiece(unsigned int pieceID);
-	
+	void movePiece(unsigned int pieceID, PositionPoint origin, PositionPoint destination);
 };
 
 #endif

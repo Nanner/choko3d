@@ -6,7 +6,7 @@
 
 class LinearAnimation : public Animation {
     
-    
+
 public:
 	bool ended;
     float totalSpan;

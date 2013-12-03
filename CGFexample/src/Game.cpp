@@ -41,7 +41,7 @@ void Game::loadBoardPiecesPositions() {
 	unsigned int p2ID = NUMBER_OF_PLAYER_PIECES + 1 + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS;
 	for(row = NUMBER_OF_PIECE_ROWS; row > 1; row--) {
 		for(column = 0; column < NUMBER_OF_PIECE_COLUMNS; column++) {
-			PositionPoint position = {(float) FIRST_P2PIECE_POSITION_X + (float) column * (float) (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
+			PositionPoint position = {(float) FIRST_P2PIECE_POSITION_X + (float) column * (float) (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - (float) row) * (float) SPACE_BETWEEN_PIECES};
 			boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, position));
 			boardPieces.find(p2ID)->second->position[0] = position.x;
 			boardPieces.find(p2ID)->second->position[1] = position.y;
@@ -50,14 +50,14 @@ void Game::loadBoardPiecesPositions() {
 		}
 	}
 	//On the last row, we want two pieces "centered" in front of the others
-	PositionPoint p2position1 = {(float) FIRST_P2PIECE_POSITION_X + (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z + ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
+	PositionPoint p2position1 = {(float) FIRST_P2PIECE_POSITION_X + (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, p2position1));
 	boardPieces.find(p2ID)->second->position[0] = p2position1.x;
 	boardPieces.find(p2ID)->second->position[1] = p2position1.y;
 	boardPieces.find(p2ID)->second->position[2] = p2position1.z;
 	p2ID++;
 
-	PositionPoint p2position2 = {(float) FIRST_P2PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
+	PositionPoint p2position2 = {(float) FIRST_P2PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, p2position2));
 	boardPieces.find(p2ID)->second->position[0] = p2position2.x;
 	boardPieces.find(p2ID)->second->position[1] = p2position2.y;
@@ -111,6 +111,10 @@ int Game::getPieceID(string idStr) {
 	return -1;
 }
 
+string Game::getPieceIDStr(unsigned int id) {
+	return to_string(id - NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+}
+
 PositionPoint Game::getSelectedSquarePosition() {
 	map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.find(selectedPieceID);
 	if(it != pickingSquaresPositions.end()) {
@@ -132,9 +136,8 @@ void Game::setSelectState(int selectState) {
 
 int Game::getPieceWithPosition(PositionPoint position) {
 	map<unsigned int, BoardPiece*>::iterator it = boardPieces.begin();
-
 	for(; it != boardPieces.end(); it++) {
-		if(it->second->position[0] == position.x && it->second->position[1] == position.y && it->second->position[3] == position.z) {
+		if(it->second->position[0] == position.x && it->second->position[1] == position.y && it->second->position[2] == position.z) {
 			return it->first;
 		}
 	}
@@ -159,5 +162,49 @@ bool Game::isBoardPiece(unsigned int id) {
 }
 
 bool Game::canMoveTo(unsigned int squareID) {
+	if(isBoardPiece(squareID))
+		return false;
+
+	PositionPoint p;
+	p = getPickingSquarePosition(squareID);
+
+	if(getPieceWithPosition(p) != -1)
+		return false;
+
 	return true;
+}
+
+PositionPoint Game::getBoardPiecePosition(unsigned int pieceID) {
+	PositionPoint position = {0.0, 0.0, 0.0};
+
+	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
+	if(it != boardPieces.end()) {
+		position.x = (it->second->position[0]);
+		position.y = (it->second->position[1]);
+		position.z = (it->second->position[2]);
+	}
+
+	return position;
+}
+
+PositionPoint Game::getPickingSquarePosition(unsigned int squareID) {
+	PositionPoint position = {0.0, 0.0, 0.0};
+
+	map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.find(squareID);
+	if(it != pickingSquaresPositions.end()) {
+		position.x = (it->second.x);
+		position.y = (it->second.y);
+		position.z = (it->second.z);
+	}
+
+	return position;
+}
+
+void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
+	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
+	if(it != boardPieces.end()) {
+		it->second->position[0] = position.x;
+		it->second->position[1] = position.y;
+		it->second->position[2] = position.z;
+	}
 }

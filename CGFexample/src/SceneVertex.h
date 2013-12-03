@@ -11,6 +11,8 @@
 #include "SceneLight.h"
 #include "CGFshader.h"
 #include "WaterShader.h"
+#include "Game.h"
+#include "LinearAnimation.h"
 #include <vector>
 #include <stack>
 #include <map>
@@ -73,6 +75,7 @@ public:
     void setAnimation(Animation * animation);
     Animation * getAnimation();
 	virtual WaterShader* getShader() {return NULL;}
+	void createMovementAnimation(PositionPoint p1, PositionPoint p2);
 };
 
 
