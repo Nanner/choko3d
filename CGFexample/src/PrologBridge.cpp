@@ -140,7 +140,7 @@ GameState PrologBridge::checkGameOver(GameState gameState) {
     return gameState;
 }
 
-vector<int> PrologBridge::getPieceMoves(GameState gameState, string position) {
+vector<int> PrologBridge::getPieceMoves(GameState gameState, int position) {
     // getAllMoves(Player, Piece, Board, DropInitiative)
     stringstream ss;
     ss << "getPieceMoves("

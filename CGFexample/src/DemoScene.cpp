@@ -11,21 +11,6 @@ void DemoScene::init()
 	initCameras();
 	setUpdatePeriod(30);
 	isSelectMode = false;
-    
-    // TODO remove this, for tests only
-    PrologBridge choko;
-    
-    try {
-        GameState gameState = choko.initializeGame();
-        gameState = choko.execute(gameState, "5");
-        gameState = choko.calculate(gameState, "hard");
-        vector<int> moves = choko.getPieceMoves(gameState, "5");
-        
-        GameState game2("[[1,x,o,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],x,0,0,x,0]");
-        game2 = choko.execute(game2, "2-4-0");
-    } catch (InvalidMove &invalid) {
-        cout << "invalid move" << endl;
-    }
      
 	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
 	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};

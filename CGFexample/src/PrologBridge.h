@@ -42,7 +42,7 @@ public:
     
     GameState checkGameOver(GameState gameState);
     
-    vector<int> getPieceMoves(GameState gameState, string position);
+    vector<int> getPieceMoves(GameState gameState, int position);
 };
 
 class InvalidMove {};

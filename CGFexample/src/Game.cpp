@@ -1,6 +1,6 @@
 #include "Game.h"
 
-BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true), toggled(false) {}
+BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true), toggled(false), squareID(0) {}
 
 //PickingSquare::PickingSquare(unsigned int id): id(id), pieceID(0), hasPiece(false) {}
 
@@ -87,7 +87,29 @@ void Game::loadPickingSquaresPositions() {
 
 Game::Game() {
 	selectState = SELECT_ANY;
+    
+    try {
+        GameState gameState = choko.initializeGame();
+        gameStates.push(gameState);
+        /*
+         // TODO delete, for example only
+        gameState = choko.execute(gameState, "5");
+        gameState = choko.calculate(gameState, "hard");
+        vector<int> moves = choko.getPieceMoves(gameState, 5);
+        
+        GameState game2("[[1,x,o,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],x,0,0,x,0]");
+        game2 = choko.execute(game2, "2-4-0");
+         */
+    } catch (InvalidMove &invalid) {
+        printf("Initialization error.\n");
+    }
 }
+
+/* TODO
+int Game::executeMove(int drop, int move, int attack) {
+    
+}
+ */
 
 void Game::addPiece(BoardPiece* piece) {
 	boardPieces.insert(pair<unsigned int, BoardPiece*>(piece->id, piece));
@@ -170,8 +192,26 @@ bool Game::canMoveTo(unsigned int squareID) {
 
 	if(getPieceWithPosition(p) != -1)
 		return false;
+    
+    BoardPiece * selectedPiece = getBoardPiece(selectedPieceID);
+    if (selectedPiece->squareID == 0)
+        return true; // the selected piece is outside the board, it can go in
+    
+    vector<int> moves = choko.getPieceMoves(getGameState(), selectedPiece->squareID);
+    for (int i = 0; i < moves.size(); i++) {
+        if (moves.at(i) == squareID)
+            return true;
+    }
 
-	return true;
+	return false;
+}
+
+BoardPiece * Game::getBoardPiece(unsigned int pieceID) {
+	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
+	if(it != boardPieces.end()) {
+		return it->second;
+	}
+	return NULL;
 }
 
 PositionPoint Game::getBoardPiecePosition(unsigned int pieceID) {
@@ -200,6 +240,19 @@ PositionPoint Game::getPickingSquarePosition(unsigned int squareID) {
 	return position;
 }
 
+int Game::getPickingSquareID(PositionPoint position){
+    map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.begin();
+    for(; it != pickingSquaresPositions.end(); it++) {
+        if(it->second.x == position.x &&
+           it->second.y == position.y &&
+           it->second.z == position.z) {
+            return it->first;
+        }
+    }
+    
+    return -1;
+}
+
 void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
 	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
 	if(it != boardPieces.end()) {
@@ -207,4 +260,18 @@ void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
 		it->second->position[1] = position.y;
 		it->second->position[2] = position.z;
 	}
+    
+    int squareID = getPickingSquareID(position);
+    if (squareID != -1)
+        setBoardPieceSquare(pieceID, squareID);
+}
+
+GameState Game::getGameState() {
+    return gameStates.top();
+}
+
+void Game::setBoardPieceSquare(unsigned int pieceID, unsigned int squareID) {
+    BoardPiece * piece = getBoardPiece(pieceID);
+    if (piece != NULL)
+        piece->squareID = squareID;
 }

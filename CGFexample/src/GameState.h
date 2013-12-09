@@ -26,6 +26,7 @@ public:
     
     static string toString(vector<string> board);
     static vector<string> toVector(string board);
+    static vector<vector<int> > movesToVector(string movesString);
 };
 
 #endif

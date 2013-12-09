@@ -10,8 +10,8 @@
 		AA63E1CF16D415BF003287C6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E1CE16D415BF003287C6 /* OpenGL.framework */; };
 		AA63E1D316D415CB003287C6 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E1D216D415CB003287C6 /* GLUT.framework */; };
 		AA63E22E16D421B5003287C6 /* libCGF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E22D16D421B5003287C6 /* libCGF.a */; };
-		AA63E23216D4221C003287C6 /* libGLEW.1.9.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E22F16D4221C003287C6 /* libGLEW.1.9.0.dylib */; };
-		AA63E23316D4221C003287C6 /* libGLEWmx.1.9.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23016D4221C003287C6 /* libGLEWmx.1.9.0.dylib */; };
+		AA63E23216D4221C003287C6 /* libGLEW.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E22F16D4221C003287C6 /* libGLEW.1.10.0.dylib */; };
+		AA63E23316D4221C003287C6 /* libGLEWmx.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23016D4221C003287C6 /* libGLEWmx.1.10.0.dylib */; };
 		AA63E23416D4221C003287C6 /* libglui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23116D4221C003287C6 /* libglui.a */; };
 		EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB0D1BB518182BE900E385CB /* Patch.cpp */; };
 		EB3285B11842249100394272 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3285AF1842249100394272 /* Vehicle.cpp */; };
@@ -152,8 +152,8 @@
 		AA63E1D016D415C6003287C6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		AA63E1D216D415CB003287C6 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		AA63E22D16D421B5003287C6 /* libCGF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCGF.a; path = ../CGFlib/lib/libCGF.a; sourceTree = "<group>"; };
-		AA63E22F16D4221C003287C6 /* libGLEW.1.9.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.9.0.dylib; path = /usr/local/Cellar/glew/1.9.0/lib/libGLEW.1.9.0.dylib; sourceTree = "<absolute>"; };
-		AA63E23016D4221C003287C6 /* libGLEWmx.1.9.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.1.9.0.dylib; path = /usr/local/Cellar/glew/1.9.0/lib/libGLEWmx.1.9.0.dylib; sourceTree = "<absolute>"; };
+		AA63E22F16D4221C003287C6 /* libGLEW.1.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.10.0.dylib; path = /usr/local/Cellar/glew/1.10.0/lib/libGLEW.1.10.0.dylib; sourceTree = "<absolute>"; };
+		AA63E23016D4221C003287C6 /* libGLEWmx.1.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.1.10.0.dylib; path = /usr/local/Cellar/glew/1.10.0/lib/libGLEWmx.1.10.0.dylib; sourceTree = "<absolute>"; };
 		AA63E23116D4221C003287C6 /* libglui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglui.a; path = /usr/local/Cellar/glui/2.36/lib/libglui.a; sourceTree = "<absolute>"; };
 		EB0D1BB518182BE900E385CB /* Patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Patch.cpp; path = src/Patch.cpp; sourceTree = SOURCE_ROOT; };
 		EB0D1BB618182BE900E385CB /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Patch.h; path = src/Patch.h; sourceTree = SOURCE_ROOT; };
@@ -363,8 +363,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA63E23216D4221C003287C6 /* libGLEW.1.9.0.dylib in Frameworks */,
-				AA63E23316D4221C003287C6 /* libGLEWmx.1.9.0.dylib in Frameworks */,
+				AA63E23216D4221C003287C6 /* libGLEW.1.10.0.dylib in Frameworks */,
+				AA63E23316D4221C003287C6 /* libGLEWmx.1.10.0.dylib in Frameworks */,
 				AA63E23416D4221C003287C6 /* libglui.a in Frameworks */,
 				AA63E22E16D421B5003287C6 /* libCGF.a in Frameworks */,
 				AA63E1D316D415CB003287C6 /* GLUT.framework in Frameworks */,
@@ -405,8 +405,6 @@
 				EB9E1BD918095B5F00F91761 /* DemoScene.cpp */,
 				EB9E1BDA18095B5F00F91761 /* DemoScene.h */,
 				EB9E1BDB18095B5F00F91761 /* main.cpp */,
-				EB9E1BDC18095B5F00F91761 /* RendererInterface.cpp */,
-				EB9E1BDD18095B5F00F91761 /* RendererInterface.h */,
 				EB9E1BDE18095B5F00F91761 /* RootVertex.cpp */,
 				EB9E1BDF18095B5F00F91761 /* RootVertex.h */,
 				EB9E1BE018095B5F00F91761 /* SceneEdge.cpp */,
@@ -463,6 +461,8 @@
 				EB366920184371ED00DAB083 /* Connection.h */,
 				EB366927184379EE00DAB083 /* PrologBridge.cpp */,
 				EB366928184379EE00DAB083 /* PrologBridge.h */,
+				EB9E1BDC18095B5F00F91761 /* RendererInterface.cpp */,
+				EB9E1BDD18095B5F00F91761 /* RendererInterface.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -470,8 +470,8 @@
 		AA63E1BF16D4156E003287C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA63E22F16D4221C003287C6 /* libGLEW.1.9.0.dylib */,
-				AA63E23016D4221C003287C6 /* libGLEWmx.1.9.0.dylib */,
+				AA63E22F16D4221C003287C6 /* libGLEW.1.10.0.dylib */,
+				AA63E23016D4221C003287C6 /* libGLEWmx.1.10.0.dylib */,
 				AA63E23116D4221C003287C6 /* libglui.a */,
 				AA63E22D16D421B5003287C6 /* libCGF.a */,
 				AA63E1D216D415CB003287C6 /* GLUT.framework */,
@@ -825,7 +825,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../CGFlib/lib\"",
-					/usr/local/Cellar/glew/1.9.0/lib,
+					/usr/local/Cellar/glew/1.10.0/lib,
 					/usr/local/Cellar/glui/2.36/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -845,7 +845,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../CGFlib/lib\"",
-					/usr/local/Cellar/glew/1.9.0/lib,
+					/usr/local/Cellar/glew/1.10.0/lib,
 					/usr/local/Cellar/glui/2.36/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;

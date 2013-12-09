@@ -6,6 +6,9 @@
 #include <string>
 #include <stdlib.h>
 #include <vector>
+#include <stack>
+
+#include "PrologBridge.h"
 
 #define NUMBER_OF_PLAYER_PIECES 12
 
@@ -57,6 +60,7 @@ public:
 	bool onBoard;
 	bool playable;
 	bool toggled;
+    unsigned int squareID;
 };
 
 class Game {
@@ -66,6 +70,8 @@ private:
 	map<unsigned int, PositionPoint> boardPiecesInitialPositions;
 	map<unsigned int, PositionPoint> pickingSquaresPositions;
 	int selectState;
+    PrologBridge choko;
+    stack<GameState> gameStates;
 
 public:
 	unsigned int selectedPieceID;
@@ -83,9 +89,14 @@ public:
 	int pickingSquareHasPiece(unsigned int squareID);
 	bool isBoardPiece(unsigned int id);
 	bool canMoveTo(unsigned int squareID);
+    BoardPiece * getBoardPiece(unsigned int pieceID);
 	PositionPoint getBoardPiecePosition(unsigned int pieceID);
 	PositionPoint getPickingSquarePosition(unsigned int squareID);
+    int getPickingSquareID(PositionPoint position);
 	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
+    
+    GameState getGameState();
+    void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
 };
 
 #endif

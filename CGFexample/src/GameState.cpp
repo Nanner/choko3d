@@ -43,6 +43,26 @@ GameState::GameState(string stateString) {
     this->gameOver = false;
 }
 
+vector<vector<int> > GameState::movesToVector(string movesString) {
+    vector<vector<int> > movesAttacksEnemies;
+    stringstream ss(movesString);
+    ss.ignore(1, '[');
+    string list;
+    while (getline(ss, list, ']')) {
+        list.push_back(']');
+        vector<string> movesAsStrings = toVector(list);
+        vector<int> moves;
+        for (int i = 0; i < movesAsStrings.size(); i++) {
+            if ( movesAsStrings.at(i).size() > 0 )
+                moves.push_back(atoi(movesAsStrings.at(i).c_str()));
+        }
+        ss.ignore(1, ',');
+        movesAttacksEnemies.push_back(moves);
+    }
+    movesAttacksEnemies.pop_back();
+    return movesAttacksEnemies;
+}
+
 string GameState::toString(vector<string> board) {
     string boardString = "[";
     for (int i = 0; i < board.size(); i++) {
