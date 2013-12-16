@@ -140,7 +140,7 @@ GameState PrologBridge::checkGameOver(GameState gameState) {
     return gameState;
 }
 
-vector<int> PrologBridge::getPieceMoves(GameState gameState, int position) {
+PieceMoves PrologBridge::getPieceMoves(GameState gameState, int position) {
     // getAllMoves(Player, Piece, Board, DropInitiative)
     stringstream ss;
     ss << "getPieceMoves("
@@ -153,10 +153,7 @@ vector<int> PrologBridge::getPieceMoves(GameState gameState, int position) {
     if ( reply.compare("invalid.") == 0 )
         throw InvalidMove();
     
-    vector<string> stringMoves = GameState::toVector(reply);
-    vector<int> moves;
-    for (int i = 0; i < stringMoves.size(); i++) {
-        moves.push_back(atoi(stringMoves[i].c_str()));
-    }
-    return moves;
+    vector<vector<int> > moves = GameState::movesToVector(reply);
+    
+    return PieceMoves(moves.at(0), moves.at(1), moves.at(2));
 }

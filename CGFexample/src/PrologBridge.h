@@ -22,6 +22,14 @@
 #include "connection.h"
 #include "GameState.h"
 
+class PieceMoves {
+public:
+    vector<int> moves;
+    vector<int> attacks;
+    vector<int> targets;
+    PieceMoves(vector<int> moves, vector<int> attacks, vector<int> targets): moves(moves), attacks(attacks), targets(targets) {}
+};
+
 class PrologBridge {
 private:
     Connection *con;
@@ -42,7 +50,7 @@ public:
     
     GameState checkGameOver(GameState gameState);
     
-    vector<int> getPieceMoves(GameState gameState, int position);
+    PieceMoves getPieceMoves(GameState gameState, int position);
 };
 
 class InvalidMove {};

@@ -197,9 +197,9 @@ bool Game::canMoveTo(unsigned int squareID) {
     if (selectedPiece->squareID == 0)
         return true; // the selected piece is outside the board, it can go in
     
-    vector<int> moves = choko.getPieceMoves(getGameState(), selectedPiece->squareID);
-    for (int i = 0; i < moves.size(); i++) {
-        if (moves.at(i) == squareID)
+    PieceMoves available = choko.getPieceMoves(getGameState(), selectedPiece->squareID);
+    for (int i = 0; i < available.moves.size(); i++) {
+        if (available.moves.at(i) == squareID)
             return true;
     }
 
