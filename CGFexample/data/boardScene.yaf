@@ -178,6 +178,26 @@
       textureref="roadTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
+    
+    <appearance id="p1App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.23 0.23 0.99 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="100.0"
+      textureref="roadTex"
+      texlength_s="0.1"
+      texlength_t="0.1"/>
+    
+    <appearance id="p2App"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.99 0.23 0.23 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="100.0"
+      textureref="roadTex"
+      texlength_s="0.1"
+      texlength_t="0.1"/>
 
     <appearance id="boardApp"
       emissive="0.0 0.0 0.0 0.0"
@@ -1020,7 +1040,7 @@
         <translate to="0.0 0.0 -17.0" />
       </transforms>
       
-      <appearanceref id="roadApp" />
+      <appearanceref id="p2App" />
 
       <children>
         <noderef id="1" />
@@ -1043,7 +1063,7 @@
         <translate to="0.0 0.0 17.0" />
       </transforms>
       
-      <appearanceref id="roadApp" />
+      <appearanceref id="p1App" />
 
       <children>
         <noderef id="13" />

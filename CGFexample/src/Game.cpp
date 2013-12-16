@@ -20,7 +20,7 @@ void Game::loadBoardPiecesPositions() {
 			boardPieces.find(p1ID)->second->position[0] = position.x;
 			boardPieces.find(p1ID)->second->position[1] = position.y;
 			boardPieces.find(p1ID)->second->position[2] = position.z;
-            boardPieces.find(p1ID)->second->player = 'x';
+            boardPieces.find(p1ID)->second->player = 'o';
 			p1ID++;
 		}
 	}
@@ -30,7 +30,7 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p1ID)->second->position[0] = p1position1.x;
 	boardPieces.find(p1ID)->second->position[1] = p1position1.y;
 	boardPieces.find(p1ID)->second->position[2] = p1position1.z;
-    boardPieces.find(p1ID)->second->player = 'x';
+    boardPieces.find(p1ID)->second->player = 'o';
 	p1ID++;
     
 	PositionPoint p1position2 = {(float) FIRST_P1PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
@@ -38,7 +38,7 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p1ID)->second->position[0] = p1position2.x;
 	boardPieces.find(p1ID)->second->position[1] = p1position2.y;
 	boardPieces.find(p1ID)->second->position[2] = p1position2.z;
-    boardPieces.find(p1ID)->second->player = 'x';
+    boardPieces.find(p1ID)->second->player = 'o';
     
 	//Load Player 2 pieces
 	unsigned int p2ID = NUMBER_OF_PLAYER_PIECES + 1 + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS;
@@ -49,7 +49,7 @@ void Game::loadBoardPiecesPositions() {
 			boardPieces.find(p2ID)->second->position[0] = position.x;
 			boardPieces.find(p2ID)->second->position[1] = position.y;
 			boardPieces.find(p2ID)->second->position[2] = position.z;
-            boardPieces.find(p2ID)->second->player = 'o';
+            boardPieces.find(p2ID)->second->player = 'x';
 			p2ID++;
 		}
 	}
@@ -59,7 +59,7 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p2ID)->second->position[0] = p2position1.x;
 	boardPieces.find(p2ID)->second->position[1] = p2position1.y;
 	boardPieces.find(p2ID)->second->position[2] = p2position1.z;
-    boardPieces.find(p2ID)->second->player = 'o';
+    boardPieces.find(p2ID)->second->player = 'x';
 	p2ID++;
     
 	PositionPoint p2position2 = {(float) FIRST_P2PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
@@ -67,7 +67,7 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p2ID)->second->position[0] = p2position2.x;
 	boardPieces.find(p2ID)->second->position[1] = p2position2.y;
 	boardPieces.find(p2ID)->second->position[2] = p2position2.z;
-    boardPieces.find(p2ID)->second->player = 'o';
+    boardPieces.find(p2ID)->second->player = 'x';
     
 	map<unsigned int, PositionPoint>::iterator it = boardPiecesInitialPositions.begin();
 	printf("size: %lu\n", boardPiecesInitialPositions.size());
