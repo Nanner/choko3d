@@ -100,8 +100,10 @@ public:
     GameState getGameState();
     GameState executeDrop(int moveTo);
     GameState executeMove(int moveFrom, int moveTo);
+	char getCurrentPlayer();
     void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
     int executeMove(int pieceID, PositionPoint destination);
+	bool isOwnPiece(int pieceID);
 };
 
 #endif

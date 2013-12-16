@@ -339,8 +339,8 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 
 		Game* game = ((DemoScene*) scene)->getSceneGraph()->getGame();
 		if(game->getSelectState() == SELECT_ANY) {
-			game->selectedPieceID = selected[0];
-			if(game->isBoardPiece(selected[0])) {
+			if(game->isBoardPiece(selected[0]) && game->isOwnPiece(selected[0])) {
+				game->selectedPieceID = selected[0];
 				game->setSelectState(SELECT_TO_SQUARE);
 				printf("Changed state to to square\n");
 			}

@@ -12,8 +12,8 @@ class GameState {
     
 public:
     vector<string> board;
-    char nextPlayer;
-    int nextPlayerUnusedPieces;
+    char currentPlayer;
+    int currentPlayerUnusedPieces;
     int enemyPlayerUnusedPieces;
     int player1UnusedPieces;
     int player2UnusedPieces;

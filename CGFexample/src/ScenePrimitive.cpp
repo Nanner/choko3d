@@ -1,6 +1,8 @@
 #include "ScenePrimitive.h"
 #include <iostream>
 
+using namespace Primitives;
+
 int Rectangle::rows = 10;
 int Rectangle::columns = 10;
 

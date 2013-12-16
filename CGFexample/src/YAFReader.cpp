@@ -1,5 +1,7 @@
 #include "YAFReader.h"
 
+using namespace Primitives;
+
 YAFReader::YAFReader(char *filename) {
 	try {
 		// Read XML from file
@@ -511,7 +513,7 @@ YAFReader::YAFReader(char *filename) {
 					if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
 						vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
 						vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
-						yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
+						yafNode.addPrimitive( new Primitives::Rectangle(xy1, xy2) ) ;
 					}
 
 					if ( strcmp(currentChild->Value(), "triangle") == 0 ) {
@@ -721,7 +723,7 @@ YAFReader::YAFReader(char *filename) {
 					if ( strcmp(currentChild->Value(), "rectangle") == 0 ) {
 						vector<float> xy1 = getValues<float>(currentChild, (char*)"xy1");
 						vector<float> xy2 = getValues<float>(currentChild, (char*)"xy2");
-						yafNode.addPrimitive( new Rectangle(xy1, xy2) ) ;
+						yafNode.addPrimitive( new Primitives::Rectangle(xy1, xy2) ) ;
 					}
 
 					if ( strcmp(currentChild->Value(), "triangle") == 0 ) {

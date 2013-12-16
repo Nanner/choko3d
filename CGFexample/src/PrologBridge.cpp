@@ -84,8 +84,8 @@ GameState PrologBridge::execute(GameState gameState, string move) {
     ss << "execute("
     << move << ','
     << GameState::toString(gameState.board) << ','
-    << gameState.nextPlayer << ','
-    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.currentPlayer << ','
+    << gameState.currentPlayerUnusedPieces << ','
     << gameState.enemyPlayerUnusedPieces << ','
     << gameState.dropInitiative << ").\n";
     
@@ -107,8 +107,8 @@ GameState PrologBridge::calculate(GameState gameState, string playerDifficulty) 
     stringstream ss;
     ss << "calculate("
     << GameState::toString(gameState.board) << ','
-    << gameState.nextPlayer << ','
-    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.currentPlayer << ','
+    << gameState.currentPlayerUnusedPieces << ','
     << gameState.enemyPlayerUnusedPieces << ','
     << gameState.dropInitiative << ','
     << playerDifficulty << ").\n";
@@ -127,8 +127,8 @@ GameState PrologBridge::checkGameOver(GameState gameState) {
     stringstream ss;
     ss << "gameOver("
     << GameState::toString(gameState.board) << ','
-    << gameState.nextPlayer << ','
-    << gameState.nextPlayerUnusedPieces << ','
+    << gameState.currentPlayer << ','
+    << gameState.currentPlayerUnusedPieces << ','
     << gameState.enemyPlayerUnusedPieces << ").\n";
     
     string reply = con->sendMsg(ss.str());
@@ -144,7 +144,7 @@ PieceMoves PrologBridge::getPieceMoves(GameState gameState, int position) {
     // getAllMoves(Player, Piece, Board, DropInitiative)
     stringstream ss;
     ss << "getPieceMoves("
-    << gameState.nextPlayer << ','
+    << gameState.currentPlayer << ','
     << position << ','
     << GameState::toString(gameState.board) << ','
     << gameState.dropInitiative << ").\n";

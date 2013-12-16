@@ -336,3 +336,18 @@ void Game::setBoardPieceSquare(unsigned int pieceID, unsigned int squareID) {
     if (piece != NULL)
         piece->squareID = squareID;
 }
+
+char Game::getCurrentPlayer() {
+	return getGameState().currentPlayer;
+}
+
+bool Game::isOwnPiece(int pieceID) {
+	BoardPiece* selectedPiece = getBoardPiece(pieceID);
+	if(selectedPiece == NULL)
+		return false;
+
+	if(selectedPiece->playable && (selectedPiece->player == getCurrentPlayer()))
+		return true;
+	else
+		return false;
+}

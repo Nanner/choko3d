@@ -13,7 +13,7 @@ GameState::GameState(string stateString) {
     ss.ignore(1, ',');
     string nextPlayerStr;
     getline(ss, nextPlayerStr, ',');
-    this->nextPlayer = nextPlayerStr.at(0);
+    this->currentPlayer = nextPlayerStr.at(0);
     
     string playerUnusedPieces;
     getline(ss, playerUnusedPieces, ',');
@@ -27,14 +27,14 @@ GameState::GameState(string stateString) {
     
     getline(ss, this->move, ']');
     
-    if (nextPlayer == 'x') {
+    if (currentPlayer == 'x') {
         this->player1UnusedPieces = atoi(playerUnusedPieces.c_str());
-        this->nextPlayerUnusedPieces = player1UnusedPieces;
+        this->currentPlayerUnusedPieces = player1UnusedPieces;
         this->player2UnusedPieces = atoi(enemyUnusedPieces.c_str());
         this->enemyPlayerUnusedPieces = player2UnusedPieces;
     } else {
         this->player2UnusedPieces = atoi(playerUnusedPieces.c_str());
-        this->nextPlayerUnusedPieces = player2UnusedPieces;
+        this->currentPlayerUnusedPieces = player2UnusedPieces;
         this->player1UnusedPieces = atoi(enemyUnusedPieces.c_str());
         this->enemyPlayerUnusedPieces = player1UnusedPieces;
     }
