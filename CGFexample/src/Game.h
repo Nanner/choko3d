@@ -61,6 +61,7 @@ public:
 	bool playable;
 	bool toggled;
     unsigned int squareID;
+    char player;
 };
 
 class Game {
@@ -94,9 +95,13 @@ public:
 	PositionPoint getPickingSquarePosition(unsigned int squareID);
     int getPickingSquareID(PositionPoint position);
 	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
+    int getPieceOnSquare(int squareID);
     
     GameState getGameState();
+    GameState executeDrop(int moveTo);
+    GameState executeMove(int moveFrom, int moveTo);
     void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
+    int executeMove(int pieceID, PositionPoint destination);
 };
 
 #endif

@@ -763,7 +763,7 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 
 void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionPoint destination) {
 	string id = game->getPieceIDStr(pieceID);
-
+    
 	//Find the piece to move
 	for(unsigned int i = 0; i < boardPiecesSet.size(); i++) {
 		if(boardPiecesSet.at(i)->id.compare(id) == 0) {
@@ -771,18 +771,17 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
 			boardPiecesSet.at(i)->createMovementAnimation(origin, destination);
 			cout << origin.x << " " << origin.y << " " << origin.z << endl;
 			cout << destination.x << " " << destination.y << " " << destination.z << endl;
-
+            
 			//Remove possible previous animation
 			map<string, Animation*>::iterator it = animations.find(boardPiecesSet.at(i)->id);
 			if(it != animations.end()) {
 				animations.erase(it);
 			}
-
+            
 			//Add this animation to the animations map
 			animations.insert(pair<string, Animation*>(boardPiecesSet.at(i)->id, boardPiecesSet.at(i)->getAnimation()));
-
-			//Set new piece position
-			game->setBoardPiecePosition(pieceID, destination);
+            
+            game->executeMove(pieceID, destination);
 			return;
 		}
 	}
