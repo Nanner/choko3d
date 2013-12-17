@@ -34,6 +34,7 @@
 
 #define SELECT_ANY 0
 #define SELECT_TO_SQUARE 1
+#define SELECT_SECOND_ENEMY 2
 
 using namespace std;
 
@@ -62,6 +63,11 @@ public:
 	bool toggled;
     unsigned int squareID;
     char player;
+    char getOpponent(){
+        if (this->player == 'x')
+            return 'o';
+        else return 'x';
+    };
 };
 
 class Game {
@@ -98,12 +104,12 @@ public:
     int getPieceOnSquare(int squareID);
     
     GameState getGameState();
-    GameState executeDrop(int moveTo);
-    GameState executeMove(int moveFrom, int moveTo);
 	char getCurrentPlayer();
     void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
     int executeMove(int pieceID, PositionPoint destination);
+    int executeMove(int pieceID, PositionPoint destination, int secondEnemyPieceID);
 	bool isOwnPiece(int pieceID);
+    int getPiecesOnBoard(char player);
 };
 
 #endif
