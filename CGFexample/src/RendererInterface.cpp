@@ -374,6 +374,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 					PositionPoint removePieceOrigin = game->getPickingSquarePosition(piece->squareID);
 					PositionPoint  restPoint = game->getPieceRestPosition(piece);
 					sceneGraph->movePiece(removePieceID, removePieceOrigin, restPoint);
+					game->setBoardPiecePosition(removePieceID, restPoint);
 				}
 			}
 			else {
@@ -386,9 +387,12 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			if(game->canCapture(capturedPieceID)) {
 				game->capture(capturedPieceID);
 				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
+				PositionPoint origin = game->getBoardPiecePosition(capturedPieceID);
+				PositionPoint restPoint = game->getPieceRestPosition(capturedPiece);
 				capturedPiece->onBoard = false;
 				capturedPiece->playable = false;
-				sceneGraph->movePiece(capturedPieceID, game->getBoardPiecePosition(capturedPieceID), game->getPieceRestPosition(capturedPiece));
+				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
+				game->setBoardPiecePosition(capturedPieceID, restPoint);
 			}
 			else {
 				printf("Can't eat that piece\n");

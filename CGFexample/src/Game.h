@@ -90,7 +90,7 @@ private:
     stack<GameState> gameStates;
 	stack<PositionPoint> p1RestPositions;
 	stack<PositionPoint> p2RestPositions;
-    int attackingPiece;
+    PositionPoint firstAttackingOrigin;
     PositionPoint firstAttackingDestination;
 
 public:
@@ -120,7 +120,7 @@ public:
 	char getCurrentPlayer();
     void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
     int executeMove(int pieceID, PositionPoint destination);
-    int executeMove(int pieceID, PositionPoint destination, int secondEnemyPieceID);
+    int executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID);
 	bool isOwnPiece(int pieceID);
     int getPiecesOnBoard(char player);
 	bool canCapture(int pieceID);
