@@ -416,10 +416,11 @@ int Game::getPiecesOnBoard(char player) {
     int counter = 0;
     map<unsigned int, BoardPiece*>::iterator it = boardPieces.begin();
     BoardPiece * piece = NULL;
-	if(it != boardPieces.end()) {
+	while(it != boardPieces.end()) {
         piece = it->second;
 		if (piece->onBoard && piece->player == player)
             counter++;
+        it++;
 	}
     return counter;
 }
