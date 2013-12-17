@@ -123,6 +123,7 @@ public:
 
 	PositionPoint getNextP1RestPosition();
 	PositionPoint getNextP2RestPosition();
+	PositionPoint getPieceRestPosition(BoardPiece* piece);
 };
 
 #endif

@@ -154,6 +154,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
         try {
             GameState newState = choko.execute(getGameState(), to_string(moveTo));
             gameStates.push(newState);
+			boardPiece->onBoard = true;
         } catch (InvalidMove &invalid) {
             printf("Invalid move!!\n");
         }
@@ -175,10 +176,10 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                 for (int i = 0; i < available.attacks.size(); i++) {
                     if (available.attacks.at(i) == moveTo) {
                         move << '-' << moveTo << '-';
+						targetToRemove = available.targets.at(i);
                         if ( getPiecesOnBoard(boardPiece->getOpponent()) > 0){
                             // there are more enemies in the board
                             setSelectState(SELECT_SECOND_ENEMY);
-                            targetToRemove = available.targets.at(i);
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
@@ -433,4 +434,11 @@ PositionPoint Game::getNextP2RestPosition() {
 	PositionPoint position = p2RestPositions.top();
 	p2RestPositions.pop();
 	return position;
+}
+
+PositionPoint Game::getPieceRestPosition(BoardPiece* piece) {
+	if(piece->player == 'o')
+		return getNextP1RestPosition();
+	else
+		return getNextP2RestPosition();
 }
