@@ -22,6 +22,12 @@ void Game::loadBoardPiecesPositions() {
 			boardPieces.find(p1ID)->second->position[2] = position.z;
             boardPieces.find(p1ID)->second->player = 'o';
 			p1ID++;
+
+			PositionPoint restPosition;
+			restPosition.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+			restPosition.y = (float) FIRST_P1REST_POS_Y;
+			restPosition.z = (float) FIRST_P1REST_POS_Z + (float) column * (float) SPACE_BETWEEN_PIECES;
+			p1RestPositions.push(restPosition);
 		}
 	}
 	//On the last row, we want two pieces "centered" in front of the others
@@ -32,6 +38,12 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p1ID)->second->position[2] = p1position1.z;
     boardPieces.find(p1ID)->second->player = 'o';
 	p1ID++;
+
+	PositionPoint p1RestPosition1;
+	p1RestPosition1.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+	p1RestPosition1.y = (float) FIRST_P1REST_POS_Y;
+	p1RestPosition1.z = (float) FIRST_P1REST_POS_Z + (float) SPACE_BETWEEN_PIECES;
+	p1RestPositions.push(p1RestPosition1);
     
 	PositionPoint p1position2 = {(float) FIRST_P1PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p1ID, p1position2));
@@ -39,6 +51,12 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p1ID)->second->position[1] = p1position2.y;
 	boardPieces.find(p1ID)->second->position[2] = p1position2.z;
     boardPieces.find(p1ID)->second->player = 'o';
+
+	PositionPoint p1RestPosition2;
+	p1RestPosition2.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+	p1RestPosition2.y = (float) FIRST_P1REST_POS_Y;
+	p1RestPosition2.z = (float) FIRST_P1REST_POS_Z + 3.0 * (float) SPACE_BETWEEN_PIECES;
+	p1RestPositions.push(p1RestPosition2);
     
 	//Load Player 2 pieces
 	unsigned int p2ID = NUMBER_OF_PLAYER_PIECES + 1 + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS;
@@ -51,6 +69,12 @@ void Game::loadBoardPiecesPositions() {
 			boardPieces.find(p2ID)->second->position[2] = position.z;
             boardPieces.find(p2ID)->second->player = 'x';
 			p2ID++;
+
+			PositionPoint restPosition;
+			restPosition.x = (float) FIRST_P2REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
+			restPosition.y = (float) FIRST_P2REST_POS_Y;
+			restPosition.z = (float) FIRST_P2REST_POS_Z + (float) column * (float) SPACE_BETWEEN_PIECES;
+			p2RestPositions.push(restPosition);
 		}
 	}
 	//On the last row, we want two pieces "centered" in front of the others
@@ -61,6 +85,12 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p2ID)->second->position[2] = p2position1.z;
     boardPieces.find(p2ID)->second->player = 'x';
 	p2ID++;
+
+	PositionPoint p2RestPosition1;
+	p2RestPosition1.x = (float) FIRST_P2REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
+	p2RestPosition1.y = (float) FIRST_P2REST_POS_Y;
+	p2RestPosition1.z = (float) FIRST_P2REST_POS_Z + (float) SPACE_BETWEEN_PIECES;
+	p2RestPositions.push(p2RestPosition1);
     
 	PositionPoint p2position2 = {(float) FIRST_P2PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, p2position2));
@@ -68,6 +98,12 @@ void Game::loadBoardPiecesPositions() {
 	boardPieces.find(p2ID)->second->position[1] = p2position2.y;
 	boardPieces.find(p2ID)->second->position[2] = p2position2.z;
     boardPieces.find(p2ID)->second->player = 'x';
+
+	PositionPoint p2RestPosition2;
+	p2RestPosition2.x = (float) FIRST_P2REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
+	p2RestPosition2.y = (float) FIRST_P2REST_POS_Y;
+	p2RestPosition2.z = (float) FIRST_P2REST_POS_Z + 3.0 * (float) SPACE_BETWEEN_PIECES;
+	p2RestPositions.push(p2RestPosition2);
     
 	map<unsigned int, PositionPoint>::iterator it = boardPiecesInitialPositions.begin();
 	printf("size: %lu\n", boardPiecesInitialPositions.size());
@@ -124,7 +160,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
         } catch (InvalidMove &invalid) {
             printf("Invalid move!!\n");
         }
-    } else {
+	} else {
         // This is a move or attack
         try {
             stringstream move;
@@ -350,4 +386,16 @@ bool Game::isOwnPiece(int pieceID) {
 		return true;
 	else
 		return false;
+}
+
+PositionPoint Game::getNextP1RestPosition() {
+	PositionPoint position = p1RestPositions.top();
+	p1RestPositions.pop();
+	return position;
+}
+
+PositionPoint Game::getNextP2RestPosition() {
+	PositionPoint position = p2RestPositions.top();
+	p2RestPositions.pop();
+	return position;
 }

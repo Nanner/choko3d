@@ -255,6 +255,13 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 	// do picking on mouse press (GLUT_DOWN)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 		performPicking(x,y);
+
+	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+		Game* game = ((DemoScene*) scene)->getSceneGraph()->getGame();
+		game->setSelectState(SELECT_ANY);
+		printf("Changed state to select any\n");
+		game->selectedPieceID = 0;
+	}
 }
 
 void RendererInterface::performPicking(int x, int y) {
@@ -344,6 +351,9 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				game->setSelectState(SELECT_TO_SQUARE);
 				printf("Changed state to to square\n");
 			}
+			else {
+				printf("Can't select that piece\n");
+			}
 		}
 		else if(game->getSelectState() == SELECT_TO_SQUARE) {
 			unsigned int selectedPosition = selected[0];
@@ -354,6 +364,9 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				PositionPoint origin = game->getBoardPiecePosition(game->selectedPieceID);
 				PositionPoint destination = game->getPickingSquarePosition(selectedPosition);
 				((DemoScene*) scene)->getSceneGraph()->movePiece(game->selectedPieceID, origin, destination);
+			}
+			else {
+				printf("Illegal move!\n");
 			}
 		}
 	}

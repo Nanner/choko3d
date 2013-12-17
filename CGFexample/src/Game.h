@@ -20,6 +20,14 @@
 #define NUMBER_OF_SQUARE_ROWS 5
 #define NUMBER_OF_SQUARE_COLUMNS 5
 
+#define FIRST_P1REST_POS_X -15.0
+#define FIRST_P1REST_POS_Y 0.0
+#define FIRST_P1REST_POS_Z 2.0
+
+#define FIRST_P2REST_POS_X 35.0
+#define FIRST_P2REST_POS_Y 0.0
+#define FIRST_P2REST_POS_Z 2.0
+
 #define FIRST_P1PIECE_POSITION_X 2.0
 #define FIRST_P1PIECE_POSITION_Y 0.0
 #define FIRST_P1PIECE_POSITION_Z -15.0
@@ -73,6 +81,8 @@ private:
 	int selectState;
     PrologBridge choko;
     stack<GameState> gameStates;
+	stack<PositionPoint> p1RestPositions;
+	stack<PositionPoint> p2RestPositions;
 
 public:
 	unsigned int selectedPieceID;
@@ -104,6 +114,9 @@ public:
     void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
     int executeMove(int pieceID, PositionPoint destination);
 	bool isOwnPiece(int pieceID);
+
+	PositionPoint getNextP1RestPosition();
+	PositionPoint getNextP2RestPosition();
 };
 
 #endif
