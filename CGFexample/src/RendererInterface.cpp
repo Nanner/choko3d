@@ -4,7 +4,7 @@
 RendererInterface::RendererInterface() {}
 
 void RendererInterface::initGUI() {
-	SceneGraph* sceneGraph = ((DemoScene*) scene)->getSceneGraph();
+	this->sceneGraph = ((DemoScene*) scene)->getSceneGraph();
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
 
 	int lastID = 0;
@@ -141,7 +141,6 @@ void RendererInterface::initGUI() {
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
-	SceneGraph* sceneGraph = ((DemoScene*) scene)->getSceneGraph();
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
 
 	if( ((DemoScene*) scene)->activeCameraNum == 0) {
@@ -257,7 +256,7 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 		performPicking(x,y);
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
-		Game* game = ((DemoScene*) scene)->getSceneGraph()->getGame();
+		Game* game = sceneGraph->getGame();
 		game->setSelectState(SELECT_ANY);
 		printf("Changed state to select any\n");
 		game->selectedPieceID = 0;
@@ -344,7 +343,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 		for(unsigned int i = 0; i < nselected; i++)
 			printf("Square selected: %d\n", selected[i]);
 
-		Game* game = ((DemoScene*) scene)->getSceneGraph()->getGame();
+		Game* game = sceneGraph->getGame();
 		if(game->getSelectState() == SELECT_ANY) {
 			if(game->isBoardPiece(selected[0]) && game->isOwnPiece(selected[0])) {
 				game->selectedPieceID = selected[0];
@@ -363,7 +362,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 
 				PositionPoint origin = game->getBoardPiecePosition(game->selectedPieceID);
 				PositionPoint destination = game->getPickingSquarePosition(selectedPosition);
-				((DemoScene*) scene)->getSceneGraph()->movePiece(game->selectedPieceID, origin, destination);
+				sceneGraph->movePiece(game->selectedPieceID, origin, destination);
 			}
 			else {
 				printf("Illegal move!\n");

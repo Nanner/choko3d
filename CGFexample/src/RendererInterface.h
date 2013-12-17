@@ -11,6 +11,8 @@
 #define BUFSIZE 256
 
 class RendererInterface :public CGFinterface {
+private:
+    SceneGraph * sceneGraph;
 public:
 	GLuint selectBuf[BUFSIZE];
 
