@@ -1043,29 +1043,6 @@
       <appearanceref id="p2App" />
 
       <children>
-        <noderef id="1" />
-        <noderef id="2" />
-        <noderef id="3" />
-        <noderef id="4" />
-        <noderef id="5" />
-        <noderef id="6" />
-        <noderef id="7" />
-        <noderef id="8" />
-        <noderef id="9" />
-        <noderef id="10" />
-        <noderef id="11" />
-        <noderef id="12" />
-      </children>
-    </node>
-    
-    <node id="p1pieces">
-      <transforms>
-        <translate to="0.0 0.0 17.0" />
-      </transforms>
-      
-      <appearanceref id="p1App" />
-
-      <children>
         <noderef id="13" />
         <noderef id="14" />
         <noderef id="15" />
@@ -1080,129 +1057,32 @@
         <noderef id="24" />
       </children>
     </node>
-
-    <node id="1">
-      <transforms>
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="2">
-      <transforms>
-        <translate to="4.0 0.0 0.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="3">
-      <transforms>
-        <translate to="8.0 0.0 0.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="4">
-      <transforms>
-        <translate to="12.0 0.0 0.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="5">
-      <transforms>
-        <translate to="16.0 0.0 0.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="6">
-      <transforms>
-        <translate to="0.0 0.0 4.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="7">
-      <transforms>
-        <translate to="4.0 0.0 4.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="8">
-      <transforms>
-        <translate to="8.0 0.0 4.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="9">
-      <transforms>
-        <translate to="12.0 0.0 4.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="10">
-      <transforms>
-        <translate to="16.0 0.0 4.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="11">
-      <transforms>
-        <translate to="4.0 0.0 8.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
-
-    <node id="12">
-      <transforms>
-        <translate to="12.0 0.0 8.0" />
-      </transforms>
-
-      <children>
-        <noderef id="piece" />
-      </children>
-    </node>
     
+    <node id="p1pieces">
+      <transforms>
+        <translate to="0.0 0.0 17.0" />
+      </transforms>
+      
+      <appearanceref id="p1App" />
+
+      <children>
+        <noderef id="1" />
+        <noderef id="2" />
+        <noderef id="3" />
+        <noderef id="4" />
+        <noderef id="5" />
+        <noderef id="6" />
+        <noderef id="7" />
+        <noderef id="8" />
+        <noderef id="9" />
+        <noderef id="10" />
+        <noderef id="11" />
+        <noderef id="12" />
+      </children>
+    </node>
+
     <node id="13">
       <transforms>
-        <translate to="0.0 0.0 16.0" />
       </transforms>
 
       <children>
@@ -1212,7 +1092,7 @@
 
     <node id="14">
       <transforms>
-        <translate to="4.0 0.0 16.0" />
+        <translate to="4.0 0.0 0.0" />
       </transforms>
 
       <children>
@@ -1222,7 +1102,7 @@
 
     <node id="15">
       <transforms>
-        <translate to="8.0 0.0 16.0" />
+        <translate to="8.0 0.0 0.0" />
       </transforms>
 
       <children>
@@ -1232,7 +1112,7 @@
 
     <node id="16">
       <transforms>
-        <translate to="12.0 0.0 16.0" />
+        <translate to="12.0 0.0 0.0" />
       </transforms>
 
       <children>
@@ -1242,7 +1122,7 @@
 
     <node id="17">
       <transforms>
-        <translate to="16.0 0.0 16.0" />
+        <translate to="16.0 0.0 0.0" />
       </transforms>
 
       <children>
@@ -1252,7 +1132,7 @@
 
     <node id="18">
       <transforms>
-        <translate to="0.0 0.0 12.0" />
+        <translate to="0.0 0.0 4.0" />
       </transforms>
 
       <children>
@@ -1262,7 +1142,7 @@
 
     <node id="19">
       <transforms>
-        <translate to="4.0 0.0 12.0" />
+        <translate to="4.0 0.0 4.0" />
       </transforms>
 
       <children>
@@ -1272,7 +1152,7 @@
 
     <node id="20">
       <transforms>
-        <translate to="8.0 0.0 12.0" />
+        <translate to="8.0 0.0 4.0" />
       </transforms>
 
       <children>
@@ -1282,7 +1162,7 @@
 
     <node id="21">
       <transforms>
-        <translate to="12.0 0.0 12.0" />
+        <translate to="12.0 0.0 4.0" />
       </transforms>
 
       <children>
@@ -1292,7 +1172,7 @@
 
     <node id="22">
       <transforms>
-        <translate to="16.0 0.0 12.0" />
+        <translate to="16.0 0.0 4.0" />
       </transforms>
 
       <children>
@@ -1311,6 +1191,126 @@
     </node>
 
     <node id="24">
+      <transforms>
+        <translate to="12.0 0.0 8.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+    
+    <node id="1">
+      <transforms>
+        <translate to="0.0 0.0 16.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="2">
+      <transforms>
+        <translate to="4.0 0.0 16.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="3">
+      <transforms>
+        <translate to="8.0 0.0 16.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="4">
+      <transforms>
+        <translate to="12.0 0.0 16.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="5">
+      <transforms>
+        <translate to="16.0 0.0 16.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="6">
+      <transforms>
+        <translate to="0.0 0.0 12.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="7">
+      <transforms>
+        <translate to="4.0 0.0 12.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="8">
+      <transforms>
+        <translate to="8.0 0.0 12.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="9">
+      <transforms>
+        <translate to="12.0 0.0 12.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="10">
+      <transforms>
+        <translate to="16.0 0.0 12.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="11">
+      <transforms>
+        <translate to="4.0 0.0 8.0" />
+      </transforms>
+
+      <children>
+        <noderef id="piece" />
+      </children>
+    </node>
+
+    <node id="12">
       <transforms>
         <translate to="12.0 0.0 8.0" />
       </transforms>
