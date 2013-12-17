@@ -180,8 +180,9 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                         if ( getPiecesOnBoard(boardPiece->getOpponent()) > 1){
                             // there are more enemies in the board
                             setSelectState(SELECT_SECOND_ENEMY);
-							attackingPiece = pieceID;
+							firstAttackingOrigin = getBoardPiecePosition(pieceID);
                             firstAttackingDestination = destination;
+							setBoardPiecePosition(pieceID, destination);
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
@@ -196,16 +197,13 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
         }
         
     }
-    
-    setBoardPiecePosition(pieceID, destination);
-    
+	setBoardPiecePosition(pieceID, destination);
     return targetToRemove;
 }
 
-int Game::executeMove(int pieceID, PositionPoint destination, int secondEnemyPieceID) {
-    BoardPiece * boardPiece = getBoardPiece(pieceID);
-    int moveFrom = boardPiece->squareID;
-    int moveTo = getPickingSquareID(destination);
+int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID) {
+    int moveFrom = getPickingSquareID(firstAttackingOrigin);
+    int moveTo = getPickingSquareID(firstAttackingDestination);
     
     BoardPiece * secondEnemyPiece = getBoardPiece(secondEnemyPieceID);
     int removeFrom = secondEnemyPiece->squareID;
@@ -218,7 +216,7 @@ int Game::executeMove(int pieceID, PositionPoint destination, int secondEnemyPie
     } catch (InvalidMove &invalid) {
         printf("Invalid move!!\n");
     }
-	setSelectState(SELECT_SECOND_ENEMY);
+	setSelectState(SELECT_ANY);
     return 0;
 }
 
@@ -463,5 +461,5 @@ bool Game::canCapture(int pieceID) {
 }
 
 void Game::capture(int secondPieceID) {
-    executeMove(attackingPiece, firstAttackingDestination, secondPieceID);
+    executeMove(firstAttackingOrigin, firstAttackingDestination, secondPieceID);
 }
