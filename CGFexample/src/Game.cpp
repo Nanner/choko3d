@@ -147,10 +147,16 @@ Game::Game() {
     }
 }
 
+// This will execute a move
+// If the move is an attack, the target squareID to be removed is returned!
+// And if the board has a second enemy to be removed, it will trigger the SELECT_SECOND_ENEMY
+// state and won't execute the move in choko! The player must select a second enemy and call
+// executeMove(int, PositionPoint, int), so that the move will be executed in choko
 int Game::executeMove(int pieceID, PositionPoint destination) {
     BoardPiece * boardPiece = getBoardPiece(pieceID);
     int moveFrom = boardPiece->squareID;
     int moveTo = getPickingSquareID(destination);
+    int targetToRemove = 0;
     
     if (moveFrom == 0) {
         // This is a drop
@@ -177,8 +183,15 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
             if (isAttack) {
                 for (int i = 0; i < available.attacks.size(); i++) {
                     if (available.attacks.at(i) == moveTo) {
-                        move << '-' << moveTo << '-' << available.targets.at(i);
-                        break;
+                        move << '-' << moveTo << '-';
+                        if ( getPiecesOnBoard(boardPiece->getOpponent()) > 0){
+                            // there are more enemies in the board
+                            setSelectState(SELECT_SECOND_ENEMY);
+                            targetToRemove = available.targets.at(i);
+                            return targetToRemove;
+                        }
+                        // there aren't more enemies in the board
+                        move << '0';
                     }
                 }
             }
@@ -192,6 +205,25 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     
     setBoardPiecePosition(pieceID, destination);
     
+    return targetToRemove;
+}
+
+int Game::executeMove(int pieceID, PositionPoint destination, int secondEnemyPieceID) {
+    BoardPiece * boardPiece = getBoardPiece(pieceID);
+    int moveFrom = boardPiece->squareID;
+    int moveTo = getPickingSquareID(destination);
+    
+    BoardPiece * secondEnemyPiece = getBoardPiece(secondEnemyPieceID);
+    int removeFrom = secondEnemyPiece->squareID;
+    
+    try {
+        stringstream move;
+        move << moveFrom << '-' << moveTo << '-' << removeFrom;
+        GameState newState = choko.execute(getGameState(), move.str());
+        gameStates.push(newState);
+    } catch (InvalidMove &invalid) {
+        printf("Invalid move!!\n");
+    }
     return 0;
 }
 
@@ -386,6 +418,18 @@ bool Game::isOwnPiece(int pieceID) {
 		return true;
 	else
 		return false;
+}
+
+int Game::getPiecesOnBoard(char player) {
+    int counter = 0;
+    map<unsigned int, BoardPiece*>::iterator it = boardPieces.begin();
+    BoardPiece * piece = NULL;
+	if(it != boardPieces.end()) {
+        piece = it->second;
+		if (piece->onBoard && piece->player == player)
+            counter++;
+	}
+    return counter;
 }
 
 PositionPoint Game::getNextP1RestPosition() {
