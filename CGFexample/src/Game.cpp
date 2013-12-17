@@ -177,9 +177,10 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                     if (available.attacks.at(i) == moveTo) {
                         move << '-' << moveTo << '-';
 						targetToRemove = available.targets.at(i);
-                        if ( getPiecesOnBoard(boardPiece->getOpponent()) > 0){
+                        if ( getPiecesOnBoard(boardPiece->getOpponent()) > 1){
                             // there are more enemies in the board
                             setSelectState(SELECT_SECOND_ENEMY);
+							printf("Changed state to SELECT 2nd ENEMY\n");
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
@@ -438,7 +439,7 @@ PositionPoint Game::getNextP2RestPosition() {
 }
 
 PositionPoint Game::getPieceRestPosition(BoardPiece* piece) {
-	if(piece->player == 'o')
+	if(piece->player == 'x')
 		return getNextP1RestPosition();
 	else
 		return getNextP2RestPosition();

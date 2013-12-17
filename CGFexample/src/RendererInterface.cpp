@@ -344,6 +344,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			printf("Square selected: %d\n", selected[i]);
 
 		Game* game = sceneGraph->getGame();
+		printf("state: %d\n", game->getSelectState());
 		if(game->getSelectState() == SELECT_ANY) {
 			if(game->isBoardPiece(selected[0]) && game->isOwnPiece(selected[0])) {
 				game->selectedPieceID = selected[0];
@@ -366,6 +367,17 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			}
 			else {
 				printf("Illegal move!\n");
+			}
+		}
+		else if(game->getSelectState() == SELECT_SECOND_ENEMY) {
+			unsigned int selectedPosition = selected[0];
+			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
+			if(game->canCapture(selectedPosition)) {
+				game->capture(selectedPosition);
+			}
+			else
+			{
+				printf("Can't eat that piece\n");
 			}
 		}
 	}

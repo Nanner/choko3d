@@ -120,6 +120,8 @@ public:
     int executeMove(int pieceID, PositionPoint destination, int secondEnemyPieceID);
 	bool isOwnPiece(int pieceID);
     int getPiecesOnBoard(char player);
+	bool canCapture(int pieceID);
+	void capture(int pieceID);
 
 	PositionPoint getNextP1RestPosition();
 	PositionPoint getNextP2RestPosition();
