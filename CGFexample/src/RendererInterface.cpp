@@ -374,9 +374,12 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
 			if(game->canCapture(capturedPieceID)) {
 				game->capture(capturedPieceID);
+				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
+				capturedPiece->onBoard = false;
+				capturedPiece->playable = false;
+				sceneGraph->movePiece(capturedPieceID, game->getBoardPiecePosition(capturedPieceID), game->getPieceRestPosition(capturedPiece));
 			}
-			else
-			{
+			else {
 				printf("Can't eat that piece\n");
 			}
 		}
