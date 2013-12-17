@@ -257,8 +257,10 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
 		Game* game = sceneGraph->getGame();
-		game->setSelectState(SELECT_ANY);
-		printf("Changed state to select any\n");
+		if(game->getSelectState() != SELECT_SECOND_ENEMY) {
+			game->setSelectState(SELECT_ANY);
+			printf("Changed state to select any\n");
+		}
 		game->selectedPieceID = 0;
 	}
 }
