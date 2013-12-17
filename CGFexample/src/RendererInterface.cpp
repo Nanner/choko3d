@@ -372,8 +372,8 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 		else if(game->getSelectState() == SELECT_SECOND_ENEMY) {
 			unsigned int selectedPosition = selected[0];
 			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
-			if(game->canCapture(selectedPosition)) {
-				game->capture(selectedPosition);
+			if(game->canCapture(capturedPieceID)) {
+				game->capture(capturedPieceID);
 			}
 			else
 			{

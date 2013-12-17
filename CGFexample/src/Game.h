@@ -19,6 +19,7 @@
 
 #define NUMBER_OF_SQUARE_ROWS 5
 #define NUMBER_OF_SQUARE_COLUMNS 5
+#define NUMBER_OF_SQUARES NUMBER_OF_SQUARE_ROWS * NUMBER_OF_SQUARE_COLUMNS
 
 #define FIRST_P1REST_POS_X -15.0
 #define FIRST_P1REST_POS_Y 0.0
@@ -89,6 +90,8 @@ private:
     stack<GameState> gameStates;
 	stack<PositionPoint> p1RestPositions;
 	stack<PositionPoint> p2RestPositions;
+    int attackingPiece;
+    PositionPoint firstAttackingDestination;
 
 public:
 	unsigned int selectedPieceID;
@@ -121,7 +124,7 @@ public:
 	bool isOwnPiece(int pieceID);
     int getPiecesOnBoard(char player);
 	bool canCapture(int pieceID);
-	void capture(int pieceID);
+	void capture(int secondPieceID);
 
 	PositionPoint getNextP1RestPosition();
 	PositionPoint getNextP2RestPosition();

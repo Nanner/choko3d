@@ -180,7 +180,8 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                         if ( getPiecesOnBoard(boardPiece->getOpponent()) > 1){
                             // there are more enemies in the board
                             setSelectState(SELECT_SECOND_ENEMY);
-							printf("Changed state to SELECT 2nd ENEMY\n");
+							attackingPiece = pieceID;
+                            firstAttackingDestination = destination;
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
@@ -367,6 +368,10 @@ int Game::getPickingSquareID(PositionPoint position){
 }
 
 int Game::getPieceOnSquare(int squareID) {
+    if (squareID > NUMBER_OF_SQUARES && squareID <= NUMBER_OF_SQUARES + NUMBER_OF_PLAYER_PIECES * 2) {
+        // we already clicked on the piece we want
+        return squareID;
+    }
     PositionPoint piecePosition = getPickingSquarePosition(squareID);
     return getPieceWithPosition(piecePosition);
 }
@@ -443,4 +448,19 @@ PositionPoint Game::getPieceRestPosition(BoardPiece* piece) {
 		return getNextP1RestPosition();
 	else
 		return getNextP2RestPosition();
+}
+
+bool Game::canCapture(int pieceID) {
+    if (pieceID < 0)
+        return false;
+    
+    BoardPiece * piece = getBoardPiece(pieceID);
+    if (piece->onBoard && piece->player != getGameState().currentPlayer)
+        return true;
+    else
+        return false;
+}
+
+void Game::capture(int secondPieceID) {
+    executeMove(attackingPiece, firstAttackingDestination, secondPieceID);
 }
