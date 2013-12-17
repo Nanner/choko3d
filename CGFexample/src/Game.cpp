@@ -218,6 +218,7 @@ int Game::executeMove(int pieceID, PositionPoint destination, int secondEnemyPie
     } catch (InvalidMove &invalid) {
         printf("Invalid move!!\n");
     }
+	setSelectState(SELECT_SECOND_ENEMY);
     return 0;
 }
 

@@ -364,6 +364,17 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				PositionPoint origin = game->getBoardPiecePosition(game->selectedPieceID);
 				PositionPoint destination = game->getPickingSquarePosition(selectedPosition);
 				sceneGraph->movePiece(game->selectedPieceID, origin, destination);
+				int squareToRemove = game->executeMove(game->selectedPieceID, destination);
+				if(squareToRemove != 0) {
+					int removePieceID = game->getPieceOnSquare(squareToRemove);
+					BoardPiece* piece = game->getBoardPiece(removePieceID);
+					piece->onBoard = false;
+					piece->playable = false;
+					string removePieceIDStr = game->getPieceIDStr(piece->id);
+					PositionPoint removePieceOrigin = game->getPickingSquarePosition(piece->squareID);
+					PositionPoint  restPoint = game->getPieceRestPosition(piece);
+					sceneGraph->movePiece(removePieceID, removePieceOrigin, restPoint);
+				}
 			}
 			else {
 				printf("Illegal move!\n");

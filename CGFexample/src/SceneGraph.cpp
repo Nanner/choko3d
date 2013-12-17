@@ -780,30 +780,6 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
             
 			//Add this animation to the animations map
 			animations.insert(pair<string, Animation*>(boardPiecesSet.at(i)->id, boardPiecesSet.at(i)->getAnimation()));
-            
-            int squareToRemove = game->executeMove(pieceID, destination);
-			if(squareToRemove != 0) {
-				BoardPiece* piece = game->getBoardPiece(game->getPieceOnSquare(squareToRemove));
-				piece->onBoard = false;
-				piece->playable = false;
-				string removeID = game->getPieceIDStr(piece->id);
-
-				for(unsigned int i = 0; i < boardPiecesSet.size(); i++) {
-					if(boardPiecesSet.at(i)->id.compare(removeID) == 0) {
-						PositionPoint removePieceOrigin = game->getPickingSquarePosition(piece->squareID);
-						PositionPoint  restPoint = game->getPieceRestPosition(piece);
-						boardPiecesSet.at(i)->createMovementAnimation(removePieceOrigin, restPoint);
-
-						//Remove possible previous animation
-						map<string, Animation*>::iterator pieceToRemove = animations.find(removeID);
-						if(pieceToRemove != animations.end()) {
-							animations.erase(pieceToRemove);
-						}
-						animations.insert(pair<string, Animation*>(removeID, boardPiecesSet.at(i)->getAnimation()));
-						break;
-					}
-				}
-			}
 			break;
 		}
 	}
