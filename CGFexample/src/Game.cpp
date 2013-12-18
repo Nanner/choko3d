@@ -463,3 +463,16 @@ bool Game::canCapture(int pieceID) {
 void Game::capture(int secondPieceID) {
     executeMove(firstAttackingOrigin, firstAttackingDestination, secondPieceID);
 }
+
+bool Game::hasGameEnded() {
+	return(getGameState().gameOver);
+}
+
+int Game::getWinner() {
+	if(getGameState().winner == 'x')
+		return 1;
+	else if(getGameState().winner == 'o')
+		return 2;
+	else
+		return -1;
+}
