@@ -13,9 +13,12 @@
 #include "WaterShader.h"
 #include "Game.h"
 #include "LinearAnimation.h"
+#include "CurvedAnimation.h"
 #include <vector>
 #include <stack>
 #include <map>
+
+#define MOVE_DURATION 1.0
 
 using namespace std;
 

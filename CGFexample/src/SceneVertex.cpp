@@ -115,12 +115,25 @@ void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
 	origin[0] = p1.x; origin[1] = p1.y; origin[2] = p1.z;
 	destination[0] = p2.x; destination[1] = p2.y; destination[2] = p2.z;
 	vector<float> controlPoints;
-	controlPoints.push_back(origin[0]); controlPoints.push_back(origin[1]); controlPoints.push_back(origin[2]);
-	controlPoints.push_back(origin[0]); controlPoints.push_back(origin[1] + 5.0); controlPoints.push_back(origin[2]);
-	controlPoints.push_back(destination[0]); controlPoints.push_back(origin[1] + 5.0); controlPoints.push_back(destination[2]);
-	controlPoints.push_back(destination[0]); controlPoints.push_back(destination[1]); controlPoints.push_back(destination[2]);
+	controlPoints.push_back(origin[0]);
+    controlPoints.push_back(origin[1]);
+    controlPoints.push_back(origin[2]);
+    
+	controlPoints.push_back(origin[0]);
+    controlPoints.push_back(origin[1] + 5.0);
+    controlPoints.push_back(origin[2]);
+    
+	controlPoints.push_back(destination[0]);
+    controlPoints.push_back(origin[1] + 5.0);
+    controlPoints.push_back(destination[2]);
+    
+	controlPoints.push_back(destination[0]);
+    controlPoints.push_back(destination[1]);
+    controlPoints.push_back(destination[2]);
 
-	LinearAnimation* anim = new LinearAnimation(1.0, controlPoints);
+    CurvedAnimation* anim = new CurvedAnimation(MOVE_DURATION, controlPoints);
+
+	//LinearAnimation* anim = new LinearAnimation(MOVE_DURATION, controlPoints);
 	if(this->getAnimation() != NULL) {
 		glPushMatrix();
 		glLoadIdentity();

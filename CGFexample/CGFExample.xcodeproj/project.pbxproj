@@ -94,6 +94,8 @@
 		EBB48509181C2404000E0A4A /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB48507181C2404000E0A4A /* Animation.cpp */; };
 		EBB4850C181C25C7000E0A4A /* LinearAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */; };
 		EBE393771829A082006C5A5F /* ShaderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBE393751829A082006C5A5F /* ShaderTexture.cpp */; };
+		EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */; };
+		EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF98AED1862587200B304CB /* CurvedAnimation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +108,7 @@
 				EBAA58D1184CB0DC00F9A87D /* choko in CopyFiles */,
 				EBAA58D2184CB0DC00F9A87D /* boardScene.yaf in CopyFiles */,
 				EBAA58D3184CB0DC00F9A87D /* woodBoard.jpg in CopyFiles */,
+				EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */,
 				EBAA58D4184CB0DC00F9A87D /* donutScene.yaf in CopyFiles */,
 				EBAA58D5184CB0DC00F9A87D /* zeppelinScene.yaf in CopyFiles */,
 				EBAA58D6184CB0DC00F9A87D /* rivershader.vert in CopyFiles */,
@@ -377,6 +380,9 @@
 		EBB4850B181C25C7000E0A4A /* LinearAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinearAnimation.h; path = src/LinearAnimation.h; sourceTree = SOURCE_ROOT; };
 		EBE393751829A082006C5A5F /* ShaderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderTexture.cpp; path = src/ShaderTexture.cpp; sourceTree = SOURCE_ROOT; };
 		EBE393761829A082006C5A5F /* ShaderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTexture.h; path = src/ShaderTexture.h; sourceTree = SOURCE_ROOT; };
+		EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woodBoardCounted.jpg; sourceTree = "<group>"; };
+		EBF98AED1862587200B304CB /* CurvedAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurvedAnimation.cpp; path = src/CurvedAnimation.cpp; sourceTree = SOURCE_ROOT; };
+		EBF98AEE1862587200B304CB /* CurvedAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedAnimation.h; path = src/CurvedAnimation.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +478,8 @@
 				EBB48508181C2404000E0A4A /* Animation.h */,
 				EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */,
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
+				EBF98AED1862587200B304CB /* CurvedAnimation.cpp */,
+				EBF98AEE1862587200B304CB /* CurvedAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
 				EBE393761829A082006C5A5F /* ShaderTexture.h */,
 				EB3669191843632200DAB083 /* Game.cpp */,
@@ -530,6 +538,7 @@
 				EB366925184379A300DAB083 /* choko */,
 				EBAA58AE184CB08900F9A87D /* boardScene.yaf */,
 				EBAA58AF184CB08900F9A87D /* woodBoard.jpg */,
+				EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */,
 				EBAA58B0184CB08900F9A87D /* donutScene.yaf */,
 				EBAA58B1184CB08900F9A87D /* zeppelinScene.yaf */,
 				EBAA58B2184CB08900F9A87D /* rivershader.vert */,
@@ -752,6 +761,7 @@
 				EB9E1C0C18095B5F00F91761 /* YAFElement.cpp in Sources */,
 				EB9E1C1118095B5F00F91761 /* YAFReader.cpp in Sources */,
 				EB9E1BFE18095B5F00F91761 /* Appearance.cpp in Sources */,
+				EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */,
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
 				EB9E1C0718095B5F00F91761 /* ScenePrimitive.cpp in Sources */,

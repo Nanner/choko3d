@@ -109,8 +109,6 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
-
-	ended = false;
 }
 
 void LinearAnimation::init(unsigned long t) {
@@ -118,19 +116,11 @@ void LinearAnimation::init(unsigned long t) {
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
-
-	ended = false;
 }
 
 void LinearAnimation::update(unsigned long t) {
-	if(paused == true) {
-		//If pauseStartTime = 0, initialize value with current time
-		if(pauseStartTime == 0)
-			pauseStartTime = t;
-		else
-			pausedTime = t - pauseStartTime;
-	}
-
+	Animation::update(t);
+    
 	if(ended && loop) {
 		reset();
 		return;
