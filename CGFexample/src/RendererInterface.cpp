@@ -142,6 +142,12 @@ void RendererInterface::initGUI() {
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
+	Game* game = sceneGraph->getGame();
+
+	if(game->hasGameEnded()) {
+		printf("Game ended dude\n");
+		printf("Winner: %c\n", game->getWinner());
+	}
 
 	if( ((DemoScene*) scene)->activeCameraNum == 0) {
 		camResetButton->disable();
