@@ -74,6 +74,18 @@
 
     <texture id="boardTex" file="woodBoard.jpg" />
 
+    <texture id="frontSkyTex" file="front.jpg" />
+
+    <texture id="backSkyTex" file="back.jpg" />
+
+    <texture id="leftSkyTex" file="left.jpg" />
+
+    <texture id="rightSkyTex" file="right.jpg" />
+
+    <texture id="topSkyTex" file="top.jpg" />
+
+    <texture id="bottomSkyTex" file="bottom.jpg" />
+
   </textures>
 
   <!-- bloco de materiais; -->
@@ -209,6 +221,66 @@
       texlength_s="1.0"
       texlength_t="1.0"/>
 
+    <appearance id="frontSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="frontSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="backSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="backSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="leftSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="leftSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="rightSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="rightSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="topSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="topSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
+    <appearance id="bottomSkyApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 1.0 1.0 1.0"
+      diffuse="1.0 1.0 1.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="bottomSkyTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
   </appearances>
 
   <animations>
@@ -258,6 +330,7 @@
 
       <children>
         <noderef id="board" />
+        <noderef id="skyBox" />
         <!--
         <noderef id="zeppelin1" />
         <noderef id="zeppelin2" />
@@ -266,6 +339,99 @@
         <noderef id="cityLeftSide" />
         <noderef id="cityRightSide" />
         -->
+      </children>
+    </node>
+
+    <node id="skyBox">
+      <transforms>
+        <translate to="7.5 0.0 7.5" />
+        <scale factor="300.0 300.0 300.0" />
+      </transforms>
+
+      <children>
+        <noderef id="skyFront" />
+        <noderef id="skyBack" />
+        <noderef id="skyLeft" />
+        <noderef id="skyRight" />
+        <noderef id="skyTop" />
+        <noderef id="skyBottom" />
+      </children>
+    </node>
+
+    <node id="skyFront">
+      <transforms>
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="frontSkyApp" />
+
+      <children>
+        <sky />
+      </children>
+    </node>
+
+    <node id="skyBack">
+      <transforms>
+        <rotate angle="180" axis="y" />
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="backSkyApp" />
+
+      <children>
+        <sky/>
+      </children>
+    </node>
+
+    <node id="skyLeft">
+      <transforms>
+        <rotate angle="-90" axis="y" />
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="leftSkyApp" />
+
+      <children>
+        <sky/>
+      </children>
+    </node>
+
+    <node id="skyRight">
+      <transforms>
+        <rotate angle="90" axis="y" />
+        <translate to="0 0 0.5" />
+      </transforms>
+
+      <appearanceref id="rightSkyApp" />
+
+      <children>
+        <sky/>
+      </children>
+    </node>
+
+    <node id="skyTop">
+      <transforms>
+        <translate to="0 0.5 0" />
+        <rotate angle="-90" axis="x" />
+      </transforms>
+
+      <appearanceref id="topSkyApp" />
+
+      <children>
+        <sky/>
+      </children>
+    </node>
+
+    <node id="skyBottom">
+      <transforms>
+        <translate to="0 -0.5 0" />
+        <rotate angle="90" axis="x" />
+      </transforms>
+
+      <appearanceref id="bottomSkyApp" />
+
+      <children>
+        <sky/>
       </children>
     </node>
 

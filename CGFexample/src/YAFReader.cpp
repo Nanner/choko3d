@@ -551,6 +551,10 @@ YAFReader::YAFReader(char *filename) {
 						int parts = getValue<int>(currentChild, (char*)"parts");
 						yafNode.addPrimitive( new Plane(parts) );
 					}
+                    
+                    if ( strcmp(currentChild->Value(), "sky") == 0 ) {
+						yafNode.addPrimitive( new Sky() );
+					}
 
 					if ( strcmp(currentChild->Value(), "patch") == 0 ) {
 						int order = getValue<int>(currentChild, (char*)"order");
@@ -761,7 +765,7 @@ YAFReader::YAFReader(char *filename) {
 						int parts = getValue<int>(currentChild, (char*)"parts");
 						yafNode.addPrimitive( new Plane(parts) );
 					}
-
+                    
 					if ( strcmp(currentChild->Value(), "patch") == 0 ) {
 						int order = getValue<int>(currentChild, (char*)"order");
 						int partsU = getValue<int>(currentChild, (char*)"partsU");

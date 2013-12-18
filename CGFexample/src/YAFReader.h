@@ -18,6 +18,7 @@
 #include "LinearAnimation.h"
 #include "Waterline.h"
 #include "Vehicle.h"
+#include "Sky.h"
 
 #include <sstream>
 #include <iostream>
