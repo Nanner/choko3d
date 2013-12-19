@@ -435,13 +435,11 @@ int Game::getPiecesOnBoard(char player) {
 
 PositionPoint Game::getNextP1RestPosition() {
 	PositionPoint position = p1RestPositions.top();
-	p1RestPositions.pop();
 	return position;
 }
 
 PositionPoint Game::getNextP2RestPosition() {
 	PositionPoint position = p2RestPositions.top();
-	p2RestPositions.pop();
 	return position;
 }
 
@@ -450,6 +448,36 @@ PositionPoint Game::getPieceRestPosition(BoardPiece* piece) {
 		return getNextP1RestPosition();
 	else
 		return getNextP2RestPosition();
+}
+
+PositionPoint Game::getSecondP1RestPosition() {
+	PositionPoint firstPosition = p1RestPositions.top();
+	p1RestPositions.pop();
+	PositionPoint secondPosition = p1RestPositions.top();
+	p1RestPositions.push(firstPosition);
+	return secondPosition;
+}
+
+PositionPoint Game::getSecondP2RestPosition() {
+	PositionPoint firstPosition = p2RestPositions.top();
+	p2RestPositions.pop();
+	PositionPoint secondPosition = p2RestPositions.top();
+	p2RestPositions.push(firstPosition);
+	return secondPosition;
+}
+
+PositionPoint Game::getSecondPieceRestPosition(BoardPiece* piece) {
+	if(piece->player == 'x')
+		return getSecondP1RestPosition();
+	else
+		return getSecondP2RestPosition();
+}
+
+void Game::popPieceRestPosition(BoardPiece* piece) {
+	if(piece->player == 'x')
+		p1RestPositions.pop();
+	else
+		p2RestPositions.pop();
 }
 
 bool Game::canCapture(int pieceID) {
@@ -591,6 +619,8 @@ void Game::processAIMovedPieces(Move move) {
 		BoardPiece* firstCapturedPiece = getBoardPiece( getPieceOnSquare(firstCapturedSquare) );
 
 		PositionPoint firstCapturedPieceDestination = getPieceRestPosition(firstCapturedPiece);
+
+		popPieceRestPosition(firstCapturedPiece);
 		setBoardPiecePosition(firstCapturedPiece->id, firstCapturedPieceDestination);
 		firstCapturedPiece->onBoard = false;
 		firstCapturedPiece->playable = false;
@@ -598,8 +628,9 @@ void Game::processAIMovedPieces(Move move) {
 		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
 		if(secondCapturedSquare != 0) {
 			BoardPiece* secondCapturedPiece = getBoardPiece( getPieceOnSquare(secondCapturedSquare) );
-
+			
 			PositionPoint secondCapturedPieceDestination = getPieceRestPosition(secondCapturedPiece);
+			popPieceRestPosition(secondCapturedPiece);
 			setBoardPiecePosition(secondCapturedPiece->id, secondCapturedPieceDestination);
 			secondCapturedPiece->onBoard = false;
 			secondCapturedPiece->playable = false;

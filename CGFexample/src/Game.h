@@ -133,6 +133,12 @@ public:
 	PositionPoint getNextP2RestPosition();
 	PositionPoint getPieceRestPosition(BoardPiece* piece);
 
+	PositionPoint getSecondP1RestPosition();
+	PositionPoint getSecondP2RestPosition();
+	PositionPoint getSecondPieceRestPosition(BoardPiece* piece);
+
+	void popPieceRestPosition(BoardPiece* piece);
+
 	bool currentPlayerIsAI();
 
 	bool hasGameEnded();

@@ -383,6 +383,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 					string removePieceIDStr = game->getPieceIDStr(piece->id);
 					PositionPoint removePieceOrigin = game->getPickingSquarePosition(piece->squareID);
 					PositionPoint  restPoint = game->getPieceRestPosition(piece);
+					game->popPieceRestPosition(piece);
 					sceneGraph->movePiece(removePieceID, removePieceOrigin, restPoint);
 					game->setBoardPiecePosition(removePieceID, restPoint);
 				}
@@ -399,6 +400,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
 				PositionPoint origin = game->getBoardPiecePosition(capturedPieceID);
 				PositionPoint restPoint = game->getPieceRestPosition(capturedPiece);
+				game->popPieceRestPosition(capturedPiece);
 				capturedPiece->onBoard = false;
 				capturedPiece->playable = false;
 				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
