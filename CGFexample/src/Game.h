@@ -133,6 +133,8 @@ public:
 	PositionPoint getNextP2RestPosition();
 	PositionPoint getPieceRestPosition(BoardPiece* piece);
 
+	bool currentPlayerIsAI();
+
 	bool hasGameEnded();
 	int getWinner();
     

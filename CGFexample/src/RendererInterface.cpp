@@ -256,13 +256,15 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
 void RendererInterface::processMouse(int button, int state, int x, int y) {
 	CGFinterface::processMouse(button,state, x, y);
-
+	Game* game = sceneGraph->getGame();
+	if(game->currentPlayerIsAI()) {
+		return;
+	}
 	// do picking on mouse press (GLUT_DOWN)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 		performPicking(x,y);
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
-		Game* game = sceneGraph->getGame();
 		if(game->getSelectState() != SELECT_SECOND_ENEMY) {
 			game->setSelectState(SELECT_ANY);
 			printf("Changed state to select any\n");
