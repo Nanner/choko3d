@@ -131,9 +131,9 @@ void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
     controlPoints.push_back(destination[1]);
     controlPoints.push_back(destination[2]);
 
-    CurvedAnimation* anim = new CurvedAnimation(MOVE_DURATION, controlPoints);
+    //CurvedAnimation* anim = new CurvedAnimation(MOVE_DURATION, controlPoints);
 
-	//LinearAnimation* anim = new LinearAnimation(MOVE_DURATION, controlPoints);
+	LinearAnimation* anim = new LinearAnimation(MOVE_DURATION, controlPoints);
 	if(this->getAnimation() != NULL) {
 		glPushMatrix();
 		glLoadIdentity();
