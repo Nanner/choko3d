@@ -37,7 +37,8 @@ public:
     GameState(string stateString);
     
     GameState(string stateString, GameState previousState);
-    
+	void initialize( string &stateString );
+
     static string toString(vector<string> board);
     static vector<string> toVector(string board);
     static vector<vector<int> > movesToVector(string movesString);

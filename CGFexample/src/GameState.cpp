@@ -7,50 +7,11 @@ secondAttackSquare(secondAttackSquare)
 {}
 
 GameState::GameState(string stateString) {
-    // example string
-    // "[[1,2,3,4,x,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],o,12,11,x,5]"
-	printf("State string: %s\n", stateString.c_str());
-    istringstream ss(stateString);
-    ss.ignore(1, '[');
-    string boardString;
-    getline(ss, boardString, ']'); boardString += ']';
-    this->board = toVector(boardString);
-    
-    ss.ignore(1, ',');
-    string nextPlayerStr;
-    getline(ss, nextPlayerStr, ',');
-    this->currentPlayer = nextPlayerStr.at(0);
-    
-    string playerUnusedPieces;
-    getline(ss, playerUnusedPieces, ',');
-    
-    string enemyUnusedPieces;
-    getline(ss, enemyUnusedPieces, ',');
-    
-    string dropInitiativeStr;
-    getline(ss, dropInitiativeStr, ',');
-    this->dropInitiative = dropInitiativeStr.at(0);
-    
-    getline(ss, this->move, ']');
-    
-    if (currentPlayer == 'x') {
-        this->player1UnusedPieces = atoi(playerUnusedPieces.c_str());
-        this->currentPlayerUnusedPieces = player1UnusedPieces;
-        this->player2UnusedPieces = atoi(enemyUnusedPieces.c_str());
-        this->enemyPlayerUnusedPieces = player2UnusedPieces;
-    } else {
-        this->player2UnusedPieces = atoi(playerUnusedPieces.c_str());
-        this->currentPlayerUnusedPieces = player2UnusedPieces;
-        this->player1UnusedPieces = atoi(enemyUnusedPieces.c_str());
-        this->enemyPlayerUnusedPieces = player1UnusedPieces;
-    }
-    
-    this->winner = '0';
-    this->gameOver = false;
-    this->parsedMove = Move();
+	initialize(stateString);
 }
 
-GameState::GameState(string stateString, GameState previousState): GameState(stateString) {
+GameState::GameState(string stateString, GameState previousState) {
+	initialize(stateString);
     // string move examples:
     // 5 -> drop
     // 5-3 -> move
@@ -79,6 +40,54 @@ GameState::GameState(string stateString, GameState previousState): GameState(sta
     printf("new move\n");
     
 }
+
+
+
+void GameState::initialize( string &stateString )
+{
+	// example string
+	// "[[1,2,3,4,x,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],o,12,11,x,5]"
+	printf("State string: %s\n", stateString.c_str());
+	istringstream ss(stateString);
+	ss.ignore(1, '[');
+	string boardString;
+	getline(ss, boardString, ']'); boardString += ']';
+	this->board = toVector(boardString);
+
+	ss.ignore(1, ',');
+	string nextPlayerStr;
+	getline(ss, nextPlayerStr, ',');
+	this->currentPlayer = nextPlayerStr.at(0);
+
+	string playerUnusedPieces;
+	getline(ss, playerUnusedPieces, ',');
+
+	string enemyUnusedPieces;
+	getline(ss, enemyUnusedPieces, ',');
+
+	string dropInitiativeStr;
+	getline(ss, dropInitiativeStr, ',');
+	this->dropInitiative = dropInitiativeStr.at(0);
+
+	getline(ss, this->move, ']');
+
+	if (currentPlayer == 'x') {
+		this->player1UnusedPieces = atoi(playerUnusedPieces.c_str());
+		this->currentPlayerUnusedPieces = player1UnusedPieces;
+		this->player2UnusedPieces = atoi(enemyUnusedPieces.c_str());
+		this->enemyPlayerUnusedPieces = player2UnusedPieces;
+	} else {
+		this->player2UnusedPieces = atoi(playerUnusedPieces.c_str());
+		this->currentPlayerUnusedPieces = player2UnusedPieces;
+		this->player1UnusedPieces = atoi(enemyUnusedPieces.c_str());
+		this->enemyPlayerUnusedPieces = player1UnusedPieces;
+	}
+
+	this->winner = '0';
+	this->gameOver = false;
+	this->parsedMove = Move();
+}
+
 
 int GameState::getFirstAttack(int from, int to) {
     // up
