@@ -11,16 +11,28 @@ Animation::Animation() {
 	this->paused = false;
 	this->loop = false;
 	this->pausedTime = 0;
+	this->ended = false;
 }
 
 void Animation::init(unsigned long t) {
     this->startTime = t;
 	this->isInitialized = true;
 	this->pausedTime = 0;
+    this->ended = false;
 }
 
 float * Animation::getMatrix(){
     return matrix;
+}
+
+void Animation::update(unsigned long t) {
+	if(paused == true) {
+		//If pauseStartTime = 0, initialize value with current time
+		if(pauseStartTime == 0)
+			pauseStartTime = t;
+		else
+			pausedTime = t - pauseStartTime;
+	}
 }
 
 void Animation::reset() {

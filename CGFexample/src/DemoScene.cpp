@@ -32,13 +32,14 @@ void DemoScene::initCameras() {
 	cgfDefault->rotate(0,20);
 	cgfDefault->rotate(1,-45);
 	scene_cameras.push_back(cgfDefault);
-
+/*
 	map<string, CameraView*>::iterator it = sceneGraph->getRootVertex()->cameras.begin();
 	for(int i = 1; it != sceneGraph->getRootVertex()->cameras.end(); it++, i++) {
 		scene_cameras.push_back(it->second);
 		if(it->first == YAFCamera::initialCameraID)
 			activeCameraNum = i;
 	}
+ */
 }
 
 void DemoScene::update(unsigned long t){

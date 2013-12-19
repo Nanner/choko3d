@@ -27,6 +27,13 @@
 		EB873D1D17E61F4F00181AB4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1117E61F4F00181AB4 /* tinyxmlerror.cpp */; };
 		EB873D1E17E61F4F00181AB4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1217E61F4F00181AB4 /* tinyxmlparser.cpp */; };
 		EB873D1F17E61F4F00181AB4 /* xmltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB873D1917E61F4F00181AB4 /* xmltest.cpp */; };
+		EB97877B1861168000E4CD2F /* Sky.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9787791861168000E4CD2F /* Sky.cpp */; };
+		EB978782186119B700E4CD2F /* bottom.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB97877C1861198600E4CD2F /* bottom.jpg */; };
+		EB978783186119B700E4CD2F /* top.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB97877D1861198600E4CD2F /* top.jpg */; };
+		EB978784186119B700E4CD2F /* back.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB97877E1861198600E4CD2F /* back.jpg */; };
+		EB978785186119B700E4CD2F /* right.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB97877F1861198600E4CD2F /* right.jpg */; };
+		EB978786186119B700E4CD2F /* left.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB9787801861198600E4CD2F /* left.jpg */; };
+		EB978787186119B700E4CD2F /* front.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB9787811861198600E4CD2F /* front.jpg */; };
 		EB9E1BFE18095B5F00F91761 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BD518095B5F00F91761 /* Appearance.cpp */; };
 		EB9E1BFF18095B5F00F91761 /* CameraView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BD718095B5F00F91761 /* CameraView.cpp */; };
 		EB9E1C0018095B5F00F91761 /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9E1BD918095B5F00F91761 /* DemoScene.cpp */; };
@@ -87,6 +94,8 @@
 		EBB48509181C2404000E0A4A /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB48507181C2404000E0A4A /* Animation.cpp */; };
 		EBB4850C181C25C7000E0A4A /* LinearAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */; };
 		EBE393771829A082006C5A5F /* ShaderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBE393751829A082006C5A5F /* ShaderTexture.cpp */; };
+		EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */; };
+		EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF98AED1862587200B304CB /* CurvedAnimation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -99,6 +108,7 @@
 				EBAA58D1184CB0DC00F9A87D /* choko in CopyFiles */,
 				EBAA58D2184CB0DC00F9A87D /* boardScene.yaf in CopyFiles */,
 				EBAA58D3184CB0DC00F9A87D /* woodBoard.jpg in CopyFiles */,
+				EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */,
 				EBAA58D4184CB0DC00F9A87D /* donutScene.yaf in CopyFiles */,
 				EBAA58D5184CB0DC00F9A87D /* zeppelinScene.yaf in CopyFiles */,
 				EBAA58D6184CB0DC00F9A87D /* rivershader.vert in CopyFiles */,
@@ -128,6 +138,12 @@
 				EBAA58EE184CB0DC00F9A87D /* scene.xml in CopyFiles */,
 				EBAA58EF184CB0DC00F9A87D /* wood.jpg in CopyFiles */,
 				EBAA58F0184CB0DC00F9A87D /* floor.png in CopyFiles */,
+				EB978782186119B700E4CD2F /* bottom.jpg in CopyFiles */,
+				EB978783186119B700E4CD2F /* top.jpg in CopyFiles */,
+				EB978784186119B700E4CD2F /* back.jpg in CopyFiles */,
+				EB978785186119B700E4CD2F /* right.jpg in CopyFiles */,
+				EB978786186119B700E4CD2F /* left.jpg in CopyFiles */,
+				EB978787186119B700E4CD2F /* front.jpg in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +294,14 @@
 		EB873D1717E61F4F00181AB4 /* utf8test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8test.xml; sourceTree = "<group>"; };
 		EB873D1817E61F4F00181AB4 /* utf8testverify.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = utf8testverify.xml; sourceTree = "<group>"; };
 		EB873D1917E61F4F00181AB4 /* xmltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xmltest.cpp; sourceTree = "<group>"; };
+		EB9787791861168000E4CD2F /* Sky.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sky.cpp; path = src/Sky.cpp; sourceTree = SOURCE_ROOT; };
+		EB97877A1861168000E4CD2F /* Sky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sky.h; path = src/Sky.h; sourceTree = SOURCE_ROOT; };
+		EB97877C1861198600E4CD2F /* bottom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bottom.jpg; sourceTree = "<group>"; };
+		EB97877D1861198600E4CD2F /* top.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = top.jpg; sourceTree = "<group>"; };
+		EB97877E1861198600E4CD2F /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
+		EB97877F1861198600E4CD2F /* right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right.jpg; sourceTree = "<group>"; };
+		EB9787801861198600E4CD2F /* left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left.jpg; sourceTree = "<group>"; };
+		EB9787811861198600E4CD2F /* front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front.jpg; sourceTree = "<group>"; };
 		EB9E1BD518095B5F00F91761 /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Appearance.cpp; path = src/Appearance.cpp; sourceTree = SOURCE_ROOT; };
 		EB9E1BD618095B5F00F91761 /* Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Appearance.h; path = src/Appearance.h; sourceTree = SOURCE_ROOT; };
 		EB9E1BD718095B5F00F91761 /* CameraView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraView.cpp; path = src/CameraView.cpp; sourceTree = SOURCE_ROOT; };
@@ -356,6 +380,9 @@
 		EBB4850B181C25C7000E0A4A /* LinearAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinearAnimation.h; path = src/LinearAnimation.h; sourceTree = SOURCE_ROOT; };
 		EBE393751829A082006C5A5F /* ShaderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderTexture.cpp; path = src/ShaderTexture.cpp; sourceTree = SOURCE_ROOT; };
 		EBE393761829A082006C5A5F /* ShaderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderTexture.h; path = src/ShaderTexture.h; sourceTree = SOURCE_ROOT; };
+		EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woodBoardCounted.jpg; sourceTree = "<group>"; };
+		EBF98AED1862587200B304CB /* CurvedAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurvedAnimation.cpp; path = src/CurvedAnimation.cpp; sourceTree = SOURCE_ROOT; };
+		EBF98AEE1862587200B304CB /* CurvedAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedAnimation.h; path = src/CurvedAnimation.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +478,8 @@
 				EBB48508181C2404000E0A4A /* Animation.h */,
 				EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */,
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
+				EBF98AED1862587200B304CB /* CurvedAnimation.cpp */,
+				EBF98AEE1862587200B304CB /* CurvedAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
 				EBE393761829A082006C5A5F /* ShaderTexture.h */,
 				EB3669191843632200DAB083 /* Game.cpp */,
@@ -463,6 +492,8 @@
 				EB366928184379EE00DAB083 /* PrologBridge.h */,
 				EB9E1BDC18095B5F00F91761 /* RendererInterface.cpp */,
 				EB9E1BDD18095B5F00F91761 /* RendererInterface.h */,
+				EB9787791861168000E4CD2F /* Sky.cpp */,
+				EB97877A1861168000E4CD2F /* Sky.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";
@@ -507,6 +538,7 @@
 				EB366925184379A300DAB083 /* choko */,
 				EBAA58AE184CB08900F9A87D /* boardScene.yaf */,
 				EBAA58AF184CB08900F9A87D /* woodBoard.jpg */,
+				EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */,
 				EBAA58B0184CB08900F9A87D /* donutScene.yaf */,
 				EBAA58B1184CB08900F9A87D /* zeppelinScene.yaf */,
 				EBAA58B2184CB08900F9A87D /* rivershader.vert */,
@@ -536,6 +568,12 @@
 				EBAA58CA184CB08900F9A87D /* scene.xml */,
 				EBAA58CB184CB08900F9A87D /* wood.jpg */,
 				EBAA58CC184CB08900F9A87D /* floor.png */,
+				EB97877C1861198600E4CD2F /* bottom.jpg */,
+				EB97877D1861198600E4CD2F /* top.jpg */,
+				EB97877E1861198600E4CD2F /* back.jpg */,
+				EB97877F1861198600E4CD2F /* right.jpg */,
+				EB9787801861198600E4CD2F /* left.jpg */,
+				EB9787811861198600E4CD2F /* front.jpg */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -710,6 +748,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB97877B1861168000E4CD2F /* Sky.cpp in Sources */,
 				EB873D1B17E61F4F00181AB4 /* tinystr.cpp in Sources */,
 				EB36692C1843E11700DAB083 /* GameState.cpp in Sources */,
 				EB9E1C0418095B5F00F91761 /* SceneEdge.cpp in Sources */,
@@ -722,6 +761,7 @@
 				EB9E1C0C18095B5F00F91761 /* YAFElement.cpp in Sources */,
 				EB9E1C1118095B5F00F91761 /* YAFReader.cpp in Sources */,
 				EB9E1BFE18095B5F00F91761 /* Appearance.cpp in Sources */,
+				EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */,
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
 				EB9E1C0718095B5F00F91761 /* ScenePrimitive.cpp in Sources */,
