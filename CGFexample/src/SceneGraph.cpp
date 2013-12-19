@@ -815,12 +815,11 @@ void SceneGraph::animateAIPlay(Move move) {
 		PositionPoint firstCapturedPieceOrigin = game->getPickingSquarePosition(firstCapturedSquare);
 		PositionPoint firstCapturedPieceDestination = game->getPieceRestPosition(firstCapturedPiece);
 		movePiece(firstCapturedPiece->id, firstCapturedPieceOrigin, firstCapturedPieceDestination);
-
 		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
 		if(secondCapturedSquare != 0) {
 			BoardPiece* secondCapturedPiece = game->getBoardPiece( game->getPieceOnSquare(secondCapturedSquare) );
 			PositionPoint secondCapturedPieceOrigin = game->getPickingSquarePosition(secondCapturedSquare);
-			PositionPoint secondCapturedPieceDestination = game->getPieceRestPosition(secondCapturedPiece);
+			PositionPoint secondCapturedPieceDestination = game->getSecondPieceRestPosition(secondCapturedPiece);
 			movePiece(secondCapturedPiece->id, secondCapturedPieceOrigin, secondCapturedPieceDestination);
 		}
 
