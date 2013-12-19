@@ -784,3 +784,46 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
 		}
 	}
 }
+
+void SceneGraph::animateAIPlay(Move move) {
+	if(move.moveType == DROP) {
+		BoardPiece* piece = game->getUnusedPiece(move.player);
+		PositionPoint destination = game->getPickingSquarePosition(move.toSquare);
+		movePiece(piece->id,  game->getBoardPiecePosition(piece->id), game->getPickingSquarePosition(move.toSquare));
+		return;
+	}
+
+	if(move.moveType == MOVE) {
+		int pieceID = game->getPieceOnSquare(move.fromSquare);
+		PositionPoint origin = game->getPickingSquarePosition(move.fromSquare);
+		PositionPoint destination = game->getPickingSquarePosition(move.toSquare);
+		movePiece(pieceID, origin, destination);
+		return;
+	}
+
+	if(move.moveType == ATTACK) {
+		int attackerSquare = move.fromSquare;
+		int firstCapturedSquare = move.firstAttackSquare;
+		int secondCapturedSquare = move.secondAttackSquare;
+
+		int attackerPieceID = game->getPieceOnSquare( game->getPieceOnSquare(attackerSquare) );
+		PositionPoint attackerPieceOrigin = game->getPickingSquarePosition(move.fromSquare);
+		PositionPoint attackerPieceDestination = game->getPickingSquarePosition(move.toSquare);
+		movePiece(attackerPieceID, attackerPieceOrigin, attackerPieceDestination);
+
+		BoardPiece* firstCapturedPiece = game->getBoardPiece( game->getPieceOnSquare(firstCapturedSquare) );
+		PositionPoint firstCapturedPieceOrigin = game->getPickingSquarePosition(firstCapturedSquare);
+		PositionPoint firstCapturedPieceDestination = game->getPieceRestPosition(firstCapturedPiece);
+		movePiece(firstCapturedPiece->id, firstCapturedPieceOrigin, firstCapturedPieceDestination);
+
+		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
+		if(secondCapturedSquare != 0) {
+			BoardPiece* secondCapturedPiece = game->getBoardPiece( game->getPieceOnSquare(secondCapturedSquare) );
+			PositionPoint secondCapturedPieceOrigin = game->getPickingSquarePosition(secondCapturedSquare);
+			PositionPoint secondCapturedPieceDestination = game->getPieceRestPosition(secondCapturedPiece);
+			movePiece(secondCapturedPiece->id, secondCapturedPieceOrigin, secondCapturedPieceDestination);
+		}
+
+		return;
+	}
+}

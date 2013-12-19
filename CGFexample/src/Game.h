@@ -140,7 +140,8 @@ public:
     
     void update();
     int calculateMove(string playerType);
-
+	void processAIMovedPieces(Move move);
+	BoardPiece* getUnusedPiece(char player);
 };
 
 #endif

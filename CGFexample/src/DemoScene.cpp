@@ -62,8 +62,13 @@ void DemoScene::update(unsigned long t){
 			sceneGraph->updateShaders(t);
 		}
 	}
-    
-    sceneGraph->getGame()->update();
+   
+	Game* game = sceneGraph->getGame();
+	if(game->currentPlayerIsAI()) {
+		game->update();
+		sceneGraph->animateAIPlay(game->getGameState().getMove());
+		game->processAIMovedPieces(game->getGameState().getMove());
+	}
 }
 
 void DemoScene::display() 

@@ -6,15 +6,21 @@
 #include <sstream>
 #include <stdlib.h>
 
+#define DROP 1
+#define MOVE 2
+#define ATTACK 3
+
 using namespace std;
 
 class Move {
 public:
+	char player;
+	int moveType;
     int fromSquare;
     int toSquare;
     int firstAttackSquare;
     int secondAttackSquare;
-    Move(int fromSquare = 0, int toSquare = 0, int firstAttackSquare = 0, int secondAttackSquare = 0);
+    Move(char player = ' ', int moveType = 0, int fromSquare = 0, int toSquare = 0, int firstAttackSquare = 0, int secondAttackSquare = 0);
 };
 
 class GameState {

@@ -93,6 +93,7 @@ public:
 	void renderBoardPieces(SceneVertex* v);
 
 	void movePiece(unsigned int pieceID, PositionPoint origin, PositionPoint destination);
+	void animateAIPlay(Move move);
 };
 
 #endif

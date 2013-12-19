@@ -130,7 +130,7 @@ void Game::loadPickingSquaresPositions() {
 Game::Game() {
 	selectState = SELECT_ANY;
     
-    player1Type = "human";
+    player1Type = "medium";
     player2Type = "medium";
     
     try {
@@ -468,7 +468,34 @@ void Game::capture(int secondPieceID) {
 }
 
 bool Game::currentPlayerIsAI() {
-	return false;
+	bool player1IsComputer = false;
+	if (player1Type.compare("easy") == 0) {
+		player1IsComputer = true;
+	}
+
+	if (player1Type.compare("medium") == 0) {
+		player1IsComputer = true;
+	}
+
+	if (player1Type.compare("hard") == 0) {
+		player1IsComputer = true;
+	}
+
+	bool player2IsComputer = false;
+
+	if (player2Type.compare("easy") == 0) {
+		player2IsComputer = true;
+	}
+
+	if (player2Type.compare("medium") == 0) {
+		player2IsComputer = true;
+	}
+
+	if (player2Type.compare("hard") == 0) {
+		player2IsComputer = true;
+	}
+
+	return( (player1IsComputer && getGameState().currentPlayer == 'x') || (player2IsComputer && getGameState().currentPlayer == 'o') );
 }
 
 bool Game::hasGameEnded() {
@@ -531,4 +558,62 @@ int Game::calculateMove(string playerType) {
         printf("AI error!\n");
     }
     return 0;
+}
+
+void Game::processAIMovedPieces(Move move) {
+	if(move.moveType == DROP) {
+		BoardPiece* piece = getUnusedPiece(move.player);
+		PositionPoint destination = getPickingSquarePosition(move.toSquare);
+		setBoardPiecePosition(piece->id, destination);
+		piece->onBoard = true;
+		return;
+	}
+
+	if(move.moveType == MOVE) {
+		int pieceID = getPieceOnSquare(move.fromSquare);
+		PositionPoint destination = getPickingSquarePosition(move.toSquare);
+		setBoardPiecePosition(pieceID, destination);
+		return;
+	}
+
+	if(move.moveType == ATTACK) {
+		int attackerSquare = move.fromSquare;
+		int firstCapturedSquare = move.firstAttackSquare;
+		int secondCapturedSquare = move.secondAttackSquare;
+
+		BoardPiece* attackerPiece = getBoardPiece( getPieceOnSquare(attackerSquare) );
+
+		PositionPoint attackerPieceDestination = getPickingSquarePosition(move.toSquare);
+		setBoardPiecePosition(attackerPiece->id, attackerPieceDestination);
+
+		BoardPiece* firstCapturedPiece = getBoardPiece( getPieceOnSquare(firstCapturedSquare) );
+
+		PositionPoint firstCapturedPieceDestination = getPieceRestPosition(firstCapturedPiece);
+		setBoardPiecePosition(firstCapturedPiece->id, firstCapturedPieceDestination);
+		firstCapturedPiece->onBoard = false;
+		firstCapturedPiece->playable = false;
+
+		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
+		if(secondCapturedSquare != 0) {
+			BoardPiece* secondCapturedPiece = getBoardPiece( getPieceOnSquare(secondCapturedSquare) );
+
+			PositionPoint secondCapturedPieceDestination = getPieceRestPosition(secondCapturedPiece);
+			setBoardPiecePosition(secondCapturedPiece->id, secondCapturedPieceDestination);
+			secondCapturedPiece->onBoard = false;
+			secondCapturedPiece->playable = false;
+		}
+
+		return;
+	}
+}
+
+BoardPiece* Game::getUnusedPiece(char player) {
+	map<unsigned int, BoardPiece*>::iterator it;
+	for(it = boardPieces.begin(); it != boardPieces.end(); it++) {
+		if(it->second->player == player && !it->second->onBoard && it->second->playable) {
+			return it->second;
+		}
+	}
+
+	return NULL;
 }

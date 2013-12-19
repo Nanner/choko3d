@@ -1,9 +1,11 @@
 #include "GameState.h"
 
-Move::Move(int fromSquare, int toSquare, int firstAttackSquare, int secondAttackSquare): fromSquare(fromSquare),
+Move::Move(char player, int moveType, int fromSquare, int toSquare, int firstAttackSquare, int secondAttackSquare): fromSquare(fromSquare),
 toSquare(toSquare),
 firstAttackSquare(firstAttackSquare),
-secondAttackSquare(secondAttackSquare)
+secondAttackSquare(secondAttackSquare),
+moveType(moveType),
+player(player)
 {}
 
 GameState::GameState(string stateString) {
@@ -20,6 +22,8 @@ GameState::GameState(string stateString, GameState previousState) {
     int toSquare = 0;
     int firstAttackSquare = 0;
     int secondAttackSquare = 0;
+	int moveType = 0;
+	char player = previousState.currentPlayer;
     
     int scanned = sscanf(this->move.c_str(), "%d-%d-%d", &fromSquare, &toSquare, &secondAttackSquare);
     
@@ -30,13 +34,19 @@ GameState::GameState(string stateString, GameState previousState) {
         // scanf parsed fromSquare, but we want it as toSquare
         toSquare = fromSquare;
         fromSquare = 0;
+		moveType = DROP;
     }
+
+	if(scanned == 2) {
+		moveType = MOVE;
+	}
     
     if (scanned == 3) {
         firstAttackSquare = getFirstAttack(fromSquare, toSquare);
+		moveType = ATTACK;
     }
     
-    this->parsedMove = Move(fromSquare, toSquare, firstAttackSquare, secondAttackSquare);
+    this->parsedMove = Move(player, moveType, fromSquare, toSquare, firstAttackSquare, secondAttackSquare);
     printf("new move\n");
     
 }
