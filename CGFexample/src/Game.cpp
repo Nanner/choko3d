@@ -464,6 +464,10 @@ void Game::capture(int secondPieceID) {
     executeMove(firstAttackingOrigin, firstAttackingDestination, secondPieceID);
 }
 
+bool Game::currentPlayerIsAI() {
+	return false;
+}
+
 bool Game::hasGameEnded() {
 	return(getGameState().gameOver);
 }
