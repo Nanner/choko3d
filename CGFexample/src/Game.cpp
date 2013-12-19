@@ -527,6 +527,7 @@ void Game::update() {
     
     if (player1IsComputer && getGameState().currentPlayer == 'x') {
         calculateMove(player1Type);
+		return;
     }
     
     
@@ -546,6 +547,7 @@ void Game::update() {
 
     if (player2IsComputer && getGameState().currentPlayer == 'o') {
         calculateMove(player2Type);
+		return;
     }
     
 }

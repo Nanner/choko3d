@@ -8,6 +8,7 @@ class LinearAnimation : public Animation {
     
 
 public:
+	static bool pieceIsMoving;
     float totalSpan;
 	vector<float> timeSpans;
 

@@ -285,40 +285,6 @@
 
   <animations>
 
-    <animation id="zeppelin1" span="100.0" type="linear">
-      <controlpoint xx="0.0" yy="15.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="40.0" />
-      <controlpoint xx="15.0" yy="25.0" zz="3.0" />
-      <controlpoint xx="15.0" yy="25.0" zz="-20.0" />
-      <controlpoint xx="3.0" yy="17.0" zz="3.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="40.0" />
-      <controlpoint xx="0.0" yy="10.0" zz="0.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="-40.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="40.0" />
-      <controlpoint xx="-15.0" yy="25.0" zz="3.0" />
-      <controlpoint xx="-15.0" yy="25.0" zz="-20.0" />
-      <controlpoint xx="-3.0" yy="17.0" zz="-3.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="-40.0" />
-      <controlpoint xx="0.0" yy="15.0" zz="0.0" />
-    </animation>
-
-    <animation id="zeppelin2" span="150.0" type="linear">
-      <controlpoint xx="7.5" yy="27.0" zz="0.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="40.0" />
-      <controlpoint xx="22.5" yy="37.0" zz="3.0" />
-      <controlpoint xx="22.5" yy="37.0" zz="-20.0" />
-      <controlpoint xx="10.5" yy="29.0" zz="3.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="40.0" />
-      <controlpoint xx="7.5" yy="22.0" zz="0.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="-40.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="40.0" />
-      <controlpoint xx="-7.5" yy="37.0" zz="3.0" />
-      <controlpoint xx="-7.5" yy="37.0" zz="-20.0" />
-      <controlpoint xx="4.5" yy="29.0" zz="-3.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="-40.0" />
-      <controlpoint xx="7.5" yy="27.0" zz="0.0" />
-    </animation>
-
   </animations>
 
   <!-- bloco do grafo; "rootid" identifica o no de raiz -->
@@ -596,8 +562,6 @@
         <scale factor="1.5 1.5 1.5" />
       </transforms>
 
-      <animationref id="zeppelin1" />
-
       <children>
         <vehicle />
       </children>
@@ -607,8 +571,6 @@
       <transforms>
         <scale factor="1.5 1.5 1.5" />
       </transforms>
-
-      <animationref id="zeppelin2" />
 
       <children>
         <noderef id="balloon" />

@@ -64,7 +64,7 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI()) {
+	if(game->currentPlayerIsAI() && !LinearAnimation::pieceIsMoving) {
 		game->update();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());

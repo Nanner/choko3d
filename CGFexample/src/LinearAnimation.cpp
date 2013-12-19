@@ -1,5 +1,7 @@
 #include "LinearAnimation.h"
 
+bool LinearAnimation::pieceIsMoving = false;
+
 LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Animation(){
     this->totalSpan = span * 1000;
     this->controlPoints = controlPoints;
@@ -113,6 +115,7 @@ LinearAnimation::LinearAnimation(float span, vector<float> controlPoints): Anima
 
 void LinearAnimation::init(unsigned long t) {
 	Animation::init(t);
+	pieceIsMoving = true;
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
@@ -169,8 +172,10 @@ void LinearAnimation::update(unsigned long t) {
 
 
 	//If we are already on the last fragment of the last trajectory, indicate that the animation is over
-	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1))
+	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1)) {
 		ended = true;
+		pieceIsMoving = false;
+	}
 
 	//glTranslatef(controlPoints.at(0), controlPoints.at(1), controlPoints.at(2));
 
