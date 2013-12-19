@@ -1,5 +1,11 @@
 #include "GameState.h"
 
+Move::Move(int fromSquare, int toSquare, int firstAttackSquare, int secondAttackSquare): fromSquare(fromSquare),
+toSquare(toSquare),
+firstAttackSquare(firstAttackSquare),
+secondAttackSquare(secondAttackSquare)
+{}
+
 GameState::GameState(string stateString) {
     // example string
     // "[[1,2,3,4,x,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],o,12,11,x,5]"
@@ -41,6 +47,61 @@ GameState::GameState(string stateString) {
     
     this->winner = '0';
     this->gameOver = false;
+    this->parsedMove = Move();
+}
+
+GameState::GameState(string stateString, GameState previousState): GameState(stateString) {
+    // string move examples:
+    // 5 -> drop
+    // 5-3 -> move
+    // 5-3-4 -> attack
+    int fromSquare = 0;
+    int toSquare = 0;
+    int firstAttackSquare = 0;
+    int secondAttackSquare = 0;
+    
+    int scanned = sscanf(this->move.c_str(), "%d-%d-%d", &fromSquare, &toSquare, &secondAttackSquare);
+    
+    if ( scanned < 1 ) printf("Parsing error\n");
+    
+    if ( scanned == 1 ) {
+        // move was a drop
+        // scanf parsed fromSquare, but we want it as toSquare
+        toSquare = fromSquare;
+        fromSquare = 0;
+    }
+    
+    if (scanned == 3) {
+        firstAttackSquare = getFirstAttack(fromSquare, toSquare);
+    }
+    
+    this->parsedMove = Move(fromSquare, toSquare, firstAttackSquare, secondAttackSquare);
+    printf("new move\n");
+    
+}
+
+int GameState::getFirstAttack(int from, int to) {
+    // up
+    if (to == (from - 10))
+        return from - 5;
+    
+    // down
+    if (to == (from + 10))
+        return from + 5;
+    
+    // left
+    if (to == (from - 2) )
+        return from - 1;
+    
+    // right
+    if (to == (from + 2) )
+        return from + 1;
+    
+    return 0;
+}
+
+Move GameState::getMove() {
+    return this->parsedMove;
 }
 
 vector<vector<int> > GameState::movesToVector(string movesString) {

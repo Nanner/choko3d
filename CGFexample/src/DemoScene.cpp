@@ -62,6 +62,8 @@ void DemoScene::update(unsigned long t){
 			sceneGraph->updateShaders(t);
 		}
 	}
+    
+    sceneGraph->getGame()->update();
 }
 
 void DemoScene::display() 

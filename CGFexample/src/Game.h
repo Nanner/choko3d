@@ -92,6 +92,9 @@ private:
 	stack<PositionPoint> p2RestPositions;
     PositionPoint firstAttackingOrigin;
     PositionPoint firstAttackingDestination;
+    
+    string player1Type;
+    string player2Type;
 
 public:
 	unsigned int selectedPieceID;
@@ -134,6 +137,10 @@ public:
 
 	bool hasGameEnded();
 	int getWinner();
+    
+    void update();
+    int calculateMove(string playerType);
+
 };
 
 #endif

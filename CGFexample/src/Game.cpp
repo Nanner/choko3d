@@ -130,6 +130,9 @@ void Game::loadPickingSquaresPositions() {
 Game::Game() {
 	selectState = SELECT_ANY;
     
+    player1Type = "human";
+    player2Type = "medium";
+    
     try {
         GameState gameState = choko.initializeGame();
         gameStates.push(gameState);
@@ -479,4 +482,53 @@ int Game::getWinner() {
 		return 2;
 	else
 		return -1;
+}
+
+void Game::update() {
+    bool player1IsComputer = false;
+    if (player1Type.compare("easy") == 0) {
+        player1IsComputer = true;
+    }
+    
+    if (player1Type.compare("medium") == 0) {
+        player1IsComputer = true;
+    }
+    
+    if (player1Type.compare("hard") == 0) {
+        player1IsComputer = true;
+    }
+    
+    if (player1IsComputer && getGameState().currentPlayer == 'x') {
+        calculateMove(player1Type);
+    }
+    
+    
+    bool player2IsComputer = false;
+    
+    if (player2Type.compare("easy") == 0) {
+        player2IsComputer = true;
+    }
+    
+    if (player2Type.compare("medium") == 0) {
+        player2IsComputer = true;
+    }
+    
+    if (player2Type.compare("hard") == 0) {
+        player2IsComputer = true;
+    }
+
+    if (player2IsComputer && getGameState().currentPlayer == 'o') {
+        calculateMove(player2Type);
+    }
+    
+}
+
+int Game::calculateMove(string playerType) {
+    try {
+        GameState newState = choko.calculate(getGameState(), playerType);
+        gameStates.push(newState);
+    } catch (InvalidMove &invalid) {
+        printf("AI error!\n");
+    }
+    return 0;
 }
