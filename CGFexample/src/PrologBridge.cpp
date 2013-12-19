@@ -118,7 +118,7 @@ GameState PrologBridge::calculate(GameState gameState, string playerDifficulty) 
     if ( reply.find("invalid.") != std::string::npos )
         throw InvalidMove();
     
-    GameState newGameState(reply);
+    GameState newGameState(reply, gameState);
     newGameState = checkGameOver(newGameState);
     return newGameState;
 }
