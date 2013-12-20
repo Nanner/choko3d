@@ -20,6 +20,7 @@ public:
 	static bool doubleSided;
 	static float ambient[4];
 	static int getGLLight(int number);
+	static void resetLights();
 
 	SceneLight(bool enabled, string idString, float* pos,
 	float ambientR, float ambientG, float ambientB, float ambientA,

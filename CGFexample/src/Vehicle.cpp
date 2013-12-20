@@ -143,6 +143,11 @@ Vehicle::~Vehicle() {
 	delete cabinBottom;
 	delete wingFront;
 	delete wingBack;
+
+	delete balloonApp;
+	delete cabinSideApp;
+	delete cabinBottomApp;
+	delete wingApp;
 }
 
 void Vehicle::draw() {
