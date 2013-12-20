@@ -26,6 +26,7 @@ public:
 	virtual void pause();
 	virtual void resume();
     Animation();
+	~Animation();
 };
 
 #endif

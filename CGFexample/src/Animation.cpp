@@ -58,3 +58,7 @@ void Animation::pause() {
 void Animation::resume() {
 	this->paused = false;
 }
+
+Animation::~Animation() {
+	delete(matrix);
+}
