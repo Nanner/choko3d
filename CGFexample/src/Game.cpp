@@ -655,3 +655,10 @@ BoardPiece* Game::getUnusedPiece(char player) {
 
 	return NULL;
 }
+
+Game::~Game() {
+	map<unsigned int, BoardPiece*>::iterator pieceIt = boardPieces.begin();
+	for(; pieceIt != boardPieces.end(); pieceIt++) {
+		delete pieceIt->second;
+	}
+}

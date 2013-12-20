@@ -58,15 +58,6 @@ struct PositionPoint {
 	float z;
 };
 
-/*class PickingSquare {
-public:
-	PickingSquare(unsigned int id);
-	unsigned int id;
-	unsigned int pieceID;
-	float position[3];
-	bool hasPiece;
-};*/
-
 class BoardPiece {
 public:
 	BoardPiece(unsigned int id);
@@ -87,7 +78,6 @@ public:
 class Game {
 private:
 	map<unsigned int, BoardPiece*> boardPieces;
-	//map<unsigned int, PickingSquare*> pickingSquares;
 	map<unsigned int, PositionPoint> boardPiecesInitialPositions;
 	map<unsigned int, PositionPoint> pickingSquaresPositions;
 	int selectState;
@@ -100,39 +90,46 @@ private:
     static string playerTypes[4];
 
 public:
-    int player1Type;
-    int player2Type;
+	int player1Type;
+	int player2Type;
 	unsigned int selectedPieceID;
-	void loadBoardPiecesPositions();
-	void loadPickingSquaresPositions();
+
 	Game();
-	void addPiece(BoardPiece* piece);
-	//void addPickingSquare(PickingSquare* square);
-	int getPieceID(string idStr);
-	string getPieceIDStr(unsigned int id);
-	PositionPoint getSelectedSquarePosition();
-	int getSelectState();
-	void setSelectState(int selectState);
-	int getPieceWithPosition(PositionPoint position);
-	int pickingSquareHasPiece(unsigned int squareID);
-	bool isBoardPiece(unsigned int id);
+	~Game();
+
+	GameState getGameState();
+	int executeMove(int pieceID, PositionPoint destination);
+	int executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID);
 	bool canMoveTo(unsigned int squareID);
-    BoardPiece * getBoardPiece(unsigned int pieceID);
-	PositionPoint getBoardPiecePosition(unsigned int pieceID);
-	PositionPoint getPickingSquarePosition(unsigned int squareID);
-    int getPickingSquareID(PositionPoint position);
-	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
-    int getPieceOnSquare(int squareID);
-    
-    GameState getGameState();
-	char getCurrentPlayer();
-    void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
-    int executeMove(int pieceID, PositionPoint destination);
-    int executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID);
-	bool isOwnPiece(int pieceID);
-    int getPiecesOnBoard(char player);
 	bool canCapture(int pieceID);
 	void capture(int secondPieceID);
+
+	void loadBoardPiecesPositions();
+	void loadPickingSquaresPositions();
+
+	unsigned int selectedPieceID;
+	int getSelectState();
+	void setSelectState(int selectState);
+
+	void addPiece(BoardPiece* piece);
+	int getPieceID(string idStr);
+	string getPieceIDStr(unsigned int id);
+	int getPieceWithPosition(PositionPoint position);
+	bool isBoardPiece(unsigned int id);
+	BoardPiece * getBoardPiece(unsigned int pieceID);
+	PositionPoint getBoardPiecePosition(unsigned int pieceID);
+	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
+	void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
+	int getPieceOnSquare(int squareID);
+	bool isOwnPiece(int pieceID);
+	int getPiecesOnBoard(char player);
+
+	PositionPoint getSelectedSquarePosition();
+	int pickingSquareHasPiece(unsigned int squareID);
+	PositionPoint getPickingSquarePosition(unsigned int squareID);
+    int getPickingSquareID(PositionPoint position);
+    
+	char getCurrentPlayer();
 
 	PositionPoint getNextP1RestPosition();
 	PositionPoint getNextP2RestPosition();

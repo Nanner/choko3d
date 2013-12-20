@@ -16,6 +16,14 @@ int SceneLight::getGLLight(int number) {
     }
 }
 
+void SceneLight::resetLights() {
+	lastLight = 0;
+	localLight = false;
+	lightEnabled = true;
+	doubleSided = false;
+	ambient[0] = 1.0; ambient[1] = 1.0; ambient[2] = 1.0; ambient[3] = 1.0;
+}
+
 SceneLight::SceneLight(bool enabled, string idString, float* pos,
 					   float ambientR, float ambientG, float ambientB, float ambientA,
 					   float diffuseR, float diffuseG, float diffuseB, float diffuseA,

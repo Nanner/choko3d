@@ -159,6 +159,12 @@ void SceneVertex::applyPieceAnimation() {
 		glMultMatrixf(newAnimation->getMatrix());
 }
 
+SceneVertex::~SceneVertex() {
+	delete(appearance);
+	delete(matrix);
+	delete(animation);
+}
+
 SceneComposite::SceneComposite(float* matrix, string id) {
 	this->matrix = matrix;
 	this->id = id;

@@ -159,3 +159,7 @@ PieceMoves PrologBridge::getPieceMoves(GameState gameState, int position) {
     
     return PieceMoves(moves.at(0), moves.at(1), moves.at(2));
 }
+
+PrologBridge::~PrologBridge() {
+	delete(con);
+}

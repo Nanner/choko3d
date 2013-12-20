@@ -67,6 +67,9 @@ public:
 		float height,
 		float slices,
 		float stacks);
+
+	~Cylinder();
+
 	void draw();
 
 };
@@ -78,6 +81,7 @@ public:
 	GLUquadric *quad;
 
 	Sphere(float radius, int slices, int stacks);
+	~Sphere();
 	void draw();
 
 };

@@ -12,6 +12,7 @@ public:
 	static void updatePieceAnimations(unsigned long t);
 	static void addPieceAnimation(PieceAnimation* pieceAnimation);
 	static bool pendingAnimations();
+	static void clearGlobalPieceAnimations();
 
     float totalSpan;
 	vector<float> timeSpans;

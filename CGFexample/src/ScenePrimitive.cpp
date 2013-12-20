@@ -175,6 +175,10 @@ void Cylinder::draw() {
 	glPopMatrix();
 }
 
+Cylinder::~Cylinder() {
+	gluDeleteQuadric(quadratic);
+}
+
 
 Sphere::Sphere(float radius, int slices, int stacks) {
 	matrix = NULL;
@@ -189,6 +193,10 @@ void Sphere::draw(){
 	gluQuadricTexture(quad,1);
 
 	gluSphere(quad, radius, slices, stacks);
+}
+
+Sphere::~Sphere() {
+	gluDeleteQuadric(quad);
 }
 
 Torus::Torus(float inner, float outer, int slices, int loops) {

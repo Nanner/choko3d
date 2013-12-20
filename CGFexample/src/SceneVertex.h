@@ -48,6 +48,7 @@ public:
 	string id;
 
 	SceneVertex();
+	~SceneVertex();
 	friend class SceneGraph;
 
 	void addEdge(SceneVertex *dest);

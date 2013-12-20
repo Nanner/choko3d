@@ -15,6 +15,7 @@ public:
 	map<string, int> lightOnControls;
     
 	RootVertex(float* matrix, string id, YAFGlobal globals, map<string, YAFCamera> cameras, map<string, YAFLight> lights);
+	~RootVertex();
     
 	void loadDefaultAppearance();
 	void setGlobals();

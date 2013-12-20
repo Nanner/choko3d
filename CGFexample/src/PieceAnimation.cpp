@@ -34,6 +34,12 @@ bool PieceAnimation::pendingAnimations() {
 	return true;
 }
 
+void PieceAnimation::clearGlobalPieceAnimations() {
+	while(!globalPieceAnimations.empty()) {
+		globalPieceAnimations.pop();
+	}
+}
+
 PieceAnimation::PieceAnimation(float span, vector<float> controlPoints): Animation(){
     this->totalSpan = span * 1000;
     this->controlPoints = controlPoints;

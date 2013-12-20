@@ -27,6 +27,7 @@ using namespace std;
 class Connection {
 public:
     Connection(short port);
+	~Connection();
     
     string sendMsg(string msg);
     string readLine();
