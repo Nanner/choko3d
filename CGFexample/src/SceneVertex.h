@@ -14,15 +14,18 @@
 #include "Game.h"
 #include "LinearAnimation.h"
 #include "CurvedAnimation.h"
+#include "PieceAnimation.h"
 #include <vector>
 #include <stack>
 #include <map>
+#include <queue>
 
 #define MOVE_DURATION 1.0
 
 using namespace std;
 
 class Animation;
+class PieceAnimation;
 class SceneGraph;
 
 class SceneVertex {
@@ -79,6 +82,9 @@ public:
     Animation * getAnimation();
 	virtual WaterShader* getShader() {return NULL;}
 	void createMovementAnimation(PositionPoint p1, PositionPoint p2);
+
+	queue<PieceAnimation*> pieceAnimations;
+	void applyPieceAnimation();
 };
 
 

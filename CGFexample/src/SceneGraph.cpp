@@ -714,9 +714,7 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 				glMultMatrixf(animationMatrix);
 			}
 
-			//If the child vertex has an animation, apply the rotation
-			/*if(it->dest->getAnimation() != NULL)
-				it->dest->getAnimation()->applyRotation();*/
+			it->dest->applyPieceAnimation();
 
 			//Get the child vertex transformation matrix, and if it's not empty, multiply it to the current matrix
 			float* matrix = it->dest->getMatrix();
@@ -771,15 +769,6 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
 			boardPiecesSet.at(i)->createMovementAnimation(origin, destination);
 			cout << origin.x << " " << origin.y << " " << origin.z << endl;
 			cout << destination.x << " " << destination.y << " " << destination.z << endl;
-            
-			//Remove possible previous animation
-			map<string, Animation*>::iterator it = animations.find(boardPiecesSet.at(i)->id);
-			if(it != animations.end()) {
-				animations.erase(it);
-			}
-            
-			//Add this animation to the animations map
-			animations.insert(pair<string, Animation*>(boardPiecesSet.at(i)->id, boardPiecesSet.at(i)->getAnimation()));
 			break;
 		}
 	}
