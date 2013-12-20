@@ -22,6 +22,9 @@ void DemoScene::init()
 
 	squareSelection = new Plane(10);
 	squareSelection->setAppearance(squareSelectionAppearance);
+    
+    hudAppearance = new CGFappearance("hud.png", GL_REPEAT, GL_REPEAT);
+    
 }
 
 void DemoScene::initCameras() {
@@ -120,13 +123,61 @@ void DemoScene::display()
 		squareSelection->draw();
 		glPopMatrix();
 	}
-
+    
+    drawHUD();
+    
 	// ---- END feature demos
 
 	// We have been drawing in a memory area that is not visible - the back buffer, 
 	// while the graphics card is showing the contents of another buffer - the front buffer
 	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
 	glutSwapBuffers();
+}
+
+void DemoScene::drawHUD() {
+    glDisable(GL_LIGHTING);
+    
+	glMatrixMode( GL_PROJECTION );
+	glPushMatrix();
+	glLoadIdentity();
+	// Switch the view modes to an Ortho style
+	// this will allow us to see staight on what is rendered following.
+	glOrtho( 0.0, 800, 0.0, 600, -1.0, 1.0 );
+	glMatrixMode( GL_MODELVIEW );
+    
+	glPushMatrix();
+	glLoadIdentity();
+    
+	glEnable(GL_TEXTURE_2D);
+	//glBindTexture(GL_TEXTURE_2D, hudImage);
+    hudAppearance->apply();
+    
+	glColor3f(1, 1, 1);
+    
+	glBegin(GL_QUADS);
+    
+	// Draw the quad at the appropriate area
+	// the Texture is drawn over it.
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(0, 0,  0);	// Bottom Left Of The Texture and Quad
+	glTexCoord2f(1.0f, 0.0f); glVertex3f( 800, 0,  0);	// Bottom Right Of The Texture and Quad
+	glTexCoord2f(1.0f, 1.0f); glVertex3f( 800,  70,  0);	// Top Right Of The Texture and Quad
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(0,  70,  0);	// Top Left Of The Texture and Quad
+    
+	glEnd();
+    
+	glDisable(GL_TEXTURE_2D);
+    
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glRasterPos2f(0, 0);
+    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'c');
+    
+	//Unsets Projection Mode
+	glMatrixMode( GL_PROJECTION );
+	glPopMatrix();
+	glMatrixMode( GL_MODELVIEW );
+	glPopMatrix();
+    
+	glEnable(GL_LIGHTING);
 }
 
 void DemoScene::setDrawMode(int mode) {

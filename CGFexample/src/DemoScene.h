@@ -28,10 +28,12 @@ public:
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
 	DemoScene(SceneGraph* sceneGraph);
+    void drawHUD();
 	~DemoScene();
 private:
 	SceneGraph* sceneGraph;
 	Appearance* squareSelectionAppearance;
+    CGFappearance* hudAppearance;
 	Plane* squareSelection;
 };
 

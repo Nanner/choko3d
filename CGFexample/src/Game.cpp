@@ -130,8 +130,8 @@ void Game::loadPickingSquaresPositions() {
 Game::Game() {
 	selectState = SELECT_ANY;
     
-    player1Type = "medium";
-    player2Type = "medium";
+    player1Type = "hard";
+    player2Type = "hard";
     
     try {
         GameState gameState = choko.initializeGame();
