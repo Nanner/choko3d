@@ -30,7 +30,7 @@ public:
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(SceneGraph* sceneGraph, RendererInterface* interface);
+	DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface);
     void drawHUD();
 	~DemoScene();
 private:
@@ -38,7 +38,7 @@ private:
 	Appearance* squareSelectionAppearance;
     CGFappearance* hudAppearance;
 	Plane* squareSelection;
-    RendererInterface * interface;
+    RendererInterface * rendererInterface;
 };
 
 #endif

@@ -107,7 +107,6 @@ public:
 	void loadBoardPiecesPositions();
 	void loadPickingSquaresPositions();
 
-	unsigned int selectedPieceID;
 	int getSelectState();
 	void setSelectState(int selectState);
 

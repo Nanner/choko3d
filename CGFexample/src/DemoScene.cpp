@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
-DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* interface):sceneGraph(sceneGraph), interface(interface) {}
+DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface):sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
 
 void DemoScene::init() 
 {
@@ -77,7 +77,7 @@ void DemoScene::update(unsigned long t){
 	}
     
     if (game->hasGameEnded() && !PieceAnimation::pendingAnimations()) {
-        interface->updateGameOver();
+        rendererInterface->updateGameOver();
     }
 }
 
