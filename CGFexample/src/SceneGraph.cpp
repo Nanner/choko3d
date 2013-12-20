@@ -116,6 +116,32 @@ SceneGraph::~SceneGraph() {
 	for (unsigned int i = 0; i < vertexSet.size(); ++i) {
 		delete vertexSet.at(i);
 	}
+
+	for (unsigned int i = 0; i < pickingSquaresSet.size(); ++i) {
+		delete pickingSquaresSet.at(i);
+	}
+
+	for (unsigned int i = 0; i < boardPiecesSet.size(); ++i) {
+		delete boardPiecesSet.at(i);
+	}
+
+	delete(rootVertex);
+
+	map<string, Appearance *>::iterator appIt = appearances.begin();
+	for(; appIt != appearances.end(); appIt++) {
+		delete(appIt->second);
+	}
+
+	map<string, Animation *>::iterator animIt = animations.begin();
+	for(; animIt != animations.end(); animIt++) {
+		delete(animIt->second);
+	}
+
+	for(unsigned int i = 0; i < currentShaders.size(); ++i) {
+		delete currentShaders.at(i);
+	}
+
+	delete(game);
 }
 
 bool SceneGraph::addVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet) {

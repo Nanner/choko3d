@@ -109,3 +109,18 @@ void RootVertex::setGlobals() {
 void RootVertex::setInitialCamera() {
 	cameras.find(YAFCamera::initialCameraID)->second->applyView();
 }
+
+RootVertex::~RootVertex() {
+	delete(defaultAppearance);
+	defaultAppearanceID = 0;
+
+	map<string, CameraView*>::iterator camIt = cameras.begin();
+	for(; camIt != cameras.end(); camIt++) {
+		delete(camIt->second);
+	}
+
+	map<string, SceneLight*>::iterator lightIt = lights.begin();
+	for(; lightIt != lights.end(); lightIt++) {
+		delete(lightIt->second);
+	}
+}
