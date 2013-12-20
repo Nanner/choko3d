@@ -131,20 +131,33 @@ void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
     controlPoints.push_back(destination[1]);
     controlPoints.push_back(destination[2]);
 
-    //CurvedAnimation* anim = new CurvedAnimation(MOVE_DURATION, controlPoints);
+	PieceAnimation* anim = new PieceAnimation(MOVE_DURATION, controlPoints);
+	pieceAnimations.push(anim);
+	PieceAnimation::addPieceAnimation(anim);
+}
 
-	LinearAnimation* anim = new LinearAnimation(MOVE_DURATION, controlPoints);
-	if(this->getAnimation() != NULL) {
+void SceneVertex::applyPieceAnimation() {
+	if(pieceAnimations.empty())
+		return;
+
+	PieceAnimation* animation = pieceAnimations.front();
+	if(animation->ended) {
 		glPushMatrix();
 		glLoadIdentity();
-		glMultMatrixf(this->getAnimation()->getMatrix());
+		glMultMatrixf(animation->getMatrix());
 		if(this->getMatrix() != NULL)
 			glMultMatrixf(this->getMatrix());
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->matrix);
 		glPopMatrix();
+		pieceAnimations.pop();
+		free(animation);
+		if(pieceAnimations.empty())
+			return;
 	}
-	free(this->getAnimation());
-	this->setAnimation(anim);
+
+	PieceAnimation* newAnimation = pieceAnimations.front();
+	if(newAnimation != NULL)
+		glMultMatrixf(newAnimation->getMatrix());
 }
 
 SceneComposite::SceneComposite(float* matrix, string id) {

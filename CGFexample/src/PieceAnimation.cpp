@@ -1,6 +1,32 @@
 #include "PieceAnimation.h"
 
-bool PieceAnimation::pieceIsMoving = false;
+queue<PieceAnimation*> PieceAnimation::globalPieceAnimations;
+
+void PieceAnimation::updatePieceAnimations(unsigned long t) {
+	if(globalPieceAnimations.empty())
+		return;
+	PieceAnimation* currentAnimation = globalPieceAnimations.front();
+	if(currentAnimation->ended)
+		globalPieceAnimations.pop();
+
+	if(globalPieceAnimations.empty())
+		return;
+
+	currentAnimation = globalPieceAnimations.front();
+	currentAnimation->update(t);
+}
+
+void PieceAnimation::addPieceAnimation(PieceAnimation* pieceAnimation) {
+	globalPieceAnimations.push(pieceAnimation);
+}
+
+bool PieceAnimation::pendingAnimations() {
+	if(globalPieceAnimations.empty() || (globalPieceAnimations.size() == 1 && globalPieceAnimations.front()->ended)) {
+		return false;
+	}
+
+	return true;
+}
 
 PieceAnimation::PieceAnimation(float span, vector<float> controlPoints): Animation(){
     this->totalSpan = span * 1000;
@@ -115,7 +141,6 @@ PieceAnimation::PieceAnimation(float span, vector<float> controlPoints): Animati
 
 void PieceAnimation::init(unsigned long t) {
 	Animation::init(t);
-	pieceIsMoving = true;
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
@@ -174,7 +199,6 @@ void PieceAnimation::update(unsigned long t) {
 	//If we are already on the last fragment of the last trajectory, indicate that the animation is over
 	if(currentTimeFragment == 1 && currentTrajectory == (numTrajectories - 1)) {
 		ended = true;
-		pieceIsMoving = false;
 	}
 
 	//glTranslatef(controlPoints.at(0), controlPoints.at(1), controlPoints.at(2));

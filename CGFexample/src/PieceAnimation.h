@@ -2,13 +2,17 @@
 #define PIECE_ANIMATION_H
 
 #include <math.h>
+#include <queue>
 #include "Animation.h"
 
 class PieceAnimation : public Animation {
+	static queue<PieceAnimation*> globalPieceAnimations;
     
-
 public:
-	static bool pieceIsMoving;
+	static void updatePieceAnimations(unsigned long t);
+	static void addPieceAnimation(PieceAnimation* pieceAnimation);
+	static bool pendingAnimations();
+
     float totalSpan;
 	vector<float> timeSpans;
 

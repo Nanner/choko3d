@@ -43,6 +43,8 @@ void DemoScene::initCameras() {
 }
 
 void DemoScene::update(unsigned long t){
+	PieceAnimation::updatePieceAnimations(t);
+
 	if(!isSelectMode) {
 		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
 		for(; animationItr != sceneGraph->animations.end(); animationItr++) {
@@ -64,7 +66,7 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !LinearAnimation::pieceIsMoving) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations()) {
 		game->update();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
