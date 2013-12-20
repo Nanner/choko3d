@@ -11,7 +11,10 @@
 #include "CGFappearance.h"
 #include "CGFaxis.h"
 #include "CGFapplication.h"
+#include "RendererInterface.h"
 #include <math.h>
+
+class RendererInterface;
 
 class DemoScene : public CGFscene
 {
@@ -27,7 +30,7 @@ public:
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(SceneGraph* sceneGraph);
+	DemoScene(SceneGraph* sceneGraph, RendererInterface* interface);
     void drawHUD();
 	~DemoScene();
 private:
@@ -35,6 +38,7 @@ private:
 	Appearance* squareSelectionAppearance;
     CGFappearance* hudAppearance;
 	Plane* squareSelection;
+    RendererInterface * interface;
 };
 
 #endif

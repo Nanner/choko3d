@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
-DemoScene::DemoScene(SceneGraph* sceneGraph):sceneGraph(sceneGraph){}
+DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* interface):sceneGraph(sceneGraph), interface(interface) {}
 
 void DemoScene::init() 
 {
@@ -70,11 +70,15 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations()) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded()) {
 		game->update();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
+    
+    if (game->hasGameEnded() && !PieceAnimation::pendingAnimations()) {
+        interface->updateGameOver();
+    }
 }
 
 void DemoScene::display() 

@@ -542,6 +542,9 @@ int Game::getWinner() {
 }
 
 void Game::update() {
+    if (hasGameEnded())
+        return;
+    
     bool player1IsComputer = false;
     if (player1Type == EASY) {
         player1IsComputer = true;

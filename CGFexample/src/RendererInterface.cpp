@@ -56,16 +56,19 @@ void RendererInterface::initGUI() {
 	player2List->add_item(2, (char*)"Computer Medium");
     player2List->add_item(3, (char*)"Computer Hard");
     player2List->set_int_val(sceneGraph->getGame()->player2Type);
+    
+    addColumn();
+    
+    gameOverPanel = addPanel((char*)"Game Over");
+    
+    winnerText = addStaticTextToPanel(gameOverPanel, (char*)"Winner is ...");
+    addButtonToPanel(gameOverPanel, (char*)"Restart Game");
+    addButtonToPanel(gameOverPanel, (char*)"Replay Game");
+    gameOverPanel->hidden = true;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
-	Game* game = sceneGraph->getGame();
-
-	if(game->hasGameEnded()) {
-		printf("Game ended dude\n");
-		printf("Winner: %c\n", game->getWinner());
-	}
 
 	map<int, string>::iterator lightToToggle = lightMap.find(ctrl->user_id);
 	if(lightToToggle != lightMap.end()) {
@@ -237,6 +240,19 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 	}
 	else
 		printf("Nothing selected while picking \n");	
+}
+
+void RendererInterface::updateGameOver() {
+    Game* game = sceneGraph->getGame();
+    if(game->hasGameEnded()) {
+		string winner;
+        if (game->getWinner() == 1)
+            winner = "Winner is Player 1, Blue!";
+        else
+            winner = "Winner is Player 2, Red!";
+        winnerText->set_text(winner.c_str());
+        gameOverPanel->hidden = false;
+	}
 }
 
 
