@@ -40,8 +40,12 @@ class SceneVertex {
     
     static unsigned int currentDisplayList;
 
+	queue<PieceAnimation*> pieceAnimations;
+	queue<float*> positionHistory;
+
 protected:
 	float* matrix;
+	float* initialMatrix;
 
 public:
 	//ScenePrimitive IDs are empty
@@ -84,8 +88,8 @@ public:
 	virtual WaterShader* getShader() {return NULL;}
 	void createMovementAnimation(PositionPoint p1, PositionPoint p2);
 
-	queue<PieceAnimation*> pieceAnimations;
 	void applyPieceAnimation();
+	void restartPiece();
 };
 
 

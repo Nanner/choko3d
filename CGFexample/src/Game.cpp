@@ -2,8 +2,6 @@
 
 BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true), toggled(false), squareID(0) {}
 
-//PickingSquare::PickingSquare(unsigned int id): id(id), pieceID(0), hasPiece(false) {}
-
 string Game::playerTypes[] = {"human", "easy", "medium", "hard"};
 
 void Game::restartGame() {

@@ -8,7 +8,7 @@ void PieceAnimation::updatePieceAnimations(unsigned long t) {
 	PieceAnimation* currentAnimation = globalPieceAnimations.front();
 	if(currentAnimation->ended) {
 		globalPieceAnimations.pop();
-        free(currentAnimation);
+        delete(currentAnimation);
     }
 
 	if(globalPieceAnimations.empty())
@@ -36,7 +36,9 @@ bool PieceAnimation::pendingAnimations() {
 
 void PieceAnimation::clearGlobalPieceAnimations() {
 	while(!globalPieceAnimations.empty()) {
+		PieceAnimation* animation = globalPieceAnimations.front();
 		globalPieceAnimations.pop();
+		delete animation;
 	}
 }
 

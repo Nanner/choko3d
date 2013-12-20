@@ -33,8 +33,10 @@ public:
 	DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface);
 	void recreateSceneGraph();
     void drawHUD();
+	void restartGameOnNextUpdate();
 	~DemoScene();
 private:
+	bool restartGameOnUpdate;
 	YAFReader* yafFile;
 	SceneGraph* sceneGraph;
 	Appearance* squareSelectionAppearance;

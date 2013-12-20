@@ -83,7 +83,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	}
 
 	if(ctrl->user_id == gameRestartButtonID) {
-		((DemoScene*) scene)->recreateSceneGraph();
+		((DemoScene*) scene)->restartGameOnNextUpdate();
 	}
 }
 

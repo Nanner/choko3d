@@ -6,6 +6,8 @@ DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterfa
 
 void DemoScene::init() 
 {
+	restartGameOnUpdate = false;
+
 	//Configure the different general scene attributes (background, lights, etc)
 	sceneGraph->configureScene();
 	initCameras();
@@ -108,6 +110,11 @@ void DemoScene::display()
 
 
 	// ---- BEGIN feature demos
+	if(restartGameOnUpdate) {
+		restartGameOnUpdate = false;
+		sceneGraph->restartGame();
+	}
+
 	if(!isSelectMode) {
 		sceneGraph->render();
 	}
@@ -208,6 +215,10 @@ void DemoScene::resetCurrentCamera() {
 void DemoScene::recreateSceneGraph() {
 	delete sceneGraph;
 	sceneGraph = new SceneGraph(yafFile);
+}
+
+void DemoScene::restartGameOnNextUpdate() {
+	restartGameOnUpdate = true;
 }
 
 DemoScene::~DemoScene()

@@ -2,7 +2,7 @@
 
 unsigned int SceneVertex::currentDisplayList = 0;
 
-SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), animation(NULL) {}
+SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), animation(NULL), initialMatrix(NULL) {}
 
 void SceneVertex::addEdge(SceneVertex *dest) {
 	SceneEdge edgeD(dest);
@@ -145,8 +145,16 @@ void SceneVertex::applyPieceAnimation() {
 		glPushMatrix();
 		glLoadIdentity();
 		glMultMatrixf(animation->getMatrix());
-		if(this->getMatrix() != NULL)
-			glMultMatrixf(this->getMatrix());
+		if(this->getMatrix() != NULL) {
+			float* matrix = this->getMatrix();
+			float oldMatrix[16];
+			for(unsigned int i = 0; i < 16; i++) {
+				oldMatrix[i] = matrix[i];
+			}
+
+			positionHistory.push(oldMatrix);
+			glMultMatrixf(matrix);
+		}
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->matrix);
 		glPopMatrix();
 		pieceAnimations.pop();
@@ -159,12 +167,30 @@ void SceneVertex::applyPieceAnimation() {
 		glMultMatrixf(newAnimation->getMatrix());
 }
 
+void SceneVertex::restartPiece() {
+	if(initialMatrix != NULL) {
+		for(unsigned int i = 0; i < 16; i++) {
+			this->matrix[i] = this->initialMatrix[i]; 
+		}
+	}
+
+	while(!pieceAnimations.empty())
+		pieceAnimations.pop();
+}
+
 SceneVertex::~SceneVertex() {
 	delete(matrix);
 	delete(animation);
 }
 
 SceneComposite::SceneComposite(float* matrix, string id) {
+	this->initialMatrix = new float[16];
 	this->matrix = matrix;
+	if(matrix != NULL) {
+		for(unsigned int i = 0; i < 16; i++) {
+			this->initialMatrix[i] = this->matrix[i]; 
+		}
+	}
+
 	this->id = id;
 }

@@ -839,3 +839,15 @@ void SceneGraph::animateAIPlay(Move move) {
 		return;
 	}
 }
+
+void SceneGraph::restartGame() {
+	restartPieces();
+	game->restartGame();
+}
+
+void SceneGraph::restartPieces() {
+	for(unsigned int i = 0; i < boardPiecesSet.size(); i++) {
+		boardPiecesSet.at(i)->restartPiece();
+	}
+	PieceAnimation::clearGlobalPieceAnimations();
+}
