@@ -45,6 +45,11 @@
 #define SELECT_TO_SQUARE 1
 #define SELECT_SECOND_ENEMY 2
 
+#define HUMAN 0
+#define EASY 1
+#define MEDIUM 2
+#define HARD 3
+
 using namespace std;
 
 struct PositionPoint {
@@ -92,11 +97,11 @@ private:
 	stack<PositionPoint> p2RestPositions;
     PositionPoint firstAttackingOrigin;
     PositionPoint firstAttackingDestination;
-    
-    string player1Type;
-    string player2Type;
+    static string playerTypes[4];
 
 public:
+    int player1Type;
+    int player2Type;
 	unsigned int selectedPieceID;
 	void loadBoardPiecesPositions();
 	void loadPickingSquaresPositions();
@@ -145,7 +150,7 @@ public:
 	int getWinner();
     
     void update();
-    int calculateMove(string playerType);
+    int calculateMove(int playerType);
 	void processAIMovedPieces(Move move);
 	BoardPiece* getUnusedPiece(char player);
 };
