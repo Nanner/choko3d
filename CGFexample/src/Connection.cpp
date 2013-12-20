@@ -72,3 +72,7 @@ string Connection::readLine() {
     }
     return msg;
 }
+
+Connection::~Connection() {
+	sendMsg("bye\n");
+}

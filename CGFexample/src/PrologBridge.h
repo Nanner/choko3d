@@ -38,6 +38,7 @@ public:
     static short port;
     PrologBridge();
     PrologBridge(int);
+	~PrologBridge();
     
 #ifdef linux
     static pid_t procId;
