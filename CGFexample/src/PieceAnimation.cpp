@@ -13,7 +13,11 @@ void PieceAnimation::updatePieceAnimations(unsigned long t) {
 		return;
 
 	currentAnimation = globalPieceAnimations.front();
-	currentAnimation->update(t);
+	currentAnimation->resume();
+	if (currentAnimation->isInitialized)
+		currentAnimation->update(t);
+	else
+		currentAnimation->init(t);
 }
 
 void PieceAnimation::addPieceAnimation(PieceAnimation* pieceAnimation) {
@@ -137,6 +141,7 @@ PieceAnimation::PieceAnimation(float span, vector<float> controlPoints): Animati
 	currentTrajectory = 0;
 	elapsedTimeInTraj = 0;
 	totalElapsedTime = 0;
+	paused = true;
 }
 
 void PieceAnimation::init(unsigned long t) {
