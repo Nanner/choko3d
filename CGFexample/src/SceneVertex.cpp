@@ -160,7 +160,6 @@ void SceneVertex::applyPieceAnimation() {
 }
 
 SceneVertex::~SceneVertex() {
-	delete(appearance);
 	delete(matrix);
 	delete(animation);
 }

@@ -6,6 +6,36 @@ BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true),
 
 string Game::playerTypes[] = {"human", "easy", "medium", "hard"};
 
+void Game::restartGame() {
+	map<unsigned int, BoardPiece*>::iterator it = boardPieces.begin();
+	for(; it != boardPieces.end(); it++) {
+		it->second->resetPiece();
+	}
+
+	while(!p1RestPositions.empty())
+		p1RestPositions.pop();
+
+	while(!p2RestPositions.empty())
+		p2RestPositions.pop();
+
+	loadBoardPiecesPositions();
+
+	while(!gameStates.empty())
+		gameStates.pop();
+
+	selectState = SELECT_ANY;
+
+	player1Type = HARD;
+	player2Type = HARD;
+
+	try {
+		GameState gameState = choko.initializeGame();
+		gameStates.push(gameState);
+	} catch (InvalidMove &invalid) {
+		printf("Initialization error.\n");
+	}
+}
+
 void Game::loadBoardPiecesPositions() {
 	//Load Player 1 pieces
 	unsigned int p1ID = 1 + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS;

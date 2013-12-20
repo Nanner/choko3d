@@ -62,9 +62,11 @@ void RendererInterface::initGUI() {
     gameOverPanel = addPanel((char*)"Game Over");
     
     winnerText = addStaticTextToPanel(gameOverPanel, (char*)"Winner is ...");
-    addButtonToPanel(gameOverPanel, (char*)"Restart Game");
+    addButtonToPanel(gameOverPanel, (char*)"Restart Game", lastID);
+	gameRestartButtonID = lastID;
+	lastID++;
     addButtonToPanel(gameOverPanel, (char*)"Replay Game");
-    gameOverPanel->hidden = true;
+    gameOverPanel->hidden = false;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -78,6 +80,10 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 			rootVertex->lights.find(lightToToggle->second)->second->enable();
 		}
 		return;
+	}
+
+	if(ctrl->user_id == gameRestartButtonID) {
+		((DemoScene*) scene)->recreateSceneGraph();
 	}
 }
 

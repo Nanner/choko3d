@@ -73,6 +73,12 @@ public:
             return 'o';
         else return 'x';
     };
+	void resetPiece(){
+		onBoard = false;
+		playable = true;
+		toggled = false;
+		squareID = 0;
+	}
 };
 
 class Game {
@@ -96,7 +102,7 @@ public:
 
 	Game();
 	~Game();
-
+	void restartGame();
 	GameState getGameState();
 	int executeMove(int pieceID, PositionPoint destination);
 	int executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID);

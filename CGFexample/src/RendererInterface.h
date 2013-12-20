@@ -41,6 +41,8 @@ public:
 
 	int displayListCheckboxID;
 
+	int gameRestartButtonID;
+
 	RendererInterface();
 
 	void initGUI();

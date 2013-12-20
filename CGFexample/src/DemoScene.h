@@ -30,10 +30,12 @@ public:
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface);
+	DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface);
+	void recreateSceneGraph();
     void drawHUD();
 	~DemoScene();
 private:
+	YAFReader* yafFile;
 	SceneGraph* sceneGraph;
 	Appearance* squareSelectionAppearance;
     CGFappearance* hudAppearance;

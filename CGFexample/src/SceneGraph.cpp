@@ -125,8 +125,6 @@ SceneGraph::~SceneGraph() {
 		delete boardPiecesSet.at(i);
 	}
 
-	delete(rootVertex);
-
 	map<string, Appearance *>::iterator appIt = appearances.begin();
 	for(; appIt != appearances.end(); appIt++) {
 		delete(appIt->second);

@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
-DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface):sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
+DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface):yafFile(yafFile), sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
 
 void DemoScene::init() 
 {
@@ -203,6 +203,11 @@ void DemoScene::setDrawMode(int mode) {
 
 void DemoScene::resetCurrentCamera() {
 	((CameraView*) CGFscene::activeCamera)->resetCamera();
+}
+
+void DemoScene::recreateSceneGraph() {
+	delete sceneGraph;
+	sceneGraph = new SceneGraph(yafFile);
 }
 
 DemoScene::~DemoScene()
