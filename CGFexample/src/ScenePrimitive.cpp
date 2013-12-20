@@ -176,7 +176,7 @@ void Cylinder::draw() {
 }
 
 Cylinder::~Cylinder() {
-	delete(quadratic);
+	gluDeleteQuadric(quadratic);
 }
 
 
@@ -196,7 +196,7 @@ void Sphere::draw(){
 }
 
 Sphere::~Sphere() {
-	delete(quad);
+	gluDeleteQuadric(quad);
 }
 
 Torus::Torus(float inner, float outer, int slices, int loops) {

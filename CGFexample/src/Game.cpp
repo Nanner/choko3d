@@ -4,6 +4,8 @@ BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true),
 
 //PickingSquare::PickingSquare(unsigned int id): id(id), pieceID(0), hasPiece(false) {}
 
+string Game::playerTypes[] = {"human", "easy", "medium", "hard"};
+
 void Game::loadBoardPiecesPositions() {
 	//Load Player 1 pieces
 	unsigned int p1ID = 1 + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS;
@@ -130,8 +132,8 @@ void Game::loadPickingSquaresPositions() {
 Game::Game() {
 	selectState = SELECT_ANY;
     
-    player1Type = "medium";
-    player2Type = "medium";
+    player1Type = HARD;
+    player2Type = HARD;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -497,29 +499,29 @@ void Game::capture(int secondPieceID) {
 
 bool Game::currentPlayerIsAI() {
 	bool player1IsComputer = false;
-	if (player1Type.compare("easy") == 0) {
+	if (player1Type == EASY) {
 		player1IsComputer = true;
 	}
 
-	if (player1Type.compare("medium") == 0) {
+	if (player1Type == MEDIUM) {
 		player1IsComputer = true;
 	}
 
-	if (player1Type.compare("hard") == 0) {
+	if (player1Type == HARD) {
 		player1IsComputer = true;
 	}
 
 	bool player2IsComputer = false;
 
-	if (player2Type.compare("easy") == 0) {
+	if (player2Type == EASY) {
 		player2IsComputer = true;
 	}
 
-	if (player2Type.compare("medium") == 0) {
+	if (player2Type == MEDIUM) {
 		player2IsComputer = true;
 	}
 
-	if (player2Type.compare("hard") == 0) {
+	if (player2Type == HARD) {
 		player2IsComputer = true;
 	}
 
@@ -541,15 +543,15 @@ int Game::getWinner() {
 
 void Game::update() {
     bool player1IsComputer = false;
-    if (player1Type.compare("easy") == 0) {
+    if (player1Type == EASY) {
         player1IsComputer = true;
     }
     
-    if (player1Type.compare("medium") == 0) {
+    if (player1Type == MEDIUM) {
         player1IsComputer = true;
     }
     
-    if (player1Type.compare("hard") == 0) {
+    if (player1Type == HARD) {
         player1IsComputer = true;
     }
     
@@ -561,15 +563,15 @@ void Game::update() {
     
     bool player2IsComputer = false;
     
-    if (player2Type.compare("easy") == 0) {
+    if (player2Type == EASY) {
         player2IsComputer = true;
     }
     
-    if (player2Type.compare("medium") == 0) {
+    if (player2Type == MEDIUM) {
         player2IsComputer = true;
     }
     
-    if (player2Type.compare("hard") == 0) {
+    if (player2Type == HARD) {
         player2IsComputer = true;
     }
 
@@ -580,9 +582,9 @@ void Game::update() {
     
 }
 
-int Game::calculateMove(string playerType) {
+int Game::calculateMove(int playerType) {
     try {
-        GameState newState = choko.calculate(getGameState(), playerType);
+        GameState newState = choko.calculate(getGameState(), playerTypes[playerType]);
         gameStates.push(newState);
     } catch (InvalidMove &invalid) {
         printf("AI error!\n");
