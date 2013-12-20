@@ -150,7 +150,6 @@ void SceneVertex::applyPieceAnimation() {
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->matrix);
 		glPopMatrix();
 		pieceAnimations.pop();
-		free(animation);
 		if(pieceAnimations.empty())
 			return;
 	}

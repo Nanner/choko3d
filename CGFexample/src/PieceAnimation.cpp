@@ -6,8 +6,10 @@ void PieceAnimation::updatePieceAnimations(unsigned long t) {
 	if(globalPieceAnimations.empty())
 		return;
 	PieceAnimation* currentAnimation = globalPieceAnimations.front();
-	if(currentAnimation->ended)
+	if(currentAnimation->ended) {
 		globalPieceAnimations.pop();
+        free(currentAnimation);
+    }
 
 	if(globalPieceAnimations.empty())
 		return;
