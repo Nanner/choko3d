@@ -765,6 +765,10 @@ YAFReader::YAFReader(char *filename) {
 						int parts = getValue<int>(currentChild, (char*)"parts");
 						yafNode.addPrimitive( new Plane(parts) );
 					}
+
+					if ( strcmp(currentChild->Value(), "vehicle") == 0 ) {
+						yafNode.addPrimitive( new Vehicle() );
+					}
                     
 					if ( strcmp(currentChild->Value(), "patch") == 0 ) {
 						int order = getValue<int>(currentChild, (char*)"order");
