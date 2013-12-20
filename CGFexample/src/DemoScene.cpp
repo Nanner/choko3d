@@ -43,7 +43,6 @@ void DemoScene::initCameras() {
 }
 
 void DemoScene::update(unsigned long t){
-	PieceAnimation::updatePieceAnimations(t);
 
 	if(!isSelectMode) {
 		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
@@ -63,6 +62,8 @@ void DemoScene::update(unsigned long t){
 
 			sceneGraph->updateShaders(t);
 		}
+
+		PieceAnimation::updatePieceAnimations(t);
 	}
    
 	Game* game = sceneGraph->getGame();
