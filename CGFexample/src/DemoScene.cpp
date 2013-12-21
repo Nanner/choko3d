@@ -81,6 +81,13 @@ void DemoScene::update(unsigned long t){
     if (game->hasGameEnded() && !PieceAnimation::pendingAnimations()) {
         rendererInterface->updateGameOver();
     }
+
+	if(PieceAnimation::pendingAnimations()) {
+		rendererInterface->undoButton->disable();
+	}
+	else if(!rendererInterface->undoButton->enabled) {
+		rendererInterface->undoButton->enable();
+	}
     
     game->update(t);
 }

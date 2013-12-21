@@ -298,12 +298,9 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
         GameState newState = choko.execute(getGameState(), move.str());
         gameStates.push(newState);
-<<<<<<< HEAD
 		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingOrigin), firstCapturedPieceID, secondEnemyPieceID);
 		movementHistory.push(lastMove);
-=======
         turnStart = time;
->>>>>>> 9a91d6df4bec5cf47f0574541dab7c473be85a2b
     } catch (InvalidMove &invalid) {
         printf("Invalid move!!\n");
     }

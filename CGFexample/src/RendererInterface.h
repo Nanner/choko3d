@@ -45,6 +45,7 @@ public:
 
 	int gameRestartButtonID;
 	int undoButtonID;
+	GLUI_Button* undoButton;
 
 	RendererInterface();
 

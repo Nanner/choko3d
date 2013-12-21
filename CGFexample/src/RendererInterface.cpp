@@ -59,7 +59,7 @@ void RendererInterface::initGUI() {
     
     addColumn();
 
-	addButton((char*)"Undo move", lastID);
+	undoButton = addButton((char*)"Undo move", lastID);
 	undoButtonID = lastID;
 	lastID++;
 
