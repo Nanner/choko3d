@@ -50,6 +50,8 @@
 #define MEDIUM 2
 #define HARD 3
 
+#define AI_WAIT_AFTER_UNDO 1500
+
 using namespace std;
 
 struct PositionPoint {
@@ -98,6 +100,8 @@ private:
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
 public:
+    bool AIisStandingBy;
+    unsigned long AIStandByStart;
     float turnTimeLeft;
     unsigned long time;
     float timeout;

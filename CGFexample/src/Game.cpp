@@ -196,8 +196,10 @@ Game::Game() {
     player1Type = HUMAN;
     player2Type = MEDIUM;
     
-    timeout = 120;
+    timeout = 10;
     turnStart = 0;
+    
+    AIisStandingBy = false;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -758,6 +760,12 @@ void Game::undoLastMove() {
 	gameStates.pop();
 	MovementHistoryElement lastMove = getLastMove();
 	movementHistory.pop();
+    
+    if (currentPlayerIsAI()) {
+        AIisStandingBy = true;
+        AIStandByStart = time;
+    }
+    
 	if(lastMove.moveType == 0)
 		return;
 
@@ -807,6 +815,10 @@ void Game::update(unsigned long t) {
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
     if (turnTimeLeft <= 0.25) {
         skipTurn();
+    }
+    
+    if (AIisStandingBy && AIStandByStart + AI_WAIT_AFTER_UNDO < time) {
+        AIisStandingBy = false;
     }
 }
 
