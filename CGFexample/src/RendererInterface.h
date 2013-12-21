@@ -15,6 +15,8 @@ private:
     SceneGraph * sceneGraph;
     GLUI_StaticText * winnerText;
     GLUI_Panel* gameOverPanel;
+    GLUI * gameOverWindow;
+    bool gameOverWindowVisible;
 public:
 	GLuint selectBuf[BUFSIZE];
 

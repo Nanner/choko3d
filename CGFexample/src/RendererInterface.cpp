@@ -41,7 +41,7 @@ void RendererInterface::initGUI() {
     
 	GLUI_Panel* playersPanel = addPanel((char*)"Player Types");
     
-    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &((DemoScene*)scene)->getSceneGraph()->getGame()->player1Type, lastID);
+    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &sceneGraph->getGame()->player1Type, lastID);
 	lastID++;
 	player1List->add_item(0, (char*)"Human");
 	player1List->add_item(1, (char*)"Computer Easy");
@@ -49,7 +49,7 @@ void RendererInterface::initGUI() {
     player1List->add_item(3, (char*)"Computer Hard");
     player1List->set_int_val(sceneGraph->getGame()->player1Type);
     
-    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (Red)  ", &((DemoScene*)scene)->getSceneGraph()->getGame()->player2Type, lastID);
+    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (Red)  ", &sceneGraph->getGame()->player2Type, lastID);
 	lastID++;
 	player2List->add_item(0, (char*)"Human");
 	player2List->add_item(1, (char*)"Computer Easy");
@@ -65,14 +65,33 @@ void RendererInterface::initGUI() {
 
 	addColumn();
     
-    gameOverPanel = addPanel((char*)"Game Over");
+    GLUI_Panel * timePanel = addPanel((char*)"Turn Clock");
     
+	//GLUI_Spinner* timeSpinner = addSpinnerToPanel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
+
+    GLUI_Spinner* timeSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
+	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
+    timeSpinner->disable();
+    lastID++;
+    
+    GLUI_Spinner* timePerTurnSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time per turn", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->timeout, lastID);
+	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
+    lastID++;
+
+    //  Create GLUI window
+    gameOverWindow = GLUI_Master.create_glui ("Game Over");
+    
+    gameOverPanel = gameOverWindow->add_panel((char*)"Game Over");
+        
     winnerText = addStaticTextToPanel(gameOverPanel, (char*)"Winner is ...");
     addButtonToPanel(gameOverPanel, (char*)"Restart Game", lastID);
 	gameRestartButtonID = lastID;
 	lastID++;
     addButtonToPanel(gameOverPanel, (char*)"Replay Game");
-    gameOverPanel->hidden = false;
+    gameOverWindow->hide();
+    gameOverWindowVisible = false;
+    
+    
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -90,6 +109,9 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
 	if(ctrl->user_id == gameRestartButtonID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
+        gameOverWindow->hide();
+        gameOverWindowVisible = false;
+        
 	}
 
 	if(ctrl->user_id == undoButtonID) {
@@ -260,14 +282,33 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 
 void RendererInterface::updateGameOver() {
     Game* game = sceneGraph->getGame();
-    if(game->hasGameEnded()) {
+    if(game->hasGameEnded() && !gameOverWindowVisible) {
 		string winner;
         if (game->getWinner() == 1)
             winner = "Winner is Player 1, Blue!";
         else
             winner = "Winner is Player 2, Red!";
         winnerText->set_text(winner.c_str());
-        gameOverPanel->hidden = false;
+        
+        int mainWindowX = glutGet(GLUT_WINDOW_X);
+        int mainWindowY = glutGet(GLUT_WINDOW_Y);
+        int mainWindowWidth = glutGet(GLUT_WINDOW_WIDTH);
+        int mainWindowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+        
+        glutSetWindow(gameOverWindow->get_glut_window_id());
+        
+        int popupWindowWidth = 200;
+        int popupWindowHeight = 100;
+        
+        glutReshapeWindow(popupWindowWidth, popupWindowHeight);
+        
+        int x = mainWindowX + mainWindowWidth / 2 - popupWindowWidth / 2;
+        int y = mainWindowY + mainWindowHeight / 2 - popupWindowHeight / 2;
+        
+        glutPositionWindow(x, y);
+        
+        gameOverWindow->show();
+        gameOverWindowVisible = true;
 	}
 }
 

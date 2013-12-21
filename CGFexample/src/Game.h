@@ -98,6 +98,10 @@ private:
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
 public:
+    float turnTimeLeft;
+    unsigned long time;
+    float timeout;
+    unsigned long turnStart;
 	int player1Type;
 	int player2Type;
 	unsigned int selectedPieceID;
@@ -153,13 +157,16 @@ public:
 	bool hasGameEnded();
 	int getWinner();
     
-    void update();
+    void updateAI();
     int calculateMove(int playerType);
 	void processAIMovedPieces(Move move);
 	BoardPiece* getUnusedPiece(char player);
 
 	MovementHistoryElement getLastMove();
 	void undoLastMove();
+
+    void update(unsigned long t);
+    void skipTurn();
 };
 
 #endif
