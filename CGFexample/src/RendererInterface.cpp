@@ -78,7 +78,7 @@ void RendererInterface::initGUI() {
 	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
     lastID++;
 
-    //  Create GLUI window
+    //  Create GLUI window for game over
     gameOverWindow = GLUI_Master.create_glui ("Game Over");
     
     gameOverPanel = gameOverWindow->add_panel((char*)"Game Over");
@@ -91,7 +91,18 @@ void RendererInterface::initGUI() {
     gameOverWindow->hide();
     gameOverWindowVisible = false;
     
+    //  Create GLUI window for no moves possible
+    mainWindow = glutGetWindow();
+    noMovesWindow = GLUI_Master.create_glui("No possible moves");
     
+    noMovesPanel = noMovesWindow->add_panel((char*)"No possible moves");
+    
+    winnerText = addStaticTextToPanel(noMovesPanel, (char*)"There aren't any possible moves for this player, his turn will be skipped.");
+    addButtonToPanel(noMovesPanel, (char*)"Ok", lastID);
+	turnSkipButtonID = lastID;
+	lastID++;
+    noMovesWindow->hide();
+    noMovesWindowVisible = false;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -117,6 +128,12 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	if(ctrl->user_id == undoButtonID) {
 		sceneGraph->undoLastMove();
 	}
+    
+    if(ctrl->user_id == turnSkipButtonID) {
+        sceneGraph->getGame()->skipTurn();
+        noMovesWindow->hide();
+        noMovesWindowVisible = false;
+    }
 }
 
 void RendererInterface::processMouse(int button, int state, int x, int y) {
@@ -307,9 +324,36 @@ void RendererInterface::updateGameOver() {
         
         glutPositionWindow(x, y);
         
+        glutSetWindow(mainWindow);
+        
         gameOverWindow->show();
         gameOverWindowVisible = true;
 	}
+}
+
+void RendererInterface::updateNoMoves() {
+    Game* game = sceneGraph->getGame();
+    if (!game->movesPossible && !noMovesWindowVisible) {
+        int mainWindowX = glutGet(GLUT_WINDOW_X);
+        int mainWindowY = glutGet(GLUT_WINDOW_Y);
+        int mainWindowWidth = glutGet(GLUT_WINDOW_WIDTH);
+        int mainWindowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+        
+        glutSetWindow(noMovesWindow->get_glut_window_id());
+        
+        int popupWindowWidth = glutGet(GLUT_WINDOW_WIDTH);
+        int popupWindowHeight = glutGet(GLUT_WINDOW_WIDTH);
+        
+        int x = mainWindowX + mainWindowWidth / 2 - popupWindowWidth / 2;
+        int y = mainWindowY + mainWindowHeight / 2 - popupWindowHeight / 2;
+        
+        glutPositionWindow(x, y);
+        
+        glutSetWindow(mainWindow);
+        
+        noMovesWindow->show();
+        noMovesWindowVisible = true;
+    }
 }
 
 

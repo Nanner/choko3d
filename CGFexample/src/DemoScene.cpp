@@ -89,6 +89,9 @@ void DemoScene::update(unsigned long t){
 		rendererInterface->undoButton->enable();
 	}
     
+    if (!game->movesPossible)
+        rendererInterface->updateNoMoves();
+    
     game->update(t);
 }
 

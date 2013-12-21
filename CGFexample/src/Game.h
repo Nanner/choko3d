@@ -100,6 +100,7 @@ private:
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
 public:
+    bool movesPossible;
     bool AIisStandingBy;
     unsigned long AIStandByStart;
     float turnTimeLeft;

@@ -18,6 +18,7 @@ private:
     GLUI * gameOverWindow;
     bool gameOverWindowVisible;
 public:
+    int mainWindow;
 	GLuint selectBuf[BUFSIZE];
 
 	map<int, string> lightMap;
@@ -46,6 +47,11 @@ public:
 	int gameRestartButtonID;
 	int undoButtonID;
 	GLUI_Button* undoButton;
+    
+    GLUI * noMovesWindow;
+    GLUI_Panel * noMovesPanel;
+    int turnSkipButtonID;
+    bool noMovesWindowVisible;
 
 	RendererInterface();
 
@@ -55,6 +61,7 @@ public:
 	void performPicking(int x, int y);
 	void processHits(GLint hits, GLuint buffer[]); 
     void updateGameOver();
+    void updateNoMoves();
 };
 
 #endif

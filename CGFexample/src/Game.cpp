@@ -196,10 +196,11 @@ Game::Game() {
     player1Type = HUMAN;
     player2Type = MEDIUM;
     
-    timeout = 10;
+    timeout = 120;
     turnStart = 0;
     
     AIisStandingBy = false;
+    movesPossible = true;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -670,6 +671,10 @@ void Game::updateAI() {
 
 int Game::calculateMove(int playerType) {
     try {
+        if ( !choko.anyMovePossible(getGameState()) ){
+            movesPossible = false;
+            return 0;
+        }
         GameState newState = choko.calculate(getGameState(), playerTypes[playerType]);
         gameStates.push(newState);
         turnStart = time;

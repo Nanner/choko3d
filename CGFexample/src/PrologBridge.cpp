@@ -160,6 +160,24 @@ PieceMoves PrologBridge::getPieceMoves(GameState gameState, int position) {
     return PieceMoves(moves.at(0), moves.at(1), moves.at(2));
 }
 
+bool PrologBridge::anyMovePossible(GameState gameState) {
+    stringstream ss;
+    ss << "getAllMoves("
+    << gameState.currentPlayer << ','
+    << GameState::toString(gameState.board) << ','
+    << gameState.currentPlayerUnusedPieces << ','
+    << gameState.dropInitiative << ").\n";
+    
+    string reply = con->sendMsg(ss.str());
+    if ( reply.find("invalid.") != std::string::npos )
+        throw InvalidMove();
+    
+    if ( reply.find("[].") != std::string::npos)
+        return false;
+    else
+        return true;
+}
+
 PrologBridge::~PrologBridge() {
 	delete(con);
 }

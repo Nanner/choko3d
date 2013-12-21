@@ -52,6 +52,8 @@ public:
     GameState checkGameOver(GameState gameState);
     
     PieceMoves getPieceMoves(GameState gameState, int position);
+    
+    bool anyMovePossible(GameState gameState);
 };
 
 class InvalidMove {};
