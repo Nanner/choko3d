@@ -6,6 +6,8 @@ RendererInterface::RendererInterface() {}
 void RendererInterface::initGUI() {
 	this->sceneGraph = ((DemoScene*) scene)->getSceneGraph();
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
+    
+    mainWindow = glutGetWindow();
 
 	int lastID = 0;
 	GLUI_Panel* lightsPanel = addPanel( (char*)"Lights", 1);
@@ -94,7 +96,6 @@ void RendererInterface::initGUI() {
     gameOverWindowVisible = false;
     
     //  Create GLUI window for no moves possible
-    mainWindow = glutGetWindow();
     noMovesWindow = GLUI_Master.create_glui("No possible moves");
     
     noMovesPanel = noMovesWindow->add_panel((char*)"No possible moves");
@@ -120,8 +121,6 @@ void RendererInterface::initGUI() {
 	filmOverWindow->hide();
 	filmOverWindowVisible = false;
 	lastID++;
-    
-    updateFilmOver();
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
