@@ -148,6 +148,8 @@ void SceneVertex::applyPieceAnimation() {
 		if(this->getMatrix() != NULL) {
 			float* matrix = this->getMatrix();
 			float oldMatrix[16];
+
+			//This adds the previous position to the position history
 			for(unsigned int i = 0; i < 16; i++) {
 				oldMatrix[i] = matrix[i];
 			}
