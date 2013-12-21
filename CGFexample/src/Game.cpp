@@ -842,6 +842,7 @@ void Game::skipTurn() {
     newState.parsedMove = Move();
     
     gameStates.push(newState);
+	movementHistory.push(MovementHistoryElement(0,0,0,0));
 }
 
 Game::~Game() {
