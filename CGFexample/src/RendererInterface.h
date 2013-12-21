@@ -17,6 +17,11 @@ private:
     GLUI_Panel* gameOverPanel;
     GLUI * gameOverWindow;
     bool gameOverWindowVisible;
+
+	GLUI_StaticText * filmOverText;
+	GLUI_Panel* filmOverPanel;
+	GLUI * filmOverWindow;
+	bool filmOverWindowVisible;
 public:
     int mainWindow;
 	GLuint selectBuf[BUFSIZE];
@@ -44,7 +49,6 @@ public:
 
 	int displayListCheckboxID;
 
-	int gameRestartButtonID;
 	int undoButtonID;
 	GLUI_Button* undoButton;
     
@@ -52,6 +56,12 @@ public:
     GLUI_Panel * noMovesPanel;
     int turnSkipButtonID;
     bool noMovesWindowVisible;
+
+	int gameOverGameRestartButtonID;
+	int gameOverFilmButtonID;
+
+	int filmOverGameRestartButtonID;
+	int filmOverFilmButtonID;
 
 	RendererInterface();
 
@@ -62,6 +72,7 @@ public:
 	void processHits(GLint hits, GLuint buffer[]); 
     void updateGameOver();
     void updateNoMoves();
+	void updateFilmOver();
 };
 
 #endif

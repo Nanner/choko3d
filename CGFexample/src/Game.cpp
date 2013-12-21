@@ -482,6 +482,10 @@ GameState Game::getGameState() {
     return gameStates.top();
 }
 
+stack<GameState> Game::getGameStates() {
+	return gameStates;
+}
+
 void Game::setBoardPieceSquare(unsigned int pieceID, int squareID) {
     BoardPiece * piece = getBoardPiece(pieceID);
     if (piece != NULL) {

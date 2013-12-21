@@ -7,6 +7,8 @@ DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterfa
 void DemoScene::init() 
 {
 	restartGameOnUpdate = false;
+	filmMode = false;
+	filmStarted = false;
 
 	//Configure the different general scene attributes (background, lights, etc)
 	sceneGraph->configureScene();
@@ -72,17 +74,21 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !game->AIisStandingBy) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy) {
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
     
-    if (game->hasGameEnded() && !PieceAnimation::pendingAnimations()) {
+    if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode) {
         rendererInterface->updateGameOver();
     }
 
-	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY) {
+	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded) {
+		rendererInterface->updateFilmOver();
+	}
+
+	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode) {
 		rendererInterface->undoButton->disable();
 	}
 	else if(!rendererInterface->undoButton->enabled) {
@@ -125,6 +131,18 @@ void DemoScene::display()
 	if(restartGameOnUpdate) {
 		restartGameOnUpdate = false;
 		sceneGraph->restartGame();
+	}
+
+	if(filmMode) {
+		if(filmStarted && !PieceAnimation::pendingAnimations() && !filmGameStates.empty()) {
+			sceneGraph->animateAIPlay(filmGameStates.top().parsedMove);
+			sceneGraph->getGame()->processAIMovedPieces(filmGameStates.top().parsedMove);
+			filmGameStates.pop();
+			if(filmGameStates.empty()) {
+				filmStarted = false;
+				filmEnded = true;
+			}
+		}
 	}
 
 	if(!isSelectMode) {
@@ -231,7 +249,26 @@ void DemoScene::recreateSceneGraph() {
 
 void DemoScene::restartGameOnNextUpdate() {
 	restartGameOnUpdate = true;
+	filmMode = false;
 }
+
+void DemoScene::startFilmMode() {
+	stack<GameState> tmp = sceneGraph->getGame()->getGameStates();
+
+	while(!filmGameStates.empty()) {
+		filmGameStates.pop();
+	}
+
+	while(!tmp.empty()) {
+		filmGameStates.push(tmp.top());
+		tmp.pop();
+	}
+	restartGameOnNextUpdate();
+	filmMode = true;
+	filmEnded = false;
+	filmStarted = true;
+}
+
 
 DemoScene::~DemoScene()
 {
