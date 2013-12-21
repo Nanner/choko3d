@@ -811,6 +811,7 @@ void Game::update(unsigned long t) {
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
     if (turnTimeLeft <= 0.25) {
         skipTurn();
+        turnStart = time;
     }
 }
 
