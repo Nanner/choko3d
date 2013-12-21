@@ -482,6 +482,10 @@ GameState Game::getGameState() {
     return gameStates.top();
 }
 
+void Game::addGameState(GameState state) {
+	gameStates.push(state);
+}
+
 stack<GameState> Game::getGameStates() {
 	return gameStates;
 }

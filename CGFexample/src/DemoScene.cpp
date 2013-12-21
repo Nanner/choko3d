@@ -79,14 +79,6 @@ void DemoScene::update(unsigned long t){
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
-    
-    if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode) {
-        rendererInterface->updateGameOver();
-    }
-
-	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded) {
-		rendererInterface->updateFilmOver();
-	}
 
 	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode) {
 		rendererInterface->undoButton->disable();
@@ -99,6 +91,14 @@ void DemoScene::update(unsigned long t){
         rendererInterface->updateNoMoves();
     
     game->update(t);
+
+	if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode) {
+		rendererInterface->updateGameOver();
+	}
+
+	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded) {
+		rendererInterface->updateFilmOver();
+	}
 }
 
 void DemoScene::display() 
@@ -137,6 +137,7 @@ void DemoScene::display()
 		if(filmStarted && !PieceAnimation::pendingAnimations() && !filmGameStates.empty()) {
 			sceneGraph->animateAIPlay(filmGameStates.top().parsedMove);
 			sceneGraph->getGame()->processAIMovedPieces(filmGameStates.top().parsedMove);
+			sceneGraph->getGame()->addGameState(filmGameStates.top());
 			filmGameStates.pop();
 			if(filmGameStates.empty()) {
 				filmStarted = false;

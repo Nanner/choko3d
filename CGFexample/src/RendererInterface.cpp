@@ -89,6 +89,7 @@ void RendererInterface::initGUI() {
 	lastID++;
     addButtonToPanel(gameOverPanel, (char*)"Replay Game", lastID);
 	gameOverFilmButtonID = lastID;
+	lastID++;
     gameOverWindow->hide();
     gameOverWindowVisible = false;
     
