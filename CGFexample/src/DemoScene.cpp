@@ -82,7 +82,7 @@ void DemoScene::update(unsigned long t){
         rendererInterface->updateGameOver();
     }
 
-	if(PieceAnimation::pendingAnimations()) {
+	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY) {
 		rendererInterface->undoButton->disable();
 	}
 	else if(!rendererInterface->undoButton->enabled) {
