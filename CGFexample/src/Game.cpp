@@ -160,8 +160,11 @@ void Game::loadPickingSquaresPositions() {
 Game::Game() {
 	selectState = SELECT_ANY;
     
-    player1Type = HARD;
-    player2Type = HARD;
+    player1Type = HUMAN;
+    player2Type = MEDIUM;
+    
+    timeout = 10;
+    turnStart = 0;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -187,6 +190,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
         try {
             GameState newState = choko.execute(getGameState(), to_string(moveTo));
             gameStates.push(newState);
+            turnStart = time;
 			boardPiece->onBoard = true;
         } catch (InvalidMove &invalid) {
             printf("Invalid move!!\n");
@@ -225,6 +229,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
             }
             GameState newState = choko.execute(getGameState(), move.str());
             gameStates.push(newState);
+            turnStart = time;
         } catch (InvalidMove &invalid) {
             printf("Invalid move!!\n");
         }
@@ -246,6 +251,7 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
         GameState newState = choko.execute(getGameState(), move.str());
         gameStates.push(newState);
+        turnStart = time;
     } catch (InvalidMove &invalid) {
         printf("Invalid move!!\n");
     }
@@ -569,7 +575,7 @@ int Game::getWinner() {
 		return -1;
 }
 
-void Game::update() {
+void Game::updateAI() {
     if (hasGameEnded())
         return;
     
@@ -617,6 +623,7 @@ int Game::calculateMove(int playerType) {
     try {
         GameState newState = choko.calculate(getGameState(), playerTypes[playerType]);
         gameStates.push(newState);
+        turnStart = time;
     } catch (InvalidMove &invalid) {
         printf("AI error!\n");
     }
@@ -682,6 +689,44 @@ BoardPiece* Game::getUnusedPiece(char player) {
 	}
 
 	return NULL;
+}
+
+void Game::update(unsigned long t) {
+    time = t;
+    turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
+    if (turnTimeLeft <= 0.25) {
+        skipTurn();
+    }
+}
+
+void Game::skipTurn() {
+    GameState currentState = getGameState();
+    GameState newState(currentState);
+    
+    newState.currentPlayerUnusedPieces = currentState.enemyPlayerUnusedPieces;
+    newState.enemyPlayerUnusedPieces = currentState.currentPlayerUnusedPieces;
+
+    if (currentState.currentPlayer == 'x') {
+        newState.currentPlayer = 'o';
+        newState.player1UnusedPieces = newState.enemyPlayerUnusedPieces;
+        newState.player2UnusedPieces = newState.currentPlayerUnusedPieces;
+    } else {
+        newState.currentPlayer = 'x';
+        newState.player1UnusedPieces = newState.currentPlayerUnusedPieces;
+        newState.player2UnusedPieces = newState.enemyPlayerUnusedPieces;
+    }
+    
+    if (currentState.dropInitiative == 'x') {
+        newState.dropInitiative = 'o';
+    } else {
+        newState.dropInitiative = 'x';
+    }
+    
+    newState.move = "0";
+    newState.removedPieces.clear();
+    newState.parsedMove = Move();
+    
+    gameStates.push(newState);
 }
 
 Game::~Game() {

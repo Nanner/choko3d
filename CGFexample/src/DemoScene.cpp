@@ -73,7 +73,7 @@ void DemoScene::update(unsigned long t){
    
 	Game* game = sceneGraph->getGame();
 	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded()) {
-		game->update();
+		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
@@ -81,6 +81,8 @@ void DemoScene::update(unsigned long t){
     if (game->hasGameEnded() && !PieceAnimation::pendingAnimations()) {
         rendererInterface->updateGameOver();
     }
+    
+    game->update(t);
 }
 
 void DemoScene::display() 

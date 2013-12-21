@@ -41,7 +41,7 @@ void RendererInterface::initGUI() {
     
 	GLUI_Panel* playersPanel = addPanel((char*)"Player Types");
     
-    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &((DemoScene*)scene)->getSceneGraph()->getGame()->player1Type, lastID);
+    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &sceneGraph->getGame()->player1Type, lastID);
 	lastID++;
 	player1List->add_item(0, (char*)"Human");
 	player1List->add_item(1, (char*)"Computer Easy");
@@ -49,7 +49,7 @@ void RendererInterface::initGUI() {
     player1List->add_item(3, (char*)"Computer Hard");
     player1List->set_int_val(sceneGraph->getGame()->player1Type);
     
-    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (Red)  ", &((DemoScene*)scene)->getSceneGraph()->getGame()->player2Type, lastID);
+    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (Red)  ", &sceneGraph->getGame()->player2Type, lastID);
 	lastID++;
 	player2List->add_item(0, (char*)"Human");
 	player2List->add_item(1, (char*)"Computer Easy");
@@ -59,6 +59,19 @@ void RendererInterface::initGUI() {
     
     addColumn();
     
+    GLUI_Panel * timePanel = addPanel((char*)"Turn Clock");
+    
+	//GLUI_Spinner* timeSpinner = addSpinnerToPanel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
+
+    GLUI_Spinner* timeSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
+	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
+    timeSpinner->disable();
+    lastID++;
+    
+    GLUI_Spinner* timePerTurnSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time per turn", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->timeout, lastID);
+	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
+    lastID++;
+
     //  Create GLUI window
     gameOverWindow = GLUI_Master.create_glui ("Game Over");
     
@@ -71,6 +84,8 @@ void RendererInterface::initGUI() {
     addButtonToPanel(gameOverPanel, (char*)"Replay Game");
     gameOverWindow->hide();
     gameOverWindowVisible = false;
+    
+    
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
