@@ -42,6 +42,7 @@ public:
 	int displayListCheckboxID;
 
 	int gameRestartButtonID;
+	int undoButtonID;
 
 	RendererInterface();
 

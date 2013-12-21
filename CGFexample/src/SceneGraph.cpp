@@ -851,3 +851,26 @@ void SceneGraph::restartPieces() {
 	}
 	PieceAnimation::clearGlobalPieceAnimations();
 }
+
+void SceneGraph::undoPieceMovement(unsigned int pieceID) {
+	string id = game->getPieceIDStr(pieceID);
+
+	//Find the piece to reset
+	for(unsigned int i = 0; i < boardPiecesSet.size(); i++) {
+		if(boardPiecesSet.at(i)->id.compare(id) == 0) {
+			//Create an animation
+			boardPiecesSet.at(i)->undoMovement();
+			break;
+		}
+	}
+}
+
+void SceneGraph::undoLastMove() {
+	MovementHistoryElement lastMove = game->getLastMove();
+	if(lastMove.moveType == 0)
+		return;
+	for(unsigned int i = 0; i < lastMove.modifiedPieces.size(); i++) {
+		undoPieceMovement(lastMove.modifiedPieces.at(i));
+		game->undoLastMove();
+	}
+}

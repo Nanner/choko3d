@@ -24,7 +24,6 @@ class SceneGraph {
     map<string, Appearance *> appearances;
 
 	Game* game;
-
 public:
     map<string, Animation *> animations;
 	stack<int> displayListOrder;
@@ -97,6 +96,9 @@ public:
 
 	void restartPieces();
 	void restartGame();
+
+	void undoPieceMovement(unsigned int pieceID);
+	void undoLastMove();
 };
 
 #endif

@@ -41,7 +41,7 @@ class SceneVertex {
     static unsigned int currentDisplayList;
 
 	queue<PieceAnimation*> pieceAnimations;
-	queue<float*> positionHistory;
+	stack<float*> positionHistory;
 
 protected:
 	float* matrix;
@@ -90,6 +90,7 @@ public:
 
 	void applyPieceAnimation();
 	void restartPiece();
+	void undoMovement();
 };
 
 

@@ -58,8 +58,17 @@ struct PositionPoint {
 	float z;
 };
 
+class MovementHistoryElement {
+public:
+	int moveType;
+	vector<int> modifiedPieces;
+	MovementHistoryElement(int moveType, int movedPiece, int firstCapturedPiece, int secondCapturedPiece);
+};
+
 class BoardPiece {
 public:
+	stack<float*> previousPositions;
+	stack<int> previousSquares;
 	BoardPiece(unsigned int id);
 	unsigned int id;
 	float position[3];
@@ -68,17 +77,9 @@ public:
 	bool toggled;
     unsigned int squareID;
     char player;
-    char getOpponent(){
-        if (this->player == 'x')
-            return 'o';
-        else return 'x';
-    };
-	void resetPiece(){
-		onBoard = false;
-		playable = true;
-		toggled = false;
-		squareID = 0;
-	}
+    char getOpponent();
+	void resetPiece();
+	void undoMovement();
 };
 
 class Game {
@@ -91,10 +92,11 @@ private:
     stack<GameState> gameStates;
 	stack<PositionPoint> p1RestPositions;
 	stack<PositionPoint> p2RestPositions;
+	int firstCapturedPieceID;
     PositionPoint firstAttackingOrigin;
     PositionPoint firstAttackingDestination;
     static string playerTypes[4];
-
+	stack<MovementHistoryElement> movementHistory;
 public:
 	int player1Type;
 	int player2Type;
@@ -124,7 +126,7 @@ public:
 	BoardPiece * getBoardPiece(unsigned int pieceID);
 	PositionPoint getBoardPiecePosition(unsigned int pieceID);
 	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
-	void setBoardPieceSquare(unsigned int pieceID, unsigned int squareID);
+	void setBoardPieceSquare(unsigned int pieceID, int squareID);
 	int getPieceOnSquare(int squareID);
 	bool isOwnPiece(int pieceID);
 	int getPiecesOnBoard(char player);
@@ -155,6 +157,9 @@ public:
     int calculateMove(int playerType);
 	void processAIMovedPieces(Move move);
 	BoardPiece* getUnusedPiece(char player);
+
+	MovementHistoryElement getLastMove();
+	void undoLastMove();
 };
 
 #endif

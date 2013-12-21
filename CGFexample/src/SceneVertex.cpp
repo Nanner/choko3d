@@ -146,17 +146,20 @@ void SceneVertex::applyPieceAnimation() {
 		glLoadIdentity();
 		glMultMatrixf(animation->getMatrix());
 		if(this->getMatrix() != NULL) {
-			float* matrix = this->getMatrix();
-			float oldMatrix[16];
+			float* currentMatrix = this->getMatrix();
+			float* oldMatrix = new float[16];
 
 			//This adds the previous position to the position history
 			for(unsigned int i = 0; i < 16; i++) {
-				oldMatrix[i] = matrix[i];
+				oldMatrix[i] = currentMatrix[i];
 			}
-
 			positionHistory.push(oldMatrix);
-			glMultMatrixf(matrix);
+
+			glMultMatrixf(currentMatrix);
 		}
+		else
+			positionHistory.push(NULL);
+
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->matrix);
 		glPopMatrix();
 		pieceAnimations.pop();
@@ -195,4 +198,19 @@ SceneComposite::SceneComposite(float* matrix, string id) {
 	}
 
 	this->id = id;
+}
+
+void SceneVertex::undoMovement() {
+	if(positionHistory.empty())
+		return;
+
+	float* oldMatrix = positionHistory.top();
+	if(oldMatrix != NULL) {
+		for(unsigned int i = 0; i < 16; i++)
+			this->matrix[i] = oldMatrix[i];
+	}
+	else
+		this->matrix = NULL;
+
+	positionHistory.pop();
 }

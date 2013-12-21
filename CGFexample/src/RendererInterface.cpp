@@ -58,6 +58,12 @@ void RendererInterface::initGUI() {
     player2List->set_int_val(sceneGraph->getGame()->player2Type);
     
     addColumn();
+
+	addButton((char*)"Undo move", lastID);
+	undoButtonID = lastID;
+	lastID++;
+
+	addColumn();
     
     gameOverPanel = addPanel((char*)"Game Over");
     
@@ -84,6 +90,10 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
 	if(ctrl->user_id == gameRestartButtonID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
+	}
+
+	if(ctrl->user_id == undoButtonID) {
+		sceneGraph->undoLastMove();
 	}
 }
 

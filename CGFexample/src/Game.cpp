@@ -1,6 +1,45 @@
 #include "Game.h"
 
+MovementHistoryElement::MovementHistoryElement(int moveType, int movedPiece, int firstCapturedPiece, int secondCapturedPiece) {
+	this->moveType = moveType;
+	
+	if(movedPiece != 0)
+		modifiedPieces.push_back(movedPiece);
+
+	if(firstCapturedPiece != 0)
+		modifiedPieces.push_back(firstCapturedPiece);
+
+	if(secondCapturedPiece != 0)
+		modifiedPieces.push_back(secondCapturedPiece);
+}
+
 BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true), toggled(false), squareID(0) {}
+
+void BoardPiece::resetPiece() {
+	onBoard = false;
+	playable = true;
+	toggled = false;
+	squareID = 0;
+}
+
+char BoardPiece::getOpponent() {
+	if (this->player == 'x')
+		return 'o';
+	else return 'x';
+}
+
+void BoardPiece::undoMovement() {
+	float* previousPosition = previousPositions.top();
+	previousPositions.pop();
+
+	position[0] = previousPosition[0];
+	position[1] = previousPosition[1];
+	position[2] = previousPosition[2];
+	delete previousPosition;
+
+	squareID = previousSquares.top();
+	previousSquares.pop();
+}
 
 string Game::playerTypes[] = {"human", "easy", "medium", "hard"};
 
@@ -188,6 +227,8 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
             GameState newState = choko.execute(getGameState(), to_string(moveTo));
             gameStates.push(newState);
 			boardPiece->onBoard = true;
+			MovementHistoryElement lastMove(DROP, boardPiece->id, 0, 0);
+			movementHistory.push(lastMove);
         } catch (InvalidMove &invalid) {
             printf("Invalid move!!\n");
         }
@@ -202,6 +243,9 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                 if (available.moves.at(i) == moveTo) {
                     move << '-' << moveTo;
                     isAttack = false;
+
+					MovementHistoryElement lastMove(MOVE, boardPiece->id, 0, 0);
+					movementHistory.push(lastMove);
                     break;
                 }
             }
@@ -215,11 +259,14 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                             setSelectState(SELECT_SECOND_ENEMY);
 							firstAttackingOrigin = getBoardPiecePosition(pieceID);
                             firstAttackingDestination = destination;
+							firstCapturedPieceID = getPieceOnSquare(targetToRemove);
 							setBoardPiecePosition(pieceID, destination);
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
                         move << '0';
+						MovementHistoryElement lastMove(ATTACK, boardPiece->id, getPieceOnSquare(targetToRemove), 0);
+						movementHistory.push(lastMove);
                     }
                 }
             }
@@ -246,6 +293,8 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
         GameState newState = choko.execute(getGameState(), move.str());
         gameStates.push(newState);
+		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingOrigin), firstCapturedPieceID, secondEnemyPieceID);
+		movementHistory.push(lastMove);
     } catch (InvalidMove &invalid) {
         printf("Invalid move!!\n");
     }
@@ -256,10 +305,6 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
 void Game::addPiece(BoardPiece* piece) {
 	boardPieces.insert(pair<unsigned int, BoardPiece*>(piece->id, piece));
 }
-
-/*void Game::addPickingSquare(PickingSquare* square) {
- pickingSquares.insert(pair<unsigned int, PickingSquare*>(square->id, square));
- }*/
 
 int Game::getPieceID(string idStr) {
 	/* Attention: Pieces range from 26 to 49 */
@@ -413,6 +458,12 @@ void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
     BoardPiece * piece = NULL;
 	if(it != boardPieces.end()) {
         piece = it->second;
+		float* previousPosition = new float[3];
+		previousPosition[0] = piece->position[0];
+		previousPosition[1] = piece->position[1];
+		previousPosition[2] = piece->position[2];
+		piece->previousPositions.push(previousPosition);
+		
 		piece->position[0] = position.x;
 		piece->position[1] = position.y;
 		piece->position[2] = position.z;
@@ -420,19 +471,21 @@ void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
     
     if (piece == NULL) return;
     
-    int squareID = getPickingSquareID(position);
-    if (squareID != -1)
-        setBoardPieceSquare(pieceID, squareID);
+	int squareID = getPickingSquareID(position);
+    setBoardPieceSquare(pieceID, squareID);
 }
 
 GameState Game::getGameState() {
     return gameStates.top();
 }
 
-void Game::setBoardPieceSquare(unsigned int pieceID, unsigned int squareID) {
+void Game::setBoardPieceSquare(unsigned int pieceID, int squareID) {
     BoardPiece * piece = getBoardPiece(pieceID);
-    if (piece != NULL)
-        piece->squareID = squareID;
+    if (piece != NULL) {
+		piece->previousSquares.push(piece->squareID);
+		if(squareID != -1)
+			piece->squareID = squareID;
+	}
 }
 
 char Game::getCurrentPlayer() {
@@ -629,6 +682,9 @@ void Game::processAIMovedPieces(Move move) {
 		PositionPoint destination = getPickingSquarePosition(move.toSquare);
 		setBoardPiecePosition(piece->id, destination);
 		piece->onBoard = true;
+
+		MovementHistoryElement lastMove(DROP, piece->id, 0, 0);
+		movementHistory.push(lastMove);
 		return;
 	}
 
@@ -636,6 +692,9 @@ void Game::processAIMovedPieces(Move move) {
 		int pieceID = getPieceOnSquare(move.fromSquare);
 		PositionPoint destination = getPickingSquarePosition(move.toSquare);
 		setBoardPiecePosition(pieceID, destination);
+
+		MovementHistoryElement lastMove(MOVE, pieceID, 0, 0);
+		movementHistory.push(lastMove);
 		return;
 	}
 
@@ -644,12 +703,16 @@ void Game::processAIMovedPieces(Move move) {
 		int firstCapturedSquare = move.firstAttackSquare;
 		int secondCapturedSquare = move.secondAttackSquare;
 
-		BoardPiece* attackerPiece = getBoardPiece( getPieceOnSquare(attackerSquare) );
+		int attackerPieceID = getPieceOnSquare(attackerSquare);
+		int firstCapturedID = getPieceOnSquare(firstCapturedSquare);
+		int secondCapturedID = 0;
+
+		BoardPiece* attackerPiece = getBoardPiece(attackerPieceID);
 
 		PositionPoint attackerPieceDestination = getPickingSquarePosition(move.toSquare);
 		setBoardPiecePosition(attackerPiece->id, attackerPieceDestination);
 
-		BoardPiece* firstCapturedPiece = getBoardPiece( getPieceOnSquare(firstCapturedSquare) );
+		BoardPiece* firstCapturedPiece = getBoardPiece(firstCapturedID);
 
 		PositionPoint firstCapturedPieceDestination = getPieceRestPosition(firstCapturedPiece);
 
@@ -660,7 +723,8 @@ void Game::processAIMovedPieces(Move move) {
 
 		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
 		if(secondCapturedSquare != 0) {
-			BoardPiece* secondCapturedPiece = getBoardPiece( getPieceOnSquare(secondCapturedSquare) );
+			secondCapturedID = getPieceOnSquare(secondCapturedSquare);
+			BoardPiece* secondCapturedPiece = getBoardPiece(secondCapturedID);
 			
 			PositionPoint secondCapturedPieceDestination = getPieceRestPosition(secondCapturedPiece);
 			popPieceRestPosition(secondCapturedPiece);
@@ -668,6 +732,9 @@ void Game::processAIMovedPieces(Move move) {
 			secondCapturedPiece->onBoard = false;
 			secondCapturedPiece->playable = false;
 		}
+
+		MovementHistoryElement lastMove(ATTACK, attackerPieceID, firstCapturedID, secondCapturedID);
+		movementHistory.push(lastMove);
 
 		return;
 	}
@@ -682,6 +749,54 @@ BoardPiece* Game::getUnusedPiece(char player) {
 	}
 
 	return NULL;
+}
+
+void Game::undoLastMove() {
+	gameStates.pop();
+	MovementHistoryElement lastMove = getLastMove();
+	if(lastMove.moveType == 0)
+		return;
+	movementHistory.pop();
+
+	if(lastMove.moveType == DROP) {
+		BoardPiece* piece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		piece->onBoard = false;
+		piece->undoMovement();
+		return;
+	}
+
+	if(lastMove.moveType == MOVE) {
+		BoardPiece* piece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		piece->undoMovement();
+		return;
+	}
+
+	if(lastMove.moveType == ATTACK) {
+		BoardPiece* attackerPiece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		attackerPiece->undoMovement();
+
+		BoardPiece* firstCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(1));
+		firstCapturedPiece->undoMovement();
+		firstCapturedPiece->onBoard = true;
+		firstCapturedPiece->playable = true;
+		//Restore rest position
+		
+		if(lastMove.modifiedPieces.at(2) != 0) {
+			BoardPiece* secondCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(1));
+			secondCapturedPiece->undoMovement();
+			secondCapturedPiece->onBoard = true;
+			secondCapturedPiece->playable = true;
+			//Restore rest position
+		}
+	}
+}
+
+MovementHistoryElement Game::getLastMove() {
+	if(movementHistory.empty())
+		return MovementHistoryElement(0,0,0,0);
+
+	MovementHistoryElement lastMove = movementHistory.top();
+	return lastMove;
 }
 
 Game::~Game() {
