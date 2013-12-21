@@ -74,7 +74,7 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy) {
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
