@@ -787,18 +787,33 @@ void Game::undoLastMove() {
 		attackerPiece->undoMovement();
 
 		BoardPiece* firstCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(1));
+
+		//Restore rest position
+		PositionPoint restPosition = getBoardPiecePosition(firstCapturedPiece->id);
+
 		firstCapturedPiece->undoMovement();
 		firstCapturedPiece->onBoard = true;
 		firstCapturedPiece->playable = true;
-		//Restore rest position
 		
 		if(lastMove.modifiedPieces.at(2) != 0) {
 			BoardPiece* secondCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(2));
+
+			//Restore rest position
+			PositionPoint restPosition = getBoardPiecePosition(secondCapturedPiece->id);
+			if(secondCapturedPiece->player == 'x')
+				p1RestPositions.push(restPosition);
+			else
+				p2RestPositions.push(restPosition);
+
 			secondCapturedPiece->undoMovement();
 			secondCapturedPiece->onBoard = true;
 			secondCapturedPiece->playable = true;
-			//Restore rest position
 		}
+
+		if(firstCapturedPiece->player == 'x')
+			p1RestPositions.push(restPosition);
+		else
+			p2RestPositions.push(restPosition);
 	}
 }
 
