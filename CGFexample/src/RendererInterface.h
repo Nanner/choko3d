@@ -17,6 +17,11 @@ private:
     GLUI_Panel* gameOverPanel;
     GLUI * gameOverWindow;
     bool gameOverWindowVisible;
+
+	GLUI_StaticText * filmOverText;
+	GLUI_Panel* filmOverPanel;
+	GLUI * filmOverWindow;
+	bool filmOverWindowVisible;
 public:
 	GLuint selectBuf[BUFSIZE];
 
@@ -43,9 +48,14 @@ public:
 
 	int displayListCheckboxID;
 
-	int gameRestartButtonID;
 	int undoButtonID;
 	GLUI_Button* undoButton;
+
+	int gameOverGameRestartButtonID;
+	int gameOverFilmButtonID;
+
+	int filmOverGameRestartButtonID;
+	int filmOverFilmButtonID;
 
 	RendererInterface();
 
@@ -55,6 +65,7 @@ public:
 	void performPicking(int x, int y);
 	void processHits(GLint hits, GLuint buffer[]); 
     void updateGameOver();
+	void updateFilmOver();
 };
 
 #endif

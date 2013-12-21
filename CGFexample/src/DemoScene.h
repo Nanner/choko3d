@@ -22,6 +22,10 @@ public:
 	int activeCameraNum;
 	int activeDrawMode;
 	bool isSelectMode;
+	bool filmMode;
+	bool filmStarted;
+	bool filmEnded;
+	stack<GameState> filmGameStates;
 
 	void init();
 	void initCameras();
@@ -34,6 +38,8 @@ public:
 	void recreateSceneGraph();
     void drawHUD();
 	void restartGameOnNextUpdate();
+
+	void startFilmMode();
 	~DemoScene();
 private:
 	bool restartGameOnUpdate;

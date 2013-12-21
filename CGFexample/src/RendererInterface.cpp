@@ -85,13 +85,28 @@ void RendererInterface::initGUI() {
         
     winnerText = addStaticTextToPanel(gameOverPanel, (char*)"Winner is ...");
     addButtonToPanel(gameOverPanel, (char*)"Restart Game", lastID);
-	gameRestartButtonID = lastID;
+	gameOverGameRestartButtonID = lastID;
 	lastID++;
-    addButtonToPanel(gameOverPanel, (char*)"Replay Game");
+    addButtonToPanel(gameOverPanel, (char*)"Replay Game", lastID);
+	gameOverFilmButtonID = lastID;
     gameOverWindow->hide();
     gameOverWindowVisible = false;
-    
-    
+	lastID++;
+
+	//  Create GLUI window
+	filmOverWindow = GLUI_Master.create_glui ("Film Ended");
+
+	filmOverPanel = filmOverWindow->add_panel((char*)"Film Ended");
+
+	filmOverText = addStaticTextToPanel(filmOverPanel, (char*)"Film is over!");
+	addButtonToPanel(filmOverPanel, (char*)"Restart Game", lastID);
+	filmOverGameRestartButtonID = lastID;
+	lastID++;
+	addButtonToPanel(filmOverPanel, (char*)"Replay Game", lastID);
+	filmOverFilmButtonID = lastID;
+	filmOverWindow->hide();
+	filmOverWindowVisible = false;
+	lastID++;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -107,11 +122,29 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 		return;
 	}
 
-	if(ctrl->user_id == gameRestartButtonID) {
+	if(ctrl->user_id == gameOverGameRestartButtonID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
         gameOverWindow->hide();
         gameOverWindowVisible = false;
-        
+	}
+
+	if(ctrl->user_id == gameOverFilmButtonID) {
+		((DemoScene*) scene)->startFilmMode();
+		
+		gameOverWindow->hide();
+		gameOverWindowVisible = false;
+	}
+
+	if(ctrl->user_id == filmOverGameRestartButtonID) {
+		((DemoScene*) scene)->restartGameOnNextUpdate();
+		filmOverWindow->hide();
+		filmOverWindowVisible = false;
+	}
+
+	if(ctrl->user_id == filmOverFilmButtonID) {
+		((DemoScene*) scene)->startFilmMode();
+		filmOverWindow->hide();
+		filmOverWindowVisible = false;
 	}
 
 	if(ctrl->user_id == undoButtonID) {
@@ -309,6 +342,30 @@ void RendererInterface::updateGameOver() {
         
         gameOverWindow->show();
         gameOverWindowVisible = true;
+	}
+}
+
+void RendererInterface::updateFilmOver() {
+	if(((DemoScene*) scene)->filmMode && ((DemoScene*) scene)->filmEnded && !gameOverWindowVisible) {
+		int mainWindowX = glutGet(GLUT_WINDOW_X);
+		int mainWindowY = glutGet(GLUT_WINDOW_Y);
+		int mainWindowWidth = glutGet(GLUT_WINDOW_WIDTH);
+		int mainWindowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
+		glutSetWindow(filmOverWindow->get_glut_window_id());
+
+		int popupWindowWidth = 200;
+		int popupWindowHeight = 100;
+
+		glutReshapeWindow(popupWindowWidth, popupWindowHeight);
+
+		int x = mainWindowX + mainWindowWidth / 2 - popupWindowWidth / 2;
+		int y = mainWindowY + mainWindowHeight / 2 - popupWindowHeight / 2;
+
+		glutPositionWindow(x, y);
+
+		filmOverWindow->show();
+		filmOverWindowVisible = true;
 	}
 }
 

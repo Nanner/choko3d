@@ -110,6 +110,7 @@ public:
 	~Game();
 	void restartGame();
 	GameState getGameState();
+	stack<GameState> getGameStates();
 	int executeMove(int pieceID, PositionPoint destination);
 	int executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID);
 	bool canMoveTo(unsigned int squareID);
