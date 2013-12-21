@@ -122,7 +122,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 void RendererInterface::processMouse(int button, int state, int x, int y) {
 	CGFinterface::processMouse(button,state, x, y);
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI()) {
+	if(game->currentPlayerIsAI() || PieceAnimation::pendingAnimations()) {
 		return;
 	}
 	// do picking on mouse press (GLUT_DOWN)
