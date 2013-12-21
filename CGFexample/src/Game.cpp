@@ -813,7 +813,6 @@ void Game::update(unsigned long t) {
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
     if (turnTimeLeft <= 0.25) {
         skipTurn();
-        turnStart = time;
     }
 }
 
@@ -846,6 +845,7 @@ void Game::skipTurn() {
     
     gameStates.push(newState);
 	movementHistory.push(MovementHistoryElement(0,0,0,0));
+    turnStart = time;
 }
 
 Game::~Game() {

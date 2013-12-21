@@ -867,10 +867,11 @@ void SceneGraph::undoPieceMovement(unsigned int pieceID) {
 
 void SceneGraph::undoLastMove() {
 	MovementHistoryElement lastMove = game->getLastMove();
+    game->undoLastMove();
+    game->turnStart = game->time;
 	if(lastMove.moveType == 0)
 		return;
-	for(unsigned int i = 0; i < lastMove.modifiedPieces.size(); i++) {
+    for(unsigned int i = 0; i < lastMove.modifiedPieces.size(); i++) {
 		undoPieceMovement(lastMove.modifiedPieces.at(i));
-		game->undoLastMove();
 	}
 }
