@@ -201,6 +201,7 @@ Game::Game() {
     
     AIisStandingBy = false;
     movesPossible = true;
+    calculatedMovesForPlayerTurn = false;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -220,6 +221,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     int moveFrom = boardPiece->squareID;
     int moveTo = getPickingSquareID(destination);
     int targetToRemove = 0;
+    calculatedMovesForPlayerTurn = false;
     
     if (moveFrom == 0) {
         // This is a drop
@@ -844,6 +846,13 @@ void Game::update(unsigned long t) {
     if (AIisStandingBy && AIStandByStart + AI_WAIT_AFTER_UNDO < time) {
         AIisStandingBy = false;
     }
+    
+    if (!calculatedMovesForPlayerTurn && !currentPlayerIsAI()) {
+        if ( !choko.anyMovePossible(getGameState()) ) {
+            movesPossible = false;
+        }
+        calculatedMovesForPlayerTurn = true;
+    }
 }
 
 void Game::skipTurn() {
@@ -876,6 +885,7 @@ void Game::skipTurn() {
     gameStates.push(newState);
 	movementHistory.push(MovementHistoryElement(0,0,0,0));
     turnStart = time;
+    movesPossible = true;
 }
 
 Game::~Game() {
