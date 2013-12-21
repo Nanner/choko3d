@@ -2,15 +2,9 @@
 
 MovementHistoryElement::MovementHistoryElement(int moveType, int movedPiece, int firstCapturedPiece, int secondCapturedPiece) {
 	this->moveType = moveType;
-	
-	if(movedPiece != 0)
-		modifiedPieces.push_back(movedPiece);
-
-	if(firstCapturedPiece != 0)
-		modifiedPieces.push_back(firstCapturedPiece);
-
-	if(secondCapturedPiece != 0)
-		modifiedPieces.push_back(secondCapturedPiece);
+	modifiedPieces.push_back(movedPiece);
+    modifiedPieces.push_back(firstCapturedPiece);
+    modifiedPieces.push_back(secondCapturedPiece);
 }
 
 BoardPiece::BoardPiece(unsigned int id): id(id), onBoard(false), playable(true), toggled(false), squareID(0) {}
@@ -202,7 +196,7 @@ Game::Game() {
     player1Type = HUMAN;
     player2Type = MEDIUM;
     
-    timeout = 10;
+    timeout = 120;
     turnStart = 0;
     
     try {
@@ -298,7 +292,7 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
         GameState newState = choko.execute(getGameState(), move.str());
         gameStates.push(newState);
-		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingOrigin), firstCapturedPieceID, secondEnemyPieceID);
+		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingDestination), firstCapturedPieceID, secondEnemyPieceID);
 		movementHistory.push(lastMove);
         turnStart = time;
     } catch (InvalidMove &invalid) {
@@ -791,7 +785,7 @@ void Game::undoLastMove() {
 		//Restore rest position
 		
 		if(lastMove.modifiedPieces.at(2) != 0) {
-			BoardPiece* secondCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(1));
+			BoardPiece* secondCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(2));
 			secondCapturedPiece->undoMovement();
 			secondCapturedPiece->onBoard = true;
 			secondCapturedPiece->playable = true;

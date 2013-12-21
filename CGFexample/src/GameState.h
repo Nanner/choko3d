@@ -6,6 +6,7 @@
 #include <sstream>
 #include <stdlib.h>
 
+#define SKIP 0
 #define DROP 1
 #define MOVE 2
 #define ATTACK 3
