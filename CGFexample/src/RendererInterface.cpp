@@ -59,14 +59,18 @@ void RendererInterface::initGUI() {
     
     addColumn();
     
-    gameOverPanel = addPanel((char*)"Game Over");
+    //  Create GLUI window
+    gameOverWindow = GLUI_Master.create_glui ("Game Over");
     
+    gameOverPanel = gameOverWindow->add_panel((char*)"Game Over");
+        
     winnerText = addStaticTextToPanel(gameOverPanel, (char*)"Winner is ...");
     addButtonToPanel(gameOverPanel, (char*)"Restart Game", lastID);
 	gameRestartButtonID = lastID;
 	lastID++;
     addButtonToPanel(gameOverPanel, (char*)"Replay Game");
-    gameOverPanel->hidden = false;
+    gameOverWindow->hide();
+    gameOverWindowVisible = false;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -84,6 +88,9 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 
 	if(ctrl->user_id == gameRestartButtonID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
+        gameOverWindow->hide();
+        gameOverWindowVisible = false;
+        
 	}
 }
 
@@ -250,14 +257,33 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 
 void RendererInterface::updateGameOver() {
     Game* game = sceneGraph->getGame();
-    if(game->hasGameEnded()) {
+    if(game->hasGameEnded() && !gameOverWindowVisible) {
 		string winner;
         if (game->getWinner() == 1)
             winner = "Winner is Player 1, Blue!";
         else
             winner = "Winner is Player 2, Red!";
         winnerText->set_text(winner.c_str());
-        gameOverPanel->hidden = false;
+        
+        int mainWindowX = glutGet(GLUT_WINDOW_X);
+        int mainWindowY = glutGet(GLUT_WINDOW_Y);
+        int mainWindowWidth = glutGet(GLUT_WINDOW_WIDTH);
+        int mainWindowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+        
+        glutSetWindow(gameOverWindow->get_glut_window_id());
+        
+        int popupWindowWidth = 200;
+        int popupWindowHeight = 100;
+        
+        glutReshapeWindow(popupWindowWidth, popupWindowHeight);
+        
+        int x = mainWindowX + mainWindowWidth / 2 - popupWindowWidth / 2;
+        int y = mainWindowY + mainWindowHeight / 2 - popupWindowHeight / 2;
+        
+        glutPositionWindow(x, y);
+        
+        gameOverWindow->show();
+        gameOverWindowVisible = true;
 	}
 }
 
