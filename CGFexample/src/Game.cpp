@@ -759,11 +759,13 @@ BoardPiece* Game::getUnusedPiece(char player) {
 }
 
 void Game::undoLastMove() {
+	if(gameStates.size() == 1)
+		return;
 	gameStates.pop();
 	MovementHistoryElement lastMove = getLastMove();
+	movementHistory.pop();
 	if(lastMove.moveType == 0)
 		return;
-	movementHistory.pop();
 
 	if(lastMove.moveType == DROP) {
 		BoardPiece* piece = getBoardPiece(lastMove.modifiedPieces.at(0));
