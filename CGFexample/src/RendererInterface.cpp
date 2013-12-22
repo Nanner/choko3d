@@ -26,8 +26,6 @@ void RendererInterface::initGUI() {
 
 	lightsPanel->align();
 
-	addColumn();
-
 	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
 	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);
 	lastID++;
@@ -40,6 +38,8 @@ void RendererInterface::initGUI() {
 		drawmodeList->set_int_val(1);
 	else if(rootVertex->globals.drawmode == "point")
 		drawmodeList->set_int_val(2);
+    
+    addColumn();
     
     GLUI_Panel* gameInfoPanel = addPanel((char*)"Game Information");
 	GLUI_Listbox* currentPlayer = addListboxToPanel(gameInfoPanel, (char*)"Current Player: ", &sceneGraph->getGame()->currentPlayer, lastID);
@@ -80,11 +80,11 @@ void RendererInterface::initGUI() {
     player2List->add_item(3, (char*)"Computer Hard");
     player2List->set_int_val(sceneGraph->getGame()->player2Type);
     
-    addColumn();
-
-	undoButton = addButton((char*)"Undo move", lastID);
+    undoButton = addButton((char*)"Undo move", lastID);
 	undoButtonID = lastID;
 	lastID++;
+    
+    addColumn();
     
     GLUI_Panel * scorePanel = addPanel((char*)"Scores");
     GLUI_Spinner* player1ScoreSpinner = this->glui_window->add_spinner_to_panel(scorePanel, (char*)"Player 1 ", GLUI_SPINNER_INT, &sceneGraph->getGame()->player1Score, lastID);
@@ -94,8 +94,6 @@ void RendererInterface::initGUI() {
     GLUI_Spinner* player2ScoreSpinner = this->glui_window->add_spinner_to_panel(scorePanel, (char*)"Player 2 ", GLUI_SPINNER_INT, &sceneGraph->getGame()->player2Score, lastID);
     player2ScoreSpinner->disable();
     lastID++;
-
-	addColumn();
     
     GLUI_Panel * timePanel = addPanel((char*)"Turn Clock");
     
