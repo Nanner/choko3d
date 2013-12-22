@@ -135,7 +135,13 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy && !cameraController.isChangingFocus) {
+	if(game->currentPlayerIsAI()
+       && !PieceAnimation::pendingAnimations()
+       && !game->hasGameEnded()
+       && !filmMode
+       && !game->AIisStandingBy
+       && !cameraController.isChangingFocus
+       && game->movesPossible) {
 		cameraController.changePlayerFocus();
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
@@ -149,16 +155,26 @@ void DemoScene::update(unsigned long t){
 		rendererInterface->undoButton->enable();
 	}
     
-    if (!game->movesPossible && !PieceAnimation::pendingAnimations() && !cameraController.isChangingFocus)
+    if (!game->movesPossible
+        && !PieceAnimation::pendingAnimations()
+        && !cameraController.isChangingFocus)
         rendererInterface->updateNoMoves();
     
     game->update(t);
 
-	if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode && !cameraController.isChangingFocus) {
+	if (game->hasGameEnded()
+        && !PieceAnimation::pendingAnimations()
+        && !filmMode
+        && !cameraController.isChangingFocus
+        && !restartGameOnUpdate) {
 		rendererInterface->updateGameOver();
 	}
 
-	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded && !cameraController.isChangingFocus) {
+	if (!PieceAnimation::pendingAnimations()
+        && filmMode
+        && filmEnded
+        && !cameraController.isChangingFocus
+        && !restartGameOnUpdate) {
 		rendererInterface->updateFilmOver();
 	}
 }

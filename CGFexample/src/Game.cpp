@@ -56,9 +56,6 @@ void Game::restartGame() {
 
 	selectState = SELECT_ANY;
 
-	player1Type = HARD;
-	player2Type = HARD;
-
 	try {
 		GameState gameState = choko.initializeGame();
 		gameStates.push(gameState);

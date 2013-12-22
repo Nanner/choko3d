@@ -100,7 +100,7 @@ void RendererInterface::initGUI() {
     
     noMovesPanel = noMovesWindow->add_panel((char*)"No possible moves");
     
-    winnerText = addStaticTextToPanel(noMovesPanel, (char*)"There aren't any possible moves for this player, his turn will be skipped.");
+    addStaticTextToPanel(noMovesPanel, (char*)"There aren't any possible moves for this player, his turn will be skipped.");
     addButtonToPanel(noMovesPanel, (char*)"Ok", lastID);
 	turnSkipButtonID = lastID;
 	lastID++;
