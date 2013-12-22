@@ -20,7 +20,7 @@
 #include <map>
 #include <queue>
 
-#define MOVE_DURATION 0.1
+#define MOVE_DURATION 1.0
 
 using namespace std;
 

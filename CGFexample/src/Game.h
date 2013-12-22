@@ -8,6 +8,7 @@
 #include <vector>
 #include <stack>
 
+#include "PieceAnimation.h"
 #include "PrologBridge.h"
 
 #define NUMBER_OF_PLAYER_PIECES 12
@@ -111,6 +112,11 @@ public:
 	int player1Type;
 	int player2Type;
 	unsigned int selectedPieceID;
+    
+    int player1Score;
+    int player2Score;
+    int currentPlayer;
+    int currentDropInitiative;
 
 	Game();
 	~Game();
@@ -175,6 +181,9 @@ public:
 
     void update(unsigned long t);
     void skipTurn();
+    void updateScore(int points);
+    void updateCurrentPlayer();
+    void updateCurrentDropInitiative();
 };
 
 #endif

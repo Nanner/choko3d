@@ -244,7 +244,7 @@ void DemoScene::display()
 		glPopMatrix();
 	}
     
-    drawHUD();
+    //drawHUD();
     
 	// ---- END feature demos
 

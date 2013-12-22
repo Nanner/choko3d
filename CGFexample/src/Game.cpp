@@ -55,6 +55,9 @@ void Game::restartGame() {
 		gameStates.pop();
 
 	selectState = SELECT_ANY;
+    
+    player1Score = 0;
+    player2Score = 0;
 
 	try {
 		GameState gameState = choko.initializeGame();
@@ -196,6 +199,12 @@ Game::Game() {
     timeout = 120;
     turnStart = 0;
     
+    player1Score = 0;
+    player2Score = 0;
+    
+    currentPlayer = 0;
+    currentDropInitiative = 0;
+    
     AIisStandingBy = false;
     movesPossible = true;
     calculatedMovesForPlayerTurn = false;
@@ -261,10 +270,12 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                             firstAttackingDestination = destination;
 							firstCapturedPieceID = getPieceOnSquare(targetToRemove);
 							setBoardPiecePosition(pieceID, destination);
+                            updateScore(2); // conquered 2 pieces
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
                         move << '0';
+                        updateScore(1); // conquered 1 piece
 						MovementHistoryElement lastMove(ATTACK, boardPiece->id, getPieceOnSquare(targetToRemove), 0);
 						movementHistory.push(lastMove);
                     }
@@ -280,6 +291,30 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     }
 	setBoardPiecePosition(pieceID, destination);
     return targetToRemove;
+}
+
+void Game::updateScore(int points) {
+    if (getGameState().currentPlayer == 'x') {
+        player1Score += points;
+    } else {
+        player2Score += points;
+    }
+}
+
+void Game::updateCurrentPlayer() {
+    if (getGameState().currentPlayer == 'x') {
+        currentPlayer = 0;
+    } else {
+        currentPlayer = 1;
+    }
+}
+
+void Game::updateCurrentDropInitiative() {
+    if (getGameState().dropInitiative == 'x') {
+        currentDropInitiative = 0;
+    } else {
+        currentDropInitiative = 1;
+    }
 }
 
 int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID) {
@@ -682,9 +717,18 @@ int Game::calculateMove(int playerType) {
             movesPossible = false;
             return 0;
         }
+        updateCurrentPlayer();
+        updateCurrentDropInitiative();
         GameState newState = choko.calculate(getGameState(), playerTypes[playerType]);
         gameStates.push(newState);
         turnStart = time;
+        
+        Move move = newState.getMove();
+        if (move.firstAttackSquare != 0)
+            updateScore(1);
+        if (move.secondAttackSquare != 0)
+            updateScore(1);
+        
     } catch (InvalidMove &invalid) {
         printf("AI error!\n");
     }
@@ -853,6 +897,11 @@ void Game::update(unsigned long t) {
             movesPossible = false;
         }
         calculatedMovesForPlayerTurn = true;
+    }
+    
+    if (!PieceAnimation::pendingAnimations() && !currentPlayerIsAI() ) {
+        updateCurrentPlayer();
+        updateCurrentDropInitiative();
     }
 }
 

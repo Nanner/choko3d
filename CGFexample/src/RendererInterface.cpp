@@ -7,6 +7,8 @@ void RendererInterface::initGUI() {
 	this->sceneGraph = ((DemoScene*) scene)->getSceneGraph();
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
     
+    glutReshapeWindow(1000,700);
+    
     mainWindow = glutGetWindow();
 
 	int lastID = 0;
@@ -38,6 +40,25 @@ void RendererInterface::initGUI() {
 		drawmodeList->set_int_val(1);
 	else if(rootVertex->globals.drawmode == "point")
 		drawmodeList->set_int_val(2);
+    
+    GLUI_Panel* gameInfoPanel = addPanel((char*)"Game Information");
+	GLUI_Listbox* currentPlayer = addListboxToPanel(gameInfoPanel, (char*)"Current Player: ", &sceneGraph->getGame()->currentPlayer, lastID);
+	lastID++;
+	currentPlayer->add_item(0, (char*)"Player 1 (Blue)");
+	currentPlayer->add_item(1, (char*)"Player 2 (Red) ");
+    currentPlayer->set_int_val(0);
+    currentPlayer->disable();
+    
+    GLUI_Listbox* dropInitiative = addListboxToPanel(gameInfoPanel, (char*)"Drop initiative: ", &sceneGraph->getGame()->currentDropInitiative, lastID);
+	lastID++;
+	dropInitiative->add_item(0, (char*)"Player 1 (Blue)");
+	dropInitiative->add_item(1, (char*)"Player 2 (Red)  ");
+    dropInitiative->set_int_val(0);
+    dropInitiative->disable();
+    
+    addStaticTextToPanel(gameInfoPanel, (char*)"Only the player with the drop");
+    addStaticTextToPanel(gameInfoPanel, (char*)"initiative can move or attack, giving");
+    addStaticTextToPanel(gameInfoPanel, (char*)"the initiative to the other player." );
 
 	addColumn();
     
@@ -64,6 +85,15 @@ void RendererInterface::initGUI() {
 	undoButton = addButton((char*)"Undo move", lastID);
 	undoButtonID = lastID;
 	lastID++;
+    
+    GLUI_Panel * scorePanel = addPanel((char*)"Scores");
+    GLUI_Spinner* player1ScoreSpinner = this->glui_window->add_spinner_to_panel(scorePanel, (char*)"Player 1 ", GLUI_SPINNER_INT, &sceneGraph->getGame()->player1Score, lastID);
+    player1ScoreSpinner->disable();
+    lastID++;
+    
+    GLUI_Spinner* player2ScoreSpinner = this->glui_window->add_spinner_to_panel(scorePanel, (char*)"Player 2 ", GLUI_SPINNER_INT, &sceneGraph->getGame()->player2Score, lastID);
+    player2ScoreSpinner->disable();
+    lastID++;
 
 	addColumn();
     
