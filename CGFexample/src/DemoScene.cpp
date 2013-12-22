@@ -2,6 +2,72 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
+CameraController::CameraController() {
+	enabledCamera = AUTO_CAMERA;
+	CGFcamera* freeCamera = new CGFcamera();
+	//freeCamera->moveTo(1, 15, 0.01);
+	this->freeCamera = freeCamera;
+
+	CGFcamera* autoCamera = new CGFcamera();
+	//autoCamera->setX(-10);
+	//autoCamera->setY(-30);
+	autoCamera->setZ(-90);
+	autoCamera->rotate(CG_CGFcamera_AXIS_X, 45);
+	this->autoCamera = autoCamera;
+	focusChangeInitialized = false;
+	isChangingFocus = false;
+	foccusingTo = 180;
+	autoCamera->setRotation(CG_CGFcamera_AXIS_Y, 0);
+}
+
+CGFcamera* CameraController::getEnabledCamera() {
+	if(enabledCamera == AUTO_CAMERA)
+		return autoCamera;
+	else
+		return freeCamera;
+}
+
+CGFcamera* CameraController::getAutoCamera() {
+	return autoCamera;
+}
+
+CGFcamera* CameraController::getFreeCamera() {
+	return freeCamera;
+}
+
+void CameraController::changeCamera() {
+	if(enabledCamera == AUTO_CAMERA)
+		enabledCamera = FREE_CAMERA;
+	else
+		enabledCamera = AUTO_CAMERA;
+}
+
+void CameraController::moveCameraToPoint(/*PositionPoint point*/) {
+	autoCamera->moveTo(1, 50, 0.5);
+}
+
+void CameraController::changePlayerFocus() {
+	isChangingFocus = true;
+}
+
+void CameraController::initializeFocusChange(unsigned long t) {
+	initialTime = t;
+	focusChangeInitialized = true;
+}
+
+void CameraController::updateFocus(unsigned long t) {
+	float fraction = ((t - initialTime) / (float) CAMERA_MOVEMENT_TIME) * foccusingTo;
+
+	if(fraction > foccusingTo)
+		fraction = foccusingTo;
+
+	if(autoCamera->rotateTo(CG_CGFcamera_AXIS_Y, foccusingTo, fraction) == true) {
+		isChangingFocus = false;
+		focusChangeInitialized = false;
+		foccusingTo = 0;
+	}
+}
+
 DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface):yafFile(yafFile), sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
 
 void DemoScene::init() 
@@ -33,23 +99,18 @@ void DemoScene::init()
 
 void DemoScene::initCameras() {
 	scene_cameras.clear();
-
-	CGFcamera* cgfDefault = new CGFcamera();
-	cgfDefault->moveTo(25,0,0);
-	cgfDefault->rotate(0,20);
-	cgfDefault->rotate(1,-45);
-	scene_cameras.push_back(cgfDefault);
-/*
-	map<string, CameraView*>::iterator it = sceneGraph->getRootVertex()->cameras.begin();
-	for(int i = 1; it != sceneGraph->getRootVertex()->cameras.end(); it++, i++) {
-		scene_cameras.push_back(it->second);
-		if(it->first == YAFCamera::initialCameraID)
-			activeCameraNum = i;
-	}
- */
+	scene_cameras.push_back(cameraController.getFreeCamera());
+	scene_cameras.push_back(cameraController.getAutoCamera());
+	activeCameraNum = AUTO_CAMERA;
 }
 
 void DemoScene::update(unsigned long t){
+	if(cameraController.isChangingFocus) {
+		if(cameraController.focusChangeInitialized)
+			cameraController.updateFocus(t);
+		else
+			cameraController.initializeFocusChange(t);
+	}
 
 	if(!isSelectMode) {
 		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
@@ -74,29 +135,30 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy && !cameraController.isChangingFocus) {
+		cameraController.changePlayerFocus();
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
 
-	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode) {
+	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode || cameraController.isChangingFocus) {
 		rendererInterface->undoButton->disable();
 	}
 	else if(!rendererInterface->undoButton->enabled) {
 		rendererInterface->undoButton->enable();
 	}
     
-    if (!game->movesPossible && !PieceAnimation::pendingAnimations())
+    if (!game->movesPossible && !PieceAnimation::pendingAnimations() && !cameraController.isChangingFocus)
         rendererInterface->updateNoMoves();
     
     game->update(t);
 
-	if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode) {
+	if (game->hasGameEnded() && !PieceAnimation::pendingAnimations() && !filmMode && !cameraController.isChangingFocus) {
 		rendererInterface->updateGameOver();
 	}
 
-	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded) {
+	if (!PieceAnimation::pendingAnimations() && filmMode && filmEnded && !cameraController.isChangingFocus) {
 		rendererInterface->updateFilmOver();
 	}
 }
