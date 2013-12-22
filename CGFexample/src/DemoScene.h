@@ -33,8 +33,9 @@ public:
 	void update(unsigned long t);
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
+    void setSceneGraph();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface);
+	DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface, CGFapplication * app);
 	void recreateSceneGraph();
     void drawHUD();
 	void restartGameOnNextUpdate();
@@ -42,8 +43,8 @@ public:
 	void startFilmMode();
 	~DemoScene();
 private:
+    CGFapplication * app;
 	bool restartGameOnUpdate;
-	YAFReader* yafFile;
 	SceneGraph* sceneGraph;
 	Appearance* squareSelectionAppearance;
     CGFappearance* hudAppearance;

@@ -74,5 +74,6 @@ string Connection::readLine() {
 }
 
 Connection::~Connection() {
-	sendMsg("bye\n");
+	sendMsg("bye.\n");
+    close(sock);
 }

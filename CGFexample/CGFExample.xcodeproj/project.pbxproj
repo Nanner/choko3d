@@ -14,6 +14,13 @@
 		AA63E23316D4221C003287C6 /* libGLEWmx.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23016D4221C003287C6 /* libGLEWmx.1.10.0.dylib */; };
 		AA63E23416D4221C003287C6 /* libglui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA63E23116D4221C003287C6 /* libglui.a */; };
 		EB0D1BB718182BE900E385CB /* Patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB0D1BB518182BE900E385CB /* Patch.cpp */; };
+		EB279C29186710DC00E4D7DC /* boardScene2.yaf in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C22186710BA00E4D7DC /* boardScene2.yaf */; };
+		EB279C2A186710E800E4D7DC /* left2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C23186710C600E4D7DC /* left2.jpg */; };
+		EB279C2B186710E800E4D7DC /* back2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C24186710C600E4D7DC /* back2.jpg */; };
+		EB279C2C186710E800E4D7DC /* right2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C25186710C600E4D7DC /* right2.jpg */; };
+		EB279C2D186710E800E4D7DC /* bottom2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C26186710C600E4D7DC /* bottom2.jpg */; };
+		EB279C2E186710E800E4D7DC /* top2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C27186710C600E4D7DC /* top2.jpg */; };
+		EB279C2F186710E800E4D7DC /* front2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB279C28186710C600E4D7DC /* front2.jpg */; };
 		EB3285B11842249100394272 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3285AF1842249100394272 /* Vehicle.cpp */; };
 		EB36691B1843632200DAB083 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB3669191843632200DAB083 /* Game.cpp */; };
 		EB366923184371ED00DAB083 /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB36691F184371ED00DAB083 /* Connection.cpp */; };
@@ -108,6 +115,7 @@
 			files = (
 				EBAA58D1184CB0DC00F9A87D /* choko in CopyFiles */,
 				EBAA58D2184CB0DC00F9A87D /* boardScene.yaf in CopyFiles */,
+				EB279C29186710DC00E4D7DC /* boardScene2.yaf in CopyFiles */,
 				EBAA58D3184CB0DC00F9A87D /* woodBoard.jpg in CopyFiles */,
 				EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */,
 				EBAA58D4184CB0DC00F9A87D /* donutScene.yaf in CopyFiles */,
@@ -145,6 +153,12 @@
 				EB978785186119B700E4CD2F /* right.jpg in CopyFiles */,
 				EB978786186119B700E4CD2F /* left.jpg in CopyFiles */,
 				EB978787186119B700E4CD2F /* front.jpg in CopyFiles */,
+				EB279C2A186710E800E4D7DC /* left2.jpg in CopyFiles */,
+				EB279C2B186710E800E4D7DC /* back2.jpg in CopyFiles */,
+				EB279C2C186710E800E4D7DC /* right2.jpg in CopyFiles */,
+				EB279C2D186710E800E4D7DC /* bottom2.jpg in CopyFiles */,
+				EB279C2E186710E800E4D7DC /* top2.jpg in CopyFiles */,
+				EB279C2F186710E800E4D7DC /* front2.jpg in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +188,13 @@
 		AA63E23116D4221C003287C6 /* libglui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglui.a; path = /usr/local/Cellar/glui/2.36/lib/libglui.a; sourceTree = "<absolute>"; };
 		EB0D1BB518182BE900E385CB /* Patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Patch.cpp; path = src/Patch.cpp; sourceTree = SOURCE_ROOT; };
 		EB0D1BB618182BE900E385CB /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Patch.h; path = src/Patch.h; sourceTree = SOURCE_ROOT; };
+		EB279C22186710BA00E4D7DC /* boardScene2.yaf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boardScene2.yaf; sourceTree = "<group>"; };
+		EB279C23186710C600E4D7DC /* left2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left2.jpg; sourceTree = "<group>"; };
+		EB279C24186710C600E4D7DC /* back2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back2.jpg; sourceTree = "<group>"; };
+		EB279C25186710C600E4D7DC /* right2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right2.jpg; sourceTree = "<group>"; };
+		EB279C26186710C600E4D7DC /* bottom2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bottom2.jpg; sourceTree = "<group>"; };
+		EB279C27186710C600E4D7DC /* top2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = top2.jpg; sourceTree = "<group>"; };
+		EB279C28186710C600E4D7DC /* front2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front2.jpg; sourceTree = "<group>"; };
 		EB3285AF1842249100394272 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vehicle.cpp; path = src/Vehicle.cpp; sourceTree = SOURCE_ROOT; };
 		EB3285B01842249100394272 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vehicle.h; path = src/Vehicle.h; sourceTree = SOURCE_ROOT; };
 		EB3669191843632200DAB083 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = src/Game.cpp; sourceTree = SOURCE_ROOT; };
@@ -542,6 +563,7 @@
 			children = (
 				EB366925184379A300DAB083 /* choko */,
 				EBAA58AE184CB08900F9A87D /* boardScene.yaf */,
+				EB279C22186710BA00E4D7DC /* boardScene2.yaf */,
 				EBAA58AF184CB08900F9A87D /* woodBoard.jpg */,
 				EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */,
 				EBAA58B0184CB08900F9A87D /* donutScene.yaf */,
@@ -579,6 +601,12 @@
 				EB97877F1861198600E4CD2F /* right.jpg */,
 				EB9787801861198600E4CD2F /* left.jpg */,
 				EB9787811861198600E4CD2F /* front.jpg */,
+				EB279C23186710C600E4D7DC /* left2.jpg */,
+				EB279C24186710C600E4D7DC /* back2.jpg */,
+				EB279C25186710C600E4D7DC /* right2.jpg */,
+				EB279C26186710C600E4D7DC /* bottom2.jpg */,
+				EB279C27186710C600E4D7DC /* top2.jpg */,
+				EB279C28186710C600E4D7DC /* front2.jpg */,
 			);
 			path = data;
 			sourceTree = "<group>";

@@ -8,6 +8,7 @@
 #include "YAFReader.h"
 #include "Appearance.h"
 #include "Game.h"
+#include "YAFReader.h"
 
 #include <vector>
 
@@ -41,7 +42,7 @@ public:
 	int currentShaderInclineControl;
 
 	SceneGraph(){}
-	SceneGraph(YAFReader* yafFile);
+	SceneGraph(string yafFileName, PrologBridge * bridge);
 	~SceneGraph();
 	bool addVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet);
 	bool addEdge(SceneVertex *sourc, SceneVertex *dest, vector<SceneVertex *> &vertexSet);

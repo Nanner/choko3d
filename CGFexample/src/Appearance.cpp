@@ -38,3 +38,4 @@ Appearance::Appearance(float* a, float* d, float* sp, float* emis, float sh):CGF
 	currentID++;
 }
 
+Appearance::~Appearance() {}

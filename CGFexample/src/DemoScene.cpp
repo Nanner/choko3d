@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
-DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface):yafFile(yafFile), sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
+DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface, CGFapplication * app): sceneGraph(sceneGraph), rendererInterface(rendererInterface),  app(app) {}
 
 void DemoScene::init() 
 {
@@ -74,7 +74,7 @@ void DemoScene::update(unsigned long t){
 	}
    
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy) {
+	if(game->currentPlayerIsAI() && !PieceAnimation::pendingAnimations() && !game->hasGameEnded() && !filmMode && !game->AIisStandingBy && game->movesPossible) {
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
@@ -244,8 +244,13 @@ void DemoScene::resetCurrentCamera() {
 }
 
 void DemoScene::recreateSceneGraph() {
+    PrologBridge * bridge = sceneGraph->getGame()->choko;
 	delete sceneGraph;
-	sceneGraph = new SceneGraph(yafFile);
+	sceneGraph = new SceneGraph("boardScene2.yaf", bridge);
+    delete rendererInterface;
+    rendererInterface = new RendererInterface();
+    app->setInterface(rendererInterface);
+    app->setScene(this);
 }
 
 void DemoScene::restartGameOnNextUpdate() {
@@ -269,7 +274,6 @@ void DemoScene::startFilmMode() {
 	filmEnded = false;
 	filmStarted = true;
 }
-
 
 DemoScene::~DemoScene()
 {

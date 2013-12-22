@@ -90,7 +90,6 @@ private:
 	map<unsigned int, PositionPoint> boardPiecesInitialPositions;
 	map<unsigned int, PositionPoint> pickingSquaresPositions;
 	int selectState;
-    PrologBridge choko;
     stack<GameState> gameStates;
 	stack<PositionPoint> p1RestPositions;
 	stack<PositionPoint> p2RestPositions;
@@ -100,6 +99,7 @@ private:
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
 public:
+    PrologBridge * choko;
     bool calculatedMovesForPlayerTurn;
     bool movesPossible;
     bool AIisStandingBy;
@@ -112,7 +112,7 @@ public:
 	int player2Type;
 	unsigned int selectedPieceID;
 
-	Game();
+	Game(PrologBridge * bridge);
 	~Game();
 	void restartGame();
 	GameState getGameState();

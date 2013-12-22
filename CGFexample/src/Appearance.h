@@ -22,6 +22,7 @@ public:
 	void setTexLength_t(float t);
 	void apply();
 	Appearance(float* a, float* d, float* sp, float* emis, float sh);
+    ~Appearance();
 };
 
 #endif

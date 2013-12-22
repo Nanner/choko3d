@@ -60,7 +60,7 @@ void Game::restartGame() {
 	player2Type = HARD;
 
 	try {
-		GameState gameState = choko.initializeGame();
+		GameState gameState = choko->initializeGame();
 		gameStates.push(gameState);
 	} catch (InvalidMove &invalid) {
 		printf("Initialization error.\n");
@@ -190,7 +190,8 @@ void Game::loadPickingSquaresPositions() {
 	}
 }
 
-Game::Game() {
+Game::Game(PrologBridge * bridge) {
+    choko = bridge;
 	selectState = SELECT_ANY;
     
     player1Type = HUMAN;
@@ -204,7 +205,7 @@ Game::Game() {
     calculatedMovesForPlayerTurn = false;
     
     try {
-        GameState gameState = choko.initializeGame();
+        GameState gameState = choko->initializeGame();
         gameStates.push(gameState);
     } catch (InvalidMove &invalid) {
         printf("Initialization error.\n");
@@ -226,7 +227,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     if (moveFrom == 0) {
         // This is a drop
         try {
-            GameState newState = choko.execute(getGameState(), to_string(moveTo));
+            GameState newState = choko->execute(getGameState(), to_string(moveTo));
             gameStates.push(newState);
             turnStart = time;
 			boardPiece->onBoard = true;
@@ -241,7 +242,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
             stringstream move;
             move << moveFrom;
             bool isAttack = true;
-            PieceMoves available = choko.getPieceMoves(getGameState(), moveFrom);
+            PieceMoves available = choko->getPieceMoves(getGameState(), moveFrom);
             for (int i = 0; i < available.moves.size(); i++) {
                 if (available.moves.at(i) == moveTo) {
                     move << '-' << moveTo;
@@ -273,7 +274,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                     }
                 }
             }
-            GameState newState = choko.execute(getGameState(), move.str());
+            GameState newState = choko->execute(getGameState(), move.str());
             gameStates.push(newState);
             turnStart = time;
         } catch (InvalidMove &invalid) {
@@ -295,7 +296,7 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
     try {
         stringstream move;
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
-        GameState newState = choko.execute(getGameState(), move.str());
+        GameState newState = choko->execute(getGameState(), move.str());
         gameStates.push(newState);
 		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingDestination), firstCapturedPieceID, secondEnemyPieceID);
 		movementHistory.push(lastMove);
@@ -389,7 +390,7 @@ bool Game::canMoveTo(unsigned int squareID) {
     if (selectedPiece->squareID == 0)
         return true; // the selected piece is outside the board, it can go in
     
-    PieceMoves available = choko.getPieceMoves(getGameState(), selectedPiece->squareID);
+    PieceMoves available = choko->getPieceMoves(getGameState(), selectedPiece->squareID);
     for (int i = 0; i < available.moves.size(); i++) {
         if (available.moves.at(i) == squareID)
             return true;
@@ -681,11 +682,11 @@ void Game::updateAI() {
 
 int Game::calculateMove(int playerType) {
     try {
-        if ( !choko.anyMovePossible(getGameState()) ){
+        if ( !choko->anyMovePossible(getGameState()) ){
             movesPossible = false;
             return 0;
         }
-        GameState newState = choko.calculate(getGameState(), playerTypes[playerType]);
+        GameState newState = choko->calculate(getGameState(), playerTypes[playerType]);
         gameStates.push(newState);
         turnStart = time;
     } catch (InvalidMove &invalid) {
@@ -852,7 +853,7 @@ void Game::update(unsigned long t) {
     }
     
     if (!calculatedMovesForPlayerTurn && !currentPlayerIsAI()) {
-        if ( !choko.anyMovePossible(getGameState()) ) {
+        if ( !choko->anyMovePossible(getGameState()) ) {
             movesPossible = false;
         }
         calculatedMovesForPlayerTurn = true;

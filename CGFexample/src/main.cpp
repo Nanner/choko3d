@@ -9,6 +9,8 @@
 #include "SceneVertex.h"
 #include "Transformation.h"
 #include "RendererInterface.h"
+#include "PrologBridge.h"
+
 #include <math.h>
 
 using std::cout;
@@ -31,13 +33,11 @@ int main(int argc, char* argv[]) {
 
 	try {
 		app.init(&argc, argv);
-		YAFReader* yafFile = new YAFReader( yafFileName );
-		SceneGraph* sceneGraph = new SceneGraph(yafFile);
-		delete(yafFile);
+        PrologBridge * choko = new PrologBridge();
+		SceneGraph* sceneGraph = new SceneGraph(yafFileName, choko);
         RendererInterface * rendererInterface = new RendererInterface();
-		app.setScene(new DemoScene(yafFile, sceneGraph, rendererInterface));
+		app.setScene(new DemoScene(sceneGraph, rendererInterface, &app));
 		app.setInterface(rendererInterface);
-		
 		app.run();
 	}
 	catch(GLexception& ex) {

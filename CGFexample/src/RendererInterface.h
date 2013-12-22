@@ -22,6 +22,9 @@ private:
 	GLUI_Panel* filmOverPanel;
 	GLUI * filmOverWindow;
 	bool filmOverWindowVisible;
+    GLUI_Panel* lightsPanel;
+    GLUI_Panel* drawmodesPanel;
+    GLUI_Panel* playersPanel;
 public:
     int mainWindow;
 	GLuint selectBuf[BUFSIZE];
@@ -62,8 +65,11 @@ public:
 
 	int filmOverGameRestartButtonID;
 	int filmOverFilmButtonID;
+    
+    int restartID;
 
 	RendererInterface();
+    ~RendererInterface();
 
 	void initGUI();
 	void processGUI(GLUI_Control *ctrl);

@@ -10,7 +10,7 @@ void RendererInterface::initGUI() {
     mainWindow = glutGetWindow();
 
 	int lastID = 0;
-	GLUI_Panel* lightsPanel = addPanel( (char*)"Lights", 1);
+    lightsPanel = addPanel( (char*)"Lights", 1);
 	map<string, SceneLight*>::iterator lightIterator = rootVertex->lights.begin();
 	for(int i = 0; lightIterator != rootVertex->lights.end(); lightIterator++, i++) {
 		if(i%4 == 0)
@@ -26,7 +26,7 @@ void RendererInterface::initGUI() {
 
 	addColumn();
 
-	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
+	drawmodesPanel = addPanel((char*)"Draw modes");
 	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);
 	lastID++;
 	drawmodeList->add_item(0, (char*)"Fill");
@@ -41,7 +41,7 @@ void RendererInterface::initGUI() {
 
 	addColumn();
     
-	GLUI_Panel* playersPanel = addPanel((char*)"Player Types");
+	playersPanel = addPanel((char*)"Player Types");
     
     GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &sceneGraph->getGame()->player1Type, lastID);
 	lastID++;
@@ -64,6 +64,10 @@ void RendererInterface::initGUI() {
 	undoButton = addButton((char*)"Undo move", lastID);
 	undoButtonID = lastID;
 	lastID++;
+    
+    addButton((char*)"Change Scene", lastID);
+    restartID = lastID;
+    lastID++;
 
 	addColumn();
     
@@ -169,6 +173,10 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         sceneGraph->getGame()->skipTurn();
         noMovesWindow->hide();
         noMovesWindowVisible = false;
+    }
+    
+    if(ctrl->user_id == restartID) {
+        ((DemoScene*) scene)->recreateSceneGraph();
     }
 }
 
@@ -416,6 +424,26 @@ void RendererInterface::updateFilmOver() {
 		filmOverWindow->show();
 		filmOverWindowVisible = true;
 	}
+}
+
+RendererInterface::~RendererInterface() {
+    GLUI_Master.close_all();
+    //delete drawmodesPanel;
+    //delete playersPanel;
+    /*
+    delete winnerText;
+    delete gameOverPanel;
+    delete gameOverWindow;
+    delete filmOverPanel;
+    //delete filmOverText;
+    delete filmOverWindow;
+    //delete camResetButton;
+    //delete animationLoopCheckbox;
+    //delete animationPauseButton;
+    delete undoButton;
+    //delete noMovesPanel;
+    delete noMovesWindow;
+     */
 }
 
 

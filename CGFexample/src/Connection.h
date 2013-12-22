@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <unistd.h>
 #else
 #include <winsock2.h>
 #pragma comment(lib, "ws2_32.lib")

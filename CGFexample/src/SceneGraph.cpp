@@ -1,7 +1,8 @@
 #include "SceneGraph.h"
 
-SceneGraph::SceneGraph(YAFReader* yafFile) {
-	game = new Game();
+SceneGraph::SceneGraph(string yafFileName, PrologBridge * bridge) {
+    YAFReader * yafFile = new YAFReader( (char*)yafFileName.c_str() );
+	game = new Game(bridge);
 
 	stackReady = false;
 
@@ -102,7 +103,7 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	game->loadBoardPiecesPositions();
 	game->loadPickingSquaresPositions();
 
-	findShaders();
+	//findShaders();
 	drawDisplayLists = true;
 
 	currentShaderSpeedControl = 50;
