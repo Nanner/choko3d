@@ -53,7 +53,7 @@
 #define MEDIUM 2
 #define HARD 3
 
-#define AI_WAIT 1000
+#define AI_WAIT_AFTER_UNDO 1.5
 
 #define PLAYER1 0
 #define PLAYER2 1
@@ -104,6 +104,8 @@ public:
     bool movesPossible;
     bool AIisStandingBy;
     unsigned long AIStandByStart;
+    unsigned long AIStandByDuration;
+    
     float turnTimeLeft;
     unsigned long time;
     float timeout;
@@ -186,6 +188,7 @@ public:
     void updateCurrentPlayer();
     void updateCurrentDropInitiative();
     void setCameraController(CameraController * controller);
+    void setAIStandby(float seconds);
 };
 
 #endif

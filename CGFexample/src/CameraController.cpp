@@ -59,6 +59,12 @@ void CameraController::changePlayerFocus(int player) {
     }
 }
 
+void CameraController::setAngle(float angle) {
+    autoCamera->setRotation(CG_CGFcamera_AXIS_Y, angle);
+    currentAngle = angle;
+    startingAngle = angle;
+}
+
 void CameraController::initializeFocusChange(unsigned long t) {
 	initialTime = t;
 	focusChangeInitialized = true;

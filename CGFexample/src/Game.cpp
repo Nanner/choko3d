@@ -820,8 +820,7 @@ void Game::undoLastMove() {
 	movementHistory.pop();
     
     if (currentPlayerIsAI()) {
-        AIisStandingBy = true;
-        AIStandByStart = time;
+        setAIStandby(AI_WAIT_AFTER_UNDO);
     }
     
 	if(lastMove.moveType == 0)
@@ -883,6 +882,12 @@ MovementHistoryElement Game::getLastMove() {
 	return lastMove;
 }
 
+void Game::setAIStandby(float seconds) {
+    AIisStandingBy = true;
+    AIStandByStart = this->time;
+    AIStandByDuration = seconds * 1000;
+}
+
 void Game::update(unsigned long t) {
     time = t;
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
@@ -890,7 +895,7 @@ void Game::update(unsigned long t) {
         skipTurn();
     }
     
-    if (AIisStandingBy && AIStandByStart + AI_WAIT < time) {
+    if (AIisStandingBy && AIStandByStart + AIStandByDuration < time) {
         AIisStandingBy = false;
     }
     

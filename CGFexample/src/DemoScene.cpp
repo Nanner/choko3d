@@ -46,12 +46,8 @@ void DemoScene::update(unsigned long t){
 			cameraController.updateFocus(t);
 		else {
 			cameraController.initializeFocusChange(t);
-            game->AIisStandingBy = true;
-            game->AIStandByStart = t;
         }
-	} else if (cameraController.enabled) {
-        game->AIisStandingBy = false;
-    }
+	}
     
 	if(!isSelectMode) {
 		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();

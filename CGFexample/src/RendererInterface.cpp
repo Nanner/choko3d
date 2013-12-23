@@ -210,9 +210,9 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         char player = sceneGraph->getGame()->currentPlayer;
         CameraController * cam = sceneGraph->getGame()->cameraController;
         if (player == PLAYER1) {
-            cam->autoCamera->setRotation(CG_CGFcamera_AXIS_Y, PLAYER1_ANGLE);
+            cam->setAngle(PLAYER1_ANGLE);
         } else {
-            cam->autoCamera->setRotation(CG_CGFcamera_AXIS_Y, PLAYER2_ANGLE);
+            cam->setAngle(PLAYER2_ANGLE);
         }
     }
 }

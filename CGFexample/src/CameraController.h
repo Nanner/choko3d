@@ -27,6 +27,8 @@ public:
     CGFcamera* autoCamera;
 	bool isChangingFocus;
 	bool focusChangeInitialized;
+    int enabled;
+
 	CameraController();
 	CGFcamera* getEnabledCamera();
 	CGFcamera* getAutoCamera();
@@ -36,7 +38,7 @@ public:
 	void changePlayerFocus(int player);
 	void initializeFocusChange(unsigned long t);
 	void updateFocus(unsigned long t);
-    int enabled;
+    void setAngle(float angle);
 };
 
 #endif
