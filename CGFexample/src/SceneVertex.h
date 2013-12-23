@@ -13,7 +13,6 @@
 #include "WaterShader.h"
 #include "Game.h"
 #include "LinearAnimation.h"
-#include "CurvedAnimation.h"
 #include "PieceAnimation.h"
 #include <vector>
 #include <stack>
@@ -21,6 +20,7 @@
 #include <queue>
 
 #define MOVE_DURATION 1.0
+#define MOVE_HEIGHT 10.0
 
 using namespace std;
 

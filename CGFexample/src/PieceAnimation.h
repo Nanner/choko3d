@@ -5,6 +5,8 @@
 #include <queue>
 #include "Animation.h"
 
+#define T_INTERVAL 0.03
+
 class PieceAnimation : public Animation {
 	static queue<PieceAnimation*> globalPieceAnimations;
     
@@ -15,19 +17,7 @@ public:
 	static void clearGlobalPieceAnimations();
 
     float totalSpan;
-	vector<float> timeSpans;
-
-	float totalElapsedTime;
-	float elapsedTimeInTraj;
-	int currentTrajectory;
-
-	int numTrajectories;
-	float totalDist;
-    vector<float> controlPoints;
-	vector<float> trajectoryDists;
-	vector<float> trajectoryCoordDeltas;
-	vector<float> trajectoryCoordPreviousOffsets;
-	vector<float> trajectoryAngles;
+	vector<vector<float> > timeSpans;
     
     PieceAnimation(float span, vector<float> controlPoints);
     
@@ -35,11 +25,11 @@ public:
 
 	void init(unsigned long t);
 
-	int getTimespanIndex(unsigned long currentTime);
-
-	void applyRotation();
+	int getTimespanIndex(float time);
     
     float angleBetweenVectors(float vector1[3], float vector2[3]);
+    
+    vector<float> P0, P1, P2, P3;
 };
 
 #endif

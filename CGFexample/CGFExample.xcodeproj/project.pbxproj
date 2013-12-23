@@ -97,7 +97,6 @@
 		EBE393771829A082006C5A5F /* ShaderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBE393751829A082006C5A5F /* ShaderTexture.cpp */; };
 		EBEF34531863BBEE00E2DE2F /* PieceAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBEF34511863BBEE00E2DE2F /* PieceAnimation.cpp */; };
 		EBF98AEC1862584800B304CB /* woodBoardCounted.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */; };
-		EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF98AED1862587200B304CB /* CurvedAnimation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -387,8 +386,6 @@
 		EBEF34511863BBEE00E2DE2F /* PieceAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PieceAnimation.cpp; path = src/PieceAnimation.cpp; sourceTree = SOURCE_ROOT; };
 		EBEF34521863BBEE00E2DE2F /* PieceAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieceAnimation.h; path = src/PieceAnimation.h; sourceTree = SOURCE_ROOT; };
 		EBF98AEB1862584300B304CB /* woodBoardCounted.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = woodBoardCounted.jpg; sourceTree = "<group>"; };
-		EBF98AED1862587200B304CB /* CurvedAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurvedAnimation.cpp; path = src/CurvedAnimation.cpp; sourceTree = SOURCE_ROOT; };
-		EBF98AEE1862587200B304CB /* CurvedAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedAnimation.h; path = src/CurvedAnimation.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,8 +483,6 @@
 				EBB48508181C2404000E0A4A /* Animation.h */,
 				EBB4850A181C25C7000E0A4A /* LinearAnimation.cpp */,
 				EBB4850B181C25C7000E0A4A /* LinearAnimation.h */,
-				EBF98AED1862587200B304CB /* CurvedAnimation.cpp */,
-				EBF98AEE1862587200B304CB /* CurvedAnimation.h */,
 				EBEF34511863BBEE00E2DE2F /* PieceAnimation.cpp */,
 				EBEF34521863BBEE00E2DE2F /* PieceAnimation.h */,
 				EBE393751829A082006C5A5F /* ShaderTexture.cpp */,
@@ -772,7 +767,6 @@
 				EB9E1C1118095B5F00F91761 /* YAFReader.cpp in Sources */,
 				EB9E1BFE18095B5F00F91761 /* Appearance.cpp in Sources */,
 				EBEF34531863BBEE00E2DE2F /* PieceAnimation.cpp in Sources */,
-				EBF98AEF1862587200B304CB /* CurvedAnimation.cpp in Sources */,
 				EB9E1C0518095B5F00F91761 /* SceneGraph.cpp in Sources */,
 				EB9E1C0918095B5F00F91761 /* Transformation.cpp in Sources */,
 				EB9E1C0718095B5F00F91761 /* ScenePrimitive.cpp in Sources */,

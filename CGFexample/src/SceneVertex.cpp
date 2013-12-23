@@ -120,11 +120,11 @@ void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
     controlPoints.push_back(origin[2]);
     
 	controlPoints.push_back(origin[0]);
-    controlPoints.push_back(origin[1] + 5.0);
+    controlPoints.push_back(origin[1] + MOVE_HEIGHT);
     controlPoints.push_back(origin[2]);
     
 	controlPoints.push_back(destination[0]);
-    controlPoints.push_back(origin[1] + 5.0);
+    controlPoints.push_back(origin[1] + MOVE_HEIGHT);
     controlPoints.push_back(destination[2]);
     
 	controlPoints.push_back(destination[0]);
