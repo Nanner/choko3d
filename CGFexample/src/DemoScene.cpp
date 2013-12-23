@@ -27,8 +27,9 @@ void DemoScene::init()
 	squareSelection = new Plane(10);
 	squareSelection->setAppearance(squareSelectionAppearance);
     
-    hudAppearance = new CGFappearance("hud.png", GL_REPEAT, GL_REPEAT);
+    game = sceneGraph->getGame();
     
+    //hudAppearance = new CGFappearance("hud.png", GL_REPEAT, GL_REPEAT);
 }
 
 void DemoScene::initCameras() {
@@ -44,6 +45,19 @@ void DemoScene::update(unsigned long t){
 			cameraController.updateFocus(t);
 		else
 			cameraController.initializeFocusChange(t);
+	}
+    
+    if(game->currentPlayerIsAI()
+       && !PieceAnimation::pendingAnimations()
+       && !game->hasGameEnded()
+       && !filmMode
+       && !game->AIisStandingBy
+       && !cameraController.isChangingFocus
+       && game->movesPossible) {
+		cameraController.changePlayerFocus();
+		game->updateAI();
+		sceneGraph->animateAIPlay(game->getGameState().getMove());
+		game->processAIMovedPieces(game->getGameState().getMove());
 	}
 
 	if(!isSelectMode) {
@@ -66,20 +80,6 @@ void DemoScene::update(unsigned long t){
 		}
 
 		PieceAnimation::updatePieceAnimations(t);
-	}
-   
-	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI()
-       && !PieceAnimation::pendingAnimations()
-       && !game->hasGameEnded()
-       && !filmMode
-       && !game->AIisStandingBy
-       && !cameraController.isChangingFocus
-       && game->movesPossible) {
-		cameraController.changePlayerFocus();
-		game->updateAI();
-		sceneGraph->animateAIPlay(game->getGameState().getMove());
-		game->processAIMovedPieces(game->getGameState().getMove());
 	}
 
 	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode || cameraController.isChangingFocus) {

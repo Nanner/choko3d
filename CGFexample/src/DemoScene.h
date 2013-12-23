@@ -51,6 +51,7 @@ private:
 	Plane* squareSelection;
     RendererInterface * rendererInterface;
 	CameraController cameraController;
+    Game * game;
 };
 
 #endif
