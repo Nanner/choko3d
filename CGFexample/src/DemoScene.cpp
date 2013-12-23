@@ -13,7 +13,7 @@ void DemoScene::init()
 	//Configure the different general scene attributes (background, lights, etc)
 	sceneGraph->configureScene();
 	initCameras();
-	setUpdatePeriod(30);
+	setUpdatePeriod(16);
 	isSelectMode = false;
      
 	float ambient[4] = {1.0, 1.0, 1.0, 1.0};

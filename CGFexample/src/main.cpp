@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
 		YAFReader* yafFile = new YAFReader( yafFileName );
 		SceneGraph* sceneGraph = new SceneGraph(yafFile);
 		delete(yafFile);
+        sceneGraph->loadYafFile(new YAFReader("boardScene2.yaf"));
         RendererInterface * rendererInterface = new RendererInterface();
 		app.setScene(new DemoScene(yafFile, sceneGraph, rendererInterface));
 		app.setInterface(rendererInterface);

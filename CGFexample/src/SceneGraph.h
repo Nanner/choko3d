@@ -15,14 +15,20 @@ using namespace std;
 
 class SceneGraph {
 	vector<SceneVertex *> vertexSet;
+    vector<vector<SceneVertex *> > allVertexSets;
 
 	vector<SceneVertex *> pickingSquaresSet;
+    vector<vector<SceneVertex *> > allPickingSquaresSets;
 
 	vector<SceneVertex* > boardPiecesSet;
+    vector<vector<SceneVertex *> > allBoardPiecesSets;
 
 	RootVertex* rootVertex;
+    vector<RootVertex *> allRootVertexes;
+    
     map<string, Appearance *> appearances;
-
+    vector<map<string, Appearance *> > allAppearances;
+    
 	Game* game;
 public:
     map<string, Animation *> animations;
@@ -99,6 +105,8 @@ public:
 
 	void undoPieceMovement(unsigned int pieceID);
 	void undoLastMove();
+    void loadYafFile(YAFReader * yafFile);
+    void switchScene(int scene);
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include <queue>
 #include "Animation.h"
 
-#define T_INTERVAL 0.03
+#define T_INTERVAL 0.02
 
 class PieceAnimation : public Animation {
 	static queue<PieceAnimation*> globalPieceAnimations;

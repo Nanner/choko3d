@@ -116,7 +116,7 @@ void PieceAnimation::update(unsigned long time) {
     
     if (t > 1.0 + T_INTERVAL)
         ended = true;
-    
+        
 	glTranslatef(timeSpans.at(currentSpan).at(0), timeSpans.at(currentSpan).at(1), timeSpans.at(currentSpan).at(2));
     
 	glGetFloatv(GL_MODELVIEW_MATRIX, matrix);

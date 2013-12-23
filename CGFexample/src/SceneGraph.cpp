@@ -12,92 +12,8 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	SceneLight::ambient[1] = yafFile->globalLighting.ambientG;
 	SceneLight::ambient[2] = yafFile->globalLighting.ambientB;
 	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
-
-	//read the textures and appearances
-	map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
-	for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
-		YAFAppearance a = appearanceItr->second;
-		float amb[4]  = {a.ambientR,  a.ambientG,  a.ambientB,  a.ambientA };
-		float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
-		float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
-		float emis[4] = {a.emissiveR, a.emissiveG, a.emissiveB, a.emissiveA};
-		float shininess =  a.shininess;
-		Appearance* appearance = new Appearance(amb, dif, spec, emis, shininess);
-
-		if ( a.usesTexture ) {
-			YAFTexture yafTexture = yafFile->textures.at(a.textureID);
-			appearance->setTexture(yafTexture.file);
-			appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
-			appearance->setTexLength_s(a.texlength_s);
-			appearance->setTexLength_t(a.texlength_t);
-		}
-
-		appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
-	}
-
-	this->animations = yafFile->animations;
-
-	//Process the root node first
-	string rootID = YAFNode::rootID;
-	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
-
-	//Process the rest of the nodes
-	map<string, YAFNode>::iterator it = yafFile->nodes.begin();
-	for(; it != yafFile->nodes.end(); it++) {
-		if(it->first != rootID)
-			processYAFNode(it->second, vertexSet);
-	}
-
-	//Process the links between nodes
-	it = yafFile->nodes.begin();
-	for(; it != yafFile->nodes.end(); it++) {
-		processYAFNodeReferences(it->second, vertexSet);
-	}
-
-	//Process the picking squares nodes
-	processYAFNode(yafFile->pickingSquares.find("pickingSquares")->second, pickingSquaresSet);
-
-	map<string, YAFNode>::iterator it2 = yafFile->pickingSquares.begin();
-	for(; it2 != yafFile->pickingSquares.end(); it2++) {
-		if(it2->first.compare("pickingSquares") != 0) {
-			processYAFNode(it2->second, pickingSquaresSet);
-		}
-	}
-
-	//Process the links between nodes
-	it2 = yafFile->pickingSquares.begin();
-	for(; it2 != yafFile->pickingSquares.end(); it2++) {
-		processYAFNodeReferences(it2->second, pickingSquaresSet);
-	}
-
-	//Process the board pieces nodes
-	processYAFNode(yafFile->boardPieces.find("boardPieces")->second, boardPiecesSet);
-
-	map<string, YAFNode>::iterator it3 = yafFile->boardPieces.begin();
-	for(; it3 != yafFile->boardPieces.end(); it3++) {
-		if(it3->first.compare("boardPieces") != 0)
-			processYAFNode(it3->second, boardPiecesSet);
-
-		//If we are processing a "piece" node, create a board piece object with its id
-		if(it3->first.compare("boardPieces") != 0 && it3->first.compare("p1pieces") != 0
-			&& it3->first.compare("p2pieces") != 0 && it3->first.compare("piece") != 0) {
-			
-				unsigned int id = strtoul(it3->first.c_str(), NULL, 10);
-				if(id == 0L || id == ULONG_MAX) {
-					printf("Error, the piece IDs must be numbers!\n Terminating.\n");
-					exit(-1);
-				}
-
-				BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
-				game->addPiece(p);
-		}
-	}
-
-	//Process the links between nodes
-	it3 = yafFile->boardPieces.begin();
-	for(; it3 != yafFile->boardPieces.end(); it3++) {
-		processYAFNodeReferences(it3->second, boardPiecesSet);
-	}
+    
+    this->loadYafFile(yafFile);
 
 	game->loadBoardPiecesPositions();
 	game->loadPickingSquaresPositions();
@@ -109,6 +25,114 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	currentShaderHeightControl = 50;
 	currentShaderInclineControl = 50;
 	shaderScalesUpdated = false;
+}
+
+void SceneGraph::switchScene(int scene) {
+    vertexSet = allVertexSets.at(scene);
+    pickingSquaresSet = allPickingSquaresSets.at(scene);
+    boardPiecesSet = allBoardPiecesSets.at(scene);
+    rootVertex = allRootVertexes.at(scene);
+    appearances = allAppearances.at(scene);
+}
+
+void SceneGraph::loadYafFile(YAFReader * yafFile) {
+    vertexSet.clear();
+    pickingSquaresSet.clear();
+    boardPiecesSet.clear();
+    rootVertex = NULL;
+    appearances.clear();
+    
+    //read the textures and appearances
+	map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
+	for(; appearanceItr != yafFile->appearances.end(); appearanceItr++) {
+		YAFAppearance a = appearanceItr->second;
+		float amb[4]  = {a.ambientR,  a.ambientG,  a.ambientB,  a.ambientA };
+		float dif[4]  = {a.diffuseR,  a.diffuseG,  a.diffuseB,  a.diffuseA };
+		float spec[4] = {a.specularR, a.specularG, a.specularB, a.specularA};
+		float emis[4] = {a.emissiveR, a.emissiveG, a.emissiveB, a.emissiveA};
+		float shininess =  a.shininess;
+		Appearance* appearance = new Appearance(amb, dif, spec, emis, shininess);
+        
+		if ( a.usesTexture ) {
+			YAFTexture yafTexture = yafFile->textures.at(a.textureID);
+			appearance->setTexture(yafTexture.file);
+			appearance->setTextureWrap(GL_REPEAT, GL_REPEAT);
+			appearance->setTexLength_s(a.texlength_s);
+			appearance->setTexLength_t(a.texlength_t);
+		}
+        
+		appearances.insert(pair<string, Appearance*>(appearanceItr->first, appearance));
+	}
+    
+	this->animations = yafFile->animations;
+    
+	//Process the root node first
+	string rootID = YAFNode::rootID;
+	processRootNode(yafFile->nodes.find(rootID)->second, yafFile);
+    
+	//Process the rest of the nodes
+	map<string, YAFNode>::iterator it = yafFile->nodes.begin();
+	for(; it != yafFile->nodes.end(); it++) {
+		if(it->first != rootID)
+			processYAFNode(it->second, vertexSet);
+	}
+    
+	//Process the links between nodes
+	it = yafFile->nodes.begin();
+	for(; it != yafFile->nodes.end(); it++) {
+		processYAFNodeReferences(it->second, vertexSet);
+	}
+    
+	//Process the picking squares nodes
+	processYAFNode(yafFile->pickingSquares.find("pickingSquares")->second, pickingSquaresSet);
+    
+	map<string, YAFNode>::iterator it2 = yafFile->pickingSquares.begin();
+	for(; it2 != yafFile->pickingSquares.end(); it2++) {
+		if(it2->first.compare("pickingSquares") != 0) {
+			processYAFNode(it2->second, pickingSquaresSet);
+		}
+	}
+    
+	//Process the links between nodes
+	it2 = yafFile->pickingSquares.begin();
+	for(; it2 != yafFile->pickingSquares.end(); it2++) {
+		processYAFNodeReferences(it2->second, pickingSquaresSet);
+	}
+    
+	//Process the board pieces nodes
+	processYAFNode(yafFile->boardPieces.find("boardPieces")->second, boardPiecesSet);
+    
+	map<string, YAFNode>::iterator it3 = yafFile->boardPieces.begin();
+	for(; it3 != yafFile->boardPieces.end(); it3++) {
+		if(it3->first.compare("boardPieces") != 0)
+			processYAFNode(it3->second, boardPiecesSet);
+        
+		//If we are processing a "piece" node, create a board piece object with its id
+		if(it3->first.compare("boardPieces") != 0 && it3->first.compare("p1pieces") != 0
+           && it3->first.compare("p2pieces") != 0 && it3->first.compare("piece") != 0) {
+			
+            unsigned int id = strtoul(it3->first.c_str(), NULL, 10);
+            if(id == 0L || id == ULONG_MAX) {
+                printf("Error, the piece IDs must be numbers!\n Terminating.\n");
+                exit(-1);
+            }
+            
+            BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+            game->addPiece(p);
+		}
+	}
+    
+	//Process the links between nodes
+	it3 = yafFile->boardPieces.begin();
+	for(; it3 != yafFile->boardPieces.end(); it3++) {
+		processYAFNodeReferences(it3->second, boardPiecesSet);
+	}
+    
+    allVertexSets.push_back(vertexSet);
+    allPickingSquaresSets.push_back(pickingSquaresSet);
+    allBoardPiecesSets.push_back(boardPiecesSet);
+    allRootVertexes.push_back(rootVertex);
+    allAppearances.push_back(appearances);
 }
 
 
