@@ -10,6 +10,8 @@
 
 #include "PieceAnimation.h"
 #include "PrologBridge.h"
+#include "PositionPoint.h"
+#include "CameraController.h"
 
 #define NUMBER_OF_PLAYER_PIECES 12
 
@@ -51,15 +53,12 @@
 #define MEDIUM 2
 #define HARD 3
 
-#define AI_WAIT_AFTER_UNDO 1500
+#define AI_WAIT 1000
+
+#define PLAYER1 0
+#define PLAYER2 1
 
 using namespace std;
-
-struct PositionPoint {
-	float x;
-	float y;
-	float z;
-};
 
 class MovementHistoryElement {
 public:
@@ -117,6 +116,8 @@ public:
     int player2Score;
     int currentPlayer;
     int currentDropInitiative;
+    
+    CameraController * cameraController;
 
 	Game();
 	~Game();
@@ -184,6 +185,7 @@ public:
     void updateScore(int points);
     void updateCurrentPlayer();
     void updateCurrentDropInitiative();
+    void setCameraController(CameraController * controller);
 };
 
 #endif

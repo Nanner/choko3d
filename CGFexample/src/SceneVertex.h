@@ -91,6 +91,8 @@ public:
 	void applyPieceAnimation();
 	void restartPiece();
 	void undoMovement();
+    
+    static float moveAnimationDuration;
 };
 
 

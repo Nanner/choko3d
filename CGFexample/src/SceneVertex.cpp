@@ -1,6 +1,7 @@
 #include "SceneVertex.h"
 
 unsigned int SceneVertex::currentDisplayList = 0;
+float SceneVertex::moveAnimationDuration = MOVE_DURATION;
 
 SceneVertex::SceneVertex(): nodeVisited(false), childVisited(false), usesDisplayList(false), animation(NULL), initialMatrix(NULL) {}
 
@@ -131,7 +132,7 @@ void SceneVertex::createMovementAnimation(PositionPoint p1, PositionPoint p2) {
     controlPoints.push_back(destination[1]);
     controlPoints.push_back(destination[2]);
 
-	PieceAnimation* anim = new PieceAnimation(MOVE_DURATION, controlPoints);
+	PieceAnimation* anim = new PieceAnimation(moveAnimationDuration, controlPoints);
 	pieceAnimations.push(anim);
 	PieceAnimation::addPieceAnimation(anim);
 }

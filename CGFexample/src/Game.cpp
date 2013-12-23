@@ -303,17 +303,19 @@ void Game::updateScore(int points) {
 
 void Game::updateCurrentPlayer() {
     if (getGameState().currentPlayer == 'x') {
-        currentPlayer = 0;
+        if (currentPlayer != PLAYER1) cameraController->changePlayerFocus(PLAYER1);
+        currentPlayer = PLAYER1;
     } else {
-        currentPlayer = 1;
+        if (currentPlayer != PLAYER2) cameraController->changePlayerFocus(PLAYER2);
+        currentPlayer = PLAYER2;
     }
 }
 
 void Game::updateCurrentDropInitiative() {
     if (getGameState().dropInitiative == 'x') {
-        currentDropInitiative = 0;
+        currentDropInitiative = PLAYER1;
     } else {
-        currentDropInitiative = 1;
+        currentDropInitiative = PLAYER2;
     }
 }
 
@@ -888,7 +890,7 @@ void Game::update(unsigned long t) {
         skipTurn();
     }
     
-    if (AIisStandingBy && AIStandByStart + AI_WAIT_AFTER_UNDO < time) {
+    if (AIisStandingBy && AIStandByStart + AI_WAIT < time) {
         AIisStandingBy = false;
     }
     
@@ -899,7 +901,7 @@ void Game::update(unsigned long t) {
         calculatedMovesForPlayerTurn = true;
     }
     
-    if (!PieceAnimation::pendingAnimations() && !currentPlayerIsAI() ) {
+    if (!PieceAnimation::pendingAnimations() ) {//&& !currentPlayerIsAI() ) {
         updateCurrentPlayer();
         updateCurrentDropInitiative();
     }
@@ -943,4 +945,8 @@ Game::~Game() {
 	for(; pieceIt != boardPieces.end(); pieceIt++) {
 		delete pieceIt->second;
 	}
+}
+
+void Game::setCameraController(CameraController * controller){
+    this->cameraController = controller;
 }

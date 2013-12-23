@@ -62,6 +62,8 @@ public:
 
 	int filmOverGameRestartButtonID;
 	int filmOverFilmButtonID;
+    
+    int cameraRotationID;
 
 	RendererInterface();
 

@@ -176,6 +176,7 @@
 		EB0D1BB618182BE900E385CB /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Patch.h; path = src/Patch.h; sourceTree = SOURCE_ROOT; };
 		EB279C33186764CB00E4D7DC /* CameraController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraController.cpp; path = src/CameraController.cpp; sourceTree = SOURCE_ROOT; };
 		EB279C34186764CB00E4D7DC /* CameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraController.h; path = src/CameraController.h; sourceTree = SOURCE_ROOT; };
+		EB279C3B18686D1C00E4D7DC /* PositionPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PositionPoint.h; path = src/PositionPoint.h; sourceTree = SOURCE_ROOT; };
 		EB3285AF1842249100394272 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vehicle.cpp; path = src/Vehicle.cpp; sourceTree = SOURCE_ROOT; };
 		EB3285B01842249100394272 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vehicle.h; path = src/Vehicle.h; sourceTree = SOURCE_ROOT; };
 		EB3669191843632200DAB083 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = src/Game.cpp; sourceTree = SOURCE_ROOT; };
@@ -499,6 +500,7 @@
 				EB9E1BDD18095B5F00F91761 /* RendererInterface.h */,
 				EB9787791861168000E4CD2F /* Sky.cpp */,
 				EB97877A1861168000E4CD2F /* Sky.h */,
+				EB279C3B18686D1C00E4D7DC /* PositionPoint.h */,
 			);
 			path = CGFExample;
 			sourceTree = "<group>";

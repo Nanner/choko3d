@@ -28,6 +28,7 @@ void DemoScene::init()
 	squareSelection->setAppearance(squareSelectionAppearance);
     
     game = sceneGraph->getGame();
+    game->setCameraController(&cameraController);
     
     //hudAppearance = new CGFappearance("hud.png", GL_REPEAT, GL_REPEAT);
 }
@@ -43,10 +44,15 @@ void DemoScene::update(unsigned long t){
 	if(cameraController.isChangingFocus) {
 		if(cameraController.focusChangeInitialized)
 			cameraController.updateFocus(t);
-		else
+		else {
 			cameraController.initializeFocusChange(t);
-	}
-
+            game->AIisStandingBy = true;
+            game->AIStandByStart = t;
+        }
+	} else if (cameraController.enabled) {
+        game->AIisStandingBy = false;
+    }
+    
 	if(!isSelectMode) {
 		map<string, Animation*>::iterator animationItr = sceneGraph->animations.begin();
 		for(; animationItr != sceneGraph->animations.end(); animationItr++) {
@@ -69,6 +75,8 @@ void DemoScene::update(unsigned long t){
 		PieceAnimation::updatePieceAnimations(t);
 	}
     
+    game->update(t);
+    
     if(game->currentPlayerIsAI()
        && !PieceAnimation::pendingAnimations()
        && !game->hasGameEnded()
@@ -76,12 +84,11 @@ void DemoScene::update(unsigned long t){
        && !game->AIisStandingBy
        && !cameraController.isChangingFocus
        && game->movesPossible) {
-		cameraController.changePlayerFocus();
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());
 	}
-
+    
 	if(PieceAnimation::pendingAnimations() || game->getSelectState() == SELECT_SECOND_ENEMY || filmMode || cameraController.isChangingFocus) {
 		rendererInterface->undoButton->disable();
 	}
@@ -94,8 +101,6 @@ void DemoScene::update(unsigned long t){
         && !cameraController.isChangingFocus)
         rendererInterface->updateNoMoves();
     
-    game->update(t);
-
 	if (game->hasGameEnded()
         && !PieceAnimation::pendingAnimations()
         && !filmMode

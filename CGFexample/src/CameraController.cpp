@@ -14,8 +14,11 @@ CameraController::CameraController() {
 	this->autoCamera = autoCamera;
 	focusChangeInitialized = false;
 	isChangingFocus = false;
-	foccusingTo = 180;
+	focusingTo = 0.0;
+    currentAngle = 0.0;
+    startingAngle = 0.0;
 	autoCamera->setRotation(CG_CGFcamera_AXIS_Y, 0);
+    enabled = true;
 }
 
 CGFcamera* CameraController::getEnabledCamera() {
@@ -44,24 +47,39 @@ void CameraController::moveCameraToPoint(/*PositionPoint point*/) {
 	autoCamera->moveTo(1, 50, 0.5);
 }
 
-void CameraController::changePlayerFocus() {
-	isChangingFocus = true;
+void CameraController::changePlayerFocus(int player) {
+    if (enabled) {
+        isChangingFocus = true;
+        
+        if (player == PLAYER1) {
+            focusingTo = PLAYER1_SECOND_ANGLE;
+        } else {
+            focusingTo = PLAYER2_ANGLE;
+        }
+    }
 }
 
 void CameraController::initializeFocusChange(unsigned long t) {
 	initialTime = t;
 	focusChangeInitialized = true;
+    startingAngle = currentAngle;
 }
 
 void CameraController::updateFocus(unsigned long t) {
-	float fraction = ((t - initialTime) / (float) CAMERA_MOVEMENT_TIME) * foccusingTo;
+	currentAngle += ((t - initialTime) / (float) CAMERA_MOVEMENT_TIME) * (focusingTo - startingAngle);
     
-	if(fraction > foccusingTo)
-		fraction = foccusingTo;
+    if (currentAngle >= focusingTo)
+        currentAngle = focusingTo;
     
-	if(autoCamera->rotateTo(CG_CGFcamera_AXIS_Y, foccusingTo, fraction) == true) {
+	autoCamera->setRotation(CG_CGFcamera_AXIS_Y, currentAngle);
+    
+    if (currentAngle >= focusingTo) {
+        if (focusingTo == PLAYER1_SECOND_ANGLE) {
+            autoCamera->setRotation(CG_CGFcamera_AXIS_Y, PLAYER1_ANGLE);
+            focusingTo = 0.0;
+            currentAngle = 0.0;
+        }
 		isChangingFocus = false;
 		focusChangeInitialized = false;
-		foccusingTo = 0;
 	}
 }

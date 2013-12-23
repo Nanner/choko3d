@@ -84,6 +84,13 @@ void RendererInterface::initGUI() {
 	undoButtonID = lastID;
 	lastID++;
     
+    GLUI_Spinner* animationDurationSpinner = this->glui_window->add_spinner((char*)"Move duration", GLUI_SPINNER_FLOAT, &SceneVertex::moveAnimationDuration, lastID);
+    lastID++;
+    
+    addCheckbox((char*)"Camera Rotation", &sceneGraph->getGame()->cameraController->enabled, lastID);
+    cameraRotationID = lastID;
+    lastID++;
+
     addColumn();
     
     GLUI_Panel * scorePanel = addPanel((char*)"Scores");
@@ -97,7 +104,6 @@ void RendererInterface::initGUI() {
     
     GLUI_Panel * timePanel = addPanel((char*)"Turn Clock");
     
-	//GLUI_Spinner* timeSpinner = addSpinnerToPanel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
 
     GLUI_Spinner* timeSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
 	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
@@ -197,6 +203,17 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         sceneGraph->getGame()->skipTurn();
         noMovesWindow->hide();
         noMovesWindowVisible = false;
+    }
+    
+    if(ctrl->user_id == cameraRotationID
+       && !sceneGraph->getGame()->cameraController->isChangingFocus) {
+        char player = sceneGraph->getGame()->currentPlayer;
+        CameraController * cam = sceneGraph->getGame()->cameraController;
+        if (player == PLAYER1) {
+            cam->autoCamera->setRotation(CG_CGFcamera_AXIS_Y, PLAYER1_ANGLE);
+        } else {
+            cam->autoCamera->setRotation(CG_CGFcamera_AXIS_Y, PLAYER2_ANGLE);
+        }
     }
 }
 
