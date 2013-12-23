@@ -155,6 +155,17 @@ void RendererInterface::initGUI() {
 	filmOverWindow->hide();
 	filmOverWindowVisible = false;
 	lastID++;
+    
+    addColumn();
+    
+    GLUI_Panel* scenePanel = addPanel((char*)"Choose Scene");
+    
+    GLUI_Listbox* sceneList = addListboxToPanel(scenePanel, (char*)"Choose Scene ", &sceneGraph->currentScene, lastID);
+    sceneSwitchID = lastID;
+	lastID++;
+	sceneList->add_item(0, (char*)"Snow");
+	sceneList->add_item(1, (char*)"Savana");
+    sceneList->set_int_val(sceneGraph->currentScene);
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -214,6 +225,11 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         } else {
             cam->setAngle(PLAYER2_ANGLE);
         }
+    }
+    
+    if(ctrl->user_id == sceneSwitchID) {
+        sceneGraph->getGame()->restartGame();
+        sceneGraph->switchScene(sceneGraph->currentScene);
     }
 }
 

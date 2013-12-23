@@ -65,6 +65,8 @@ public:
     
     int cameraRotationID;
 
+    int sceneSwitchID;
+
 	RendererInterface();
 
 	void initGUI();

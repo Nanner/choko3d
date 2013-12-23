@@ -29,7 +29,10 @@ class SceneGraph {
     map<string, Appearance *> appearances;
     vector<map<string, Appearance *> > allAppearances;
     
+    vector<YAFGlobalLighting> allGlobalLighting;
+    
 	Game* game;
+    
 public:
     map<string, Animation *> animations;
 	stack<int> displayListOrder;
@@ -45,6 +48,8 @@ public:
 	int currentShaderSpeedControl;
 	int currentShaderHeightControl;
 	int currentShaderInclineControl;
+    
+    int currentScene;
 
 	SceneGraph(){}
 	SceneGraph(YAFReader* yafFile);

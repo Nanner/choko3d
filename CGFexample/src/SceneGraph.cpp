@@ -4,14 +4,6 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	game = new Game();
 
 	stackReady = false;
-
-	SceneLight::localLight = yafFile->globalLighting.local;
-	SceneLight::lightEnabled = yafFile->globalLighting.enabled;
-	SceneLight::doubleSided = yafFile->globalLighting.doublesided;
-	SceneLight::ambient[0] = yafFile->globalLighting.ambientR;
-	SceneLight::ambient[1] = yafFile->globalLighting.ambientG;
-	SceneLight::ambient[2] = yafFile->globalLighting.ambientB;
-	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
     
     this->loadYafFile(yafFile);
 
@@ -25,14 +17,26 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
 	currentShaderHeightControl = 50;
 	currentShaderInclineControl = 50;
 	shaderScalesUpdated = false;
+    
 }
 
 void SceneGraph::switchScene(int scene) {
+    YAFGlobalLighting globalLighting = allGlobalLighting.at(scene);
+    SceneLight::localLight = globalLighting.local;
+	SceneLight::lightEnabled = globalLighting.enabled;
+	SceneLight::doubleSided = globalLighting.doublesided;
+	SceneLight::ambient[0] = globalLighting.ambientR;
+	SceneLight::ambient[1] = globalLighting.ambientG;
+	SceneLight::ambient[2] = globalLighting.ambientB;
+	SceneLight::ambient[3] = globalLighting.ambientA;
+    
     vertexSet = allVertexSets.at(scene);
     pickingSquaresSet = allPickingSquaresSets.at(scene);
     boardPiecesSet = allBoardPiecesSets.at(scene);
     rootVertex = allRootVertexes.at(scene);
     appearances = allAppearances.at(scene);
+    
+    currentScene = scene;
 }
 
 void SceneGraph::loadYafFile(YAFReader * yafFile) {
@@ -41,6 +45,18 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
     boardPiecesSet.clear();
     rootVertex = NULL;
     appearances.clear();
+    
+    SceneLight::localLight = yafFile->globalLighting.local;
+	SceneLight::lightEnabled = yafFile->globalLighting.enabled;
+	SceneLight::doubleSided = yafFile->globalLighting.doublesided;
+	SceneLight::ambient[0] = yafFile->globalLighting.ambientR;
+	SceneLight::ambient[1] = yafFile->globalLighting.ambientG;
+	SceneLight::ambient[2] = yafFile->globalLighting.ambientB;
+	SceneLight::ambient[3] = yafFile->globalLighting.ambientA;
+    
+    allGlobalLighting.push_back(yafFile->globalLighting);
+    
+    currentScene = allGlobalLighting.size() - 1;
     
     //read the textures and appearances
 	map<string, YAFAppearance>::iterator appearanceItr = yafFile->appearances.begin();
