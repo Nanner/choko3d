@@ -14,29 +14,21 @@
 using std::cout;
 using std::exception;
 
+string boards[] =     {"boardScene.yaf", "boardScene2.yaf"};
+string boardNames[] = {"Snow",           "Savana"};
 
 int main(int argc, char* argv[]) {
     
 	CGFapplication app = CGFapplication();
-    char yafFileName[512];
-    
-    if (argc < 2) {
-        printf("Usage:./YafEngine filename.yaf\n");
-        printf("No YAF file has been specified in the arguments.\n");
-        printf("Please enter the filename of the scene:\n> ");
-        scanf("%s", yafFileName);
-    } else {
-        strcpy(yafFileName, argv[1]);
-    }
+    vector<string> scenes(begin(boards), end(boards));
+    vector<string> scenesNames(begin(boardNames), end(boardNames));
+
 
 	try {
 		app.init(&argc, argv);
-		YAFReader* yafFile = new YAFReader( yafFileName );
-		SceneGraph* sceneGraph = new SceneGraph(yafFile);
-		delete(yafFile);
-        sceneGraph->loadYafFile(new YAFReader("boardScene2.yaf"));
-        RendererInterface * rendererInterface = new RendererInterface();
-		app.setScene(new DemoScene(yafFile, sceneGraph, rendererInterface));
+		SceneGraph* sceneGraph = new SceneGraph(scenes);
+        RendererInterface * rendererInterface = new RendererInterface(scenesNames);
+		app.setScene(new DemoScene(sceneGraph, rendererInterface));
 		app.setInterface(rendererInterface);
 		
 		app.run();

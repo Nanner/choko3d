@@ -910,11 +910,9 @@
 
     <!-- Game elements -->
 
-    <!-- Board -->
-
     <node id="board">
       <transforms>
-        <translate to="10.0 -1.25 10.0" />
+        <translate to="0.0 -1.25 0.0" />
       </transforms>
 
       <children>
@@ -926,7 +924,6 @@
     <!-- First columns, then rows -->
     <node id="pickingSquares">
       <transforms>
-        <translate to="10.0 0.0 10.0" />
         <scale factor="4 1 4" />
       </transforms>
 
@@ -1082,7 +1079,9 @@
       <transforms>
         <translate to="0.0 0.0625 0.0" />
       </transforms>
+
       <appearanceref id="boardApp" />
+
       <children>
         <plane parts="10" />
       </children>
@@ -1163,7 +1162,7 @@
 
     <node id="p2pieces">
       <transforms>
-        <translate to="0.0 0.0 -17.0" />
+        <translate to="-10.0 0.0 -27.0" />
       </transforms>
       
       <appearanceref id="p2App" />
@@ -1186,7 +1185,7 @@
     
     <node id="p1pieces">
       <transforms>
-        <translate to="0.0 0.0 17.0" />
+        <translate to="-10.0 0.0 7.0" />
       </transforms>
       
       <appearanceref id="p1App" />

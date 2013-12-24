@@ -1,31 +1,34 @@
 #include "RendererInterface.h"
 
 
-RendererInterface::RendererInterface() {}
+RendererInterface::RendererInterface(vector<string> sceneNames): sceneNames(sceneNames) {}
 
 void RendererInterface::initGUI() {
 	this->sceneGraph = ((DemoScene*) scene)->getSceneGraph();
 	RootVertex* rootVertex = sceneGraph->getRootVertex();
+    vector<RootVertex *> allRootVertexes = sceneGraph->getRootVertexes();
     
-    glutReshapeWindow(1000,700);
+    glutReshapeWindow(1300,700);
     
     mainWindow = glutGetWindow();
 
 	int lastID = 0;
 	GLUI_Panel* lightsPanel = addPanel( (char*)"Lights", 1);
-	map<string, SceneLight*>::iterator lightIterator = rootVertex->lights.begin();
-	for(int i = 0; lightIterator != rootVertex->lights.end(); lightIterator++, i++) {
-		if(i%4 == 0)
-			addColumnToPanel(lightsPanel);
-
-		string lightStr = "Light " + lightIterator->first;
-		addCheckboxToPanel(lightsPanel, (char*) lightStr.c_str(), &(rootVertex->lightOnControls.find(lightIterator->first)->second), lastID);
-		lightMap.insert(pair<int, string>(lastID, lightIterator->first));
-		lastID++;
-	}
+    for(int scene = 0; scene < allRootVertexes.size(); scene++) {
+        map<string, SceneLight*>::iterator lightIterator = allRootVertexes.at(scene)->lights.begin();
+        for(int i = 0; lightIterator != allRootVertexes.at(scene)->lights.end(); lightIterator++, i++) {
+            if(i%4 == 0)
+                addColumnToPanel(lightsPanel);
+            
+            string lightStr = "Light " + lightIterator->first;
+            addCheckboxToPanel(lightsPanel, (char*) lightStr.c_str(), &(allRootVertexes.at(scene)->lightOnControls.find(lightIterator->first)->second), lastID);
+            lightMap.insert(pair<int, string>(lastID, lightIterator->first));
+            lastID++;
+        }
+    }
 
 	lightsPanel->align();
-
+     
 	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
 	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);
 	lastID++;
@@ -163,8 +166,9 @@ void RendererInterface::initGUI() {
     GLUI_Listbox* sceneList = addListboxToPanel(scenePanel, (char*)"Choose Scene ", &sceneGraph->currentScene, lastID);
     sceneSwitchID = lastID;
 	lastID++;
-	sceneList->add_item(0, (char*)"Snow");
-	sceneList->add_item(1, (char*)"Savana");
+    for (int i = 0; i < sceneNames.size(); i++) {
+        sceneList->add_item(i, sceneNames.at(i).c_str());
+    }
     sceneList->set_int_val(sceneGraph->currentScene);
 }
 
@@ -228,7 +232,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
     }
     
     if(ctrl->user_id == sceneSwitchID) {
-        sceneGraph->getGame()->restartGame();
+		((DemoScene*) scene)->restartGameOnNextUpdate();
         sceneGraph->switchScene(sceneGraph->currentScene);
     }
 }

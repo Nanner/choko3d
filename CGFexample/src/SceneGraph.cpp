@@ -20,7 +20,34 @@ SceneGraph::SceneGraph(YAFReader* yafFile) {
     
 }
 
+SceneGraph::SceneGraph(vector<string> yafFileNames) {
+	game = new Game();
+    
+	stackReady = false;
+    
+    for (int i = 0; i < yafFileNames.size(); i++) {
+        YAFReader * yafFile = new YAFReader((char*)yafFileNames.at(i).c_str());
+        loadYafFile(yafFile);
+        delete yafFile;
+    }
+    
+    enableLights();
+        
+	game->loadBoardPiecesPositions();
+	game->loadPickingSquaresPositions();
+    
+	findShaders();
+	drawDisplayLists = true;
+    
+	currentShaderSpeedControl = 50;
+	currentShaderHeightControl = 50;
+	currentShaderInclineControl = 50;
+	shaderScalesUpdated = false;
+}
+
 void SceneGraph::switchScene(int scene) {
+    disableLights();
+    
     YAFGlobalLighting globalLighting = allGlobalLighting.at(scene);
     SceneLight::localLight = globalLighting.local;
 	SceneLight::lightEnabled = globalLighting.enabled;
@@ -35,6 +62,8 @@ void SceneGraph::switchScene(int scene) {
     boardPiecesSet = allBoardPiecesSets.at(scene);
     rootVertex = allRootVertexes.at(scene);
     appearances = allAppearances.at(scene);
+    
+    enableLights();
     
     currentScene = scene;
 }
@@ -143,6 +172,8 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
 	for(; it3 != yafFile->boardPieces.end(); it3++) {
 		processYAFNodeReferences(it3->second, boardPiecesSet);
 	}
+    
+    disableLights();
     
     allVertexSets.push_back(vertexSet);
     allPickingSquaresSets.push_back(pickingSquaresSet);
@@ -485,6 +516,10 @@ RootVertex* SceneGraph::getRootVertex() {
 	return rootVertex;
 }
 
+vector<RootVertex*> SceneGraph::getRootVertexes() {
+    return allRootVertexes;
+}
+
 void SceneGraph::configureScene() {
 	rootVertex->setGlobals();
 
@@ -518,6 +553,29 @@ void SceneGraph::drawLights() {
 	map<string, SceneLight*>::iterator it = rootVertex->lights.begin();
 	for(; it != rootVertex->lights.end(); it++) {
 		it->second->draw();
+	}
+}
+
+void SceneGraph::drawAllLights() {
+    for (int i = 0; i < allRootVertexes.size(); i++) {
+        map<string, SceneLight*>::iterator it = allRootVertexes.at(i)->lights.begin();
+        for(; it != allRootVertexes.at(i)->lights.end(); it++) {
+            it->second->draw();
+        }
+    }
+}
+
+void SceneGraph::disableLights() {
+	map<string, SceneLight*>::iterator it = rootVertex->lights.begin();
+	for(; it != rootVertex->lights.end(); it++) {
+		it->second->disable();
+	}
+}
+
+void SceneGraph::enableLights() {
+	map<string, SceneLight*>::iterator it = rootVertex->lights.begin();
+	for(; it != rootVertex->lights.end(); it++) {
+		it->second->enable();
 	}
 }
 

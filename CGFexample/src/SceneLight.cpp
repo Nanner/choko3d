@@ -74,7 +74,7 @@ SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
 
 
 void SpotLight::update(){
-    CGFlight::update();
+    //CGFlight::update();
 
     glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
     glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength

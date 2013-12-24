@@ -53,6 +53,7 @@ public:
 
 	SceneGraph(){}
 	SceneGraph(YAFReader* yafFile);
+    SceneGraph(vector<string> yafFileNames);
 	~SceneGraph();
 	bool addVertex(SceneVertex *in, vector<SceneVertex *> &vertexSet);
 	bool addEdge(SceneVertex *sourc, SceneVertex *dest, vector<SceneVertex *> &vertexSet);
@@ -69,6 +70,7 @@ public:
 	void processYAFNodeReferences(YAFNode yafNode, vector<SceneVertex *> &vertexSet);
 
 	RootVertex* getRootVertex();
+    vector<RootVertex*> getRootVertexes();
 
 	void configureScene();
 	CGFcamera* getInitialCamera();
@@ -112,6 +114,9 @@ public:
 	void undoLastMove();
     void loadYafFile(YAFReader * yafFile);
     void switchScene(int scene);
+    void disableLights();
+    void enableLights();
+    void drawAllLights();
 };
 
 #endif

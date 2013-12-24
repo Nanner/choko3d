@@ -22,6 +22,7 @@ private:
 	GLUI_Panel* filmOverPanel;
 	GLUI * filmOverWindow;
 	bool filmOverWindowVisible;
+    vector<string> sceneNames;
 public:
     int mainWindow;
 	GLuint selectBuf[BUFSIZE];
@@ -67,7 +68,7 @@ public:
 
     int sceneSwitchID;
 
-	RendererInterface();
+	RendererInterface(vector<string> sceneNames);
 
 	void initGUI();
 	void processGUI(GLUI_Control *ctrl);

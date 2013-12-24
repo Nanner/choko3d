@@ -35,7 +35,7 @@ public:
 	void setDrawMode(int mode);
 	void resetCurrentCamera();
 	SceneGraph* getSceneGraph(){return sceneGraph;}
-	DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface);
+	DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface);
 	void recreateSceneGraph();
     void drawHUD();
 	void restartGameOnNextUpdate();
@@ -44,7 +44,6 @@ public:
 	~DemoScene();
 private:
 	bool restartGameOnUpdate;
-	YAFReader* yafFile;
 	SceneGraph* sceneGraph;
 	Appearance* squareSelectionAppearance;
     CGFappearance* hudAppearance;

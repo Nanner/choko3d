@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "GameState.h"
 
-DemoScene::DemoScene(YAFReader* yafFile, SceneGraph* sceneGraph, RendererInterface* rendererInterface):yafFile(yafFile), sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
+DemoScene::DemoScene(SceneGraph* sceneGraph, RendererInterface* rendererInterface): sceneGraph(sceneGraph), rendererInterface(rendererInterface) {}
 
 void DemoScene::init() 
 {
@@ -15,7 +15,7 @@ void DemoScene::init()
 	initCameras();
 	setUpdatePeriod(16);
 	isSelectMode = false;
-     
+    
 	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
 	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
 	float specular[4] = {0.0, 0.0, 0.0, 1.0};
@@ -131,7 +131,10 @@ void DemoScene::display()
 	CGFscene::activeCamera->applyView();
 
 	// Draw (and update) lights
-	sceneGraph->drawLights();
+	//sceneGraph->drawLights();
+    // with multiple scenes, we must update all lights
+    // because turned off lights must still be updated
+    sceneGraph->drawAllLights();
 
 	// Draw axis
 	axis.draw();
@@ -254,11 +257,6 @@ void DemoScene::setDrawMode(int mode) {
 
 void DemoScene::resetCurrentCamera() {
 	((CameraView*) CGFscene::activeCamera)->resetCamera();
-}
-
-void DemoScene::recreateSceneGraph() {
-	delete sceneGraph;
-	sceneGraph = new SceneGraph(yafFile);
 }
 
 void DemoScene::restartGameOnNextUpdate() {
