@@ -46,6 +46,7 @@ public:
 		float specularR, float specularG, float specularB, float specularA,
 		float angle, float exponent);
 	void update();
+    void draw();
 };
 
 #endif

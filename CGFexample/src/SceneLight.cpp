@@ -74,16 +74,20 @@ void SceneLight::update() {
     setAmbient(CGFlight::ambient);
     setDiffuse(CGFlight::diffuse);
     setSpecular(CGFlight::specular);
+    glLightf(id, GL_SPOT_CUTOFF, 180.0); // reset
+    glLightf(id, GL_SPOT_EXPONENT, 0.0); // reset
 }
 
 void SceneLight::draw() {
 	update();
     
 	material->apply();
-	glPushMatrix();
-    glTranslatef(position[0],position[1],position[2]);
-    gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
-	glPopMatrix();
+    if (enabled) {
+        glPushMatrix();
+        glTranslatef(position[0],position[1],position[2]);
+        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
+        glPopMatrix();
+    }
 }
 
 SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
@@ -102,8 +106,22 @@ SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
 
 
 void SpotLight::update(){
-    //CGFlight::update();
-
+    CGFlight::update();
+    setAmbient(CGFlight::ambient);
+    setDiffuse(CGFlight::diffuse);
+    setSpecular(CGFlight::specular);
     glLightf(id, GL_SPOT_CUTOFF, angle);// set cutoff angle
     glLightf(id, GL_SPOT_EXPONENT, exponent); // set focusing strength
+}
+
+void SpotLight::draw() {
+    update();
+    
+    material->apply();
+    if (enabled) {
+        glPushMatrix();
+        glTranslatef(position[0],position[1],position[2]);
+        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
+        glPopMatrix();
+    }
 }

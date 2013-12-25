@@ -51,6 +51,46 @@
         direction="0.0 -1.0 0.0"
             />
 
+    <spot id="attackSpot3" enabled="true"
+        location="5.0 5.0 0.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+
+            <spot id="attackSpot4" enabled="true"
+        location="-5.0 5.0 0.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+
+            <spot id="attackSpot5" enabled="true"
+        location="5.0 5.0 5.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+
+            <spot id="attackSpot6" enabled="true"
+        location="5.0 5.0 -5.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="1.0 0.0 0.0 1.0"
+        specular="1.0 0.0 0.0 1.0"
+        angle="45.0"
+        exponent="15.0"
+        direction="0.0 -1.0 0.0"
+            />
+
   </lighting>
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
