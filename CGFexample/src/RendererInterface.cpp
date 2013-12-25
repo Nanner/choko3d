@@ -13,21 +13,24 @@ void RendererInterface::initGUI() {
     mainWindow = glutGetWindow();
 
 	int lastID = 0;
+    /*
 	GLUI_Panel* lightsPanel = addPanel( (char*)"Lights", 1);
     for(int scene = 0; scene < allRootVertexes.size(); scene++) {
         map<string, SceneLight*>::iterator lightIterator = allRootVertexes.at(scene)->lights.begin();
         for(int i = 0; lightIterator != allRootVertexes.at(scene)->lights.end(); lightIterator++, i++) {
-            if(i%4 == 0)
-                addColumnToPanel(lightsPanel);
+            //if(i%4 == 0)
+            //    addColumnToPanel(lightsPanel);
             
             string lightStr = "Light " + lightIterator->first;
             addCheckboxToPanel(lightsPanel, (char*) lightStr.c_str(), &(allRootVertexes.at(scene)->lightOnControls.find(lightIterator->first)->second), lastID);
             lightMap.insert(pair<int, string>(lastID, lightIterator->first));
             lastID++;
         }
+        addColumnToPanel(lightsPanel);
     }
 
 	lightsPanel->align();
+     */
      
 	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
 	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);

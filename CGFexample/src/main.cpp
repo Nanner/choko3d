@@ -14,8 +14,14 @@
 using std::cout;
 using std::exception;
 
-string boards[] =     {"boardScene.yaf", "boardScene2.yaf"};
-string boardNames[] = {"Snow",           "Savana"};
+string boards[] =     {"boardScene.yaf",  "boardScene2.yaf", "boardScene3.yaf",
+                       "boardScene4.yaf", "boardScene5.yaf", "boardScene6.yaf"};
+string boardNames[] = {"Ryfjallet, Sweden",
+                       "Niagara Falls, Canada",
+                       "Larnaca Castle, Cyprus",
+                       "Piazza del popolo, Italy",
+                       "Skansen, Stockholm",
+                       "Royal Castle, Stockholm"};
 
 int main(int argc, char* argv[]) {
     

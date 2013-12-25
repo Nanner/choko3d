@@ -34,8 +34,8 @@
     <spot id="attackSpot1" enabled="true"
         location="15.0 30.0 0.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
+        diffuse="0.0 0.0 1.0 1.0"
+        specular="0.0 0.0 1.0 1.0"
         angle="45.0"
         exponent="15.0"
         direction="0.0 -1.0 0.0"
@@ -44,48 +44,8 @@
     <spot id="attackSpot2" enabled="true"
         location="-15.0 30.0 0.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-    <spot id="attackSpot3" enabled="true"
-        location="5.0 5.0 0.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot4" enabled="true"
-        location="-5.0 5.0 0.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot5" enabled="true"
-        location="5.0 5.0 5.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot6" enabled="true"
-        location="5.0 5.0 -5.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
+        diffuse="0.0 0.0 1.0 1.0"
+        specular="0.0 0.0 1.0 1.0"
         angle="45.0"
         exponent="15.0"
         direction="0.0 -1.0 0.0"
@@ -114,17 +74,17 @@
 
     <texture id="boardTex" file="woodBoard.jpg" />
 
-    <texture id="frontSkyTex" file="front.jpg" />
+    <texture id="frontSkyTex6" file="front6.jpg" />
 
-    <texture id="backSkyTex" file="back.jpg" />
+    <texture id="backSkyTex6" file="back6.jpg" />
 
-    <texture id="leftSkyTex" file="left.jpg" />
+    <texture id="leftSkyTex6" file="left6.jpg" />
 
-    <texture id="rightSkyTex" file="right.jpg" />
+    <texture id="rightSkyTex6" file="right6.jpg" />
 
-    <texture id="topSkyTex" file="top.jpg" />
+    <texture id="topSkyTex6" file="top6.jpg" />
 
-    <texture id="bottomSkyTex" file="bottom.jpg" />
+    <texture id="bottomSkyTex6" file="bottom6.jpg" />
 
   </textures>
 
@@ -261,63 +221,63 @@
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="frontSkyApp"
+    <appearance id="frontSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="frontSkyTex"
+      textureref="frontSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="backSkyApp"
+    <appearance id="backSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="backSkyTex"
+      textureref="backSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="leftSkyApp"
+    <appearance id="leftSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="leftSkyTex"
+      textureref="leftSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="rightSkyApp"
+    <appearance id="rightSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="rightSkyTex"
+      textureref="rightSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="topSkyApp"
+    <appearance id="topSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="topSkyTex"
+      textureref="topSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
-    <appearance id="bottomSkyApp"
+    <appearance id="bottomSkyApp6"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
       diffuse="1.0 1.0 1.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="bottomSkyTex"
+      textureref="bottomSkyTex6"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
@@ -369,7 +329,7 @@
         <translate to="0 0 0.5" />
       </transforms>
 
-      <appearanceref id="frontSkyApp" />
+      <appearanceref id="frontSkyApp6" />
 
       <children>
         <sky />
@@ -382,7 +342,7 @@
         <translate to="0 0 0.5" />
       </transforms>
 
-      <appearanceref id="backSkyApp" />
+      <appearanceref id="backSkyApp6" />
 
       <children>
         <sky/>
@@ -395,7 +355,7 @@
         <translate to="0 0 0.5" />
       </transforms>
 
-      <appearanceref id="leftSkyApp" />
+      <appearanceref id="leftSkyApp6" />
 
       <children>
         <sky/>
@@ -408,7 +368,7 @@
         <translate to="0 0 0.5" />
       </transforms>
 
-      <appearanceref id="rightSkyApp" />
+      <appearanceref id="rightSkyApp6" />
 
       <children>
         <sky/>
@@ -421,7 +381,7 @@
         <rotate angle="-90" axis="x" />
       </transforms>
 
-      <appearanceref id="topSkyApp" />
+      <appearanceref id="topSkyApp6" />
 
       <children>
         <sky/>
@@ -434,7 +394,7 @@
         <rotate angle="90" axis="x" />
       </transforms>
 
-      <appearanceref id="bottomSkyApp" />
+      <appearanceref id="bottomSkyApp6" />
 
       <children>
         <sky/>
@@ -949,8 +909,6 @@
     </node>
 
     <!-- Game elements -->
-
-    <!-- Board -->
 
     <node id="board">
       <transforms>
