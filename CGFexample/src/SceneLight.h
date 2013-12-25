@@ -21,6 +21,7 @@ public:
 	static float ambient[4];
 	static int getGLLight(int number);
 	static void resetLights();
+    static void resetLastLight();
 
 	SceneLight(bool enabled, string idString, float* pos,
 	float ambientR, float ambientG, float ambientB, float ambientA,
@@ -31,6 +32,9 @@ public:
 	bool isEnabled() const;
 	string getIdString() const;
 	int getIdNumber() const;
+    void enable();
+    void update();
+    void draw();
 };
 
 class SpotLight: public SceneLight {

@@ -174,6 +174,7 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
 	}
     
     disableLights();
+    SceneLight::resetLastLight();
     
     allVertexSets.push_back(vertexSet);
     allPickingSquaresSets.push_back(pickingSquaresSet);
@@ -558,10 +559,16 @@ void SceneGraph::drawLights() {
 
 void SceneGraph::drawAllLights() {
     for (int i = 0; i < allRootVertexes.size(); i++) {
+        if ( i == currentScene ) continue;
         map<string, SceneLight*>::iterator it = allRootVertexes.at(i)->lights.begin();
         for(; it != allRootVertexes.at(i)->lights.end(); it++) {
             it->second->draw();
         }
+    }
+    
+    map<string, SceneLight*>::iterator it = allRootVertexes.at(currentScene)->lights.begin();
+    for(; it != allRootVertexes.at(currentScene)->lights.end(); it++) {
+        it->second->draw();
     }
 }
 

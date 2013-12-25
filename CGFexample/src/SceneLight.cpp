@@ -24,6 +24,10 @@ void SceneLight::resetLights() {
 	ambient[0] = 1.0; ambient[1] = 1.0; ambient[2] = 1.0; ambient[3] = 1.0;
 }
 
+void SceneLight::resetLastLight() {
+    lastLight = 0;
+}
+
 SceneLight::SceneLight(bool enabled, string idString, float* pos,
 					   float ambientR, float ambientG, float ambientB, float ambientA,
 					   float diffuseR, float diffuseG, float diffuseB, float diffuseA,
@@ -56,6 +60,30 @@ string SceneLight::getIdString() const {
 
 int SceneLight::getIdNumber() const {
 	return id;
+}
+
+void SceneLight::enable() {
+    CGFlight::enable();
+    setAmbient(CGFlight::ambient);
+    setDiffuse(CGFlight::diffuse);
+    setSpecular(CGFlight::specular);
+}
+
+void SceneLight::update() {
+    CGFlight::update();
+    setAmbient(CGFlight::ambient);
+    setDiffuse(CGFlight::diffuse);
+    setSpecular(CGFlight::specular);
+}
+
+void SceneLight::draw() {
+	update();
+    
+	material->apply();
+	glPushMatrix();
+    glTranslatef(position[0],position[1],position[2]);
+    gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
+	glPopMatrix();
 }
 
 SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
