@@ -29,8 +29,6 @@ void DemoScene::init()
     
     game = sceneGraph->getGame();
     game->setCameraController(&cameraController);
-    
-    //hudAppearance = new CGFappearance("hud.png", GL_REPEAT, GL_REPEAT);
 }
 
 void DemoScene::initCameras() {
@@ -91,6 +89,13 @@ void DemoScene::update(unsigned long t){
 	else if(!rendererInterface->undoButton->enabled) {
 		rendererInterface->undoButton->enable();
 	}
+
+	if(cameraController.isChangingFocus) {
+		rendererInterface->cameraRotationCheckbox->disable();
+	}
+	else if(!rendererInterface->cameraRotationCheckbox->enabled) {
+		rendererInterface->cameraRotationCheckbox->enable();
+	}
     
     if (!game->movesPossible
         && !PieceAnimation::pendingAnimations()
@@ -127,6 +132,7 @@ void DemoScene::display()
 	glLoadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
+	activeCameraNum = cameraController.getEnabledCameraType();
 	activateCamera(activeCameraNum);
 	CGFscene::activeCamera->applyView();
 
