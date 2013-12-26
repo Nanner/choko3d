@@ -78,6 +78,7 @@ public:
     void updateGameOver();
     void updateNoMoves();
 	void updateFilmOver();
+    void deselectCurrentPiece();
 };
 
 #endif

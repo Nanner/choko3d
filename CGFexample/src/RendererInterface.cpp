@@ -251,12 +251,7 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 		performPicking(x,y);
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
-		if(game->getSelectState() != SELECT_SECOND_ENEMY) {
-			game->setSelectState(SELECT_ANY);
-			printf("Changed state to select any\n");
-		}
-		game->selectedPieceID = 0;
-        game->updateHighlightedSquarePositions();
+		deselectCurrentPiece();
 	}
 }
 
@@ -402,8 +397,20 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			}
 		}
 	}
-	else
-		printf("Nothing selected while picking \n");	
+	else {
+        deselectCurrentPiece();
+		printf("Nothing selected while picking \n");
+    }
+}
+
+void RendererInterface::deselectCurrentPiece() {
+    Game* game = sceneGraph->getGame();
+    if(game->getSelectState() != SELECT_SECOND_ENEMY) {
+        game->setSelectState(SELECT_ANY);
+        printf("Changed state to select any\n");
+    }
+    game->selectedPieceID = 0;
+    game->updateHighlightedSquarePositions();
 }
 
 void RendererInterface::updateGameOver() {

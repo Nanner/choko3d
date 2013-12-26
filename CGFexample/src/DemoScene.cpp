@@ -137,7 +137,7 @@ void DemoScene::display()
     sceneGraph->drawAllLights();
 
 	// Draw axis
-	axis.draw();
+	//axis.draw();
 
 
 	// ---- END Background, camera and axis setup
