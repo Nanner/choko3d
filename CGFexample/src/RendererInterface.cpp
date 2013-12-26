@@ -9,6 +9,8 @@ void RendererInterface::initGUI() {
     vector<RootVertex *> allRootVertexes = sceneGraph->getRootVertexes();
     
     glutReshapeWindow(1300,700);
+	glutPositionWindow((glutGet(GLUT_SCREEN_WIDTH)-1300)/2,
+		(glutGet(GLUT_SCREEN_HEIGHT)-700)/2);
     
     mainWindow = glutGetWindow();
 
