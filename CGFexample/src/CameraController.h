@@ -35,7 +35,6 @@ public:
 	CGFcamera* getAutoCamera();
 	CGFcamera* getFreeCamera();
 	void changeCamera();
-	void moveCameraToPoint(/*PositionPoint point*/);
 	void changePlayerFocus(int player);
 	void initializeFocusChange(unsigned long t);
 	void updateFocus(unsigned long t);

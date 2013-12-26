@@ -51,10 +51,6 @@ void CameraController::changeCamera() {
 		enabledCamera = AUTO_CAMERA;
 }
 
-void CameraController::moveCameraToPoint(/*PositionPoint point*/) {
-	autoCamera->moveTo(1, 50, 0.5);
-}
-
 void CameraController::changePlayerFocus(int player) {
     if (enabled) {
         isChangingFocus = true;

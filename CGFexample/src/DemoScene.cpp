@@ -157,7 +157,7 @@ void DemoScene::display()
 	}
 
 	if(filmMode) {
-		if(filmStarted && !PieceAnimation::pendingAnimations() && !filmGameStates.empty()) {
+		if(filmStarted && !PieceAnimation::pendingAnimations() && !filmGameStates.empty() && !cameraController.isChangingFocus) {
 			sceneGraph->animateAIPlay(filmGameStates.top().parsedMove);
 			sceneGraph->getGame()->processAIMovedPieces(filmGameStates.top().parsedMove);
 			sceneGraph->getGame()->addGameState(filmGameStates.top());
