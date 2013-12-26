@@ -98,7 +98,7 @@ GameState PrologBridge::execute(GameState gameState, string move) {
     reply.pop_back(); reply.pop_back(); // remove "]."
     reply = reply + "," + move + "]";
     
-    GameState newGameState(reply);
+    GameState newGameState(reply, gameState);
     newGameState = checkGameOver(newGameState);
     return newGameState;
 }
