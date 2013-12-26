@@ -256,6 +256,7 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 			printf("Changed state to select any\n");
 		}
 		game->selectedPieceID = 0;
+        game->updateHighlightedSquarePositions();
 	}
 }
 
@@ -345,6 +346,7 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			if(game->isBoardPiece(selected[0]) && game->isOwnPiece(selected[0])) {
 				game->selectedPieceID = selected[0];
 				game->setSelectState(SELECT_TO_SQUARE);
+                game->updateHighlightedSquarePositions();
 				printf("Changed state to to square\n");
 			}
 			else {
@@ -373,6 +375,9 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 					sceneGraph->movePiece(removePieceID, removePieceOrigin, restPoint);
 					game->setBoardPiecePosition(removePieceID, restPoint);
 				}
+                // remove highlight from selected piece
+                game->selectedPieceID = 0;
+                game->updateHighlightedSquarePositions();
 			}
 			else {
 				printf("Illegal move!\n");

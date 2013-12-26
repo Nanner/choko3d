@@ -857,7 +857,7 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 					unsigned int id = game->getPieceID(it->dest->id);
 					if(id != -1) {
 						glPushName(id);
-						if(id == game->selectedPieceID) {
+						if(id == game->selectedPieceID || game->highlightPiece.at(id)) {
 							it->dest->setAppearance(rootVertex->defaultAppearance);
 							rootVertex->defaultAppearance->apply();
 						}

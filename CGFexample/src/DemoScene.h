@@ -42,6 +42,7 @@ public:
 
 	void startFilmMode();
 	~DemoScene();
+    void drawHighlightedSquares();
 private:
 	bool restartGameOnUpdate;
 	SceneGraph* sceneGraph;

@@ -170,8 +170,32 @@ void DemoScene::display()
 	}
 
 	sceneGraph->renderBoardPieces();
+    
+    drawHighlightedSquares();
 
-	PositionPoint selectedSquare = sceneGraph->getGame()->getSelectedSquarePosition();
+    //drawHUD();
+    
+	// ---- END feature demos
+
+	// We have been drawing in a memory area that is not visible - the back buffer, 
+	// while the graphics card is showing the contents of another buffer - the front buffer
+	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
+	glutSwapBuffers();
+}
+
+void DemoScene::drawHighlightedSquares() {
+    vector<PositionPoint> highlightedSquares = sceneGraph->getGame()->getHighlightedSquarePositions();
+    
+    for (int i = 0 ; i < highlightedSquares.size(); i++) {
+        PositionPoint selectedSquare = highlightedSquares.at(i);
+        glPushMatrix();
+		glTranslatef(selectedSquare.x, selectedSquare.y + 0.1, selectedSquare.z);
+		glScalef(3, 3, 3);
+		squareSelectionAppearance->apply();
+		squareSelection->draw();
+		glPopMatrix();
+    }
+    /*
 	//if p = {0, 0, 0}, no square is selected
 	if(selectedSquare.x != 0 || selectedSquare.y != 0 || selectedSquare.z != 0) {
 		glPushMatrix();
@@ -181,15 +205,7 @@ void DemoScene::display()
 		squareSelection->draw();
 		glPopMatrix();
 	}
-    
-    //drawHUD();
-    
-	// ---- END feature demos
-
-	// We have been drawing in a memory area that is not visible - the back buffer, 
-	// while the graphics card is showing the contents of another buffer - the front buffer
-	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
-	glutSwapBuffers();
+     */
 }
 
 void DemoScene::drawHUD() {

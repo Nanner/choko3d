@@ -270,7 +270,8 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                             firstAttackingDestination = destination;
 							firstCapturedPieceID = getPieceOnSquare(targetToRemove);
 							setBoardPiecePosition(pieceID, destination);
-                            updateScore(2); // conquered 2 pieces
+                            updateScore(1); // conquered 1 piece
+                            updateHighlightedSecondEnemies(firstCapturedPieceID);
                             return targetToRemove;
                         }
                         // there aren't more enemies in the board
@@ -330,6 +331,7 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         stringstream move;
         move << moveFrom << '-' << moveTo << '-' << removeFrom;
         GameState newState = choko.execute(getGameState(), move.str());
+        updateScore(1); // conquered 1 piece
         gameStates.push(newState);
 		MovementHistoryElement lastMove(ATTACK, getPieceWithPosition(firstAttackingDestination), firstCapturedPieceID, secondEnemyPieceID);
 		movementHistory.push(lastMove);
@@ -338,11 +340,13 @@ int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAtt
         printf("Invalid move!!\n");
     }
 	setSelectState(SELECT_ANY);
+    updateHighlightedSecondEnemies(0);
     return 0;
 }
 
 void Game::addPiece(BoardPiece* piece) {
 	boardPieces.insert(pair<unsigned int, BoardPiece*>(piece->id, piece));
+    highlightPiece.insert(pair<unsigned int, bool>(piece->id, false));
 }
 
 int Game::getPieceID(string idStr) {
@@ -372,6 +376,61 @@ PositionPoint Game::getSelectedSquarePosition() {
 	//If not found, return point 0 0 0.
 	PositionPoint p = {0.0, 0.0, 0.0};
 	return p;
+}
+
+vector<PositionPoint> Game::getHighlightedSquarePositions() {
+    vector<PositionPoint> squarePoints;
+    for (int i = 0; i < highlightedSquares.size(); i++) {
+        map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.find(highlightedSquares.at(i));
+        if (it != pickingSquaresPositions.end()) {
+            PositionPoint point = it->second;
+            point.x -= SQUARE_OFFSET;
+            point.z -= SQUARE_OFFSET;
+            squarePoints.push_back(point);
+        }
+    }
+    return squarePoints;
+}
+
+void Game::updateHighlightedSquarePositions() {
+    highlightedSquares.clear();
+    if (selectedPieceID != 0) {
+        BoardPiece * boardPiece = getBoardPiece(selectedPieceID);
+        int moveFrom = boardPiece->squareID;
+        if (moveFrom != 0) {
+            PieceMoves available = choko.getPieceMoves(getGameState(), moveFrom);
+            for (int i = 0; i < available.moves.size(); i++) {
+                highlightedSquares.push_back(available.moves.at(i));
+            }
+            for (int i = 0; i < available.attacks.size(); i++) {
+                highlightedSquares.push_back(available.attacks.at(i));
+            }
+        } else {
+            vector<string> board = getGameState().board;
+            for (int i = 0; i < board.size(); i++) {
+                if ( board.at(i) != "x" && board.at(i) != "o" )
+                    highlightedSquares.push_back( atoi(board.at(i).c_str()) );
+            }
+        }
+    }
+}
+
+void Game::updateHighlightedSecondEnemies(unsigned int exceptionPiece) {
+    if (getSelectState() != SELECT_SECOND_ENEMY) {
+        map<unsigned int, bool>::iterator it;
+        for(it = highlightPiece.begin(); it != highlightPiece.end(); it++) {
+            it->second = false;
+        }
+    } else {
+        char currentPlayer = getGameState().currentPlayer;
+        map<unsigned int, BoardPiece*>::iterator it;
+        for(it = boardPieces.begin(); it != boardPieces.end(); it++) {
+            if ( it->second->player != currentPlayer && it->second->onBoard && it->first != exceptionPiece ) {
+                highlightPiece.at(it->first) = true;
+            }
+        }
+
+    }
 }
 
 int Game::getSelectState() {

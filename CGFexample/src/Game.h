@@ -43,6 +43,7 @@
 #define FIRST_SQUARE_POSITION_X 2.0
 #define FIRST_SQUARE_POSITION_Y 0.0
 #define FIRST_SQUARE_POSITION_Z 2.0
+#define SQUARE_OFFSET 10.0
 
 #define SELECT_ANY 0
 #define SELECT_TO_SQUARE 1
@@ -99,6 +100,7 @@ private:
     PositionPoint firstAttackingDestination;
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
+    vector<unsigned int> highlightedSquares;
 public:
     bool calculatedMovesForPlayerTurn;
     bool movesPossible;
@@ -120,6 +122,8 @@ public:
     int currentDropInitiative;
     
     CameraController * cameraController;
+    
+    map<unsigned int, bool> highlightPiece;
 
 	Game();
 	~Game();
@@ -189,6 +193,9 @@ public:
     void updateCurrentDropInitiative();
     void setCameraController(CameraController * controller);
     void setAIStandby(float seconds);
+    vector<PositionPoint> getHighlightedSquarePositions();
+    void updateHighlightedSquarePositions();
+    void updateHighlightedSecondEnemies(unsigned int exceptionPiece);
 };
 
 #endif
