@@ -22,6 +22,7 @@ private:
 	GLUI_Panel* filmOverPanel;
 	GLUI * filmOverWindow;
 	bool filmOverWindowVisible;
+
     vector<string> sceneNames;
 public:
     int mainWindow;
@@ -64,7 +65,9 @@ public:
 	int filmOverGameRestartButtonID;
 	int filmOverFilmButtonID;
     
+	GLUI_Checkbox* cameraRotationCheckbox;
     int cameraRotationID;
+	bool autoCameraOn;
 
     int sceneSwitchID;
 

@@ -3,12 +3,16 @@
 CameraController::CameraController() {
 	enabledCamera = AUTO_CAMERA;
 	CGFcamera* freeCamera = new CGFcamera();
-	//freeCamera->moveTo(1, 15, 0.01);
+	freeCamera->setX(0);
+	freeCamera->setY(0);
+	freeCamera->setZ(0);
+	freeCamera->rotate(CG_CGFcamera_AXIS_X, 90);
+	freeCamera->setZ(-80);
+	//freeCamera->setZ(0);
+	//freeCamera->setY(-100);
 	this->freeCamera = freeCamera;
     
 	CGFcamera* autoCamera = new CGFcamera();
-	//autoCamera->setX(-10);
-	//autoCamera->setY(-30);
 	autoCamera->setZ(-90);
 	autoCamera->rotate(CG_CGFcamera_AXIS_X, 45);
 	this->autoCamera = autoCamera;
@@ -26,6 +30,10 @@ CGFcamera* CameraController::getEnabledCamera() {
 		return autoCamera;
 	else
 		return freeCamera;
+}
+
+int CameraController::getEnabledCameraType() {
+	return enabledCamera;
 }
 
 CGFcamera* CameraController::getAutoCamera() {
@@ -88,4 +96,14 @@ void CameraController::updateFocus(unsigned long t) {
 		isChangingFocus = false;
 		focusChangeInitialized = false;
 	}
+}
+
+void CameraController::resetFreeCam() {
+	freeCamera->setRotation(CG_CGFcamera_AXIS_Y, 0);
+	freeCamera->setRotation(CG_CGFcamera_AXIS_Z, 0);
+	freeCamera->setX(0);
+	freeCamera->setY(0);
+	freeCamera->setZ(0);
+	freeCamera->setRotation(CG_CGFcamera_AXIS_X, 90);
+	freeCamera->setZ(-80);
 }

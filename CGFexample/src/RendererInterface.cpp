@@ -93,7 +93,7 @@ void RendererInterface::initGUI() {
     GLUI_Spinner* animationDurationSpinner = this->glui_window->add_spinner((char*)"Move duration", GLUI_SPINNER_FLOAT, &SceneVertex::moveAnimationDuration, lastID);
     lastID++;
     
-    addCheckbox((char*)"Camera Rotation", &sceneGraph->getGame()->cameraController->enabled, lastID);
+    cameraRotationCheckbox = addCheckbox((char*)"Auto camera", &sceneGraph->getGame()->cameraController->enabled, lastID);
     cameraRotationID = lastID;
     lastID++;
 
@@ -223,16 +223,25 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         noMovesWindowVisible = false;
     }
     
-    if(ctrl->user_id == cameraRotationID
-       && !sceneGraph->getGame()->cameraController->isChangingFocus) {
-        char player = sceneGraph->getGame()->currentPlayer;
-        CameraController * cam = sceneGraph->getGame()->cameraController;
-        if (player == PLAYER1) {
-            cam->setAngle(PLAYER1_ANGLE);
-        } else {
-            cam->setAngle(PLAYER2_ANGLE);
-        }
-    }
+	if(ctrl->user_id == cameraRotationID && !sceneGraph->getGame()->cameraController->isChangingFocus) {
+		if(!autoCameraOn) {
+			char player = sceneGraph->getGame()->currentPlayer;
+			CameraController * cam = sceneGraph->getGame()->cameraController;
+			cam->changeCamera();
+			if (player == PLAYER1) {
+				cam->setAngle(PLAYER1_ANGLE);
+			} else {
+				cam->setAngle(PLAYER2_ANGLE);
+			}
+			autoCameraOn = true;
+		}
+		else {
+			autoCameraOn = false;
+			CameraController * cam = sceneGraph->getGame()->cameraController;
+			cam->changeCamera();
+			cam->resetFreeCam();
+		}
+	}
     
     if(ctrl->user_id == sceneSwitchID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
@@ -241,11 +250,14 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 }
 
 void RendererInterface::processMouse(int button, int state, int x, int y) {
-	CGFinterface::processMouse(button,state, x, y);
 	Game* game = sceneGraph->getGame();
-	if(game->currentPlayerIsAI() || PieceAnimation::pendingAnimations()) {
+	if(game->cameraController->getEnabledCameraType() != AUTO_CAMERA)
+		CGFinterface::processMouse(button,state, x, y);
+
+	if(game->currentPlayerIsAI() || PieceAnimation::pendingAnimations() || game->cameraController->isChangingFocus) {
 		return;
 	}
+
 	// do picking on mouse press (GLUT_DOWN)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 		performPicking(x,y);
@@ -329,9 +341,6 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
 	if (selected!=NULL)
 	{
-		// this should be replaced by code handling the picked object's ID's (stored in "selected"), 
-		// possibly invoking a method on the scene class and passing "selected" and "nselected"
-
 		for(unsigned int i = 0; i < nselected; i++)
 			printf("Square selected: %d\n", selected[i]);
 
