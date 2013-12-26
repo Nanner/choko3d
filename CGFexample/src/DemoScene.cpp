@@ -137,6 +137,7 @@ void DemoScene::display()
     sceneGraph->drawAllLights();
 
 	// Draw axis
+    glColor3f(1.0,1.0,1.0);
 	//axis.draw();
 
 
