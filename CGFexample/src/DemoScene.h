@@ -46,9 +46,9 @@ public:
 private:
 	bool restartGameOnUpdate;
 	SceneGraph* sceneGraph;
-	Appearance* squareSelectionAppearance;
+	Appearance* defaultHighlightedSquareAppearance;
     CGFappearance* hudAppearance;
-	Plane* squareSelection;
+	Plane* defaultHighlightedSquare;
     RendererInterface * rendererInterface;
 	CameraController cameraController;
     Game * game;

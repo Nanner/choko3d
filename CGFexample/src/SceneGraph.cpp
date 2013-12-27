@@ -62,6 +62,7 @@ void SceneGraph::switchScene(int scene) {
     boardPiecesSet = allBoardPiecesSets.at(scene);
     rootVertex = allRootVertexes.at(scene);
     appearances = allAppearances.at(scene);
+    highlightedSquare = allHighLightedSquares.at(scene);
     
     enableLights();
     
@@ -172,6 +173,21 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
 	for(; it3 != yafFile->boardPieces.end(); it3++) {
 		processYAFNodeReferences(it3->second, boardPiecesSet);
 	}
+    
+    // get highlight square node
+    bool foundHighlightNode = false;
+    for (int i = 0; i < vertexSet.size(); i++) {
+        if ( vertexSet.at(i)->id == "highlightedSquare" ) {
+            highlightedSquare = vertexSet.at(i);
+            allHighLightedSquares.push_back(vertexSet.at(i));
+            foundHighlightNode = true;
+        }
+    }
+    
+    if (!foundHighlightNode) {
+        highlightedSquare = NULL;
+        allHighLightedSquares.push_back(NULL);
+    }
     
     disableLights();
     SceneLight::resetLastLight();

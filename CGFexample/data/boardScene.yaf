@@ -306,6 +306,13 @@
       texlength_s="1.0"
       texlength_t="1.0" />
 
+    <apperance id="highlightedSquareApp" 
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="1.0 0.0 0.0 0.4"
+      diffuse="1.0 0.0 0.0 0.4"
+      specular="0.0 0.0 0.0 0.4"
+      shininess="0.0"/>
+
   </appearances>
 
   <animations>
@@ -333,6 +340,18 @@
         <noderef id="cityLeftSide" />
         <noderef id="cityRightSide" />
         -->
+      </children>
+    </node>
+
+    <node id="highlightedSquare" displaylist="false">
+      <transforms>
+
+      </transforms>
+
+      <appearanceref id="highlightedSquareApp" />
+
+      <children>
+        <plane parts="10"/>
       </children>
     </node>
 

@@ -31,9 +31,12 @@ class SceneGraph {
     
     vector<YAFGlobalLighting> allGlobalLighting;
     
+    vector<SceneVertex* > allHighLightedSquares;
+    
 	Game* game;
     
 public:
+    SceneVertex* highlightedSquare;
     map<string, Animation *> animations;
 	stack<int> displayListOrder;
 	bool stackReady;

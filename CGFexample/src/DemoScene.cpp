@@ -22,10 +22,10 @@ void DemoScene::init()
 	float emissivity[4] = {0.0, 0.0, 0.0, 0.0};
 	float shininess = 0.0;
 
-	squareSelectionAppearance = new Appearance(ambient, diffuse, specular, emissivity, shininess);
+	defaultHighlightedSquareAppearance = new Appearance(ambient, diffuse, specular, emissivity, shininess);
 
-	squareSelection = new Plane(10);
-	squareSelection->setAppearance(squareSelectionAppearance);
+	defaultHighlightedSquare = new Plane(10);
+	defaultHighlightedSquare->setAppearance(defaultHighlightedSquareAppearance);
     
     game = sceneGraph->getGame();
     game->setCameraController(&cameraController);
@@ -207,8 +207,12 @@ void DemoScene::drawHighlightedSquares() {
         glPushMatrix();
 		glTranslatef(selectedSquare.x, selectedSquare.y + 0.1, selectedSquare.z);
 		glScalef(3.1, 3.1, 3.1);
-		squareSelectionAppearance->apply();
-		squareSelection->draw();
+        if (sceneGraph->highlightedSquare == NULL) {
+            defaultHighlightedSquareAppearance->apply();
+            defaultHighlightedSquare->draw();
+        } else {
+            sceneGraph->render(sceneGraph->highlightedSquare);
+        }
 		glPopMatrix();
     }
 
