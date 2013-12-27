@@ -84,7 +84,7 @@ void Game::loadBoardPiecesPositions() {
 			p1ID++;
 
 			PositionPoint restPosition;
-			restPosition.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+			restPosition.x = (float) FIRST_P1REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
 			restPosition.y = (float) FIRST_P1REST_POS_Y;
 			restPosition.z = (float) FIRST_P1REST_POS_Z + (float) column * (float) SPACE_BETWEEN_PIECES;
 			p1RestPositions.push(restPosition);
@@ -100,7 +100,7 @@ void Game::loadBoardPiecesPositions() {
 	p1ID++;
 
 	PositionPoint p1RestPosition1;
-	p1RestPosition1.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+	p1RestPosition1.x = (float) FIRST_P1REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
 	p1RestPosition1.y = (float) FIRST_P1REST_POS_Y;
 	p1RestPosition1.z = (float) FIRST_P1REST_POS_Z + (float) SPACE_BETWEEN_PIECES;
 	p1RestPositions.push(p1RestPosition1);
@@ -113,7 +113,7 @@ void Game::loadBoardPiecesPositions() {
     boardPieces.find(p1ID)->second->player = 'x';
 
 	PositionPoint p1RestPosition2;
-	p1RestPosition2.x = (float) FIRST_P1REST_POS_X - (float) row * (float) SPACE_BETWEEN_PIECES;
+	p1RestPosition2.x = (float) FIRST_P1REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
 	p1RestPosition2.y = (float) FIRST_P1REST_POS_Y;
 	p1RestPosition2.z = (float) FIRST_P1REST_POS_Z + 3.0 * (float) SPACE_BETWEEN_PIECES;
 	p1RestPositions.push(p1RestPosition2);

@@ -337,6 +337,7 @@
       <children>
         <noderef id="board" />
         <noderef id="skyBox" />
+        <noderef id="table" />
         <!--
         <noderef id="zeppelin1" />
         <noderef id="zeppelin2" />
@@ -345,6 +346,55 @@
         <noderef id="cityLeftSide" />
         <noderef id="cityRightSide" />
         -->
+      </children>
+    </node>
+    
+    <node id="table">
+      <transforms>
+        
+      </transforms>
+    
+      <children>
+        <noderef id="tableBase"/>
+        <noderef id="tableBody"/>
+        <noderef id="tableTop" />
+      </children>
+    </node>
+    
+    <node id="tableBase">
+      <transforms>
+        <translate to="0.0 -70.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+      
+      <appearanceref id="roadApp" />
+
+      <children>
+        <cylinder base="40.5" top="12.5" height="7.5" slices="16" stacks="16" />
+      </children>
+    </node>
+    
+    <node id="tableTop">
+      <transforms>
+        <translate to="0.0 -5.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+      
+      <appearanceref id="roadApp" />
+
+      <children>
+        <cylinder base="40.5" top="40.5" height="2.5" slices="16" stacks="16" />
+      </children>
+    </node>
+    
+    <node id="tableBody">
+      <transforms>
+        <translate to="0.0 -65.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+
+      <children>
+        <cylinder base="12.5" top="10.5" height="60.0" slices="16" stacks="16" />
       </children>
     </node>
 

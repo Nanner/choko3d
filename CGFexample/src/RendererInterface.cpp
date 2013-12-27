@@ -9,6 +9,8 @@ void RendererInterface::initGUI() {
     vector<RootVertex *> allRootVertexes = sceneGraph->getRootVertexes();
     
     glutReshapeWindow(1300,700);
+	glutPositionWindow((glutGet(GLUT_SCREEN_WIDTH)-1300)/2,
+		(glutGet(GLUT_SCREEN_HEIGHT)-700)/2);
     
     mainWindow = glutGetWindow();
 
@@ -223,7 +225,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         noMovesWindowVisible = false;
     }
     
-	if(ctrl->user_id == cameraRotationID && !sceneGraph->getGame()->cameraController->isChangingFocus) {
+	if(ctrl->user_id == cameraRotationID) {
 		if(!autoCameraOn) {
 			char player = sceneGraph->getGame()->currentPlayer;
 			CameraController * cam = sceneGraph->getGame()->cameraController;
