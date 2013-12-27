@@ -95,6 +95,8 @@
 
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
+    
+    <texture id="woodTex" file="wood.jpg" />
 
     <texture id="cabinTex" file="cabinText.png" />
 
@@ -130,6 +132,16 @@
 
   <!-- bloco de materiais; -->
   <appearances>
+    
+    <appearance id="woodApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="woodTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
 
     <appearance id="wingApp"
       emissive="0.0 0.0 0.0 0.0"
@@ -1250,14 +1262,70 @@
         <plane parts="10" />
       </children>
     </node>
-
+    
     <node id="boardFrame">
       <transforms>
+      </transforms>
+      
+      <appearanceref id="woodApp" />
 
+      <children>
+        <noderef id="frameLeft" />
+        <noderef id="frameRight" />
+        <noderef id="frameFront" />
+        <noderef id="frameBack" />
+      </children>
+    </node>
+    
+    <node id="frameRight">
+      <transforms>
       </transforms>
 
       <children>
-        <noredef id="temp" />
+        <noderef id="framePart" />
+      </children>
+    </node>
+    
+    <node id="frameLeft">
+      <transforms>
+        <rotate axis="y" angle="180"/>
+      </transforms>
+
+      <children>
+        <noderef id="framePart" />
+      </children>
+    </node>
+    
+    
+    <node id="frameBack">
+      <transforms>
+        <rotate axis="y" angle="90"/>
+      </transforms>
+
+      <children>
+        <noderef id="framePart" />
+      </children>
+    </node>
+    
+    <node id="frameFront">
+      <transforms>
+        <rotate axis="y" angle="270"/>
+      </transforms>
+
+      <children>
+        <noderef id="framePart" />
+      </children>
+    </node>
+    
+    <node id="framePart">
+      <transforms>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 21.25" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
       </children>
     </node>
 
@@ -1363,7 +1431,7 @@
 
     <node id="p2pieces">
       <transforms>
-        <translate to="-10.0 -2.5 -27.0" />
+        <translate to="-10.0 -2.4375 -27.0" />
       </transforms>
       
       <appearanceref id="p2App" />
@@ -1386,7 +1454,7 @@
     
     <node id="p1pieces">
       <transforms>
-        <translate to="-10.0 -2.5 7.0" />
+        <translate to="-10.0 -2.4375 7.0" />
       </transforms>
       
       <appearanceref id="p1App" />
