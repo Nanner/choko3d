@@ -24,70 +24,33 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="main" enabled="true"
+    <spot id="main" enabled="true"
         location="0.0 60.0 0.0"
-        ambient="0.8 0.8 0.8 1.0"
-        diffuse="0.7 0.7 0.7 1.0"
-        specular="0.3 0.3 0.3 1.0"
-            />
-
-    <spot id="attackSpot1" enabled="true"
-        location="15.0 30.0 0.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
+        ambient="1.0 1.0 1.0 1.0"
+        diffuse="1.0 1.0 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
+        angle="60.0"
+        exponent="1.0"
         direction="0.0 -1.0 0.0"
             />
 
-    <spot id="attackSpot2" enabled="true"
-        location="-15.0 30.0 0.0"
+    <spot id="player1Spot" enabled="true"
+        location="0.0 20.0 22.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
+        diffuse="0.1 0.1 0.6 1.0"
+        specular="0.0 0.0 0.0 1.0"
+        angle="60.0"
+        exponent="5.0"
         direction="0.0 -1.0 0.0"
             />
 
-    <spot id="attackSpot3" enabled="true"
-        location="5.0 5.0 0.0"
+    <spot id="player2Spot" enabled="true"
+        location="0.0 20.0 -22.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot4" enabled="true"
-        location="-5.0 5.0 0.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot5" enabled="true"
-        location="5.0 5.0 5.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
-        direction="0.0 -1.0 0.0"
-            />
-
-            <spot id="attackSpot6" enabled="true"
-        location="5.0 5.0 -5.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="1.0 0.0 0.0 1.0"
-        specular="1.0 0.0 0.0 1.0"
-        angle="45.0"
-        exponent="15.0"
+        diffuse="0.6 0.1 0.1 1.0"
+        specular="0.0 0.0 0.0 1.0"
+        angle="60.0"
+        exponent="5.0"
         direction="0.0 -1.0 0.0"
             />
 
@@ -245,8 +208,8 @@
     
     <appearance id="p1App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.99 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
+      ambient="0.5 0.5 1.0 1.0"
+      diffuse="0.5 0.5 1.0 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"
@@ -255,8 +218,8 @@
     
     <appearance id="p2App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.99 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
+      ambient="1.0 0.33 0.33 1.0"
+      diffuse="1.0 0.33 0.33 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"
@@ -265,9 +228,9 @@
 
     <appearance id="boardApp"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
+      ambient="0.4 0.4 0.4 1.0"
+      diffuse="0.4 0.4 0.4 1.0"
+      specular="0.01 0.01 0.01 1.0"
       shininess="100.0"
       textureref="boardTex"
       texlength_s="1.0"
@@ -389,7 +352,7 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="roadApp" />
+      <appearanceref id="woodApp" />
 
       <children>
         <noderef id="boxPartLid"/>
