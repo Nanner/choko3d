@@ -151,20 +151,12 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
 	for(; it3 != yafFile->boardPieces.end(); it3++) {
 		if(it3->first.compare("boardPieces") != 0)
 			processYAFNode(it3->second, boardPiecesSet);
-        
-		//If we are processing a "piece" node, create a board piece object with its id
-		if(it3->first.compare("boardPieces") != 0 && it3->first.compare("p1pieces") != 0
-           && it3->first.compare("p2pieces") != 0 && it3->first.compare("piece") != 0) {
 			
             unsigned int id = strtoul(it3->first.c_str(), NULL, 10);
-            if(id == 0L || id == ULONG_MAX) {
-                printf("Error, the piece IDs must be numbers!\n Terminating.\n");
-                exit(-1);
+            if(id != 0L && id != ULONG_MAX) {
+				BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+				game->addPiece(p);
             }
-            
-            BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
-            game->addPiece(p);
-		}
 	}
     
 	//Process the links between nodes

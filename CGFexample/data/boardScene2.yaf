@@ -24,30 +24,33 @@
   <lighting doublesided="false" local="false" enabled="true" ambient="0.3 0.3 0.3 1.0" >
     <!-- Deve existir um ou mais blocos "light" -->
     <!-- Os identificadores "id" nao podem ser repetidos -->
-    <omni id="main" enabled="true"
+    <spot id="main" enabled="true"
         location="0.0 60.0 0.0"
-        ambient="0.8 0.8 0.8 1.0"
-        diffuse="0.7 0.7 0.7 1.0"
-        specular="0.3 0.3 0.3 1.0"
-            />
-
-    <spot id="attackSpot1" enabled="true"
-        location="15.0 30.0 0.0"
-        ambient="0.0 0.0 0.0 0.0"
-        diffuse="0.0 0.0 1.0 1.0"
-        specular="0.0 0.0 1.0 1.0"
-        angle="45.0"
-        exponent="15.0"
+        ambient="1.0 1.0 1.0 1.0"
+        diffuse="1.0 1.0 1.0 1.0"
+        specular="1.0 1.0 1.0 1.0"
+        angle="60.0"
+        exponent="1.0"
         direction="0.0 -1.0 0.0"
             />
 
-    <spot id="attackSpot2" enabled="true"
-        location="-15.0 30.0 0.0"
+    <spot id="player1Spot" enabled="true"
+        location="0.0 20.0 22.0"
         ambient="0.0 0.0 0.0 0.0"
-        diffuse="0.0 0.0 1.0 1.0"
-        specular="0.0 0.0 1.0 1.0"
-        angle="45.0"
-        exponent="15.0"
+        diffuse="0.1 0.1 0.6 1.0"
+        specular="0.0 0.0 0.0 1.0"
+        angle="60.0"
+        exponent="5.0"
+        direction="0.0 -1.0 0.0"
+            />
+
+    <spot id="player2Spot" enabled="true"
+        location="0.0 20.0 -22.0"
+        ambient="0.0 0.0 0.0 0.0"
+        diffuse="0.6 0.1 0.1 1.0"
+        specular="0.0 0.0 0.0 1.0"
+        angle="60.0"
+        exponent="5.0"
         direction="0.0 -1.0 0.0"
             />
 
@@ -56,19 +59,9 @@
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
 
-    <texture id="cabinTex" file="cabinText.png" />
+    <texture id="woodTex" file="wood.jpg" />
 
-    <texture id="cabinBottomTex" file="cabinBottomText.png" />
-
-    <texture id="balloonTex" file="balloonText.png" />
-
-    <texture id="building1Tex" file="building1.jpg" />
-
-    <texture id="building2Tex" file="building2.jpg" />
-
-    <texture id="building3Tex" file="building3.jpg" />
-
-    <texture id="building4Tex" file="building4.jpg" />
+    <texture id="gardenTableTex" file="gardenTableTex.jpg" />
 
     <texture id="roadTex" file="road.jpg" />
 
@@ -91,93 +84,13 @@
   <!-- bloco de materiais; -->
   <appearances>
 
-    <appearance id="wingApp"
+    <appearance id="woodApp"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.7 0.0 0.0 1.0"
-      diffuse="0.4 0.0 0.0 1.0"
-      specular="0.1 0.0 0.0 1.0"
-      shininess="50.0"
-      textureref="cabinBottomTex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="cabinApp"
-      emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="cabinTex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="cabinBottomApp"
-      emissive="0.0 0.0 0.0 0.0"
-      ambient="0.43 0.43 0.43 1.0"
-      diffuse="0.43 0.43 0.43 1.0"
-      specular="0.43 0.43 0.43 1.0"
-      shininess="100.0"
-      textureref="cabinBottomTex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="balloonApp"
-      emissive="0.0 0.0 0.0 0.0"
-      ambient="0.63 0.63 0.63 1.0"
-      diffuse="0.63 0.63 0.63 1.0"
-      specular="0.63 0.63 0.63 1.0"
-      shininess="100.0"
-      textureref="balloonTex"
-      texlength_s="7.0"
-      texlength_t="5.0"/>
-
-    <appearance id="bombBodyApp"
-      emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="balloonTex"
-      texlength_s="7.0"
-      texlength_t="5.0"/>
-
-    <appearance id="building1App"
-      emissive="0.7 0.7 0.7 1.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="building1Tex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="building2App"
-      emissive="0.7 0.7 0.7 1.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="building2Tex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="building3App"
-      emissive="0.7 0.7 0.7 1.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="building3Tex"
-      texlength_s="1.0"
-      texlength_t="1.0"/>
-
-    <appearance id="building4App"
-      emissive="0.7 0.7 0.7 1.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
-      shininess="100.0"
-      textureref="building4Tex"
+      ambient="0.3 0.1 0.0 1.0"
+      diffuse="0.35 0.15 0.0 1.0"
+      specular="0.05 0.05 0.05 1.0"
+      shininess="10.0"
+      textureref="woodTex"
       texlength_s="1.0"
       texlength_t="1.0"/>
 
@@ -190,21 +103,31 @@
       textureref="roadTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
-    
+
+    <appearance id="gardenTableApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.23 0.23 0.23 1.0"
+      diffuse="0.23 0.23 0.23 1.0"
+      specular="0.23 0.23 0.23 1.0"
+      shininess="0.0"
+      textureref="gardenTableTex"
+      texlength_s="0.1"
+      texlength_t="0.1"/>
+
     <appearance id="p1App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.99 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
+      ambient="0.2 0.2 1.0 1.0"
+      diffuse="0.2 0.2 1.0 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
-    
+
     <appearance id="p2App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.99 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
+      ambient="1.0 0.2 0.2 1.0"
+      diffuse="1.0 0.2 0.2 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"
@@ -213,9 +136,9 @@
 
     <appearance id="boardApp"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.23 0.23 0.23 1.0"
-      diffuse="0.23 0.23 0.23 1.0"
-      specular="0.23 0.23 0.23 1.0"
+      ambient="0.4 0.4 0.4 1.0"
+      diffuse="0.4 0.4 0.4 1.0"
+      specular="0.01 0.01 0.01 1.0"
       shininess="100.0"
       textureref="boardTex"
       texlength_s="1.0"
@@ -281,6 +204,16 @@
       texlength_s="1.0"
       texlength_t="1.0"/>
 
+    <apperance id="selectedPiece"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.0 0.8 0.0 1.0"
+      diffuse="0.0 0.8 0.0 1.0"
+      specular="0.0 0.0 0.0 1.0"
+      shininess="0.0"
+      textureref="roadTex"
+      texlength_s="1.0"
+      texlength_t="1.0" />
+
   </appearances>
 
   <animations>
@@ -297,14 +230,165 @@
       <children>
         <noderef id="board" />
         <noderef id="skyBox" />
-        <!--
-        <noderef id="zeppelin1" />
-        <noderef id="zeppelin2" />
-        <noderef id="buildingsLeft" />
-        <noderef id="buildingsRight" />
-        <noderef id="cityLeftSide" />
-        <noderef id="cityRightSide" />
-        -->
+        <noderef id="table" />
+        <noderef id="p1PieceBox" />
+        <noderef id="p2PieceBox" />
+      </children>
+    </node>
+
+    <node id="p1PieceBox" displaylist="false">
+      <transforms>
+        <translate to="0.0 -2.5 21.0" />
+        <scale factor="6 0.5 6" />
+      </transforms>
+
+      <children>
+        <noderef id="box"/>
+      </children>
+    </node>
+
+    <node id="p2PieceBox" displaylist="false">
+      <transforms>
+        <translate to="0.0 -2.5 -21.0" />
+        <scale factor="6 0.5 6" />
+      </transforms>
+
+      <children>
+        <noderef id="box"/>
+      </children>
+    </node>
+
+    <node id="box" displaylist="false">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="woodApp" />
+
+      <children>
+        <noderef id="boxPartLid"/>
+        <noderef id="boxFront"/>
+        <noderef id="boxBack"/>
+        <noderef id="boxLeft"/>
+        <noderef id="boxRight"/>
+      </children>
+    </node>
+
+    <node id="boxFront">
+      <transforms>
+        <translate to="0 0.6625 1.1875" />
+        <rotate axis="y" angle="90" />
+        <rotate axis="z" angle="90" />
+        <scale factor="1 1 1.3" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxBack">
+      <transforms>
+        <translate to="0 0.6625 -1.1875" />
+        <rotate axis="y" angle="90" />
+        <rotate axis="z" angle="90" />
+        <scale factor="1 1 1.3" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxLeft">
+      <transforms>
+        <translate to="-1.6875 0.6625 0" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxRight">
+      <transforms>
+        <translate to="1.6875 0.6625 0" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxPartLid">
+      <transforms>
+        <scale factor="3.5 0.125 2.5" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="boxPartSide">
+      <transforms>
+        <scale factor="1.2 0.125 2.5" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="table">
+      <transforms>
+
+      </transforms>
+
+      <children>
+        <noderef id="tableBase"/>
+        <noderef id="tableBody"/>
+        <noderef id="tableTop" />
+      </children>
+    </node>
+
+    <node id="tableBase">
+      <transforms>
+        <translate to="0.0 -70.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+
+      <appearanceref id="gardenTableApp" />
+
+      <children>
+        <cylinder base="30.5" top="12.5" height="7.5" slices="16" stacks="16" />
+      </children>
+    </node>
+
+    <node id="tableTop">
+      <transforms>
+        <translate to="0.0 -5.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+
+      <appearanceref id="gardenTableApp" />
+
+      <children>
+        <cylinder base="40.5" top="40.5" height="2.5" slices="16" stacks="16" />
+      </children>
+    </node>
+
+    <node id="tableBody">
+      <transforms>
+        <translate to="0.0 -65.0 0.0" />
+        <rotate angle="270" axis="x" />
+      </transforms>
+
+      <appearanceref id="roadApp" />
+
+      <children>
+        <cylinder base="8.5" top="8.5" height="60.0" slices="16" stacks="16" />
       </children>
     </node>
 
@@ -401,433 +485,6 @@
       </children>
     </node>
 
-    <node id="buildingsLeft" displaylist="true">
-      <transforms>
-      </transforms>
-
-      <children>
-        <noderef id="buildingsFront" />
-        <noderef id="buildingsBack" />
-      </children>
-    </node>
-
-    <node id="buildingsRight">
-      <transforms>
-        <rotate axis="y" angle="180" />
-      </transforms>
-
-      <children>
-        <noderef id="buildingsFront" />
-        <noderef id="buildingsBack" />
-      </children>
-    </node>
-
-    <node id="buildingsBack">
-      <transforms>
-        <translate to="-45.0 0.0 0.0" />
-        <rotate axis="y" angle="180" />
-      </transforms>
-
-      <children>
-        <noderef id="buildings1" />
-        <noderef id="buildings2" />
-      </children>
-    </node>
-
-    <node id="buildingsFront">
-      <transforms>
-
-      </transforms>
-
-      <children>
-        <noderef id="buildings1" />
-        <noderef id="buildings2" />
-      </children>
-    </node>
-
-    <node id="buildings2">
-      <transforms>
-        <translate to="0.0 0.0 40.0" />
-      </transforms>
-
-      <children>
-        <noderef id="building1" />
-        <noderef id="building2" />
-        <noderef id="building3" />
-        <noderef id="building4" />
-      </children>
-    </node>
-
-    <node id="buildings1">
-      <transforms>
-      </transforms>
-
-      <children>
-        <noderef id="building1" />
-        <noderef id="building2" />
-        <noderef id="building3" />
-        <noderef id="building4" />
-      </children>
-    </node>
-
-    <node id="building4">
-      <transforms>
-        <translate to="13.0 -2.5 65.0" />
-        <scale factor="2.0 1.5 2.0" />
-      </transforms>
-
-      <appearanceref id="building4App" />
-
-      <children>
-        <noderef id="building" />
-      </children>
-    </node>
-
-    <node id="building3">
-      <transforms>
-        <translate to="1.5 1.5 19.0" />
-        <scale factor="1 0.7 1.0" />
-      </transforms>
-
-      <appearanceref id="building3App" />
-
-      <children>
-        <noderef id="building" />
-      </children>
-    </node>
-
-    <node id="building2">
-      <transforms>
-        <translate to="7.0 1.0 9.0" />
-        <scale factor="1.5 0.8 1.0" />
-      </transforms>
-
-      <appearanceref id="building2App" />
-
-      <children>
-        <noderef id="building" />
-      </children>
-    </node>
-
-    <node id="building1">
-      <transforms>
-      </transforms>
-
-      <appearanceref id="building1App" />
-
-      <children>
-        <noderef id="building" />
-      </children>
-    </node>
-
-    <node id="building">
-      <transforms>
-        <translate to="-15.0 10.0 -37.0" />
-        <scale factor="5.0 10.0 5.0" />
-      </transforms>
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-
-    <node id="cityLeftSide" displaylist="true">
-      <transforms>
-        <translate to="-25.0 3.0 0.0" />
-        <scale factor="30.0 4.0 80.0" />
-      </transforms>
-
-      <appearanceref id="roadApp" />
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-
-    <node id="cityRightSide">
-      <transforms>
-        <translate to="25.0 3.0 0.0" />
-        <scale factor="30.0 4.0 80.0" />
-      </transforms>
-
-      <appearanceref id="roadApp" />
-
-      <children>
-        <noderef id="cube" />
-      </children>
-    </node>
-
-    <node id="zeppelin1">
-      <transforms>
-        <scale factor="1.5 1.5 1.5" />
-      </transforms>
-
-      <children>
-        <vehicle />
-      </children>
-    </node>
-
-    <node id="zeppelin2">
-      <transforms>
-        <scale factor="1.5 1.5 1.5" />
-      </transforms>
-
-      <children>
-        <noderef id="balloon" />
-        <noderef id="cabinRight" />
-        <noderef id="cabinLeft" />
-        <noderef id="cabinBottom" />
-        <noderef id="wings" />
-      </children>
-    </node>
-
-    <node id="balloon">
-      <transforms>
-        <translate to="0.0 1.7 -2.0" />
-        <scale factor="3.0 3.0 14.0" />
-      </transforms>
-
-      <appearanceref id="balloonApp" />
-
-      <children>
-        <sphere radius="0.5" slices="10" stacks="20" />
-      </children>
-    </node>
-
-    <node id="wings">
-      <transforms>
-        <translate to="0.0 1.7 -5.0" />
-      </transforms>
-
-      <children>
-        <noderef id="topWing" />
-        <noderef id="bottomWing" />
-        <noderef id="rightWing" />
-        <noderef id="leftWing" />
-      </children>
-    </node>
-
-    <node id="topWing">
-      <transforms>
-        <translate to="0.0 2.0 0.0" />
-      </transforms>
-
-      <appearanceref id="wingApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="-1.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.5" />
-
-          <controlpoint x="0.0" y="-1.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="-1.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.0" />
-        </patch>
-
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="-1.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="-1.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="-1.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.5" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="bottomWing">
-      <transforms>
-        <translate to="0.0 -2.0 0.0" />
-      </transforms>
-
-      <appearanceref id="wingApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="1.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-
-          <controlpoint x="0.0" y="1.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="-0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="1.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.0" />
-        </patch>
-
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="1.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="1.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="-0.5" z="-1.0" />
-
-          <controlpoint x="0.0" y="1.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="rightWing">
-      <transforms>
-        <translate to="2.0 0.0 0.0" />
-      </transforms>
-
-      <appearanceref id="wingApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="-1.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="-1.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="-1.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.5" y="-0.0" z="-1.5" />
-        </patch>
-
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="-1.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.5" y="-0.0" z="-1.5" />
-
-          <controlpoint x="-1.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="-1.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.5" y="0.0" z="-1.0" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="leftWing">
-      <transforms>
-        <translate to="-2.0 0.0 0.0" />
-      </transforms>
-
-      <appearanceref id="wingApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="1.0" y="-0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="-0.5" y="0.0" z="-1.5" />
-
-          <controlpoint x="1.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="-0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="1.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="-0.5" y="0.0" z="-1.0" />
-        </patch>
-
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="1.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="-0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="1.0" y="0.0" z="0.0" />
-          <controlpoint x="0.0" y="0.0" z="0.0" />
-          <controlpoint x="-0.5" y="0.0" z="-1.0" />
-
-          <controlpoint x="1.0" y="-0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="-0.5" y="0.0" z="-1.5" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="cabinBottom">
-      <transforms>
-      </transforms>
-
-      <appearanceref id="cabinBottomApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="-0.5" z="1.5" />
-          <controlpoint x="0.0" y="-0.5" z="1.5" />
-          <controlpoint x="0.0" y="-0.5" z="1.5" />
-
-          <controlpoint x="1.0" y="-0.5" z="0.0" />
-          <controlpoint x="0.0" y="-1.5" z="0.0" />
-          <controlpoint x="-1.0" y="-0.5" z="0.0" />
-
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="cabinRight">
-      <transforms>
-      </transforms>
-
-      <appearanceref id="cabinApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.5" />
-
-          <controlpoint x="1.0" y="-0.5" z="0.0" />
-          <controlpoint x="1.0" y="0.0" z="0.0" />
-          <controlpoint x="1.0" y="0.5" z="0.0" />
-
-          <controlpoint x="0.0" y="-0.5" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.5" z="1.5" />
-        </patch>
-      </children>
-    </node>
-
-    <node id="cabinLeft">
-      <transforms>
-      </transforms>
-
-      <appearanceref id="cabinApp" />
-
-      <children>
-        <patch order="2" partsU="10" partsV="20" compute="fill">
-          <controlpoint x="0.0" y="-0.5" z="1.5" />
-          <controlpoint x="0.0" y="0.0" z="1.5" />
-          <controlpoint x="0.0" y="0.5" z="1.5" />
-
-          <controlpoint x="-1.0" y="-0.5" z="0.0" />
-          <controlpoint x="-1.0" y="0.0" z="0.0" />
-          <controlpoint x="-1.0" y="0.5" z="0.0" />
-
-          <controlpoint x="0.0" y="-0.5" z="-1.5" />
-          <controlpoint x="0.0" y="0.0" z="-1.5" />
-          <controlpoint x="0.0" y="0.5" z="-1.5" />
-        </patch>
-      </children>
-    </node>
-
     <node id="cube" displaylist="false">
       <transforms>
       </transforms>
@@ -909,6 +566,8 @@
     </node>
 
     <!-- Game elements -->
+
+    <!-- Board -->
 
     <node id="board">
       <transforms>
@@ -1052,11 +711,73 @@
 
     <node id="boardFrame">
       <transforms>
+      </transforms>
 
+      <appearanceref id="woodApp" />
+
+      <children>
+        <noderef id="frameLeft" />
+        <noderef id="frameRight" />
+        <noderef id="frameFront" />
+        <noderef id="frameBack" />
+      </children>
+    </node>
+
+    <node id="frameRight">
+      <transforms>
       </transforms>
 
       <children>
-        <noredef id="temp" />
+        <noderef id="framePart" />
+      </children>
+    </node>
+
+    <node id="frameLeft">
+      <transforms>
+        <rotate axis="y" angle="180"/>
+      </transforms>
+
+      <children>
+        <noderef id="framePart" />
+      </children>
+    </node>
+
+
+    <node id="frameBack">
+      <transforms>
+        <rotate axis="y" angle="90"/>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 20" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="frameFront">
+      <transforms>
+        <rotate axis="y" angle="270"/>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 20" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="framePart">
+      <transforms>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 21.25" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
       </children>
     </node>
 
@@ -1149,7 +870,7 @@
   </graph>
 
   <boardPieces>
-    
+
     <node id="boardPieces">
       <transforms>
       </transforms>
@@ -1162,9 +883,9 @@
 
     <node id="p2pieces">
       <transforms>
-        <translate to="-10.0 0.0 -27.0" />
+        <translate to="-10.0 -2.4375 -27.0" />
       </transforms>
-      
+
       <appearanceref id="p2App" />
 
       <children>
@@ -1182,12 +903,12 @@
         <noderef id="24" />
       </children>
     </node>
-    
+
     <node id="p1pieces">
       <transforms>
-        <translate to="-10.0 0.0 7.0" />
+        <translate to="-10.0 -2.4375 7.0" />
       </transforms>
-      
+
       <appearanceref id="p1App" />
 
       <children>
@@ -1324,7 +1045,7 @@
         <noderef id="piece" />
       </children>
     </node>
-    
+
     <node id="1">
       <transforms>
         <translate to="0.0 0.0 16.0" />
@@ -1452,7 +1173,27 @@
       </transforms>
 
       <children>
-        <cylinder base="1.5" top="1" height="1.5" slices="16" stacks="16" />
+        <noderef id="pieceOut" />
+        <noderef id="pieceMid" />
+      </children>
+    </node>
+
+    <node id="pieceOut">
+      <transforms>
+        <translate to="0.0 0.0 0.3" />
+      </transforms>
+
+      <children>
+        <torus inner="0.3" outer="1.2" slices="10" loops="20" />
+      </children>
+    </node>
+
+    <node id="pieceMid">
+      <transforms>
+      </transforms>
+
+      <children>
+        <cylinder base="1.2" top="1.2" height="0.5" slices="16" stacks="16" />
       </children>
     </node>
 
