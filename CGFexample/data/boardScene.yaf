@@ -1300,20 +1300,26 @@
     <node id="frameBack">
       <transforms>
         <rotate axis="y" angle="90"/>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 20" />
+        <rotate axis="z" angle="90" />
       </transforms>
 
       <children>
-        <noderef id="framePart" />
+        <noderef id="cube" />
       </children>
     </node>
     
     <node id="frameFront">
       <transforms>
         <rotate axis="y" angle="270"/>
+        <translate to="10.3125 0.0 0.0" />
+        <scale factor="0.625 3.6 20" />
+        <rotate axis="z" angle="90" />
       </transforms>
 
       <children>
-        <noderef id="framePart" />
+        <noderef id="cube" />
       </children>
     </node>
     
