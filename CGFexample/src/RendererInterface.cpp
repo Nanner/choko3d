@@ -225,7 +225,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         noMovesWindowVisible = false;
     }
     
-	if(ctrl->user_id == cameraRotationID && !sceneGraph->getGame()->cameraController->isChangingFocus) {
+	if(ctrl->user_id == cameraRotationID) {
 		if(!autoCameraOn) {
 			char player = sceneGraph->getGame()->currentPlayer;
 			CameraController * cam = sceneGraph->getGame()->cameraController;

@@ -8,8 +8,6 @@ CameraController::CameraController() {
 	freeCamera->setZ(0);
 	freeCamera->rotate(CG_CGFcamera_AXIS_X, 90);
 	freeCamera->setZ(-80);
-	//freeCamera->setZ(0);
-	//freeCamera->setY(-100);
 	this->freeCamera = freeCamera;
     
 	CGFcamera* autoCamera = new CGFcamera();
