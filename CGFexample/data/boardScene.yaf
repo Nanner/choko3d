@@ -59,6 +59,8 @@
   <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
   <textures>
     
+    <texture id="graniteTableTex" file="graniteTableTex.jpg" />
+    
     <texture id="woodTex" file="wood.jpg" />
 
     <texture id="roadTex" file="road.jpg" />
@@ -81,6 +83,16 @@
 
   <!-- bloco de materiais; -->
   <appearances>
+    
+    <appearance id="graniteTableApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.73 0.73 0.73 1.0"
+      diffuse="0.73 0.73 0.73 1.0"
+      specular="0.73 0.73 0.73 1.0"
+      shininess="100.0"
+      textureref="graniteTableTex"
+      texlength_s="0.1"
+      texlength_t="0.1"/>
     
     <appearance id="woodApp"
       emissive="0.0 0.0 0.0 0.0"
@@ -347,7 +359,7 @@
         <rotate angle="270" axis="x" />
       </transforms>
       
-      <appearanceref id="roadApp" />
+      <appearanceref id="graniteTableApp" />
 
       <children>
         <cylinder base="30.5" top="12.5" height="7.5" slices="16" stacks="16" />
@@ -360,7 +372,7 @@
         <rotate angle="270" axis="x" />
       </transforms>
       
-      <appearanceref id="roadApp" />
+      <appearanceref id="graniteTableApp" />
 
       <children>
         <cylinder base="40.5" top="40.5" height="2.5" slices="16" stacks="16" />
