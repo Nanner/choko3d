@@ -1,5 +1,7 @@
 #include "Game.h"
 
+PrologBridge Game::choko;
+
 MovementHistoryElement::MovementHistoryElement(int moveType, int movedPiece, int firstCapturedPiece, int secondCapturedPiece) {
 	this->moveType = moveType;
 	modifiedPieces.push_back(movedPiece);

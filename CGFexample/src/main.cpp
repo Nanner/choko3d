@@ -42,8 +42,8 @@ int main(int argc, char* argv[]) {
         RendererInterface * rendererInterface = new RendererInterface(scenesNames);
 		app.setScene(new DemoScene(sceneGraph, rendererInterface));
 		app.setInterface(rendererInterface);
-		
 		app.run();
+		Game::choko.disconnect();
 	}
 	catch(GLexception& ex) {
 		cout << "Error: " << ex.what();

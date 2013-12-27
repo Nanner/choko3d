@@ -54,6 +54,8 @@ public:
     PieceMoves getPieceMoves(GameState gameState, int position);
     
     bool anyMovePossible(GameState gameState);
+
+	void disconnect();
 };
 
 class InvalidMove {};

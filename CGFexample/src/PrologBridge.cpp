@@ -178,6 +178,10 @@ bool PrologBridge::anyMovePossible(GameState gameState) {
         return true;
 }
 
+void PrologBridge::disconnect() {
+	con->sendMsg("bye.\n");
+}
+
 PrologBridge::~PrologBridge() {
 	delete(con);
 }

@@ -91,7 +91,6 @@ private:
 	map<unsigned int, PositionPoint> boardPiecesInitialPositions;
 	map<unsigned int, PositionPoint> pickingSquaresPositions;
 	int selectState;
-    PrologBridge choko;
     stack<GameState> gameStates;
 	stack<PositionPoint> p1RestPositions;
 	stack<PositionPoint> p2RestPositions;
@@ -102,6 +101,7 @@ private:
 	stack<MovementHistoryElement> movementHistory;
     vector<unsigned int> highlightedSquares;
 public:
+	static PrologBridge choko;
 	bool onSkippedTurn;
 
     bool calculatedMovesForPlayerTurn;
