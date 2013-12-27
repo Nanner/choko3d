@@ -60,6 +60,7 @@ void Game::restartGame() {
     
     player1Score = 0;
     player2Score = 0;
+    firstTurn = true;
 
 	try {
 		GameState gameState = choko.initializeGame();
@@ -211,6 +212,7 @@ Game::Game() {
     movesPossible = true;
     calculatedMovesForPlayerTurn = false;
 	onSkippedTurn = false;
+    firstTurn = true;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -957,6 +959,12 @@ void Game::setAIStandby(float seconds) {
 
 void Game::update(unsigned long t) {
     time = t;
+    
+    if (firstTurn) {
+        turnStart = time;
+        firstTurn = false;
+    }
+    
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
     
     if (turnTimeLeft <= 0.0) turnTimeLeft = 0.0;

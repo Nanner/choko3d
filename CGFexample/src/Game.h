@@ -100,6 +100,7 @@ private:
     static string playerTypes[4];
 	stack<MovementHistoryElement> movementHistory;
     vector<unsigned int> highlightedSquares;
+    bool firstTurn;
 public:
 	static PrologBridge choko;
 	bool onSkippedTurn;
