@@ -477,7 +477,7 @@
       <appearanceref id="roadApp" />
 
       <children>
-        <cylinder base="40.5" top="12.5" height="7.5" slices="16" stacks="16" />
+        <cylinder base="30.5" top="12.5" height="7.5" slices="16" stacks="16" />
       </children>
     </node>
     
@@ -503,7 +503,7 @@
       <appearanceref id="roadApp" />
 
       <children>
-        <cylinder base="12.5" top="10.5" height="60.0" slices="16" stacks="16" />
+        <cylinder base="8.5" top="8.5" height="60.0" slices="16" stacks="16" />
       </children>
     </node>
 
@@ -1363,7 +1363,7 @@
 
     <node id="p2pieces">
       <transforms>
-        <translate to="-10.0 0.0 -27.0" />
+        <translate to="-10.0 -2.5 -27.0" />
       </transforms>
       
       <appearanceref id="p2App" />
@@ -1386,7 +1386,7 @@
     
     <node id="p1pieces">
       <transforms>
-        <translate to="-10.0 0.0 7.0" />
+        <translate to="-10.0 -2.5 7.0" />
       </transforms>
       
       <appearanceref id="p1App" />
