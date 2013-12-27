@@ -16,9 +16,9 @@ void DemoScene::init()
 	setUpdatePeriod(16);
 	isSelectMode = false;
     
-	float ambient[4] = {1.0, 1.0, 1.0, 1.0};
-	float diffuse[4] = {1.0, 1.0, 1.0, 1.0};
-	float specular[4] = {0.0, 0.0, 0.0, 1.0};
+	float ambient[4] = {0.0, 1.0, 0.0, 0.4};
+	float diffuse[4] = {0.0, 1.0, 0.0, 0.4};
+	float specular[4] = {0.0, 0.0, 0.0, 0.4};
 	float emissivity[4] = {0.0, 0.0, 0.0, 0.0};
 	float shininess = 0.0;
 
@@ -198,27 +198,21 @@ void DemoScene::display()
 
 void DemoScene::drawHighlightedSquares() {
     vector<PositionPoint> highlightedSquares = sceneGraph->getGame()->getHighlightedSquarePositions();
-    
+
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     for (int i = 0 ; i < highlightedSquares.size(); i++) {
         PositionPoint selectedSquare = highlightedSquares.at(i);
         glPushMatrix();
 		glTranslatef(selectedSquare.x, selectedSquare.y + 0.1, selectedSquare.z);
-		glScalef(3, 3, 3);
+		glScalef(3.1, 3.1, 3.1);
 		squareSelectionAppearance->apply();
 		squareSelection->draw();
 		glPopMatrix();
     }
-    /*
-	//if p = {0, 0, 0}, no square is selected
-	if(selectedSquare.x != 0 || selectedSquare.y != 0 || selectedSquare.z != 0) {
-		glPushMatrix();
-		glTranslatef(selectedSquare.x, selectedSquare.y + 0.1, selectedSquare.z);
-		glScalef(3, 3, 3);
-		squareSelectionAppearance->apply();
-		squareSelection->draw();
-		glPopMatrix();
-	}
-     */
+
+	glDisable(GL_BLEND);
 }
 
 void DemoScene::drawHUD() {

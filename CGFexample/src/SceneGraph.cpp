@@ -858,8 +858,15 @@ void SceneGraph::renderBoardPieces(SceneVertex *v) {
 					if(id != -1) {
 						glPushName(id);
 						if(id == game->selectedPieceID || game->highlightPiece.at(id)) {
-							it->dest->setAppearance(rootVertex->defaultAppearance);
-							rootVertex->defaultAppearance->apply();
+							map<string, Appearance*>::iterator appIt = appearances.find("selectedPiece");
+							if(appIt != appearances.end()) {
+								it->dest->setAppearance(appIt->second);
+								appIt->second->apply();
+							}
+							else {
+								it->dest->setAppearance(rootVertex->defaultAppearance);
+								rootVertex->defaultAppearance->apply();
+							}
 						}
 					}
 			}
