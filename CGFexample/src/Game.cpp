@@ -950,7 +950,11 @@ void Game::setAIStandby(float seconds) {
 void Game::update(unsigned long t) {
     time = t;
     turnTimeLeft = (turnStart + timeout * 1000.0 - time) / 1000.0;
-    if (turnTimeLeft <= 0.25) {
+    
+    if (turnTimeLeft <= 0.0) turnTimeLeft = 0.0;
+    
+    if (turnTimeLeft <= 0.0 && selectState != SELECT_SECOND_ENEMY) {
+        turnTimeLeft = 0.0;
         skipTurn();
     }
     
@@ -988,11 +992,16 @@ void Game::skipTurn() {
         newState.player2UnusedPieces = newState.enemyPlayerUnusedPieces;
     }
     
-    if (currentState.dropInitiative == 'x') {
+    if (currentState.dropInitiative == 'x' && currentState.currentPlayer == 'x') {
         newState.dropInitiative = 'o';
-    } else {
+    } else if (currentState.dropInitiative == 'o' && currentState.currentPlayer == 'o') {
         newState.dropInitiative = 'x';
+    } else {
+        newState.dropInitiative = currentState.dropInitiative;
     }
+    
+    // OR simply
+    // newState.dropInitiative = currentState.dropInitiative;
     
     newState.move = "0";
     newState.removedPieces.clear();
