@@ -338,6 +338,8 @@
         <noderef id="board" />
         <noderef id="skyBox" />
         <noderef id="table" />
+        <noderef id="p1PieceBox" />
+        <noderef id="p2PieceBox" />
         <!--
         <noderef id="zeppelin1" />
         <noderef id="zeppelin2" />
@@ -346,6 +348,111 @@
         <noderef id="cityLeftSide" />
         <noderef id="cityRightSide" />
         -->
+      </children>
+    </node>
+
+    <node id="p1PieceBox" displaylist="false">
+      <transforms>
+        <translate to="0.0 -2.5 21.0" />
+        <scale factor="6 0.5 6" />
+      </transforms>
+
+      <children>
+        <noderef id="box"/>
+      </children>
+    </node>
+
+    <node id="p2PieceBox" displaylist="false">
+      <transforms>
+        <translate to="0.0 -2.5 -21.0" />
+        <scale factor="6 0.5 6" />
+      </transforms>
+
+      <children>
+        <noderef id="box"/>
+      </children>
+    </node>
+
+    <node id="box" displaylist="false">
+      <transforms>
+      </transforms>
+
+      <appearanceref id="roadApp" />
+
+      <children>
+        <noderef id="boxPartLid"/>
+        <noderef id="boxFront"/>
+        <noderef id="boxBack"/>
+        <noderef id="boxLeft"/>
+        <noderef id="boxRight"/>
+      </children>
+    </node>
+
+    <node id="boxFront">
+      <transforms>
+        <translate to="0 0.6625 1.1875" />
+        <rotate axis="y" angle="90" />
+        <rotate axis="z" angle="90" />
+        <scale factor="1 1 1.3" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxBack">
+      <transforms>
+        <translate to="0 0.6625 -1.1875" />
+        <rotate axis="y" angle="90" />
+        <rotate axis="z" angle="90" />
+        <scale factor="1 1 1.3" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxLeft">
+      <transforms>
+        <translate to="-1.6875 0.6625 0" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxRight">
+      <transforms>
+        <translate to="1.6875 0.6625 0" />
+        <rotate axis="z" angle="90" />
+      </transforms>
+
+      <children>
+        <noderef id="boxPartSide" />
+      </children>
+    </node>
+
+    <node id="boxPartLid">
+      <transforms>
+        <scale factor="3.5 0.125 2.5" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
+      </children>
+    </node>
+
+    <node id="boxPartSide">
+      <transforms>
+        <scale factor="1.2 0.125 2.5" />
+      </transforms>
+
+      <children>
+        <noderef id="cube" />
       </children>
     </node>
     
@@ -392,6 +499,8 @@
         <translate to="0.0 -65.0 0.0" />
         <rotate angle="270" axis="x" />
       </transforms>
+      
+      <appearanceref id="roadApp" />
 
       <children>
         <cylinder base="12.5" top="10.5" height="60.0" slices="16" stacks="16" />
