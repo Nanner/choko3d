@@ -301,11 +301,11 @@ void RendererInterface::performPicking(int x, int y) {
 	// this is multiplied in the projection matrix
 	gluPickMatrix ((GLdouble) x, (GLdouble) (CGFapplication::height - y), 5.0, 5.0, viewport);
 
-	// multiply the projection matrix stoWhite in our array to ensure same conditions as in normal render
+	// multiply the projection matrix stored in our array to ensure same conditions as in normal render
 	glMultMatrixf(projmat);
 
 	// force scene drawing under this mode
-	// only the names of objects that fall in the 5x5 window will actually be stoWhite in the buffer
+	// only the names of objects that fall in the 5x5 window will actually be stored in the buffer
 	scene->display();
 
 	// restore original projection matrix
@@ -392,17 +392,17 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 		}
 		else if(game->getSelectState() == SELECT_SECOND_ENEMY) {
 			unsigned int selectedPosition = selected[0];
-			int captuWhitePieceID = game->getPieceOnSquare(selectedPosition);
-			if(game->canCapture(captuWhitePieceID)) {
-				game->capture(captuWhitePieceID);
-				BoardPiece* captuWhitePiece = game->getBoardPiece(captuWhitePieceID);
-				PositionPoint origin = game->getBoardPiecePosition(captuWhitePieceID);
-				PositionPoint restPoint = game->getPieceRestPosition(captuWhitePiece);
-				game->popPieceRestPosition(captuWhitePiece);
-				captuWhitePiece->onBoard = false;
-				captuWhitePiece->playable = false;
-				sceneGraph->movePiece(captuWhitePieceID, origin, restPoint);
-				game->setBoardPiecePosition(captuWhitePieceID, restPoint);
+			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
+			if(game->canCapture(capturedPieceID)) {
+				game->capture(capturedPieceID);
+				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
+				PositionPoint origin = game->getBoardPiecePosition(capturedPieceID);
+				PositionPoint restPoint = game->getPieceRestPosition(capturedPiece);
+				game->popPieceRestPosition(capturedPiece);
+				capturedPiece->onBoard = false;
+				capturedPiece->playable = false;
+				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
+				game->setBoardPiecePosition(capturedPieceID, restPoint);
 			}
 			else {
 				printf("Can't eat that piece\n");
