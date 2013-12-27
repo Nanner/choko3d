@@ -992,16 +992,7 @@ void Game::skipTurn() {
         newState.player2UnusedPieces = newState.enemyPlayerUnusedPieces;
     }
     
-    if (currentState.dropInitiative == 'x' && currentState.currentPlayer == 'x') {
-        newState.dropInitiative = 'o';
-    } else if (currentState.dropInitiative == 'o' && currentState.currentPlayer == 'o') {
-        newState.dropInitiative = 'x';
-    } else {
-        newState.dropInitiative = currentState.dropInitiative;
-    }
-    
-    // OR simply
-    // newState.dropInitiative = currentState.dropInitiative;
+    newState.dropInitiative =  newState.currentPlayer;
     
     newState.move = "0";
     newState.removedPieces.clear();
