@@ -97,17 +97,13 @@ void DemoScene::update(unsigned long t){
 		rendererInterface->cameraRotationCheckbox->enable();
 	}
     
-    if (!game->movesPossible
-        && !PieceAnimation::pendingAnimations()
-        && !cameraController.isChangingFocus)
-        rendererInterface->updateNoMoves();
-    
 	if (game->hasGameEnded()
         && !PieceAnimation::pendingAnimations()
         && !filmMode
         && !cameraController.isChangingFocus
         && !restartGameOnUpdate) {
 		rendererInterface->updateGameOver();
+		return;
 	}
 
 	if (!PieceAnimation::pendingAnimations()
@@ -116,7 +112,13 @@ void DemoScene::update(unsigned long t){
         && !cameraController.isChangingFocus
         && !restartGameOnUpdate) {
 		rendererInterface->updateFilmOver();
+		return;
 	}
+
+	if (!game->movesPossible
+		&& !PieceAnimation::pendingAnimations()
+		&& !cameraController.isChangingFocus)
+		rendererInterface->updateNoMoves();
 }
 
 void DemoScene::display() 
