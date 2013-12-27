@@ -52,15 +52,15 @@ void RendererInterface::initGUI() {
     GLUI_Panel* gameInfoPanel = addPanel((char*)"Game Information");
 	GLUI_Listbox* currentPlayer = addListboxToPanel(gameInfoPanel, (char*)"Current Player: ", &sceneGraph->getGame()->currentPlayer, lastID);
 	lastID++;
-	currentPlayer->add_item(0, (char*)"Player 1 (Blue)");
-	currentPlayer->add_item(1, (char*)"Player 2 (Red) ");
+	currentPlayer->add_item(0, (char*)"Player 1 (Black)");
+	currentPlayer->add_item(1, (char*)"Player 2 (White) ");
     currentPlayer->set_int_val(0);
     currentPlayer->disable();
     
     GLUI_Listbox* dropInitiative = addListboxToPanel(gameInfoPanel, (char*)"Drop initiative: ", &sceneGraph->getGame()->currentDropInitiative, lastID);
 	lastID++;
-	dropInitiative->add_item(0, (char*)"Player 1 (Blue)");
-	dropInitiative->add_item(1, (char*)"Player 2 (Red)  ");
+	dropInitiative->add_item(0, (char*)"Player 1 (Black)");
+	dropInitiative->add_item(1, (char*)"Player 2 (White)  ");
     dropInitiative->set_int_val(0);
     dropInitiative->disable();
     
@@ -72,7 +72,7 @@ void RendererInterface::initGUI() {
     
 	GLUI_Panel* playersPanel = addPanel((char*)"Player Types");
     
-    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Blue) ", &sceneGraph->getGame()->player1Type, lastID);
+    GLUI_Listbox* player1List = addListboxToPanel(playersPanel, (char*)"Player 1 (Black) ", &sceneGraph->getGame()->player1Type, lastID);
 	lastID++;
 	player1List->add_item(0, (char*)"Human");
 	player1List->add_item(1, (char*)"Computer Easy");
@@ -80,7 +80,7 @@ void RendererInterface::initGUI() {
     player1List->add_item(3, (char*)"Computer Hard");
     player1List->set_int_val(sceneGraph->getGame()->player1Type);
     
-    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (Red)  ", &sceneGraph->getGame()->player2Type, lastID);
+    GLUI_Listbox* player2List = addListboxToPanel(playersPanel, (char*)"Player 2 (White)  ", &sceneGraph->getGame()->player2Type, lastID);
 	lastID++;
 	player2List->add_item(0, (char*)"Human");
 	player2List->add_item(1, (char*)"Computer Easy");
@@ -301,11 +301,11 @@ void RendererInterface::performPicking(int x, int y) {
 	// this is multiplied in the projection matrix
 	gluPickMatrix ((GLdouble) x, (GLdouble) (CGFapplication::height - y), 5.0, 5.0, viewport);
 
-	// multiply the projection matrix stored in our array to ensure same conditions as in normal render
+	// multiply the projection matrix stoWhite in our array to ensure same conditions as in normal render
 	glMultMatrixf(projmat);
 
 	// force scene drawing under this mode
-	// only the names of objects that fall in the 5x5 window will actually be stored in the buffer
+	// only the names of objects that fall in the 5x5 window will actually be stoWhite in the buffer
 	scene->display();
 
 	// restore original projection matrix
@@ -392,17 +392,17 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 		}
 		else if(game->getSelectState() == SELECT_SECOND_ENEMY) {
 			unsigned int selectedPosition = selected[0];
-			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
-			if(game->canCapture(capturedPieceID)) {
-				game->capture(capturedPieceID);
-				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
-				PositionPoint origin = game->getBoardPiecePosition(capturedPieceID);
-				PositionPoint restPoint = game->getPieceRestPosition(capturedPiece);
-				game->popPieceRestPosition(capturedPiece);
-				capturedPiece->onBoard = false;
-				capturedPiece->playable = false;
-				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
-				game->setBoardPiecePosition(capturedPieceID, restPoint);
+			int captuWhitePieceID = game->getPieceOnSquare(selectedPosition);
+			if(game->canCapture(captuWhitePieceID)) {
+				game->capture(captuWhitePieceID);
+				BoardPiece* captuWhitePiece = game->getBoardPiece(captuWhitePieceID);
+				PositionPoint origin = game->getBoardPiecePosition(captuWhitePieceID);
+				PositionPoint restPoint = game->getPieceRestPosition(captuWhitePiece);
+				game->popPieceRestPosition(captuWhitePiece);
+				captuWhitePiece->onBoard = false;
+				captuWhitePiece->playable = false;
+				sceneGraph->movePiece(captuWhitePieceID, origin, restPoint);
+				game->setBoardPiecePosition(captuWhitePieceID, restPoint);
 			}
 			else {
 				printf("Can't eat that piece\n");
@@ -430,9 +430,9 @@ void RendererInterface::updateGameOver() {
     if(game->hasGameEnded() && !gameOverWindowVisible) {
 		string winner;
         if (game->getWinner() == 1)
-            winner = "Winner is Player 1, Blue!";
+            winner = "Winner is Player 1, Black!";
         else
-            winner = "Winner is Player 2, Red!";
+            winner = "Winner is Player 2, White!";
         winnerText->set_text(winner.c_str());
         
         int mainWindowX = glutGet(GLUT_WINDOW_X);
