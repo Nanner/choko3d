@@ -71,13 +71,17 @@ void DemoScene::update(unsigned long t){
     
     game->update(t);
     
-    if(game->currentPlayerIsAI()
+    if((game->currentPlayerIsAI() || game->onSkippedTurn)
        && !PieceAnimation::pendingAnimations()
        && !game->hasGameEnded()
        && !filmMode
        && !game->AIisStandingBy
        && !cameraController.isChangingFocus
        && game->movesPossible) {
+
+		if(game->onSkippedTurn)
+			rendererInterface->deselectCurrentPiece();
+
 		game->updateAI();
 		sceneGraph->animateAIPlay(game->getGameState().getMove());
 		game->processAIMovedPieces(game->getGameState().getMove());

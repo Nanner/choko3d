@@ -102,6 +102,8 @@ private:
 	stack<MovementHistoryElement> movementHistory;
     vector<unsigned int> highlightedSquares;
 public:
+	bool onSkippedTurn;
+
     bool calculatedMovesForPlayerTurn;
     bool movesPossible;
     bool AIisStandingBy;

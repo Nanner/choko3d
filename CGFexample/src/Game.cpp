@@ -208,6 +208,7 @@ Game::Game() {
     AIisStandingBy = false;
     movesPossible = true;
     calculatedMovesForPlayerTurn = false;
+	onSkippedTurn = false;
     
     try {
         GameState gameState = choko.initializeGame();
@@ -769,7 +770,12 @@ void Game::updateAI() {
         calculateMove(player2Type);
 		return;
     }
-    
+
+	if(onSkippedTurn) {
+		calculateMove(EASY);
+		onSkippedTurn = false;
+		return;
+	}
 }
 
 int Game::calculateMove(int playerType) {
@@ -962,21 +968,21 @@ void Game::update(unsigned long t) {
         AIisStandingBy = false;
     }
     
-    if (!calculatedMovesForPlayerTurn && !currentPlayerIsAI()) {
+    if (!calculatedMovesForPlayerTurn && !currentPlayerIsAI() && !onSkippedTurn) {
         if ( !choko.anyMovePossible(getGameState()) ) {
             movesPossible = false;
         }
         calculatedMovesForPlayerTurn = true;
     }
     
-    if (!PieceAnimation::pendingAnimations() ) {//&& !currentPlayerIsAI() ) {
+    if (!PieceAnimation::pendingAnimations() ) {
         updateCurrentPlayer();
         updateCurrentDropInitiative();
     }
 }
 
 void Game::skipTurn() {
-    GameState currentState = getGameState();
+    /*GameState currentState = getGameState();
     GameState newState(currentState);
     
     newState.currentPlayerUnusedPieces = currentState.enemyPlayerUnusedPieces;
@@ -1001,7 +1007,8 @@ void Game::skipTurn() {
     gameStates.push(newState);
 	movementHistory.push(MovementHistoryElement(0,0,0,0));
     turnStart = time;
-    movesPossible = true;
+    movesPossible = true;*/
+	onSkippedTurn = true;
 }
 
 Game::~Game() {

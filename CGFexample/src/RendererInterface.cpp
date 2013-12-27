@@ -257,7 +257,7 @@ void RendererInterface::processMouse(int button, int state, int x, int y) {
 	if(game->cameraController->getEnabledCameraType() != AUTO_CAMERA)
 		CGFinterface::processMouse(button,state, x, y);
 
-	if(game->currentPlayerIsAI()  /*|| PieceAnimation::pendingAnimations() */ || game->cameraController->isChangingFocus) {
+	if(game->currentPlayerIsAI() || game->cameraController->isChangingFocus || game->onSkippedTurn) {
 		return;
 	}
 
