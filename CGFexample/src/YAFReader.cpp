@@ -477,7 +477,7 @@ YAFReader::YAFReader(char *filename) {
 
 					try {
 						if(!animationID.empty()) {
-							Animation * animation = animations.at(animationID);
+							animations.at(animationID);
 						}
 						yafNode.setAnimationID(animationID);
 					} catch (exception &e) {

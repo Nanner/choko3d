@@ -154,7 +154,7 @@ void SceneGraph::loadYafFile(YAFReader * yafFile) {
 			processYAFNode(it3->second, boardPiecesSet);
 			
             unsigned int id = strtoul(it3->first.c_str(), NULL, 10);
-            if(id != 0L && id != ULONG_MAX) {
+            if(id != 0L && id != UINT_MAX) {
 				BoardPiece* p = new BoardPiece(id + NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
 				game->addPiece(p);
             }
@@ -919,7 +919,7 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
 void SceneGraph::animateAIPlay(Move move) {
 	if(move.moveType == DROP) {
 		BoardPiece* piece = game->getUnusedPiece(move.player);
-		PositionPoint destination = game->getSquarePosition(move.toSquare);
+		/* PositionPoint destination = */game->getSquarePosition(move.toSquare);
 		movePiece(piece->id,  game->getPiecePosition(piece->id), game->getSquarePosition(move.toSquare));
 		return;
 	}

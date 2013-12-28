@@ -175,8 +175,6 @@ void Game::loadBoardPiecesPositions() {
 	p2RestPosition2.y = (float) FIRST_P2REST_POS_Y;
 	p2RestPosition2.z = (float) FIRST_P2REST_POS_Z + 3.0 * (float) SPACE_BETWEEN_PIECES;
 	p2RestPositions.push(p2RestPosition2);
-    
-	map<unsigned int, PositionPoint>::iterator it = boardPiecesInitialPositions.begin();
 }
 
 void Game::loadPickingSquaresPositions() {
@@ -223,6 +221,12 @@ Game::Game() {
     }
 }
 
+string Game::toString(int number) {
+    char stringNum[10];
+    sprintf(stringNum, "%d", number);
+    return string(stringNum);
+}
+
 // This will execute a move
 // If the move is an attack, the target squareID to be removed is returned!
 // And if the board has a second enemy to be removed, it will trigger the SELECT_SECOND_ENEMY
@@ -238,7 +242,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     if (moveFrom == 0) {
         // This is a drop
         try {
-            GameState newState = choko.execute(getGameState(), to_string((long double) moveTo));
+            GameState newState = choko.execute(getGameState(), toString(moveTo));
             gameStates.push(newState);
             turnStart = time;
 			boardPiece->onBoard = true;
@@ -370,7 +374,7 @@ int Game::getPieceID(string idStr) {
 }
 
 string Game::getPieceIDStr(unsigned int id) {
-	return to_string((long double) id - NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+	return toString(id - NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
 }
 
 PositionPoint Game::getSelectedSquarePosition() {

@@ -199,6 +199,7 @@ public:
     vector<PositionPoint> getHighlightedSquarePositions();
     void updateHighlightedSquarePositions();
     void updateHighlightedSecondEnemies(unsigned int exceptionPiece);
+    string toString(int number);
 };
 
 #endif
