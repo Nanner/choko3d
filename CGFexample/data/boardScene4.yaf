@@ -61,7 +61,9 @@
 
     <texture id="woodTex" file="wood.jpg" />
 
-    <texture id="gardenTableTex" file="gardenTableTex.jpg" />
+    <texture id="gardenTableTex" file="gardenTableTex2.jpg" />
+
+    <texture id="pieceTex" file="pieceTex3.jpg" />
 
     <texture id="roadTex" file="road.jpg" />
 
@@ -116,21 +118,21 @@
 
     <appearance id="p1App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.2 0.2 1.0 1.0"
-      diffuse="0.2 0.2 1.0 1.0"
+      ambient="0.2 0.2 0.2 1.0"
+      diffuse="0.2 0.2 0.2 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
 
     <appearance id="p2App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="1.0 0.2 0.2 1.0"
-      diffuse="1.0 0.2 0.2 1.0"
+      ambient="0.7 0.7 0.7 1.0"
+      diffuse="0.7 0.7 0.7 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
 
@@ -206,13 +208,20 @@
 
     <apperance id="selectedPiece"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.0 0.8 0.0 1.0"
-      diffuse="0.0 0.8 0.0 1.0"
+      ambient="0.4 0.4 0.0 1.0"
+      diffuse="0.7 0.7 0.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="1.0"
       texlength_t="1.0" />
+
+    <apperance id="highlightedSquareApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.4 0.4 0.4 0.3"
+      diffuse="0.4 0.4 0.4 0.3"
+      specular="0.0 0.0 0.0 0.4"
+      shininess="0.0"/>
 
   </appearances>
 
@@ -233,6 +242,18 @@
         <noderef id="table" />
         <noderef id="p1PieceBox" />
         <noderef id="p2PieceBox" />
+      </children>
+    </node>
+
+    <node id="highlightedSquare" displaylist="false">
+      <transforms>
+
+      </transforms>
+
+      <appearanceref id="highlightedSquareApp" />
+
+      <children>
+        <plane parts="10"/>
       </children>
     </node>
 

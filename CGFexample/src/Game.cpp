@@ -238,7 +238,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
     if (moveFrom == 0) {
         // This is a drop
         try {
-            GameState newState = choko.execute(getGameState(), to_string(moveTo));
+            GameState newState = choko.execute(getGameState(), to_string((long double) moveTo));
             gameStates.push(newState);
             turnStart = time;
 			boardPiece->onBoard = true;
@@ -370,7 +370,7 @@ int Game::getPieceID(string idStr) {
 }
 
 string Game::getPieceIDStr(unsigned int id) {
-	return to_string(id - NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
+	return to_string((long double) id - NUMBER_OF_SQUARE_COLUMNS * NUMBER_OF_SQUARE_ROWS);
 }
 
 PositionPoint Game::getSelectedSquarePosition() {
