@@ -208,13 +208,20 @@
 
     <apperance id="selectedPiece"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.0 0.8 0.0 1.0"
-      diffuse="0.0 0.8 0.0 1.0"
+      ambient="0.4 0.4 0.0 1.0"
+      diffuse="0.7 0.7 0.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
       textureref="pieceTex"
       texlength_s="1.0"
       texlength_t="1.0" />
+
+    <apperance id="highlightedSquareApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.4 0.4 0.4 0.3"
+      diffuse="0.4 0.4 0.4 0.3"
+      specular="0.0 0.0 0.0 0.4"
+      shininess="0.0"/>
 
   </appearances>
 
@@ -235,6 +242,18 @@
         <noderef id="table" />
         <noderef id="p1PieceBox" />
         <noderef id="p2PieceBox" />
+      </children>
+    </node>
+
+    <node id="highlightedSquare" displaylist="false">
+      <transforms>
+
+      </transforms>
+
+      <appearanceref id="highlightedSquareApp" />
+
+      <children>
+        <plane parts="10"/>
       </children>
     </node>
 

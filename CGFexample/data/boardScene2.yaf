@@ -61,13 +61,15 @@
 
     <texture id="woodTex" file="wood.jpg" />
 
+    <texture id="boardFrameTex" file="boardFrameTex.jpg" />
+
     <texture id="gardenTableTex" file="gardenTableTex3.jpg" />
 
     <texture id="pieceTex" file="pieceTex2.jpg" />
 
     <texture id="roadTex" file="road.jpg" />
 
-    <texture id="boardTex" file="woodBoard.jpg" />
+    <texture id="boardTex" file="graniteBoard.png" />
 
     <texture id="frontSkyTex2" file="front2.jpg" />
 
@@ -146,6 +148,16 @@
       texlength_s="1.0"
       texlength_t="1.0"/>
 
+    <appearance id="boardFrameApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.2 0.2 0.2 1.0"
+      diffuse="0.6 0.6 0.6 1.0"
+      specular="0.3 0.3 0.3 1.0"
+      shininess="0.0"
+      textureref="boardFrameTex"
+      texlength_s="1.0"
+      texlength_t="1.0"/>
+
     <appearance id="frontSkyApp2"
       emissive="0.0 0.0 0.0 0.0"
       ambient="1.0 1.0 1.0 1.0"
@@ -216,6 +228,13 @@
       texlength_s="1.0"
       texlength_t="1.0" />
 
+    <apperance id="highlightedSquareApp"
+      emissive="0.0 0.0 0.0 0.0"
+      ambient="0.0 0.8 0.0 0.3"
+      diffuse="0.0 0.8 0.0 0.3"
+      specular="0.0 0.0 0.0 0.4"
+      shininess="0.0"/>
+
   </appearances>
 
   <animations>
@@ -235,6 +254,18 @@
         <noderef id="table" />
         <noderef id="p1PieceBox" />
         <noderef id="p2PieceBox" />
+      </children>
+    </node>
+
+    <node id="highlightedSquare" displaylist="false">
+      <transforms>
+
+      </transforms>
+
+      <appearanceref id="highlightedSquareApp" />
+
+      <children>
+        <plane parts="10"/>
       </children>
     </node>
 
@@ -264,7 +295,7 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="woodApp" />
+      <appearanceref id="boardFrameApp" />
 
       <children>
         <noderef id="boxPartLid"/>
@@ -715,7 +746,7 @@
       <transforms>
       </transforms>
 
-      <appearanceref id="woodApp" />
+      <appearanceref id="boardFrameApp" />
 
       <children>
         <noderef id="frameLeft" />

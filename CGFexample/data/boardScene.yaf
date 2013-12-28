@@ -65,7 +65,7 @@
 
     <texture id="roadTex" file="road.jpg" />
 
-    <texture id="boardTex" file="woodBoard.jpg" />
+    <texture id="boardTex" file="marbleBoard.jpg" />
 
     <texture id="frontSkyTex" file="front.jpg" />
 
@@ -96,8 +96,8 @@
     
     <appearance id="woodApp"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.3 0.1 0.0 1.0"
-      diffuse="0.35 0.15 0.0 1.0"
+      ambient="0.4 0.2 0.0 1.0"
+      diffuse="0.45 0.25 0.0 1.0"
       specular="0.05 0.05 0.05 1.0"
       shininess="10.0"
       textureref="woodTex"
@@ -206,8 +206,8 @@
     
     <apperance id="selectedPiece" 
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.0 0.8 0.0 1.0"
-      diffuse="0.0 0.8 0.0 1.0"
+      ambient="1.0 0.6 0.0 1.0"
+      diffuse="1.0 0.6 0.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
       textureref="roadTex"
@@ -216,8 +216,8 @@
 
     <apperance id="highlightedSquareApp" 
       emissive="0.0 0.0 0.0 0.0"
-      ambient="1.0 0.0 0.0 0.4"
-      diffuse="1.0 0.0 0.0 0.4"
+      ambient="1.0 0.6 0.0 0.3"
+      diffuse="1.0 0.6 0.0 0.3"
       specular="0.0 0.0 0.0 0.4"
       shininess="0.0"/>
 
