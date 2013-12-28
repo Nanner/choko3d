@@ -33,21 +33,6 @@ void RendererInterface::initGUI() {
 
 	lightsPanel->align();
      */
-     
-	GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
-	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);
-	lastID++;
-	drawmodeList->add_item(0, (char*)"Fill");
-	drawmodeList->add_item(1, (char*)"Line");
-	drawmodeList->add_item(2, (char*)"Point");
-	if(rootVertex->globals.drawmode == "fill")
-		drawmodeList->set_int_val(0);
-	else if(rootVertex->globals.drawmode == "line")
-		drawmodeList->set_int_val(1);
-	else if(rootVertex->globals.drawmode == "point")
-		drawmodeList->set_int_val(2);
-    
-    addColumn();
     
     GLUI_Panel* gameInfoPanel = addPanel((char*)"Game Information");
 	GLUI_Listbox* currentPlayer = addListboxToPanel(gameInfoPanel, (char*)"Current Player: ", &sceneGraph->getGame()->currentPlayer, lastID);
@@ -94,6 +79,7 @@ void RendererInterface::initGUI() {
     
     GLUI_Spinner* animationDurationSpinner = this->glui_window->add_spinner((char*)"Move duration", GLUI_SPINNER_FLOAT, &SceneVertex::moveAnimationDuration, lastID);
     lastID++;
+    animationDurationSpinner->set_float_limits(0.001, 100.0);
     
     cameraRotationCheckbox = addCheckbox((char*)"Auto camera", &sceneGraph->getGame()->cameraController->enabled, lastID);
     cameraRotationID = lastID;
@@ -114,12 +100,11 @@ void RendererInterface::initGUI() {
     
 
     GLUI_Spinner* timeSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time left", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->turnTimeLeft, lastID);
-	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
     timeSpinner->disable();
     lastID++;
     
     GLUI_Spinner* timePerTurnSpinner = this->glui_window->add_spinner_to_panel(timePanel, (char*)"Time per turn", GLUI_SPINNER_FLOAT, &sceneGraph->getGame()->timeout, lastID);
-	//heightSpinner->set_int_limits(1, 200, GLUI_LIMIT_CLAMP);
+    timePerTurnSpinner->set_float_limits(0.1, 100000.0);
     lastID++;
 
     //  Create GLUI window for game over
@@ -175,6 +160,21 @@ void RendererInterface::initGUI() {
         sceneList->add_item(i, sceneNames.at(i).c_str());
     }
     sceneList->set_int_val(sceneGraph->currentScene);
+    
+    GLUI_Panel* drawmodesPanel = addPanel((char*)"Draw modes");
+	GLUI_Listbox* drawmodeList = addListboxToPanel(drawmodesPanel, (char*)"Draw mode: ", &((DemoScene*)scene)->activeDrawMode, lastID);
+	lastID++;
+	drawmodeList->add_item(0, (char*)"Fill");
+	drawmodeList->add_item(1, (char*)"Line");
+	drawmodeList->add_item(2, (char*)"Point");
+	if(rootVertex->globals.drawmode == "fill")
+		drawmodeList->set_int_val(0);
+	else if(rootVertex->globals.drawmode == "line")
+		drawmodeList->set_int_val(1);
+	else if(rootVertex->globals.drawmode == "point")
+		drawmodeList->set_int_val(2);
+    
+    popupWindowOn = false;
 }
 
 void RendererInterface::processGUI(GLUI_Control *ctrl) {
@@ -194,28 +194,31 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
         gameOverWindow->hide();
         gameOverWindowVisible = false;
+        popupWindowOn = false;
 	}
 
 	if(ctrl->user_id == gameOverFilmButtonID) {
 		((DemoScene*) scene)->startFilmMode();
-		
 		gameOverWindow->hide();
 		gameOverWindowVisible = false;
+        popupWindowOn = false;
 	}
 
 	if(ctrl->user_id == filmOverGameRestartButtonID) {
 		((DemoScene*) scene)->restartGameOnNextUpdate();
 		filmOverWindow->hide();
 		filmOverWindowVisible = false;
+        popupWindowOn = false;
 	}
 
 	if(ctrl->user_id == filmOverFilmButtonID) {
 		((DemoScene*) scene)->startFilmMode();
 		filmOverWindow->hide();
 		filmOverWindowVisible = false;
+        popupWindowOn = false;
 	}
 
-	if(ctrl->user_id == undoButtonID) {
+	if(ctrl->user_id == undoButtonID && !popupWindowOn) {
 		sceneGraph->undoLastMove();
 	}
     
@@ -223,6 +226,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
         sceneGraph->getGame()->skipTurn();
         noMovesWindow->hide();
         noMovesWindowVisible = false;
+        popupWindowOn = false;
     }
     
 	if(ctrl->user_id == cameraRotationID) {
@@ -456,6 +460,7 @@ void RendererInterface::updateGameOver() {
         
         gameOverWindow->show();
         gameOverWindowVisible = true;
+        popupWindowOn = true;
 	}
 }
 
@@ -481,6 +486,7 @@ void RendererInterface::updateNoMoves() {
         
         noMovesWindow->show();
         noMovesWindowVisible = true;
+        popupWindowOn = true;
     }
 }
 
@@ -507,6 +513,7 @@ void RendererInterface::updateFilmOver() {
 
 		filmOverWindow->show();
 		filmOverWindowVisible = true;
+        popupWindowOn = true;
 	}
 }
 
