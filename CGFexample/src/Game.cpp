@@ -80,10 +80,11 @@ void Game::loadBoardPiecesPositions() {
 			PositionPoint position = {(float) FIRST_P1PIECE_POSITION_X + (float) column * (float) (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - (float) row) * (float) SPACE_BETWEEN_PIECES};
 			printf("x= %f, y= %f, z= %f\n", position.x, position.y, position.z);
 			boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p1ID, position));
-			boardPieces.find(p1ID)->second->position[0] = position.x;
-			boardPieces.find(p1ID)->second->position[1] = position.y;
-			boardPieces.find(p1ID)->second->position[2] = position.z;
-            boardPieces.find(p1ID)->second->player = 'x';
+			BoardPiece* p1piece = boardPieces.find(p1ID)->second;
+			p1piece->position[0] = position.x;
+			p1piece->position[1] = position.y;
+			p1piece->position[2] = position.z;
+            p1piece->player = 'x';
 			p1ID++;
 
 			PositionPoint restPosition;
@@ -96,10 +97,11 @@ void Game::loadBoardPiecesPositions() {
 	//On the last row, we want two pieces "centered" in front of the others
 	PositionPoint p1position1 = {(float) FIRST_P1PIECE_POSITION_X + (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p1ID, p1position1));
-	boardPieces.find(p1ID)->second->position[0] = p1position1.x;
-	boardPieces.find(p1ID)->second->position[1] = p1position1.y;
-	boardPieces.find(p1ID)->second->position[2] = p1position1.z;
-    boardPieces.find(p1ID)->second->player = 'x';
+	BoardPiece* p1piece = boardPieces.find(p1ID)->second;
+	p1piece->position[0] = p1position1.x;
+	p1piece->position[1] = p1position1.y;
+	p1piece->position[2] = p1position1.z;
+    p1piece->player = 'x';
 	p1ID++;
 
 	PositionPoint p1RestPosition1;
@@ -110,10 +112,11 @@ void Game::loadBoardPiecesPositions() {
     	
 	PositionPoint p1position2 = {(float) FIRST_P1PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - 1) * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p1ID, p1position2));
-	boardPieces.find(p1ID)->second->position[0] = p1position2.x;
-	boardPieces.find(p1ID)->second->position[1] = p1position2.y;
-	boardPieces.find(p1ID)->second->position[2] = p1position2.z;
-    boardPieces.find(p1ID)->second->player = 'x';
+	p1piece = boardPieces.find(p1ID)->second;
+	p1piece->position[0] = p1position2.x;
+	p1piece->position[1] = p1position2.y;
+	p1piece->position[2] = p1position2.z;
+    p1piece->player = 'x';
 
 	PositionPoint p1RestPosition2;
 	p1RestPosition2.x = (float) FIRST_P1REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
@@ -130,10 +133,11 @@ void Game::loadBoardPiecesPositions() {
 			position.y = (float) FIRST_P2PIECE_POSITION_Y;
 			position.z = (float) FIRST_P2PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES;
 			boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, position));
-			boardPieces.find(p2ID)->second->position[0] = position.x;
-			boardPieces.find(p2ID)->second->position[1] = position.y;
-			boardPieces.find(p2ID)->second->position[2] = position.z;
-            boardPieces.find(p2ID)->second->player = 'o';
+			BoardPiece* p2piece = boardPieces.find(p2ID)->second;
+			p2piece->position[0] = position.x;
+			p2piece->position[1] = position.y;
+			p2piece->position[2] = position.z;
+            p2piece->player = 'o';
 			p2ID++;
 
 			PositionPoint restPosition;
@@ -146,10 +150,11 @@ void Game::loadBoardPiecesPositions() {
 	//On the last row, we want two pieces "centered" in front of the others
 	PositionPoint p2position1 = {(float) FIRST_P2PIECE_POSITION_X + (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, p2position1));
-	boardPieces.find(p2ID)->second->position[0] = p2position1.x;
-	boardPieces.find(p2ID)->second->position[1] = p2position1.y;
-	boardPieces.find(p2ID)->second->position[2] = p2position1.z;
-    boardPieces.find(p2ID)->second->player = 'o';
+	BoardPiece* p2piece = boardPieces.find(p2ID)->second;
+	p2piece->position[0] = p2position1.x;
+	p2piece->position[1] = p2position1.y;
+	p2piece->position[2] = p2position1.z;
+    p2piece->player = 'o';
 	p2ID++;
 
 	PositionPoint p2RestPosition1;
@@ -160,10 +165,11 @@ void Game::loadBoardPiecesPositions() {
     
 	PositionPoint p2position2 = {(float) FIRST_P2PIECE_POSITION_X + 3.0 * (float) SPACE_BETWEEN_PIECES, (float) FIRST_P2PIECE_POSITION_Y, (float) FIRST_P2PIECE_POSITION_Z + (float) row * (float) SPACE_BETWEEN_PIECES};
 	boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p2ID, p2position2));
-	boardPieces.find(p2ID)->second->position[0] = p2position2.x;
-	boardPieces.find(p2ID)->second->position[1] = p2position2.y;
-	boardPieces.find(p2ID)->second->position[2] = p2position2.z;
-    boardPieces.find(p2ID)->second->player = 'o';
+	p2piece = boardPieces.find(p2ID)->second;
+	p2piece->position[0] = p2position2.x;
+	p2piece->position[1] = p2position2.y;
+	p2piece->position[2] = p2position2.z;
+    p2piece->player = 'o';
 
 	PositionPoint p2RestPosition2;
 	p2RestPosition2.x = (float) FIRST_P2REST_POS_X + (float) row * (float) SPACE_BETWEEN_PIECES;
