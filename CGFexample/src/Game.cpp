@@ -889,7 +889,10 @@ void Game::undoLastMove() {
 	movementHistory.pop();
     
     if (currentPlayerIsAI()) {
-        setAIStandby(AI_WAIT_AFTER_UNDO);
+        if (cameraController->enabled)
+            setAIStandby(AI_WAIT_AFTER_UNDO + CAMERA_MOVEMENT_TIME_SECONDS);
+        else
+            setAIStandby(AI_WAIT_AFTER_UNDO);
     }
     
 	if(lastMove.moveType == 0)
