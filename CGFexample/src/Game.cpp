@@ -889,7 +889,10 @@ void Game::undoLastMove() {
 	movementHistory.pop();
     
     if (currentPlayerIsAI()) {
-        setAIStandby(AI_WAIT_AFTER_UNDO);
+        if (cameraController->enabled)
+            setAIStandby(AI_WAIT_AFTER_UNDO + CAMERA_MOVEMENT_TIME_SECONDS);
+        else
+            setAIStandby(AI_WAIT_AFTER_UNDO);
     }
     
 	if(lastMove.moveType == 0)
@@ -971,7 +974,7 @@ void Game::update(unsigned long t) {
     
     if (turnTimeLeft <= 0.0 && selectState != SELECT_SECOND_ENEMY) {
         turnTimeLeft = 0.0;
-        skipTurn();
+        onSkippedTurn = true;
     }
     
     if (AIisStandingBy && AIStandByStart + AIStandByDuration < time) {
@@ -992,7 +995,7 @@ void Game::update(unsigned long t) {
 }
 
 void Game::skipTurn() {
-    /*GameState currentState = getGameState();
+    GameState currentState = getGameState();
     GameState newState(currentState);
     
     newState.currentPlayerUnusedPieces = currentState.enemyPlayerUnusedPieces;
@@ -1017,8 +1020,7 @@ void Game::skipTurn() {
     gameStates.push(newState);
 	movementHistory.push(MovementHistoryElement(0,0,0,0));
     turnStart = time;
-    movesPossible = true;*/
-	onSkippedTurn = true;
+    movesPossible = true;
 }
 
 Game::~Game() {

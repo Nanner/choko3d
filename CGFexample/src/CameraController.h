@@ -4,6 +4,7 @@
 #define FREE_CAMERA 0
 #define AUTO_CAMERA 1
 #define CAMERA_MOVEMENT_TIME 15000
+#define CAMERA_MOVEMENT_TIME_SECONDS 1.5
 
 #include "CGFcamera.h"
 #include "PositionPoint.h"

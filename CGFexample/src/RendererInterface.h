@@ -24,6 +24,7 @@ private:
 	bool filmOverWindowVisible;
 
     vector<string> sceneNames;
+    bool popupWindowOn;
 public:
     int mainWindow;
 	GLuint selectBuf[BUFSIZE];
