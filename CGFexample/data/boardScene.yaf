@@ -116,8 +116,8 @@
     
     <appearance id="p1App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.2 0.2 1.0 1.0"
-      diffuse="0.2 0.2 1.0 1.0"
+      ambient="0.2 0.2 0.2 1.0"
+      diffuse="0.2 0.2 0.2 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"
@@ -126,8 +126,8 @@
     
     <appearance id="p2App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="1.0 0.2 0.2 1.0"
-      diffuse="1.0 0.2 0.2 1.0"
+      ambient="0.7 0.7 0.7 1.0"
+      diffuse="0.7 0.7 0.7 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
       textureref="roadTex"

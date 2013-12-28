@@ -61,7 +61,9 @@
 
     <texture id="woodTex" file="wood.jpg" />
 
-    <texture id="gardenTableTex" file="gardenTableTex.jpg" />
+    <texture id="gardenTableTex" file="gardenTableTex3.jpg" />
+
+    <texture id="pieceTex" file="pieceTex2.jpg" />
 
     <texture id="roadTex" file="road.jpg" />
 
@@ -116,21 +118,21 @@
 
     <appearance id="p1App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="0.2 0.2 1.0 1.0"
-      diffuse="0.2 0.2 1.0 1.0"
+      ambient="0.2 0.2 0.2 1.0"
+      diffuse="0.2 0.2 0.2 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
 
     <appearance id="p2App"
       emissive="0.0 0.0 0.0 0.0"
-      ambient="1.0 0.2 0.2 1.0"
-      diffuse="1.0 0.2 0.2 1.0"
+      ambient="0.7 0.7 0.7 1.0"
+      diffuse="0.7 0.7 0.7 1.0"
       specular="0.23 0.23 0.23 1.0"
       shininess="100.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="0.1"
       texlength_t="0.1"/>
 
@@ -210,7 +212,7 @@
       diffuse="0.0 0.8 0.0 1.0"
       specular="0.0 0.0 0.0 1.0"
       shininess="0.0"
-      textureref="roadTex"
+      textureref="pieceTex"
       texlength_s="1.0"
       texlength_t="1.0" />
 
