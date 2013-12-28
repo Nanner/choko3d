@@ -27,6 +27,7 @@ class CameraController {
 public:
     CGFcamera* autoCamera;
 	bool isChangingFocus;
+    bool changedFocus;
 	bool focusChangeInitialized;
     int enabled;
 

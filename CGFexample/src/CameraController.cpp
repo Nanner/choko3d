@@ -16,6 +16,7 @@ CameraController::CameraController() {
 	this->autoCamera = autoCamera;
 	focusChangeInitialized = false;
 	isChangingFocus = false;
+    changedFocus = true;
 	focusingTo = 0.0;
     currentAngle = 0.0;
     startingAngle = 0.0;
@@ -52,6 +53,7 @@ void CameraController::changeCamera() {
 void CameraController::changePlayerFocus(int player) {
     if (enabled) {
         isChangingFocus = true;
+        changedFocus = false;
         
         if (player == PLAYER1) {
             focusingTo = PLAYER1_SECOND_ANGLE;
@@ -87,7 +89,8 @@ void CameraController::updateFocus(unsigned long t) {
             focusingTo = 0.0;
             currentAngle = 0.0;
         }
-		isChangingFocus = false;
+        changedFocus = true;
+		//isChangingFocus = false;
 		focusChangeInitialized = false;
 	}
 }

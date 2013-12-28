@@ -127,6 +127,8 @@ void DemoScene::update(unsigned long t){
 
 void DemoScene::display() 
 {
+    if (cameraController.changedFocus == true) cameraController.isChangingFocus = false;
+    
 	setDrawMode(activeDrawMode);
 	// ---- BEGIN Background, camera and axis setup
 
