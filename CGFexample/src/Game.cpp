@@ -78,7 +78,6 @@ void Game::loadBoardPiecesPositions() {
 	for(row = NUMBER_OF_PIECE_ROWS; row > 1; row--) {
 		for(column = 0; column < NUMBER_OF_PIECE_COLUMNS; column++) {
 			PositionPoint position = {(float) FIRST_P1PIECE_POSITION_X + (float) column * (float) (float) SPACE_BETWEEN_PIECES, (float) FIRST_P1PIECE_POSITION_Y, (float) FIRST_P1PIECE_POSITION_Z - ((float) NUMBER_OF_PIECE_ROWS - (float) row) * (float) SPACE_BETWEEN_PIECES};
-			printf("x= %f, y= %f, z= %f\n", position.x, position.y, position.z);
 			boardPiecesInitialPositions.insert(pair<unsigned int, PositionPoint>(p1ID, position));
 			BoardPiece* p1piece = boardPieces.find(p1ID)->second;
 			p1piece->position[0] = position.x;
@@ -178,10 +177,6 @@ void Game::loadBoardPiecesPositions() {
 	p2RestPositions.push(p2RestPosition2);
     
 	map<unsigned int, PositionPoint>::iterator it = boardPiecesInitialPositions.begin();
-	printf("size: %lu\n", boardPiecesInitialPositions.size());
-	for(; it != boardPiecesInitialPositions.end(); it++) {
-		printf("Piece id: %u, x = %f, y = %f, z = %f\n", it->first, it->second.x, it->second.y, it->second.z);
-	}
 }
 
 void Game::loadPickingSquaresPositions() {

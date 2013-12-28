@@ -608,7 +608,6 @@ YAFReader::YAFReader(char *filename) {
 				}
 
 				if(nodeID.find("pickingSquares") != string::npos || nodeID.find("pickRow") != string::npos || nodeID.find("pick") != string::npos) {
-					printf("Found pickingSquares, processing\n");
 					pickingSquares.insert(pair<string, YAFNode>(nodeID, yafNode));
 				}
 				else {

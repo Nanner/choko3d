@@ -911,8 +911,6 @@ void SceneGraph::movePiece(unsigned int pieceID, PositionPoint origin, PositionP
 		if(boardPiecesSet.at(i)->id.compare(id) == 0) {
 			//Create an animation
 			boardPiecesSet.at(i)->createMovementAnimation(origin, destination);
-			cout << origin.x << " " << origin.y << " " << origin.z << endl;
-			cout << destination.x << " " << destination.y << " " << destination.z << endl;
 			break;
 		}
 	}

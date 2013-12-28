@@ -47,7 +47,6 @@ GameState::GameState(string stateString, GameState previousState) {
     }
     
     this->parsedMove = Move(player, moveType, fromSquare, toSquare, firstAttackSquare, secondAttackSquare);
-    printf("new move\n");
     
 }
 
@@ -57,7 +56,6 @@ void GameState::initialize( string &stateString )
 {
 	// example string
 	// "[[1,2,3,4,x,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],o,12,11,x,5]"
-	printf("State string: %s\n", stateString.c_str());
 	istringstream ss(stateString);
 	ss.ignore(1, '[');
 	string boardString;
@@ -155,7 +153,6 @@ string GameState::toString(vector<string> board) {
 }
 
 vector<string> GameState::toVector(string board) {
-	printf("Board: %s\n", board.c_str());
     vector<string> boardVector;
     stringstream ss(board);
     ss.ignore(1, '[');

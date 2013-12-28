@@ -15,24 +15,6 @@ void RendererInterface::initGUI() {
     mainWindow = glutGetWindow();
 
 	int lastID = 0;
-    /*
-	GLUI_Panel* lightsPanel = addPanel( (char*)"Lights", 1);
-    for(int scene = 0; scene < allRootVertexes.size(); scene++) {
-        map<string, SceneLight*>::iterator lightIterator = allRootVertexes.at(scene)->lights.begin();
-        for(int i = 0; lightIterator != allRootVertexes.at(scene)->lights.end(); lightIterator++, i++) {
-            //if(i%4 == 0)
-            //    addColumnToPanel(lightsPanel);
-            
-            string lightStr = "Light " + lightIterator->first;
-            addCheckboxToPanel(lightsPanel, (char*) lightStr.c_str(), &(allRootVertexes.at(scene)->lightOnControls.find(lightIterator->first)->second), lastID);
-            lightMap.insert(pair<int, string>(lastID, lightIterator->first));
-            lastID++;
-        }
-        addColumnToPanel(lightsPanel);
-    }
-
-	lightsPanel->align();
-     */
     
     GLUI_Panel* gameInfoPanel = addPanel((char*)"Game Information");
 	GLUI_Listbox* currentPlayer = addListboxToPanel(gameInfoPanel, (char*)"Current Player: ", &sceneGraph->getGame()->currentPlayer, lastID);
@@ -348,26 +330,18 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
 	if (selected!=NULL)
 	{
-		for(unsigned int i = 0; i < nselected; i++)
-			printf("Square selected: %d\n", selected[i]);
 
 		Game* game = sceneGraph->getGame();
-		printf("state: %d\n", game->getSelectState());
 		if(game->getSelectState() == SELECT_ANY) {
 			if(game->isBoardPiece(selected[0]) && game->isOwnPiece(selected[0])) {
 				game->selectedPieceID = selected[0];
 				game->setSelectState(SELECT_TO_SQUARE);
                 game->updateHighlightedSquarePositions();
-				printf("Changed state to to square\n");
-			}
-			else {
-				printf("Can't select that piece\n");
 			}
 		}
 		else if(game->getSelectState() == SELECT_TO_SQUARE) {
 			unsigned int selectedPosition = selected[0];
 			if(game->canMoveTo(selectedPosition)) {
-				printf("Changed state to select any\n");
 				game->setSelectState(SELECT_ANY);
 
 				PositionPoint origin = game->getPiecePosition(game->selectedPieceID);
@@ -390,9 +364,6 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
                 game->selectedPieceID = 0;
                 game->updateHighlightedSquarePositions();
 			}
-			else {
-				printf("Illegal move!\n");
-			}
 		}
 		else if(game->getSelectState() == SELECT_SECOND_ENEMY) {
 			unsigned int selectedPosition = selected[0];
@@ -408,14 +379,10 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
 				game->setPiecePosition(capturedPieceID, restPoint);
 			}
-			else {
-				printf("Can't eat that piece\n");
-			}
 		}
 	}
 	else {
         deselectCurrentPiece();
-		printf("Nothing selected while picking \n");
     }
 }
 
@@ -423,7 +390,6 @@ void RendererInterface::deselectCurrentPiece() {
     Game* game = sceneGraph->getGame();
     if(game->getSelectState() != SELECT_SECOND_ENEMY) {
         game->setSelectState(SELECT_ANY);
-        printf("Changed state to select any\n");
     }
     game->selectedPieceID = 0;
     game->updateHighlightedSquarePositions();

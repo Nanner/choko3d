@@ -132,9 +132,7 @@ GameState PrologBridge::checkGameOver(GameState gameState) {
     << gameState.enemyPlayerUnusedPieces << ").\n";
     
     string reply = con->sendMsg(ss.str());
-	printf("Sent: %s\n", ss.str().c_str());
-	printf("Reply: %s\n", reply.c_str());
-    if (reply.find("invalid.") == std::string::npos) {
+	if (reply.find("invalid.") == std::string::npos) {
         gameState.gameOver = true;
         gameState.winner = reply.at(0);
     }
