@@ -24,8 +24,8 @@ private:
 	bool filmOverWindowVisible;
 
     vector<string> sceneNames;
-    bool popupWindowOn;
 public:
+	bool popupWindowOn;
     int mainWindow;
 	GLuint selectBuf[BUFSIZE];
 
@@ -70,6 +70,7 @@ public:
     int cameraRotationID;
 	bool autoCameraOn;
 
+	GLUI_Listbox* sceneList;
     int sceneSwitchID;
 
 	RendererInterface(vector<string> sceneNames);
