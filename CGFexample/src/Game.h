@@ -151,18 +151,18 @@ public:
 	string getPieceIDStr(unsigned int id);
 	int getPieceWithPosition(PositionPoint position);
 	bool isBoardPiece(unsigned int id);
-	BoardPiece * getBoardPiece(unsigned int pieceID);
-	PositionPoint getBoardPiecePosition(unsigned int pieceID);
-	void setBoardPiecePosition(unsigned int pieceID, PositionPoint position);
-	void setBoardPieceSquare(unsigned int pieceID, int squareID);
+	BoardPiece * getPiece(unsigned int pieceID);
+	PositionPoint getPiecePosition(unsigned int pieceID);
+	void setPiecePosition(unsigned int pieceID, PositionPoint position);
+	void setPieceSquare(unsigned int pieceID, int squareID);
 	int getPieceOnSquare(int squareID);
 	bool isOwnPiece(int pieceID);
 	int getPiecesOnBoard(char player);
 
 	PositionPoint getSelectedSquarePosition();
-	int pickingSquareHasPiece(unsigned int squareID);
-	PositionPoint getPickingSquarePosition(unsigned int squareID);
-    int getPickingSquareID(PositionPoint position);
+	int squareHasPiece(unsigned int squareID);
+	PositionPoint getSquarePosition(unsigned int squareID);
+    int getSquareID(PositionPoint position);
     
 	char getCurrentPlayer();
 

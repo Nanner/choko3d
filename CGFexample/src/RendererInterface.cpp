@@ -370,21 +370,21 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 				printf("Changed state to select any\n");
 				game->setSelectState(SELECT_ANY);
 
-				PositionPoint origin = game->getBoardPiecePosition(game->selectedPieceID);
-				PositionPoint destination = game->getPickingSquarePosition(selectedPosition);
+				PositionPoint origin = game->getPiecePosition(game->selectedPieceID);
+				PositionPoint destination = game->getSquarePosition(selectedPosition);
 				sceneGraph->movePiece(game->selectedPieceID, origin, destination);
 				int squareToRemove = game->executeMove(game->selectedPieceID, destination);
 				if(squareToRemove != 0) {
 					int removePieceID = game->getPieceOnSquare(squareToRemove);
-					BoardPiece* piece = game->getBoardPiece(removePieceID);
+					BoardPiece* piece = game->getPiece(removePieceID);
 					piece->onBoard = false;
 					piece->playable = false;
 					string removePieceIDStr = game->getPieceIDStr(piece->id);
-					PositionPoint removePieceOrigin = game->getPickingSquarePosition(piece->squareID);
+					PositionPoint removePieceOrigin = game->getSquarePosition(piece->squareID);
 					PositionPoint  restPoint = game->getPieceRestPosition(piece);
 					game->popPieceRestPosition(piece);
 					sceneGraph->movePiece(removePieceID, removePieceOrigin, restPoint);
-					game->setBoardPiecePosition(removePieceID, restPoint);
+					game->setPiecePosition(removePieceID, restPoint);
 				}
                 // remove highlight from selected piece
                 game->selectedPieceID = 0;
@@ -399,14 +399,14 @@ void RendererInterface::processHits (GLint hits, GLuint buffer[]) {
 			int capturedPieceID = game->getPieceOnSquare(selectedPosition);
 			if(game->canCapture(capturedPieceID)) {
 				game->capture(capturedPieceID);
-				BoardPiece* capturedPiece = game->getBoardPiece(capturedPieceID);
-				PositionPoint origin = game->getBoardPiecePosition(capturedPieceID);
+				BoardPiece* capturedPiece = game->getPiece(capturedPieceID);
+				PositionPoint origin = game->getPiecePosition(capturedPieceID);
 				PositionPoint restPoint = game->getPieceRestPosition(capturedPiece);
 				game->popPieceRestPosition(capturedPiece);
 				capturedPiece->onBoard = false;
 				capturedPiece->playable = false;
 				sceneGraph->movePiece(capturedPieceID, origin, restPoint);
-				game->setBoardPiecePosition(capturedPieceID, restPoint);
+				game->setPiecePosition(capturedPieceID, restPoint);
 			}
 			else {
 				printf("Can't eat that piece\n");

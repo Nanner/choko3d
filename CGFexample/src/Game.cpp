@@ -234,9 +234,9 @@ Game::Game() {
 // state and won't execute the move in choko! The player must select a second enemy and call
 // executeMove(int, PositionPoint, int), so that the move will be executed in choko
 int Game::executeMove(int pieceID, PositionPoint destination) {
-    BoardPiece * boardPiece = getBoardPiece(pieceID);
+    BoardPiece * boardPiece = getPiece(pieceID);
     int moveFrom = boardPiece->squareID;
-    int moveTo = getPickingSquareID(destination);
+    int moveTo = getSquareID(destination);
     int targetToRemove = 0;
     calculatedMovesForPlayerTurn = false;
     
@@ -277,10 +277,10 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
                         if ( getPiecesOnBoard(boardPiece->getOpponent()) > 1){
                             // there are more enemies in the board
                             setSelectState(SELECT_SECOND_ENEMY);
-							firstAttackingOrigin = getBoardPiecePosition(pieceID);
+							firstAttackingOrigin = getPiecePosition(pieceID);
                             firstAttackingDestination = destination;
 							firstCapturedPieceID = getPieceOnSquare(targetToRemove);
-							setBoardPiecePosition(pieceID, destination);
+							setPiecePosition(pieceID, destination);
                             updateScore(1); // conquered 1 piece
                             updateHighlightedSecondEnemies(firstCapturedPieceID);
                             return targetToRemove;
@@ -301,7 +301,7 @@ int Game::executeMove(int pieceID, PositionPoint destination) {
         }
         
     }
-	setBoardPiecePosition(pieceID, destination);
+	setPiecePosition(pieceID, destination);
     return targetToRemove;
 }
 
@@ -332,10 +332,10 @@ void Game::updateCurrentDropInitiative() {
 }
 
 int Game::executeMove(PositionPoint firstAttackingOrigin, PositionPoint firstAttackingDestination, int secondEnemyPieceID) {
-    int moveFrom = getPickingSquareID(firstAttackingOrigin);
-    int moveTo = getPickingSquareID(firstAttackingDestination);
+    int moveFrom = getSquareID(firstAttackingOrigin);
+    int moveTo = getSquareID(firstAttackingDestination);
     
-    BoardPiece * secondEnemyPiece = getBoardPiece(secondEnemyPieceID);
+    BoardPiece * secondEnemyPiece = getPiece(secondEnemyPieceID);
     int removeFrom = secondEnemyPiece->squareID;
     
     try {
@@ -406,7 +406,7 @@ vector<PositionPoint> Game::getHighlightedSquarePositions() {
 void Game::updateHighlightedSquarePositions() {
     highlightedSquares.clear();
     if (selectedPieceID != 0) {
-        BoardPiece * boardPiece = getBoardPiece(selectedPieceID);
+        BoardPiece * boardPiece = getPiece(selectedPieceID);
         int moveFrom = boardPiece->squareID;
         if (moveFrom != 0) {
             PieceMoves available = choko.getPieceMoves(getGameState(), moveFrom);
@@ -463,7 +463,7 @@ int Game::getPieceWithPosition(PositionPoint position) {
 	return -1;
 }
 
-int Game::pickingSquareHasPiece(unsigned int squareID) {
+int Game::squareHasPiece(unsigned int squareID) {
 	map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.find(squareID);
 	PositionPoint position;
 	if(it == pickingSquaresPositions.end())
@@ -484,12 +484,12 @@ bool Game::canMoveTo(unsigned int squareID) {
 		return false;
     
 	PositionPoint p;
-	p = getPickingSquarePosition(squareID);
+	p = getSquarePosition(squareID);
     
 	if(getPieceWithPosition(p) != -1)
 		return false;
     
-    BoardPiece * selectedPiece = getBoardPiece(selectedPieceID);
+    BoardPiece * selectedPiece = getPiece(selectedPieceID);
     if (selectedPiece->squareID == 0)
         return true; // the selected piece is outside the board, it can go in
     
@@ -506,7 +506,7 @@ bool Game::canMoveTo(unsigned int squareID) {
 	return false;
 }
 
-BoardPiece * Game::getBoardPiece(unsigned int pieceID) {
+BoardPiece * Game::getPiece(unsigned int pieceID) {
 	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
 	if(it != boardPieces.end()) {
 		return it->second;
@@ -514,7 +514,7 @@ BoardPiece * Game::getBoardPiece(unsigned int pieceID) {
 	return NULL;
 }
 
-PositionPoint Game::getBoardPiecePosition(unsigned int pieceID) {
+PositionPoint Game::getPiecePosition(unsigned int pieceID) {
 	PositionPoint position = {0.0, 0.0, 0.0};
     
 	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
@@ -527,7 +527,7 @@ PositionPoint Game::getBoardPiecePosition(unsigned int pieceID) {
 	return position;
 }
 
-PositionPoint Game::getPickingSquarePosition(unsigned int squareID) {
+PositionPoint Game::getSquarePosition(unsigned int squareID) {
 	PositionPoint position = {0.0, 0.0, 0.0};
     
 	map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.find(squareID);
@@ -540,7 +540,7 @@ PositionPoint Game::getPickingSquarePosition(unsigned int squareID) {
 	return position;
 }
 
-int Game::getPickingSquareID(PositionPoint position){
+int Game::getSquareID(PositionPoint position){
     map<unsigned int, PositionPoint>::iterator it = pickingSquaresPositions.begin();
     for(; it != pickingSquaresPositions.end(); it++) {
         if(it->second.x == position.x &&
@@ -558,11 +558,11 @@ int Game::getPieceOnSquare(int squareID) {
         // we already clicked on the piece we want
         return squareID;
     }
-    PositionPoint piecePosition = getPickingSquarePosition(squareID);
+    PositionPoint piecePosition = getSquarePosition(squareID);
     return getPieceWithPosition(piecePosition);
 }
 
-void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
+void Game::setPiecePosition(unsigned int pieceID, PositionPoint position) {
 	map<unsigned int, BoardPiece*>::iterator it = boardPieces.find(pieceID);
     BoardPiece * piece = NULL;
 	if(it != boardPieces.end()) {
@@ -580,8 +580,8 @@ void Game::setBoardPiecePosition(unsigned int pieceID, PositionPoint position) {
     
     if (piece == NULL) return;
     
-	int squareID = getPickingSquareID(position);
-    setBoardPieceSquare(pieceID, squareID);
+	int squareID = getSquareID(position);
+    setPieceSquare(pieceID, squareID);
 }
 
 GameState Game::getGameState() {
@@ -596,8 +596,8 @@ stack<GameState> Game::getGameStates() {
 	return gameStates;
 }
 
-void Game::setBoardPieceSquare(unsigned int pieceID, int squareID) {
-    BoardPiece * piece = getBoardPiece(pieceID);
+void Game::setPieceSquare(unsigned int pieceID, int squareID) {
+    BoardPiece * piece = getPiece(pieceID);
     if (piece != NULL) {
 		piece->previousSquares.push(piece->squareID);
 		if(squareID != -1)
@@ -610,7 +610,7 @@ char Game::getCurrentPlayer() {
 }
 
 bool Game::isOwnPiece(int pieceID) {
-	BoardPiece* selectedPiece = getBoardPiece(pieceID);
+	BoardPiece* selectedPiece = getPiece(pieceID);
 	if(selectedPiece == NULL)
 		return false;
 
@@ -684,7 +684,7 @@ bool Game::canCapture(int pieceID) {
     if (pieceID < 0)
         return false;
     
-    BoardPiece * piece = getBoardPiece(pieceID);
+    BoardPiece * piece = getPiece(pieceID);
     if (piece->onBoard && piece->player != getGameState().currentPlayer)
         return true;
     else
@@ -815,8 +815,8 @@ int Game::calculateMove(int playerType) {
 void Game::processAIMovedPieces(Move move) {
 	if(move.moveType == DROP) {
 		BoardPiece* piece = getUnusedPiece(move.player);
-		PositionPoint destination = getPickingSquarePosition(move.toSquare);
-		setBoardPiecePosition(piece->id, destination);
+		PositionPoint destination = getSquarePosition(move.toSquare);
+		setPiecePosition(piece->id, destination);
 		piece->onBoard = true;
 
 		MovementHistoryElement lastMove(DROP, piece->id, 0, 0);
@@ -826,8 +826,8 @@ void Game::processAIMovedPieces(Move move) {
 
 	if(move.moveType == MOVE) {
 		int pieceID = getPieceOnSquare(move.fromSquare);
-		PositionPoint destination = getPickingSquarePosition(move.toSquare);
-		setBoardPiecePosition(pieceID, destination);
+		PositionPoint destination = getSquarePosition(move.toSquare);
+		setPiecePosition(pieceID, destination);
 
 		MovementHistoryElement lastMove(MOVE, pieceID, 0, 0);
 		movementHistory.push(lastMove);
@@ -843,28 +843,28 @@ void Game::processAIMovedPieces(Move move) {
 		int firstCapturedID = getPieceOnSquare(firstCapturedSquare);
 		int secondCapturedID = 0;
 
-		BoardPiece* attackerPiece = getBoardPiece(attackerPieceID);
+		BoardPiece* attackerPiece = getPiece(attackerPieceID);
 
-		PositionPoint attackerPieceDestination = getPickingSquarePosition(move.toSquare);
-		setBoardPiecePosition(attackerPiece->id, attackerPieceDestination);
+		PositionPoint attackerPieceDestination = getSquarePosition(move.toSquare);
+		setPiecePosition(attackerPiece->id, attackerPieceDestination);
 
-		BoardPiece* firstCapturedPiece = getBoardPiece(firstCapturedID);
+		BoardPiece* firstCapturedPiece = getPiece(firstCapturedID);
 
 		PositionPoint firstCapturedPieceDestination = getPieceRestPosition(firstCapturedPiece);
 
 		popPieceRestPosition(firstCapturedPiece);
-		setBoardPiecePosition(firstCapturedPiece->id, firstCapturedPieceDestination);
+		setPiecePosition(firstCapturedPiece->id, firstCapturedPieceDestination);
 		firstCapturedPiece->onBoard = false;
 		firstCapturedPiece->playable = false;
 
 		//Don't forget there may not be a second captured piece (if there's no second piece to capture)
 		if(secondCapturedSquare != 0) {
 			secondCapturedID = getPieceOnSquare(secondCapturedSquare);
-			BoardPiece* secondCapturedPiece = getBoardPiece(secondCapturedID);
+			BoardPiece* secondCapturedPiece = getPiece(secondCapturedID);
 			
 			PositionPoint secondCapturedPieceDestination = getPieceRestPosition(secondCapturedPiece);
 			popPieceRestPosition(secondCapturedPiece);
-			setBoardPiecePosition(secondCapturedPiece->id, secondCapturedPieceDestination);
+			setPiecePosition(secondCapturedPiece->id, secondCapturedPieceDestination);
 			secondCapturedPiece->onBoard = false;
 			secondCapturedPiece->playable = false;
 		}
@@ -905,36 +905,36 @@ void Game::undoLastMove() {
 		return;
 
 	if(lastMove.moveType == DROP) {
-		BoardPiece* piece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		BoardPiece* piece = getPiece(lastMove.modifiedPieces.at(0));
 		piece->onBoard = false;
 		piece->undoMovement();
 		return;
 	}
 
 	if(lastMove.moveType == MOVE) {
-		BoardPiece* piece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		BoardPiece* piece = getPiece(lastMove.modifiedPieces.at(0));
 		piece->undoMovement();
 		return;
 	}
 
 	if(lastMove.moveType == ATTACK) {
-		BoardPiece* attackerPiece = getBoardPiece(lastMove.modifiedPieces.at(0));
+		BoardPiece* attackerPiece = getPiece(lastMove.modifiedPieces.at(0));
 		attackerPiece->undoMovement();
 
-		BoardPiece* firstCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(1));
+		BoardPiece* firstCapturedPiece = getPiece(lastMove.modifiedPieces.at(1));
 
 		//Restore rest position
-		PositionPoint restPosition = getBoardPiecePosition(firstCapturedPiece->id);
+		PositionPoint restPosition = getPiecePosition(firstCapturedPiece->id);
 
 		firstCapturedPiece->undoMovement();
 		firstCapturedPiece->onBoard = true;
 		firstCapturedPiece->playable = true;
 		
 		if(lastMove.modifiedPieces.at(2) != 0) {
-			BoardPiece* secondCapturedPiece = getBoardPiece(lastMove.modifiedPieces.at(2));
+			BoardPiece* secondCapturedPiece = getPiece(lastMove.modifiedPieces.at(2));
 
 			//Restore rest position
-			PositionPoint restPosition = getBoardPiecePosition(secondCapturedPiece->id);
+			PositionPoint restPosition = getPiecePosition(secondCapturedPiece->id);
 			if(secondCapturedPiece->player == 'x')
 				p1RestPositions.push(restPosition);
 			else
