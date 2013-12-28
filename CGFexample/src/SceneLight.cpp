@@ -82,12 +82,6 @@ void SceneLight::draw() {
 	update();
     
 	material->apply();
-    if (enabled) {
-        glPushMatrix();
-        glTranslatef(position[0],position[1],position[2]);
-        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
-        glPopMatrix();
-    }
 }
 
 SpotLight::SpotLight(bool enabled, string idString, float* pos, float *dir,
@@ -118,10 +112,4 @@ void SpotLight::draw() {
     update();
     
     material->apply();
-    if (enabled) {
-        glPushMatrix();
-        glTranslatef(position[0],position[1],position[2]);
-        gluSphere(glu_quadric, CG_GLIGHT_DEFAULT_RADIUS, CG_GLIGHT_DEFAULT_SLICES, CG_GLIGHT_DEFAULT_STACKS);
-        glPopMatrix();
-    }
 }

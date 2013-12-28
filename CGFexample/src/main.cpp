@@ -15,22 +15,19 @@ using std::cout;
 using std::exception;
 
 
-string boards[] =     {"boardScene.yaf",  "boardScene2.yaf", "boardScene3.yaf",
-                       "boardScene4.yaf", "boardScene5.yaf", "boardScene6.yaf"};
+string boards[] =     {"boardScene.yaf",  "boardScene2.yaf", "boardScene3.yaf", "boardScene5.yaf"};
 string boardNames[] = {"Ryfjallet, Sweden",
                        "Niagara Falls, Canada",
                        "Larnaca Castle, Cyprus",
-                       "Piazza del popolo, Italy",
-                       "Skansen, Stockholm",
-                       "Royal Castle, Stockholm"};
+                       "Skansen, Stockholm"};
 
-/* // for faster loading
+/*
+// for faster loading
 string boards[] = {"boardScene.yaf" };
 string boardNames[] = {"Ryfjallet"};
- */
+*/
 
 int main(int argc, char* argv[]) {
-    
 	CGFapplication app = CGFapplication();
     vector<string> scenes(begin(boards), end(boards));
     vector<string> scenesNames(begin(boardNames), end(boardNames));
