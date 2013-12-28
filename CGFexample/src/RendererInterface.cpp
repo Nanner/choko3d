@@ -232,6 +232,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	}
     
     if(ctrl->user_id == sceneSwitchID) {
+		deselectCurrentPiece();
 		((DemoScene*) scene)->restartGameOnNextUpdate();
         sceneGraph->switchScene(sceneGraph->currentScene);
     }
