@@ -135,7 +135,7 @@ void RendererInterface::initGUI() {
     
     GLUI_Panel* scenePanel = addPanel((char*)"Choose Scene");
     
-    GLUI_Listbox* sceneList = addListboxToPanel(scenePanel, (char*)"Choose Scene ", &sceneGraph->currentScene, lastID);
+    sceneList = addListboxToPanel(scenePanel, (char*)"Choose Scene ", &sceneGraph->currentScene, lastID);
     sceneSwitchID = lastID;
 	lastID++;
     for (int i = 0; i < sceneNames.size(); i++) {
@@ -232,6 +232,7 @@ void RendererInterface::processGUI(GLUI_Control *ctrl) {
 	}
     
     if(ctrl->user_id == sceneSwitchID) {
+		deselectCurrentPiece();
 		((DemoScene*) scene)->restartGameOnNextUpdate();
         sceneGraph->switchScene(sceneGraph->currentScene);
     }

@@ -100,6 +100,13 @@ void DemoScene::update(unsigned long t){
 	else if(!rendererInterface->cameraRotationCheckbox->enabled) {
 		rendererInterface->cameraRotationCheckbox->enable();
 	}
+
+	if(rendererInterface->popupWindowOn || filmMode) {
+		rendererInterface->sceneList->disable();
+	}
+	else if(!rendererInterface->sceneList->enabled) {
+		rendererInterface->sceneList->enable();
+	}
     
 	if (game->hasGameEnded()
         && !PieceAnimation::pendingAnimations()
